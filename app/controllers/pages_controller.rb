@@ -165,6 +165,7 @@ GROUP BY S.id
 
 
   def micamiones
+
     if session[:user].nil?
       redirect_to micuenta_path
     else
@@ -593,7 +594,7 @@ ORDER BY created_at DESC')
 
 
   def camiones
-
+    puts "*****************************************************"
     #@types = TypeTruck.all
     #@p = params
     @fullbBase = request.original_url
