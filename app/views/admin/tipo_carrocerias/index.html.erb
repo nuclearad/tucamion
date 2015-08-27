@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Tipo Carroceria <small></small>
+    </h1>
+    <%= render 'admin/includes/top' %>
+  </div>
+</div>
+
+<!-- /.row -->
+<% if flash[:notice] %>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= flash[:notice] %>
+        </div>
+      </div>
+    </div>
+
+
+<% end %>
+
+<!-- /.row -->
+
+<div class="row">
+  <div class="col-md-12">
+    <p>
+      <%= link_to 'Nuevo tipo de carroceria', new_admin_tipo_carroceria_path, :method=>'get', :class=>'btn  btn-primary' %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+
+
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @tipos.each do |tipo| %>
+            <tr>
+
+
+              <td>
+                <%= tipo.name %>
+              </td>
+
+
+
+              <td>
+                <%= link_to 'Editar', edit_admin_tipo_carroceria_path(tipo.id), :class=>'btn btn-info' %>
+                <%= link_to 'Eliminar', {:controller => 'tipo_carrocerias', :action => 'destroy', :id => tipo.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+              </td>
+
+
+            </tr>
+        <% end %>
+
+
+        </tbody>
+
+
+
+      </table>
+    </div>
+
+
+
+  </div>
+</div>
+<!-- /.row -->

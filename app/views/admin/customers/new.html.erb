@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Usuarios <small>/ Agregar</small>
+    </h1>
+    <%= render 'admin/includes/top' %>
+  </div>
+</div>
+
+<!-- /.row -->
+<%  if @customer.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <%= pluralize(@truck.errors.count, "Errores") %> tratando de guardar:
+      </div>
+      <p>
+      <ul>
+        <% @customer.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+      </p>
+    </div>
+<% end %>
+<!-- /.row -->
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+
+    <%= form_for @customer, :url => admin_customers_path, :method=>'post' do |f|  %>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+
+              <%= f.label :name, 'Nombre' %>
+              <%= f.text_field :name, :class =>'form-control'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :cedula, 'Cedula' %>
+              <%= f.text_field :cedula, :class =>'form-control'  %>
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+
+              <%= f.label :telefono, 'Telefono' %>
+              <%= f.text_field :telefono, :class =>'form-control'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :email, 'Email' %>
+              <%= f.text_field :email, :class =>'form-control', :autocorrect=>'off' %>
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+
+              <%= f.label :clave, 'Clave' %>
+              <%= f.text_field :clave, :class =>'form-control',  :autocorrect=>'off'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+
+
+              <%= f.label :typeuser, 'Tipo Usuario' %>
+              <%= f.select(:typeuser, [['Normal', 0], ['Vendedor', 1]], {}, { :class => 'form-control' }) %>
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+        <%=  link_to 'Cancelar', admin_customers_path, :class=>'btn btn-warning' %>
+    <% end %>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

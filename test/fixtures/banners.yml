@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type_truck_id: 1
+  limite: 2015-07-22
+  url: MyString
+
+two:
+  name: MyString
+  type_truck_id: 1
+  limite: 2015-07-22
+  url: MyString

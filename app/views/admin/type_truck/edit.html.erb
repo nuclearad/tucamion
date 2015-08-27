@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Tipos <small>/ Agregar</small>
+    </h1>
+    <%= render 'admin/includes/top' %>
+  </div>
+</div>
+
+<!-- /.row -->
+<%  if @type.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <%= pluralize(@type.errors.count, "Errores") %> tratando de guardar:
+      </div>
+      <p>
+      <ul>
+        <% @type.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+      </p>
+    </div>
+<% end %>
+<!-- /.row -->
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+
+    <%= form_for @type, :url => admin_type_truck_path, :method=>'PUT' do |f|  %>
+
+        <div class="form-group">
+          <%= f.label :name, 'Nombre de tipo' %>
+          <%= f.text_field :name, :class =>'form-control'  %>
+        </div>
+
+        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+        <%=  link_to 'Cancelar', admin_type_truck_index_path, :class=>'btn btn-warning' %>
+    <% end %>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+

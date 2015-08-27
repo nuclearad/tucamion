@@ -1,0 +1,166 @@
+<div id="eliminar">
+
+
+<%
+   if params[:param1].present?
+   if !params[:param1].include? '_'
+
+%>
+    <div class="widget-header">
+      <h4 class="widget-title">
+        <a href="<%= removerParametroPrincipal(@fullbBase, params[:param1]) %>"><%= params[:param1].capitalize %> <i class="fa fa-times"></i></a>
+      </h4>
+    </div>
+      <% end end %>
+
+<% if params[:param2].present? %>
+    <div class="widget-header">
+        <h4 class="widget-title">
+            <a href="<%= removerParametroPrincipal2(@fullbBase+'', params[:param2]) %>"><%= extraigoParametroprincicpal(params[:param2].capitalize) %> <i class="fa fa-times"></i></a>
+        </h4>
+    </div>
+<% end  %>
+
+
+  <% if params[:param3].present? %>
+      <div class="widget-header">
+        <h4 class="widget-title">
+          <a href="<%= removerParametroPrincipal2(@fullbBase+'', params[:param3]) %>"><%= extraigoParametroprincicpal(params[:param3].capitalize) %> <i class="fa fa-times"></i></a>
+        </h4>
+      </div>
+  <% end  %>
+
+
+
+
+
+
+
+
+  <%
+   url = @fullbBase.split('_')
+   if url.index('modelo')
+   position = @fullbBase.split('_').index('modelo')
+   texto = url[@fullbBase.split('_').index('modelo')+1]
+   url.delete_at(position)
+   url.delete_at(position)
+
+%>
+
+
+      <div class="widget-header">
+        <h4 class="widget-title">
+          <a href="<%= toUrl(url) %>">Modelo <%= texto %> <i class="fa fa-times"></i></a>
+        </h4>
+      </div>
+
+
+<% end %>
+
+
+
+
+
+  <%
+     url = @fullbBase.split('_')
+
+     if url.index('kilometraje')
+       position = @fullbBase.split('_').index('kilometraje')
+       texto = url[@fullbBase.split('_').index('kilometraje')+1]
+       url.delete_at(position)
+       url.delete_at(position)
+  %>
+
+      <div class="widget-header">
+        <h4 class="widget-title">
+          <a href="<%= toUrl(url) %>">Km <%= texto %> <i class="fa fa-times"></i></a>
+        </h4>
+      </div>
+
+
+  <% end %>
+
+
+
+
+  <%
+     url = @fullbBase.split('_')
+
+     if url.index('estado')
+       position = @fullbBase.split('_').index('estado')
+       texto = url[@fullbBase.split('_').index('estado')+1]
+       url.delete_at(position)
+       url.delete_at(position)
+  %>
+
+      <div class="widget-header">
+        <h4 class="widget-title">
+          <a href="<%= toUrl(url) %>">
+            <% if texto.to_i == 0 %>
+             Nuevo
+            <% else %>
+             Usado
+            <% end %>
+            <i class="fa fa-times"></i></a>
+        </h4>
+      </div>
+
+
+  <% end %>
+
+
+
+
+
+
+  <%
+     url = @fullbBase.split('_')
+
+     if url.index('placa')
+       position = @fullbBase.split('_').index('placa')
+       texto = url[@fullbBase.split('_').index('placa')+1]
+       url.delete_at(position)
+       url.delete_at(position)
+  %>
+
+      <div class="widget-header">
+        <h4 class="widget-title">
+          <a href="<%= toUrl(url) %>">Placa  de <%= texto.capitalize %> <i class="fa fa-times"></i></a>
+        </h4>
+      </div>
+
+
+  <% end %>
+
+
+
+
+  <%
+     url = @fullbBase.split('_')
+     if url.index('precio')
+       position = @fullbBase.split('_').index('precio')
+       texto = url[@fullbBase.split('_').index('precio')+1]
+       url.delete_at(position)
+       url.delete_at(position)
+
+  %>
+
+      <div class="widget-header">
+        <h4 class="widget-title">
+          <a href="<%= toUrl(url) %>">
+            <%= number_to_currency texto.split(',')[0] %> - <%= number_to_currency texto.split(',')[1] %>
+
+            <i class="fa fa-times"></i></a>
+        </h4>
+      </div>
+
+
+  <% end %>
+
+
+
+
+
+
+</div>
+

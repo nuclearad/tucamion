@@ -1,0 +1,2 @@
+module Admin::BrandExtraHelper
+end

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camion 365</title>
+  <% #stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <% javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'admin/js/jquery' %>
+  <%= javascript_include_tag 'admin/js/bootstrap.min' %>
+  <%= javascript_include_tag 'admin/angular.min' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <%= stylesheet_link_tag 'admin/bootstrap.min' %>
+  <%= stylesheet_link_tag 'admin/sb-admin' %>
+  <%= stylesheet_link_tag 'admin/plugins/morris' %>
+  <%= stylesheet_link_tag 'admin/font-awesome/css/font-awesome.min' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+<div id="wrapper" ng-app="camionApp">
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="index.html">Camion 365</a>
+  </div>
+  <!-- Top Menu Items -->
+  <ul class="nav navbar-right top-nav">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+      <ul class="dropdown-menu message-dropdown">
+        <li class="message-preview">
+          <a href="#">
+            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+              <div class="media-body">
+                <h5 class="media-heading"><strong>John Smith</strong>
+                </h5>
+                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                <p>Lorem ipsum dolor sit amet, consectetur...</p>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="message-preview">
+          <a href="#">
+            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+              <div class="media-body">
+                <h5 class="media-heading"><strong>John Smith</strong>
+                </h5>
+                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                <p>Lorem ipsum dolor sit amet, consectetur...</p>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="message-preview">
+          <a href="#">
+            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+              <div class="media-body">
+                <h5 class="media-heading"><strong>John Smith</strong>
+                </h5>
+                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                <p>Lorem ipsum dolor sit amet, consectetur...</p>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="message-footer">
+          <a href="#">Read All New Messages</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+      <ul class="dropdown-menu alert-dropdown">
+        <li>
+          <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+        </li>
+        <li>
+          <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+        </li>
+        <li>
+          <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+        </li>
+        <li>
+          <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+        </li>
+        <li>
+          <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+        </li>
+        <li>
+          <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">View All</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+      <li >
+        <a href=" <%=  admin_path %>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+      </li>
+
+
+      <li >
+        <a href=" <%=  admin_banners_path %>"><i class="fa fa-fw fa-dashboard"></i> Banners</a>
+      </li>
+
+
+      <li >
+        <a href=" <%=  admin_houses_path %>"><i class="fa fa-fw fa-dashboard"></i> Banners Home</a>
+      </li>
+
+
+      <li >
+        <a href=" <%=  admin_customers_path %>"><i class="fa fa-fw fa-dashboard"></i> Clientes</a>
+      </li>
+
+      <li >
+        <a href=" <%=  admin_offers_path %>"><i class="fa fa-fw fa-dashboard"></i> Planes</a>
+      </li>
+
+
+
+      <li>
+        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-car"></i> Camiones <i class="fa fa-fw fa-caret-down"></i></a>
+        <ul id="demo" class="collapse">
+
+
+
+
+
+
+
+
+          <li>
+            <%= link_to 'Camiones', admin_trucks_path, method: 'get' %>
+          </li>
+
+
+          <li>
+            <%= link_to 'Marca Equipos Humedos', admin_marcas_equipos_humedos_path, method: 'get' %>
+          </li>
+
+
+          <li>
+            <%= link_to 'Tipo Carroceria', admin_tipo_carrocerias_path, method: 'get' %>
+          </li>
+
+
+          <li>
+            <%= link_to 'Marca Carroceria', admin_marca_carrocerias_path, method: 'get' %>
+          </li>
+
+
+          <li>
+            <%= link_to 'Marca Volvos', admin_marca_volcos_path, method: 'get' %>
+          </li>
+
+
+
+
+
+          <li>
+            <%= link_to 'Tipos', admin_type_truck_index_path %>
+          </li>
+
+          <li>
+             <%= link_to 'Marcas', admin_brands_truck_index_path %>
+          </li>
+
+
+          <li>
+            <%= link_to 'Colores', admin_colors_truck_index_path %>
+          </li>
+
+          <li>
+            <%= link_to 'Chatarrización', admin_scraps_truck_index_path %>
+          </li>
+          <li>
+            <%= link_to 'Polizas', admin_contracts_truck_index_path %>
+          </li>
+
+          <li>
+            <%= link_to 'Quinta Rueda', admin_wheels_truck_index_path %>
+          </li>
+
+          <li>
+            <%= link_to 'Tipo Cupo', admin_spaces_truck_index_path %>
+          </li>
+
+          <li>
+            <%= link_to 'Marcas Motor', admin_motors_truck_index_path %>
+          </li>
+
+
+          <li>
+            <%= link_to 'Marcas Caja', admin_boxes_truck_index_path %>
+          </li>
+
+          <li>
+            <%= link_to 'Marcas Transmision', admin_transmissions_truck_index_path %>
+          </li>
+
+
+
+        </ul>
+      </li>
+
+
+
+      <li>
+        <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-gavel"></i> Repuestos <i class="fa fa-fw fa-caret-down"></i></a>
+        <ul id="demo2" class="collapse">
+          <li>
+            <%= link_to 'Repuestos', admin_extras_path %>
+          </li>
+          <li>
+            <%= link_to 'Tipos', admin_brand_extra_index_path %>
+          </li>
+
+
+        </ul>
+      </li>
+
+
+      <li>
+        <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-shopping-cart"></i> Servicios <i class="fa fa-fw fa-caret-down"></i></a>
+        <ul id="demo3" class="collapse">
+          <li>
+            <%= link_to 'Servicios', admin_services_path %>
+          </li>
+          <li>
+            <%= link_to 'Tipo de servicios', admin_type_service_index_path %>
+          </li>
+
+
+
+        </ul>
+      </li>
+
+      <li>
+        <a href="<%= admin_states_path %>"><i class="fa fa-fw  fa-map-marker"></i> Ubicaciones</a>
+      </li>
+
+
+
+
+
+
+
+
+
+
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
+</nav>
+
+<div id="page-wrapper">
+
+  <div class="container-fluid">
+
+
+
+  <%= yield %>
+<!-- /.container-fluid -->
+  </div>
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+
+
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,45 @@
+<div class="side-menu animate-dropdown outer-bottom-xs">
+  <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> CATEGORIAS PRINCIPALES</div>
+  <nav class="yamm megamenu-horizontal" role="navigation">
+    <ul class="nav">
+
+
+
+
+
+
+      <% @tiposCaminiones.each do |tipo| %>
+
+
+          <li class="dropdown menu-item">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= tipo.name %></a>
+            <ul class="dropdown-menu mega-menu">
+              <li class="yamm-content">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12">
+                    <ul class="links list-unstyled">
+                      <% tipo.sub_trucks.each do |subtipo| %>
+                          <li><a href="/camion-tipo/<%= subtipo.id %>"><%= subtipo.name %></a></li>
+
+                      <% end %>
+
+
+
+                    </ul>
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </li><!-- /.yamm-content -->
+            </ul>
+          </li><!-- /.menu-item -->
+
+
+
+
+
+      <% end %>
+
+
+
+    </ul><!-- /.nav -->
+  </nav><!-- /.megamenu-horizontal -->
+</div><!-- /.side-menu -->

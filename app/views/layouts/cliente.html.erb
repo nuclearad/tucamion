@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camion 365 - Mi cuenta</title>
+  <% #stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <% javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'admin/js/jquery' %>
+  <%= javascript_include_tag 'admin/js/bootstrap.min' %>
+  <%= javascript_include_tag 'admin/angular.min' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <%= stylesheet_link_tag 'admin/bootstrap.min' %>
+  <%= stylesheet_link_tag 'admin/sb-admin' %>
+  <%= stylesheet_link_tag 'admin/plugins/morris' %>
+  <%= stylesheet_link_tag 'admin/font-awesome/css/font-awesome.min' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+<div id="wrapper">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Camion 365</a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu message-dropdown">
+          <li class="message-preview">
+            <a href="#">
+              <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                <div class="media-body">
+                  <h5 class="media-heading"><strong>Mensaje 1</strong>
+                  </h5>
+                  <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="message-preview">
+            <a href="#">
+              <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                <div class="media-body">
+                  <h5 class="media-heading"><strong>Mensaje 2</strong>
+                  </h5>
+                  <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="message-preview">
+            <a href="#">
+              <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                <div class="media-body">
+                  <h5 class="media-heading"><strong>Nombre</strong>
+                  </h5>
+                  <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="message-footer">
+            <a href="#">Read All New Messages</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= @user.name %> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
+          </li>
+
+          <li class="divider"></li>
+          <li>
+            <a href="#"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav side-nav">
+        <li >
+          <a href=" <%=  micuenta_path %>"><i class="fa fa-fw fa-dashboard"></i> Inicio</a>
+        </li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </nav>
+
+  <div id="page-wrapper">
+
+    <div class="container-fluid">
+
+
+
+      <%= yield %>
+      <!-- /.container-fluid -->
+    </div>
+  </div>
+  <!-- /#page-wrapper -->
+
+</div>
+
+
+
+</body>
+</html>
+
+
+
+
+

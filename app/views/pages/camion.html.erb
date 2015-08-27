@@ -1,0 +1,460 @@
+
+
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Volquetas</a></li>
+        <li class='active'>Nombre del Producto</li>
+      </ul>
+    </div><!-- /.breadcrumb-inner -->
+  </div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+<div class="body-content outer-top-xs">
+<div class='container'>
+<div class="homepage-container">
+<div class='row single-product outer-bottom-sm '>
+
+  <div class='col-md-3 sidebar'>
+    <!-- ================================== TOP NAVIGATION ================================== -->
+    <%# render 'includes/eliminar' %>
+
+    <%# render 'includes/categoriasmenu' %>
+    <!-- ================================== TOP NAVIGATION : END ================================== -->
+    <div class="sidebar-module-container">
+      <%# render 'includes/buscadoravanzado' %>
+    </div><!-- /.sidebar-module-container -->
+  </div><!-- /.sidebar -->
+
+
+<div class='col-md-12'>
+<div class="row  wow fadeInUp">
+  <div class="col-xs-12 col-sm-6 col-md-7 gallery-holder">
+    <div class="product-item-holder size-big single-product-gallery small-gallery">
+
+      <div id="owl-single-product">
+
+
+        <% if @truck.picture1.to_s  != '/images/missing.png' %>
+            <div class="single-product-gallery-item" id="slide1">
+              <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( @truck.picture1(:home ))  %>">
+                <%= image_tag @truck.picture1(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture1(:medium ))  %>
+              </a>
+            </div>
+        <% end %>
+
+
+        <% if @truck.picture2.to_s  != '/images/missing.png' %>
+        <div class="single-product-gallery-item" id="slide2">
+          <a data-lightbox="image-2" data-title="Gallery" href="<%= image_path( @truck.picture2(:home ))  %>">
+            <%= image_tag @truck.picture2(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture2(:medium ))  %>
+          </a>
+        </div>
+         <% end %>
+
+
+
+        <% if @truck.picture3.to_s  != '/images/missing.png' %>
+            <div class="single-product-gallery-item" id="slide3">
+              <a data-lightbox="image-3" data-title="Gallery" href="<%= image_path( @truck.picture3(:home ))  %>">
+                <%= image_tag @truck.picture3(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture3(:medium ))  %>
+              </a>
+            </div>
+        <% end %>
+
+
+        <% if @truck.picture4.to_s  != '/images/missing.png' %>
+            <div class="single-product-gallery-item" id="slide4">
+              <a data-lightbox="image-4" data-title="Gallery" href="<%= image_path( @truck.picture4(:home ))  %>">
+                <%= image_tag @truck.picture4(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture4(:medium ))  %>
+              </a>
+            </div>
+        <% end %>
+
+
+
+        <% if @truck.picture5.to_s  != '/images/missing.png' %>
+            <div class="single-product-gallery-item" id="slide5">
+              <a data-lightbox="image-5" data-title="Gallery" href="<%= image_path( @truck.picture5(:home ))  %>">
+                <%= image_tag @truck.picture5(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture5(:medium ))  %>
+              </a>
+            </div>
+        <% end %>
+
+
+
+
+
+      </div><!-- /.single-product-slider -->
+
+
+      <div class="single-product-gallery-thumbs second-gallery-thumb gallery-thumbs">
+
+        <div id="owl-single-product2-thumbnails">
+
+
+          <% if @truck.picture1.to_s  != '/images/missing.png' %>
+              <div class="item">
+                <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide1">
+
+                  <%= image_tag @truck.picture1(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture1(:medium ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+
+
+          <% if @truck.picture2.to_s  != '/images/missing.png' %>
+          <div class="item">
+            <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide2">
+
+              <%= image_tag @truck.picture2(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture2(:medium ))  %>
+            </a>
+          </div>
+          <% end %>
+
+
+          <% if @truck.picture3.to_s  != '/images/missing.png' %>
+              <div class="item">
+                <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="2" href="#slide3">
+
+                  <%= image_tag @truck.picture3(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture3(:medium ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+
+          <% if @truck.picture4.to_s  != '/images/missing.png' %>
+              <div class="item">
+                <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="3" href="#slide4">
+
+                  <%= image_tag @truck.picture4(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture4(:medium ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+
+          <% if @truck.picture5.to_s  != '/images/missing.png' %>
+              <div class="item">
+                <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="4" href="#slide5">
+
+                  <%= image_tag @truck.picture5(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( @truck.picture5(:medium ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+
+
+
+
+        </div><!-- /#owl-single-product-thumbnails -->
+
+
+
+
+        <div class="nav-holder left">
+          <a class="prev-btn slider-prev" data-target="#owl-single-product2-thumbnails" href="#prev"></a>
+        </div><!-- /.nav-holder -->
+        <div class="nav-holder right">
+          <a class="next-btn slider-next" data-target="#owl-single-product2-thumbnails" href="#next"></a>
+        </div><!-- /.nav-holder -->
+      </div><!-- /.gallery-thumbs -->
+
+    </div><!-- /.single-product-gallery -->
+  </div><!-- /.gallery-holder -->
+  <div class='col-sm-6 col-md-5 product-info-block'>
+    <div class="product-info">
+      <h1 class="name"><%= @truck.nombre %></h1>
+      <h3><%= number_to_currency( @truck.price,  precision: 0, delimiter: '.') %></h3>
+      <div class="stock-container info-container m-t-10">
+        <div class="row footer color-bg">
+
+          <div class="col-sm-12 contact-timing">
+
+            <div class="module-body outer-top-xs">
+              <div class="table-responsive">
+                <table class="table"><tbody>
+
+                <tr class="nymou"><td>Modelo:</td><td class="pull-right"><%= @truck.modelo %></td></tr>
+                <tr class="nymou"><td>Marca:</td><td class="pull-right"><%= @truck.brand_truck.name %></td></tr>
+                <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @truck.state.name %> - <%= @truck.city.name %></td></tr>
+                <tr class="nymou"><td>Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje %> Km</td></tr>
+                <tr class="nymou"><td>Estado:</td><td class="pull-right">
+                  <% if( @truck.estado == 0) %>
+                        Nuevo
+                  <% else %>
+                        Usado
+                  <% end %>
+                 </td></tr>
+
+
+                <tr class="nymou"><td>Placa:</td><td class="pull-right"><%= @truck.placa.upcase %></td></tr>
+                <tr class="nymou"><td>Ubicación Placa:</td><td class="pull-right"><%=  @ciudad.name %></td></tr>
+                <% if  @truck.colors_truck %>
+                <tr class="nymou"><td>Color:</td><td class="pull-right"><%=  @truck.colors_truck.name %></td></tr>
+                <% end %>
+                <tr class="nymou"><td>Tipo Combustible</td>
+                  <td class="pull-right">
+
+
+                    <% if  @truck.tipocombustible == '0' %>
+                        Gasolina
+                    <% else if  @truck.tipocombustible == '1' %>
+                            Gas
+                    <% end %>
+                            ACPM
+                    <% end %>
+
+
+                </td>
+                        </tr>
+                </tbody></table>
+              </div><!-- /.table-responsive -->
+            </div><!-- /.module-body -->
+          </div>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.stock-container -->
+
+    <div class="description-container m-t-20">
+      <h4>Vendedor</h4>
+      <p>Teléfono: <b><%= @truck.customer.telefono %></b></p>
+
+    </div><!-- /.description-container -->
+
+    <div class="row outer-top-vs"><div class="cart col-md-12 col-lg-6 clearfix animate-effect">
+      <div class="action"><button type="button" id="c" class="btn btn-primary">Contactar</button>
+      </div><!-- /.action -->
+    </div>
+    </div>
+  </div><!-- /.product-info -->
+</div><!-- /.col-sm-5 -->
+
+<div class="product-tabs outer-top-smal  wow fadeInUp">
+
+  <ul id="product-tabs" class="nav nav-tabs nav-tab-cell-detail">
+    <li class="active"><a data-toggle="tab" href="#detalles">DETALLES</a></li>
+    <li id="c1"> <a data-toggle="tab" href="#contactar">CONTACTAR</a></li>
+  </ul><!-- /.nav-tabs #product-tabs -->
+
+  <div class="tab-content outer-top-xs">
+
+    <div id="detalles" class="tab-pane in active">
+      <div class="product-tab" style="height: auto !important; background-color: transparent; margin-top:-50px;">
+        <div class="review-table">
+         <h3>Descripción General</h3>
+          <p>  <%= @truck.descripccion %></p>
+
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <!--<thead>
+                  <tr>
+                      <th class="cell-label">&nbsp;</th>
+                      <th>Marca Motor</th>
+                      <th>2 stars</th>
+                      <th>3 stars</th>
+                      <th>4 stars</th>
+                      <th>5 stars</th>
+                  </tr>
+              </thead>-->
+              <tbody>
+              <tr class="nymou">
+                <% if  @truck.motors_truck %>
+                <td class="cell-label"><b>Marca Motor</b><br> <%= @truck.motors_truck.name %></td>
+                <% end %>
+
+
+                <% if @truck.boxes_truck != '' %> <td> <% if  @truck.boxes_truck %><b>Marca de la Caja</b><br> <%= @truck.boxes_truck.name %><% end %></td><% end %>
+
+
+                <% if @truck.transmissions_truck != '' %><td <% if  @truck.transmissions_truck %>><b>Marca de Transmisión</b><br> <%= @truck.transmissions_truck.name %>  <% end %></td><% end %>
+
+
+                <% if @truck.wheels_truck != '' %><td><% if  @truck.wheels_truck %><b>Quinta Rueda</b><br> <%= @truck.wheels_truck.name %> <% end %></td><% end %>
+
+              </tr>
+              <tr class="nymou">
+                <% if @truck.cupo != '' %><td class="cell-label"><b>Tipo de Cupo</b><br> <%= @truck.cupo %></td><% end %>
+                <% if @truck.empresaafiliada != '' %><td><b>Empresa donde esta afiliada</b><br> <%= @truck.empresaafiliada %></td><% end %>
+                <% if @truck.marcacarpa != '' %> <td><b>Marca Carpa</b><br> <%= @truck.marcacarpa %></td><% end %>
+                <% if @truck.capacidadcarga != '' %><td><b>Capacidad de Carga</b><br> <%= @truck.capacidadcarga %> Toneladas</td><% end %>
+              </tr>
+              <tr class="nymou">
+                <% if @truck.capacidadpasajeros != '' %><td class="cell-label"><b>Capacidad de Pasajeros</b><br> <%= @truck.capacidadpasajeros %></td><% end %>
+
+                <% if @truck.numeroejes != '' %> <td><b>Numero de ejes</b><br> <%= @truck.numeroejes %></td><% end %>
+                <td><b>Con Trailer</b><br><% if @truck.trailer == false %>No <% else %> Si <% end %></td>
+              </tr>
+              <tr class="nymou">
+                <td class="cell-label"><b>Negociable</b><br> <% if @truck.negociable == false %>No <% else %> Si <% end %></td>
+
+                <% if @truck.vigia != '' %><td><b>Vigias</b><br> <% if @truck.vigia == false %>No <% else %> Si <% end %></td><% end %>
+                <td><b>Tipo de Caja</b><br>
+
+                  <% if  @truck.tipodecaja == 0 %>
+                      Automatica
+                  <% else %>
+                        Manual
+                  <% end %>
+
+                </td>
+              </tr>
+              <tr class="nymou">
+                <% if @truck.motorreparado != '' %><td class="cell-label"><b>Motor Reparado</b><br> <% if @truck.motorreparado == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.cajareparada != '' %><td><b>Caja Reparada</b><br> <% if @truck.cajareparada == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.transmisionreparada != '' %><td><b>Transmisión Reparada</b><br> <% if @truck.transmisionreparada == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.frenosabs != '' %><td><b>Frenos ABS</b><br> <% if @truck.frenosabs == false %>No <% else %> Si <% end %></td><% end %>
+              </tr>
+              <tr class="nymou">
+                <% if @truck.cupo != '' %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.sillareclinable != '' %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.bano != '' %><td><b>Baño</b><br> <% if @truck.bano == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.descansapies != '' %><td><b>Descansa pies</b><br> <% if @truck.descansapies == false %>No <% else %> Si <% end %></td><% end %>
+              </tr>
+              <tr class="nymou">
+
+                <% if @truck.tv != '' %> <td class="cell-label"><b>TV</b><br> <% if @truck.tv == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.pantallaindividual != '' %> <td><b>Pantalla individual</b><br> <% if @truck.pantallaindividual == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.wifi != '' %> <td><b>Wifi</b><br> <% if @truck.wifi == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.audio != '' %> <td><b>Audio</b><br> <% if @truck.audio == false %>No <% else %> Si <% end %></td><% end %>
+              </tr>
+              <tr class="nymou">
+                <% if @truck.unicodueno != '' %><td class="cell-label"><b>Único dueño</b><br> <% if @truck.unicodueno == false %>No <% else %> Si <% end %></td> <% end %>
+                <td></td>
+                <td></td>
+                <td></td>
+
+              </tr>
+              </tbody>
+            </table><!-- /.table .table-bordered -->
+          </div><!-- /.table-responsive -->
+        </div><!-- /.review-table -->
+      </div>
+    </div><!-- /.tab-pane -->
+
+    <div id="contactar" class="tab-pane">
+      <div class="product-tab" style="height: auto !important; background-color: transparent; margin-top:-50px;">
+
+        <div class="review-form">
+          <div class="form-container">
+            <form role="form" class="cnt-form">
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="exampleInputName">Nombre <span class="astk">*</span></label>
+                    <input type="text" class="form-control txt e" id="nombre" placeholder="" name="nombre">
+                    <input type="hidden" class="form-control" id="exampleInputName" placeholder="" name="tipo" value="1">
+                    <input type="hidden" class="form-control " id="exampleInputName" placeholder="" name="item" value="<%= @truck.id %>">
+                  </div><!-- /.form-group -->
+                  <div class="form-group">
+                    <label for="exampleInputSummary">Teléfono <span class="astk">*</span></label>
+                    <input type="text" class="form-control txt e" id="telefono" placeholder="" name="telefono">
+                  </div><!-- /.form-group -->
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputReview">Mensaje <span class="astk">*</span></label>
+                    <textarea class="form-control txt txt-review e" id="mensaje" rows="4" placeholder="" name="mensaje"></textarea>
+                  </div><!-- /.form-group -->
+                </div>
+              </div><!-- /.row -->
+
+              <div class="action text-right">
+                <button class="btn btn-primary btn-upper" id="enviarconsulta">ENVIAR CONSULTA</button>
+              </div><!-- /.action -->
+
+            </form><!-- /.cnt-form -->
+          </div><!-- /.form-container -->
+        </div><!-- /.review-form -->
+
+      </div><!-- /.product-add-review -->
+
+    </div><!-- /.product-tab -->
+  </div><!-- /.tab-pane -->
+
+
+</div><!-- /.tab-content -->
+
+</div><!-- /.product-tabs -->
+
+</div><!-- /.col -->
+</div><!-- /.row -->
+
+
+
+
+<!-- ============================================== FEATURED PRODUCT ============================================== -->
+
+
+
+</div><!-- /.logo-slider -->
+<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->		</div><!-- /.homepage-container -->
+</div><!-- /.container -->
+</div>
+
+
+
+
+
+<% content_for :footer do %>
+    <script>
+
+        $(function(){
+
+            $('#c').click(function(){
+                $("#c1 a").trigger("click");
+            });
+
+
+
+            $('.cnt-form').submit(function(){
+                var data = $( ".cnt-form" ).serialize();
+
+                console.log(data)
+
+                $('#enviarconsulta').attr("disabled", "disabled");
+
+
+
+
+
+                $.ajax({
+                    url: '<%= saveMessage_path %>',
+                    error: function() {
+
+                    },
+                    data:data,
+                    success: function(data) {
+                        $('#enviarconsulta').removeAttr("disabled");
+                        alert('Gracias por escribir el vendedor se pondra en contacto con usted')
+                        $('.e').val('')
+                    },
+                    type: 'GET'
+                });
+
+
+
+
+                return false;
+            })
+
+
+
+        })
+
+    </script>
+
+<% end%>
+
+
+
+
+

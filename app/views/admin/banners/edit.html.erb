@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Banner <small>/ Agregar</small>
+    </h1>
+    <%= render 'admin/includes/top' %>
+  </div>
+</div>
+
+
+
+
+<!-- /.row -->
+<%  if @banner.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <%= pluralize(@color.errors.count, "Errores") %> tratando de guardar:
+      </div>
+      <p>
+      <ul>
+        <% @banner.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+      </p>
+    </div>
+<% end %>
+<!-- /.row -->
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+
+    <%= form_for @banner, :url => admin_banner_path, :method=>'put' do |f|  %>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :name, 'Nombre del banner' %>
+              <%= f.text_field :name, :class =>'form-control'  %>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :url, 'URL del banner' %>
+              <%= f.text_field :url, :class =>'form-control'  %>
+            </div>
+          </div>
+
+
+
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :picture, 'Banner' %>
+              <%= f.file_field :picture, :class =>'form-control'  %>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :type_truck_id, 'Tipo' %>
+              <%= f.collection_select :type_truck_id, TypeTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+
+
+            <% if @banner.picture.to_s  != '/images/missing.png' %>
+                <%= image_tag @banner.picture(:home ), :class=>'img-thumbnail img-responsive' %>
+
+
+            <% end %>
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+        <%=  link_to 'Cancelar', admin_banners_path, :class=>'btn btn-warning' %>
+    <% end %>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

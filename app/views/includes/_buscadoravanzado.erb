@@ -1,0 +1,283 @@
+<h3 class="section-title">Opciones de Busqueda</h3>
+<div class="sidebar-filter">
+  <% if @mostrarPrice %>
+  <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+    <div class="widget-header">
+      <h4 class="widget-title">Rango de Precio</h4>
+    </div>
+
+    <div class="sidebar-widget-body m-t-20">
+      <div class="price-range-holder">
+            <span class="min-max">
+                 <span class="pull-left">$10.000.000</span>
+                 <span class="pull-right">$600.000.000</span>
+            </span>
+        <input type="text" name="pruce" id="amount" style="border:0; color:#666666; font-weight:bold;text-align:center;">
+
+        <input type="text"  id="priceRange" class="price-slider" value="" >
+
+      </div><!-- /.price-range-holder -->
+      <button id="submitPrice" class="lnk btn btn-primary">Buscar</button>
+    </div><!-- /.sidebar-widget-body -->
+
+  </div><!-- /.sidebar-widget -->
+        <% end %>
+
+  <!-- ============================================== SIDEBAR CATEGORY ============================================== -->
+  <div class="sidebar-widget wow fadeInUp outer-bottom-xs ">
+
+    <div class="sidebar-widget-body m-t-10">
+      <div class="accordion">
+        <div class="widget-header">
+          <h4 class="widget-title">Mas Opciones</h4>
+        </div>
+
+
+        <%if !@fullbBase.split('_').index('modelo')  &&   @modelos.length  > 1 %>
+        <div class="accordion-group"><div class="accordion-heading">
+          <a href="#modelo" data-toggle="collapse" class="accordion-toggle collapsed">Modelo</a>
+        </div><!-- /.accordion-heading -->
+          <div class="accordion-body collapse" id="modelo" style="height: 0px;">
+
+
+
+
+            <div class="accordion-inner">
+
+
+                <ul>
+                  <% @modelos.each do |modelo| %>
+                      <%if params[:param1].present? %>
+
+                          <li><a href="<%= agregarParametroSegundarios(@fullbBase, 'modelo', modelo.modelo, false) %>"><%= modelo.modelo %> <small>(<%= modelo.total %>)</small></a> </li>
+                      <% else %>
+
+                          <li><a href="<%= agregarParametroSegundarios(@fullbBase, 'modelo', modelo.modelo, true) %>"><%= modelo.modelo %> <small>(<%= modelo.total %>)</small></a> </li>
+                      <% end %>
+
+                  <% end %>
+
+
+                </ul>
+
+            </div>
+
+          </div>
+        </div><!-- /.accordion-group -->
+
+
+
+        <% end %>
+        <% if @brands.length  > 1 %>
+        <div class="accordion-group"><div class="accordion-heading">
+          <a href="#marcas" data-toggle="collapse" class="accordion-toggle collapsed">Marcas</a>
+        </div><!-- /.accordion-heading -->
+          <div class="accordion-body collapse" id="marcas" style="height: 0px;"><div class="accordion-inner">
+            <ul>
+
+
+
+
+                  <%  if params[:param1].present? %>
+                      <% @brands.each do |brand| %>
+                          <li> <a href="<%= agregarParametroPrincipal(@fullbBase, brand.link_rewrite, true) %>"><%= brand.name %> <small>(<%= brand.total %>)</small></a></li>
+                      <% end %>
+
+                  <% else %>
+                      <% if params[:param1current] %>
+                          <% @brands.each do |brand| %>
+                              <li> <a href="<%= agregarParametroPrincipal(@fullbBase, brand.link_rewrite, false) %>"><%= brand.name %> <small>(<%= brand.total %>)</small></a></li>
+                          <% end %>
+                      <% else %>
+                          <% @brands.each do |brand| %>
+                              <li> <a href="/camiones/<%= brand.link_rewrite %>"><%= brand.link_rewrite %> <small>(<%= brand.total %>)</small></a></li>
+                          <% end %>
+                      <% end %>
+                  <% end %>
+
+            </ul>
+          </div></div></div><!-- /.accordion-group -->
+        <% end %>
+
+
+
+        <% if @muestroEstado  %>
+            <% if @states.length  > 1 %>
+        <div class="accordion-group"><div class="accordion-heading">
+          <a href="#ubicacion" data-toggle="collapse" class="accordion-toggle collapsed">Ubicación</a>
+        </div><!-- /.accordion-heading -->
+
+          <div class="accordion-body collapse" id="ubicacion" style="height: 0px;"><div class="accordion-inner">
+            <ul>
+
+
+
+
+                  <%  if params[:param1].present? %>
+                      <% @states.each do |state| %>
+                          <li> <a href="<%= agregarParametroPrincipal(@fullbBase, state.link_rewrite, true) %>"><%= state.name %> <small>(<%= state.total %>)</small></a></li>
+                      <% end %>
+
+                  <% else %>
+                      <% if params[:param1current] %>
+                          <% @states.each do |state| %>
+                              <li> <a href="<%= agregarParametroPrincipal(@fullbBase, state.link_rewrite, false) %>"><%= state.name %> <small>(<%= state.total %>)</small></a></li>
+                          <% end %>
+                      <% else %>
+                          <% @states.each do |state| %>
+                              <li> <a href="/camiones/<%= state.link_rewrite %>"><%= state.link_rewrite %> <small>(<%= state.total %>)</small></a></li>
+                          <% end %>
+                      <% end %>
+                  <% end %>
+
+
+
+
+
+
+            </ul>
+          </div></div></div><!-- /.accordion-group -->
+              <%  end %>
+        <%  end %>
+
+        <% if @mostrarKm    %>
+        <div class="accordion-group"><div class="accordion-heading">
+          <a href="#kilometraje" data-toggle="collapse" class="accordion-toggle collapsed">Kilometraje</a>
+        </div><!-- /.accordion-heading -->
+          <div class="accordion-body collapse" id="kilometraje" style="height: 0px;"><div class="accordion-inner">
+            <ul>
+
+
+
+              <%if params[:param1].present? %>
+                  <% if @km[0].price_range_1 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '0', false) %>">0 Km <small>(<%= @km[0].price_range_1 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_2 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '1-25000', false) %>">1 - 25.00 Km <small>(<%= @km[0].price_range_2 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_3 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '25000-50000', false) %>">25.000 - 50.000 Km <small>(<%= @km[0].price_range_3 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_4 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '50001-100000', false) %>">50.000 - 100.000 Km <small>(<%= @km[0].price_range_4 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_5 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '100001', false) %>">Más de 100.000 Km <small>(<%= @km[0].price_range_5 %>)</small></a></li><% end %>
+
+
+             <% else %>
+
+                  <% if @km[0].price_range_1 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '0', true) %>">0 Km <small>(<%= @km[0].price_range_1 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_2 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '1-25000', true) %>">1 - 25.00 Km <small>(<%= @km[0].price_range_2 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_3 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '25000-50000', true) %>">25.000 - 50.000 Km <small>(<%= @km[0].price_range_3 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_4 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '50001-100000', true) %>">50.000 - 100.000 Km <small>(<%= @km[0].price_range_4 %>)</small></a></li><% end %>
+                  <% if @km[0].price_range_5 != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'kilometraje', '100001', true) %>">Más de 100.000 Km <small>(<%= @km[0].price_range_5 %>)</small></a></li><% end %>
+
+
+
+            <% end %>
+
+
+
+            </ul>
+          </div></div></div><!-- /.accordion-group -->
+
+            <% end %>
+
+
+
+        <% if @mostrarEstado  &&   @estado.length  > 1  %>
+        <div class="accordion-group"><div class="accordion-heading">
+          <a href="#estado" data-toggle="collapse" class="accordion-toggle collapsed">Estado</a>
+        </div><!-- /.accordion-heading -->
+          <div class="accordion-body collapse" id="estado" style="height: 0px;"><div class="accordion-inner">
+            <ul>
+
+
+              <%if params[:param1].present? %>
+
+                  <% if @estado[0].nuevo != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'estado', '0', false) %>">Nuevo<small>(<%= @estado[0].nuevo %>)</small></a></li><% end %>
+                  <% if @estado[0].usado != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'estado', '1', false) %>">Usado<small>(<%= @estado[0].usado %>)</small></a></li><% end %>
+
+              <% else %>
+
+
+                  <% if @estado[0].nuevo != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'estado', '0', true) %>">Nuevo<small>(<%= @estado[0].nuevo %>)</small></a></li><% end %>
+                  <% if @estado[0].usado != 0 %><li><a href="<%= agregarParametroSegundarios(@fullbBase, 'estado', '1', true) %>">Usado<small>(<%= @estado[0].usado %>)</small></a></li><% end %>
+
+
+              <% end %>
+
+
+            </ul>
+          </div></div></div><!-- /.accordion-group -->
+        <% end %>
+
+
+    <% if @mostrarPlaca   &&   @statesPlaca.length  > 1 %>
+        <div class="accordion-group"><div class="accordion-heading">
+          <a href="#uplaca" data-toggle="collapse" class="accordion-toggle collapsed">Matriculada en</a>
+        </div><!-- /.accordion-heading -->
+          <div class="accordion-body collapse" id="uplaca" style="height: 0px;"><div class="accordion-inner">
+            <ul>
+              <% @statesPlaca.each do |placa| %>
+                  <%if params[:param1].present? %>
+
+                      <li><a href="<%= agregarParametroSegundarios(@fullbBase, 'placa', placa.link_rewrite, false) %>"><%= placa.name %> <small>(<%= placa.total %>)</small></a> </li>
+                  <% else %>
+
+                      <li><a href="<%= agregarParametroSegundarios(@fullbBase, 'placa', placa.link_rewrite, true) %>"><%= placa.name %> <small>(<%= placa.total %>)</small></a> </li>
+                  <% end %>
+
+              <% end %>
+            </ul>
+          </div></div></div>
+        <% end %>
+
+      </div><!-- /.accordion -->
+    </div><!-- /.sidebar-widget-body -->
+  </div><!-- /.sidebar-widget -->
+
+  <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
+    <%
+        cuenta  = @banners.count
+
+
+        b1 = Random.rand(1...cuenta)
+
+        b2 =  Random.rand(1...cuenta)
+       new = b2
+
+       if b1 == b2
+
+          new = b2-1
+            if new == 0
+               new = b2+1
+            end
+
+
+       end
+
+
+    %>
+
+    <%=  %>
+
+
+
+
+          <div class="item bg-color">
+            <a href="<%= @banners[b1].url %>"><%= image_tag @banners[b1].picture(:medium ), :style=>'max-width:100%; width:100%' %></a>
+            <br/><br/>
+          </div><!-- /.item -->
+
+
+    <div class="item bg-color">
+      <a href="<%= @banners[new].url %>"><%= image_tag @banners[new].picture(:medium ), :style=>'max-width:100%; width:100%' %></a>
+      <br/><br/>
+    </div><!-- /.item -->
+
+
+
+
+
+
+
+  </div>
+
+  <!-- ============================================== COLOR: END ============================================== -->
+
+</div><!-- /.sidebar-filter -->
+

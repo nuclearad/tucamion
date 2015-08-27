@@ -1,0 +1,2 @@
+module Admin::WheelsTruckHelper
+end

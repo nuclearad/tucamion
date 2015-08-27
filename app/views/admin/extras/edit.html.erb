@@ -1,0 +1,313 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Repuesto <small>/ Agregar</small>
+    </h1>
+    <%= render 'admin/includes/top' %>
+  </div>
+</div>
+
+<!-- /.row -->
+<%  if @extra.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <%= pluralize(@extra.errors.count, "Errores") %> tratando de guardar:
+      </div>
+      <p>
+      <ul>
+        <% @extra.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+      </p>
+    </div>
+<% end %>
+<!-- /.row -->
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+
+    <%= form_for @extra, :url => admin_extra_path, :method=>'put' do |f|  %>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :name, 'Nombre de repuesto' %>
+              <%= f.text_field :name, :class =>'form-control'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :price, 'Precio' %>
+              <%= f.text_field :price, :class =>'form-control'  %>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :address, 'Dirección' %>
+              <%= f.text_field :address, :class =>'form-control'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :horario, 'Horario' %>
+              <%= f.text_field :horario, :class =>'form-control'  %>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :phone, 'Teléfono' %>
+              <%= f.text_field :phone, :class =>'form-control'  %>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :type_truck_id, 'Tipo de camion' %>
+              <%= f.collection_select :type_truck_id, TypeTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :brand_extra_id, 'Marca de repuesto' %>
+              <%= f.collection_select :brand_extra_id, BrandExtra.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :state_id, 'Departamento' %>
+              <%= f.collection_select :state_id, State.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :city_id, 'Ciudad' %>
+              <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <%= f.label :description, 'Descripccion' %>
+            <%= f.text_area :description, :class =>'form-control'  %> <br/> <br/> <br/> <br/>
+          </div>
+        </div>
+
+
+        <br/>
+
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= f.label :picture1, 'Imagen 1' %>
+              <%= f.file_field :picture1, :class =>'form-control'  %>
+
+              <% if @extra.picture1.to_s  != '/images/missing.png' %>
+                  <%= image_tag @extra.picture1(:home ), :class=>'img-thumbnail img-responsive' %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= f.label :picture2, 'Imagen 2' %>
+              <%= f.file_field :picture2, :class =>'form-control'  %>
+
+              <% if @extra.picture2.to_s  != '/images/missing.png' %>
+                  <%= image_tag @extra.picture2(:home ), :class=>'img-thumbnail img-responsive' %>
+              <% end %>
+
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= f.label :picture3, 'Imagen 3' %>
+              <%= f.file_field :picture3, :class =>'form-control'  %>
+              <% if @extra.picture3.to_s  != '/images/missing.png' %>
+                  <%= image_tag @extra.picture3(:home ), :class=>'img-thumbnail img-responsive' %>
+              <% end %>
+
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= f.label :picture4, 'Imagen 4' %>
+              <%= f.file_field :picture4, :class =>'form-control'  %>
+
+
+              <% if @extra.picture4.to_s  != '/images/missing.png' %>
+                  <%= image_tag @extra.picture4(:home ), :class=>'img-thumbnail img-responsive' %>
+              <% end %>
+
+
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= f.label :picture5, 'Imagen 5' %>
+              <%= f.file_field :picture5, :class =>'form-control'  %>
+
+
+              <% if @extra.picture5.to_s  != '/images/missing.png' %>
+                  <%= image_tag @extra.picture5(:home ), :class=>'img-thumbnail img-responsive' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+
+
+        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+        <%=  link_to 'Cancelar', admin_trucks_path, :class=>'btn btn-warning' %>
+    <% end %>
+
+  </div>
+</div>
+
+
+
+<script>
+    var ready;
+    ready = function() {
+        //evento cuando carga
+        $('#extra_state_id').on('change', function() {
+
+            $('#truck_city_id option').html('')
+            function loader(data){
+                $('#truck_city_id option').html('Cargando...')
+            };
+
+            function error(data){
+                alert("Error enviados los datos");
+            };
+
+
+
+            $.ajax({
+                async: true,
+                type: "GET",
+                dataType: 'json',
+                beforeSend:loader,
+                error:error,
+                success: function (msg) {
+
+
+                    $('#extra_city_id').html('')
+
+
+                    $.each(msg, function(index, value) {
+                        console.log('<option value="'+value.id+'">'+value.name+'</option>');
+                        $('#extra_city_id').append('<option value="'+value.id+'">'+value.name+'</option>')
+                    });
+
+                },
+                url:"/admin/states/"+this.value+"/cities.json"
+            });
+
+        });
+
+
+
+        //Cargo dato cuando carga la pagina
+
+        function loader(data){
+            $('#extra_city_id option').html('Cargando...')
+        };
+
+        function error(data){
+            alert("Error enviados los datos");
+        };
+
+
+
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: 'json',
+            beforeSend:loader,
+            error:error,
+            success: function (msg) {
+
+                console.log(msg)
+                $('#extra_city_id').html('')
+
+
+                $.each(msg, function(index, value) {
+                    console.log('<option value="'+value.id+'">'+value.name+'</option>');
+                    if(value.id == '<%= @extra.city_id %>'){
+                        $('#extra_city_id').append('<option selected value="'+value.id+'">'+value.name+'</option>')
+                    }else{
+                        $('#extra_city_id').append('<option value="'+value.id+'">'+value.name+'</option>')
+                    }
+
+                });
+
+            },
+            url:"/admin/states/<%= @extra.state_id %>/cities.json"
+        });
+
+
+
+    };
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+
+
+</script>
+
+
+
+
+
+
+
+

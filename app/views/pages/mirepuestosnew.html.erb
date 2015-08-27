@@ -1,0 +1,231 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Repuestos <small>/ Agregar</small>
+    </h1>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+    <%= form_for @extra, :url => mirepuestosnew_path  do |f|  %>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :name, 'Nombre de repuesto' %>
+          <%= f.text_field :name, :class =>'form-control'  %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :price, 'Precio' %>
+          <%= f.text_field :price, :class =>'form-control'  %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :address, 'Dirección' %>
+          <%= f.text_field :address, :class =>'form-control'  %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :horario, 'Horario' %>
+          <%= f.text_field :horario, :class =>'form-control'  %>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :phone, 'Teléfono' %>
+          <%= f.text_field :phone, :class =>'form-control'  %>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :type_truck_id, 'Tipo de camion' %>
+          <%= f.collection_select :type_truck_id, TypeTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <%= f.label :brand_extra_id, 'Marca de camion' %>
+          <%= f.collection_select :brand_extra_id, BrandExtra.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :state_id, 'Departamento' %>
+          <%= f.collection_select :state_id, State.order(:id),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+        </div>
+      </div>
+
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :city_id, 'Ciudad' %>
+          <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.label :picture1, 'Imagen 1' %>
+          <%= f.file_field :picture1, :class =>'form-control'  %>
+
+
+
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.label :picture2, 'Imagen 2' %>
+          <%= f.file_field :picture2, :class =>'form-control'  %>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.label :picture3, 'Imagen 3' %>
+          <%= f.file_field :picture3, :class =>'form-control'  %>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.label :picture4, 'Imagen 4' %>
+          <%= f.file_field :picture4, :class =>'form-control'  %>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.label :picture5, 'Imagen 5' %>
+          <%= f.file_field :picture5, :class =>'form-control'  %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label :description, 'Descripccion' %>
+        <%= f.text_area :description, :class =>'form-control'  %> <br/> <br/> <br/> <br/>
+      </div>
+    </div>
+
+
+
+
+    <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+    <%=  link_to 'Cancelar', admin_trucks_path, :class=>'btn btn-warning' %>
+<% end %>
+
+
+
+  </div>
+</div>
+
+
+
+<script>
+    var ready;
+    ready = function() {
+
+        $('#extra_state_id').on('change', function() {
+
+            $('#truck_city_id option').html('')
+            function loader(data){
+                $('#truck_city_id option').html('Cargando...')
+            };
+
+            function error(data){
+                alert("Error enviados los datos");
+            };
+
+
+
+            $.ajax({
+                async: true,
+                type: "GET",
+                dataType: 'json',
+                beforeSend:loader,
+                error:error,
+                success: function (msg) {
+
+
+                    $('#extra_city_id').html('')
+
+
+                    $.each(msg, function(index, value) {
+                        console.log('<option value="'+value.id+'">'+value.name+'</option>');
+                        $('#extra_city_id').append('<option value="'+value.id+'">'+value.name+'</option>')
+                    });
+
+                },
+                url:"/admin/states/"+this.value+"/cities.json"
+            });
+
+
+
+
+
+        });
+
+    };
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+
+
+</script>

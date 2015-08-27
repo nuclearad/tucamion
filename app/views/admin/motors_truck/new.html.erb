@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Marca motor <small>/ Agregar</small>
+    </h1>
+    <%= render 'admin/includes/top' %>
+  </div>
+</div>
+
+
+<!-- /.row -->
+<%  if @motor.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <%= pluralize(@motor.errors.count, "Errores") %> tratando de guardar:
+      </div>
+      <p>
+      <ul>
+        <% @motor.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+      </p>
+    </div>
+<% end %>
+<!-- /.row -->
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+
+    <%= form_for @motor, :url => admin_motors_truck_index_path, :method=>'post' do |f|  %>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :name, 'Marca Motor' %>
+              <%= f.text_field :name, :class =>'form-control'  %>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+        <%=  link_to 'Cancelar', admin_motors_truck_index_path, :class=>'btn btn-warning' %>
+    <% end %>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

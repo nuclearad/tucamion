@@ -1,0 +1,282 @@
+
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Montallantas</a></li>
+        <li class='active'>Nombre Almacen</li>
+      </ul>
+    </div><!-- /.breadcrumb-inner -->
+  </div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+<div class="body-content outer-top-xs">
+<div class='container'>
+<div class="homepage-container">
+<div class='row single-product outer-bottom-sm '>
+
+
+
+
+<div class='col-md-12'>
+  <div class="row  wow fadeInUp">
+    <div class="col-xs-12 col-sm-6 col-md-7 gallery-holder">
+      <div class="product-item-holder size-big single-product-gallery small-gallery">
+
+        <div id="owl-single-product">
+
+
+          <% if @service.picture2.to_s  != '/images/missing.png' %>
+              <div class="single-product-gallery-item" id="slide1">
+                <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( @service.picture2(:home ))  %>">
+                  <%= image_tag @service.picture2(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture2(:home ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+
+          <% if @service.picture3.to_s  != '/images/missing.png' %>
+              <div class="single-product-gallery-item" id="slide2">
+                <a data-lightbox="image-2" data-title="Gallery" href="<%= image_path( @service.picture3(:home ))  %>">
+                  <%= image_tag @service.picture3(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture3(:home ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+          <% if @service.picture4.to_s  != '/images/missing.png' %>
+              <div class="single-product-gallery-item" id="slide3">
+                <a data-lightbox="image-3" data-title="Gallery" href="<%= image_path( @service.picture4(:home ))  %>">
+                  <%= image_tag @service.picture4(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture4(:home ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+
+          <% if @service.picture5.to_s  != '/images/missing.png' %>
+              <div class="single-product-gallery-item" id="slide4">
+                <a data-lightbox="image-4" data-title="Gallery" href="<%= image_path( @service.picture5(:home ))  %>">
+                  <%= image_tag @service.picture5(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture5(:home ))  %>
+                </a>
+              </div>
+          <% end %>
+
+
+
+
+
+        </div><!-- /.single-product-slider -->
+
+
+
+        <div class="single-product-gallery-thumbs second-gallery-thumb gallery-thumbs">
+
+          <div id="owl-single-product2-thumbnails">
+
+            <% if @service.picture2.to_s  != '/images/missing.png' %>
+                <div class="item">
+                  <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide1">
+
+                    <%= image_tag @service.picture2(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture2(:home ))  %>
+                  </a>
+                </div>
+            <% end %>
+
+
+            <% if @service.picture3.to_s  != '/images/missing.png' %>
+                <div class="item">
+                  <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide2">
+
+                    <%= image_tag @service.picture3(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture3(:home ))  %>
+                  </a>
+                </div>
+            <% end %>
+
+
+
+            <% if @service.picture4.to_s  != '/images/missing.png' %>
+                <div class="item">
+                  <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="2" href="#slide3">
+
+                    <%= image_tag @service.picture4(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture4(:home ))  %>
+                  </a>
+                </div>
+            <% end %>
+
+
+
+            <% if @service.picture5.to_s  != '/images/missing.png' %>
+                <div class="item">
+                  <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="3" href="#slide4">
+
+                    <%= image_tag @service.picture5(:home ), :class=>'img-responsive', 'data-echo'=>image_path( @service.picture5(:home ))  %>
+                  </a>
+                </div>
+            <% end %>
+
+
+
+
+
+
+          </div><!-- /#owl-single-product-thumbnails -->
+
+
+
+
+          <div class="nav-holder left">
+            <a class="prev-btn slider-prev" data-target="#owl-single-product2-thumbnails" href="#prev"></a>
+          </div><!-- /.nav-holder -->
+          <div class="nav-holder right">
+            <a class="next-btn slider-next" data-target="#owl-single-product2-thumbnails" href="#next"></a>
+          </div><!-- /.nav-holder -->
+        </div><!-- /.gallery-thumbs -->
+
+      </div><!-- /.single-product-gallery -->
+    </div><!-- /.gallery-holder -->
+    <div class='col-sm-6 col-md-5 product-info-block'>
+      <div class="product-info">
+        <h1 class="name"><%= @service.name %></h1>
+        <div class="stock-container info-container m-t-10">
+          <div class="row footer color-bg">
+
+            <div class="col-sm-12 contact-timing">
+
+              <div class="module-body outer-top-xs">
+                <div class="table-responsive">
+                  <table class="table"><tbody>
+                  <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @service.state.name %> - <%= @service.city.name %></td></tr>
+                  <tr class="nymou"><td>Teléfono:</td><td class="pull-right"><%= @service.phone %></td></tr>
+                  <tr class="nymou"><td>Horario:</td><td class="pull-right"><%= @service.horario %></td></tr>
+                  <tr class="nymou"><td>Dirección:</td><td class="pull-right"><%= @service.address %></td></tr>
+                  </tbody></table>
+                </div><!-- /.table-responsive -->
+              </div><!-- /.module-body -->
+            </div>
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /.stock-container -->
+
+      <div class="description-container m-t-20">
+        <h3>Descripción</h3>
+        <p>
+          <%= @service.description %>
+        </p>
+      </div><!-- /.description-container -->
+
+    </div><!-- /.product-info -->
+  </div><!-- /.col-sm-5 -->
+
+  <div class="col-md-12" style="border-top:1px solid #CCC; margin-top:30px; padding-top: 20px;">
+
+    <div class="review-form">
+      <div class="form-container">
+        <form role="form" class="cnt-form">
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="exampleInputName">Nombre <span class="astk">*</span></label>
+                <input type="text" class="form-control txt e" id="nombre" placeholder="" name="nombre">
+                <input type="hidden" class="form-control" id="exampleInputName" placeholder="" name="tipo" value="3">
+                <input type="hidden" class="form-control " id="exampleInputName" placeholder="" name="item" value="<%= @service.id %>">
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="exampleInputSummary">Teléfono <span class="astk">*</span></label>
+                <input type="text" class="form-control txt e" id="telefono" placeholder="" name="telefono">
+              </div><!-- /.form-group -->
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputReview">Mensaje <span class="astk">*</span></label>
+                <textarea class="form-control txt txt-review e" id="mensaje" rows="4" placeholder="" name="mensaje"></textarea>
+              </div><!-- /.form-group -->
+            </div>
+          </div><!-- /.row -->
+
+          <div class="action text-right">
+            <button class="btn btn-primary btn-upper" id="enviarconsulta">ENVIAR CONSULTA</button>
+          </div><!-- /.action -->
+
+        </form><!-- /.cnt-form -->
+      </div><!-- /.form-container -->
+    </div><!-- /.review-form -->
+
+  </div>
+
+
+
+</div><!-- /.col -->
+</div><!-- /.row -->
+
+
+
+
+<!-- ============================================== FEATURED PRODUCT ============================================== -->
+
+
+
+</div><!-- /.logo-slider -->
+<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->		</div><!-- /.homepage-container -->
+</div><!-- /.container -->
+</div><!-- /.body-content -->
+
+
+
+
+
+
+<% content_for :footer do %>
+    <script>
+
+        $(function(){
+
+            $('#c').click(function(){
+                $("#c1 a").trigger("click");
+            });
+
+
+
+            $('.cnt-form').submit(function(){
+                var data = $( ".cnt-form" ).serialize();
+
+                console.log(data)
+
+                $('#enviarconsulta').attr("disabled", "disabled");
+
+
+
+
+
+                $.ajax({
+                    url: '<%= saveMessage_path %>',
+                    error: function() {
+
+                    },
+                    data:data,
+                    success: function(data) {
+                        $('#enviarconsulta').removeAttr("disabled");
+                        alert('Gracias por escribir el vendedor se pondra en contacto con usted')
+                        $('.e').val('')
+                    },
+                    type: 'GET'
+                });
+
+
+
+
+                return false;
+            })
+
+
+
+        })
+
+    </script>
+
+<% end%>
+

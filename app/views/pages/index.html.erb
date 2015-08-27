@@ -1,0 +1,371 @@
+
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="body-content" id="top-banner-and-menu">
+<!-- ========================================== SECTION – HERO ========================================= -->
+
+
+
+
+  <div class="container">
+
+    <div class="col-md-12 col-sm-12" style="padding:0px !important;">
+
+      <div class="col-md-4 col-sm-4">
+        <a href="<%=  @banners[0].name %>">
+          <%= image_tag @banners[0].picture(:home )  %>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <a href="<%=  @banners[1].name %>">
+          <%= image_tag @banners[1].picture(:home )  %>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <a href="<%=  @banners[2].name %>">
+          <%= image_tag @banners[2].picture(:home )  %>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="col-md-12 col-sm-12 estilos-hm" style="padding:0px !important;">
+      <h1><b>CAMIONES Y MARCAS</b> MÁS BUSCADOS</h1>
+
+      <div class="col-md-2 col-sm-2">
+        <h3 class="section-title">CAMIONES</h3>
+        <div class="accordion-inner">
+          <ul>
+            <li><a href="#">gaming</a></li>
+            <li><a href="#">office</a></li>
+            <li><a href="#">kids</a></li>
+            <li><a href="#">for women</a></li>
+          </ul>
+        </div><!-- /.accordion-inner -->
+      </div>
+
+      <div class="col-md-2 col-sm-2">
+        <h3 class="section-title">VOLQUETAS</h3>
+        <div class="accordion-inner">
+          <ul>
+            <li><a href="#">gaming</a></li>
+            <li><a href="#">office</a></li>
+            <li><a href="#">kids</a></li>
+            <li><a href="#">for women</a></li>
+          </ul>
+        </div><!-- /.accordion-inner -->
+      </div>
+
+      <div class="col-md-2 col-sm-2">
+        <h3 class="section-title">TRACTOMULAS</h3>
+        <div class="accordion-inner">
+          <ul>
+            <li><a href="#">gaming</a></li>
+            <li><a href="#">office</a></li>
+            <li><a href="#">kids</a></li>
+            <li><a href="#">for women</a></li>
+          </ul>
+        </div><!-- /.accordion-inner -->
+      </div>
+
+      <div class="col-md-2 col-sm-2">
+        <h3 class="section-title">BUSES</h3>
+        <div class="accordion-inner">
+          <ul>
+            <li><a href="#">gaming</a></li>
+            <li><a href="#">office</a></li>
+            <li><a href="#">kids</a></li>
+            <li><a href="#">for women</a></li>
+          </ul>
+        </div><!-- /.accordion-inner -->
+      </div>
+
+      <div class="col-md-2 col-sm-2">
+        <h3 class="section-title">VANS</h3>
+        <div class="accordion-inner">
+          <ul>
+            <li><a href="#">gaming</a></li>
+            <li><a href="#">office</a></li>
+            <li><a href="#">kids</a></li>
+            <li><a href="#">for women</a></li>
+          </ul>
+        </div><!-- /.accordion-inner -->
+      </div>
+
+      <div class="col-md-2 col-sm-2">
+        <h3 class="section-title">TRAILERS</h3>
+        <div class="accordion-inner">
+          <ul>
+            <li><a href="#">gaming</a></li>
+            <li><a href="#">office</a></li>
+            <li><a href="#">kids</a></li>
+            <li><a href="#">for women</a></li>
+          </ul>
+        </div><!-- /.accordion-inner -->
+      </div>
+
+    </div>
+
+
+    <!-- ============================================== BEST SELLER : END ============================================== -->
+
+    <!-- ============================================== BLOG SLIDER ============================================== -->
+
+
+
+  </div><!-- /.container -->
+</div><!-- /#top-banner-and-menu -->
+
+
+
+
+
+<!-- ========================================= SECTION – HERO : END ========================================= -->
+
+</div><!-- /#top-banner-and-menu -->
+
+
+
+
+
+
+
+<% content_for :footer do %>
+
+    <script>
+        var ready;
+        ready = function() {
+
+
+
+
+            $(document).on('click', '#btn-servi', function() {
+
+
+                var servicio = $("#state_service").val()
+                var state = $("#servi_state").val()
+                var url = 'servicios';
+
+                if(state != ''){
+                    url = url+'/'+state
+                }
+
+                if(servicio != ''){
+                    url = url+'/'+servicio
+                }
+                window.location.href = url;
+                return false;
+
+            })
+
+
+
+            $(document).on('click', '#btn-camion', function() {
+
+
+                var type = $("#camion_type").val()
+                var brand = $("#camion_brand").val()
+                var state = $("#camion_state").val()
+                var url = 'camiones';
+
+                if(state != ''){
+                    url = url+'/'+state
+                }
+
+                if(type != ''){
+                    url = url+'/'+type
+                }
+
+                if(brand != ''){
+                    url = url+'/'+brand
+                }
+                window.location.href = url;
+                return false;
+
+            })
+
+
+
+            //cambia el select camiones
+            $('#camion_type').on('change', function(evt){
+
+
+
+                $('#camion_brand').html('')
+                console.log($(this).find(':selected').data('id'))
+
+                id = $(this).find(':selected').data('id');
+
+                function loader(data){
+                    $('#camion_brand').html('<option>Cargando...</option>')
+                };
+
+                function error(data){
+                    alert("Error enviados los datos");
+                };
+
+                if(id == undefined){
+                    id = '0'
+                }
+
+
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    dataType: 'json',
+                    beforeSend:loader,
+                    error:error,
+                    success: function (msg) {
+                        console.log(msg)
+
+                        $('#camion_brand').html('')
+
+                        if(id == '0'){
+                            $('#camion_brand').append('<option value="">Todas las marcas</option>')
+
+
+                            $.each(msg, function(index, value) {
+                                $('#camion_brand').append('<option value="'+value.link_rewrite+'">'+value.name+'</option>')
+                            });
+
+
+                        } else{
+
+
+                            $('#camion_brand').append('<option value="">Todas las marcas</option>')
+                            $.each(msg, function(index, value) {
+                                $('#camion_brand').append('<option value="'+value.brand_truck.link_rewrite+'">'+value.brand_truck.name+'</option>')
+                            });
+
+
+                        }
+
+
+
+
+
+                    },
+                    url:"/marcas/"+id
+                });
+
+
+
+
+
+            });
+
+
+
+
+
+            //cambia el select repuesto
+            $('#servicio_type').on('change', function(evt){
+
+
+
+                $('#servicio_brand').html('')
+                console.log($(this).find(':selected').data('id'))
+
+                id = $(this).find(':selected').data('id');
+
+                function loader(data){
+                    $('#servicio_brand').html('<option>Cargando...</option>')
+                };
+
+                function error(data){
+                    alert("Error enviados los datos");
+                };
+
+                if(id == undefined){
+                    id = '0'
+                }
+
+
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    dataType: 'json',
+                    beforeSend:loader,
+                    error:error,
+                    success: function (msg) {
+                        console.log(msg)
+
+                        $('#servicio_brand').html('')
+
+
+                        if(id == '0'){
+                            $('#servicio_brand').append('<option value="">Todas las marcas</option>')
+
+
+                            $.each(msg, function(index, value) {
+                                $('#servicio_brand').append('<option value="'+value.link_rewrite+'">'+value.name+'</option>')
+                            });
+
+                        } else{
+
+                            $('#servicio_brand').append('<option value="">Todas las marcas</option>')
+                            $.each(msg, function(index, value) {
+                                $('#servicio_brand').append('<option value="'+value.brand_extra.link_rewrite+'">'+value.brand_extra.name+'</option>')
+                            });
+
+
+                        }
+
+                    },
+                    url:"/marcasrespuestos/"+id
+                });
+
+            });
+
+
+
+
+
+
+            $(document).on('click', '#btn-repuesto', function() {
+
+
+                var type = $("#servicio_type").val()
+                var brand = $("#servicio_brand").val()
+                var state = $("#servicio_state").val()
+                var url = 'repuestos';
+
+                if(state != ''){
+                    url = url+'/'+state
+                }
+
+                if(type != ''){
+                    url = url+'/'+type
+                }
+
+                if(brand != ''){
+                    url = url+'/'+brand
+                }
+                window.location.href = url;
+                return false;
+
+            })
+
+
+
+
+
+
+
+
+
+
+
+        };
+
+        $(document).ready(ready);
+        $(document).on('page:load', ready);
+
+
+    </script>
+
+
+
+<% end %>
+
+
+

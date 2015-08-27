@@ -1,0 +1,221 @@
+
+<!-- Page Heading -->
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Camion 365 / <small>Mi cuenta</small>
+    </h1>
+
+  </div>
+</div>
+
+
+<%
+   camiones = 0
+   repuestos = 0
+   servicios = 0
+
+
+   @user.offer.each do |item|
+
+     camiones = camiones + item.trucks
+     repuestos = repuestos + item.extra
+     servicios = servicios + item.service
+
+    end
+%>
+
+
+<% if !@user.offercustomers.blank? %>
+<div class="row">
+
+
+    <% if camiones > 0 %>
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-car fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge"><small> <%= camiones-@user.trucks.count %></small>/<%= camiones %></div>
+            <div>Camiones</div>
+          </div>
+        </div>
+      </div>
+      <a href="<%= micamiones_path %>">
+        <div class="panel-footer">
+          <span class="pull-left">Ver Camiones</span>
+          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+      <% end %>
+
+
+  <% if repuestos > 0 %>
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-green">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-tasks fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge"> <%= repuestos-@user.extras.count %></small>/<%= repuestos %></div>
+            <div>Repuestos</div>
+          </div>
+        </div>
+      </div>
+      <a href="<%= mirepuestos_path %>">
+        <div class="panel-footer">
+          <span class="pull-left">Ver Repuestos</span>
+          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <% end %>
+
+  <% if servicios > 0 %>
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-yellow">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-shopping-cart fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge"> <%= servicios-@user.services.count %></small>/<%= servicios %></div>
+            <div>Servicios</div>
+          </div>
+        </div>
+      </div>
+      <a href="<%= miservicios_path %>">
+        <div class="panel-footer">
+          <span class="pull-left">Ver Servicios</span>
+          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <% end %>
+
+</div>
+    <% end %>
+    <!-- /.row -->
+
+
+<div class="row">
+
+  <% if !@publicaciones.blank? %>
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Publicaciones</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+
+          <% @publicaciones.each do |publicacion| %>
+
+              <% if publicacion.tipo == 1 %>
+
+                  <a href="#" class="list-group-item">
+                    <span class="badge"><td><%= publicacion.created_at.strftime('%Y-%m-%d %H:%M'); %></td></span>
+                    <i class="fa fa-fw fa-car"></i> <%= publicacion.nombre %>
+                  </a>
+
+
+              <% end %>
+
+
+              <% if publicacion.tipo == 2 %>
+
+
+                  <a href="#" class="list-group-item">
+                    <span class="badge"><td><%= publicacion.created_at.strftime('%Y-%m-%d %H:%M'); %></td></span>
+                    <i class="fa fa-fw fa-tasks"></i> <%= publicacion.nombre %>
+                  </a>
+
+
+              <% end %>
+
+
+
+              <% if publicacion.tipo == 3 %>
+
+
+                  <a href="#" class="list-group-item">
+                    <span class="badge"><td><%= publicacion.created_at.strftime('%Y-%m-%d %H:%M'); %></td></span>
+                    <i class="fa fa-fw fa-shopping-cart"></i> <%= publicacion.nombre %>
+                  </a>
+              <% end %>
+
+
+
+
+          <% end %>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Planes</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr>
+              <th>Plan #</th>
+              <th>Plan</th>
+              <th>Fecha de compra</th>
+              <th>Precio</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <% @offers.each do |item| %>
+
+                <tr>
+                  <td><%= sprintf '%04d', item.id %></td>
+                  <td><%= item.offer.nombre %></td>
+                  <td><%= item.updated_at.strftime('%Y-%m-%d %H:%M'); %></td>
+                  <td>
+                    <% if @user.typeuser == 0 %>
+                        <%= number_to_currency item.offer.precio1, precision: 0 %>
+                    <% else %>
+                        <%= number_to_currency item.offer.precio2, precision: 0 %>
+                    <% end %>
+                  </td>
+                </tr>
+
+
+            <% end %>
+
+
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right">
+        <!--  <a href="#">View All Transactions <i class="fa fa-arrow-circle-right"></i></a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->

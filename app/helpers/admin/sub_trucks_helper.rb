@@ -1,0 +1,2 @@
+module Admin::SubTrucksHelper
+end

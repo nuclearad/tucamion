@@ -1,0 +1,1309 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Camiones <small>/ Agregar</small>
+    </h1>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+
+    <%= form_for @truck, :url => micamionesnew_path do |f|  %>
+
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <h3><small>Usted esta agregando</small>
+
+
+
+
+              <%= if params[:v] == '1' then 'Tractomula' end %>
+              <%= if params[:v] == '2' then 'Volqueta' end %>
+              <%= if params[:v] == '3' then 'Camion' end %>
+              <%= if params[:v] == '4' then 'Buses' end %>
+              <%= if params[:v] == '5' then 'Trailers' end %>
+              <%= if params[:v] == '6' then 'Vans' end %>
+
+
+
+
+
+            </h3>
+          </div>
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
+          <li role="presentation"><a id="s" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Paso 2</a></li>
+        </ul>
+
+        <br/><br/>
+
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="home">
+
+
+
+            <div class="row">
+
+              <div class="col-md-12">
+                <div class="form-group">
+
+                  <%= f.label :sub_truck_id, 'Sub tipo' %>
+                  <%= f.collection_select :sub_truck_id, SubTruck.where(:type_truck_id => params[:v]).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-6">
+                <div class="form-group">
+
+                  <%= f.label :nombre, 'Nombre de camion' %>
+                  <%= f.text_field :nombre, :class =>'form-control'  %>
+                  <%= f.hidden_field :type_truck_id, :value=>params['v']  %>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :modelo, 'Modelo' %>
+                  <%= f.text_field :modelo, :class =>'form-control'  %>
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :price, 'Precio' %>
+                  <%= f.text_field :price, :class =>'form-control'  %>
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :pesobruto, 'Peso bruto' %>
+                  <%= f.text_field :pesobruto, :class =>'form-control'  %>
+                </div>
+              </div>
+
+
+
+
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :brand_truck_id, 'Marca de camion' %>
+                  <%= f.collection_select :brand_truck_id, BrandTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :state_id, 'Departamento' %>
+                  <%= f.collection_select :state_id, State.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :city_id, 'Ciudad' %>
+                  <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :placa_state_id, 'Departamento placa' %>
+                  <%= f.collection_select :placa_state_id, State.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :placa_city_id, 'Ciudad placa' %>
+                  <%= f.select(:placa_city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :kilometraje, 'Kilometraje' %>
+                  <%= f.text_field :kilometraje, :class =>'form-control'  %>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :estado, 'Estado' %>
+
+                  <%= f.select(:estado, [['Nuevo', 0], ['Usado', 1]], {include_blank: 'Selecccione'}, { :class => 'form-control' }) %>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :placa, 'Placa' %>
+                  <%= f.text_field :placa, :class =>'form-control'  %>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :scraps_truck_id, 'Chatarrización' %>
+                  <%= f.collection_select :scraps_truck_id, ScrapsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+
+
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :colors_truck_id, 'Color' %>
+                  <%= f.collection_select :colors_truck_id, ColorsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :tipocombustible, 'Tipo combustible' %>
+                  <%= f.select(:tipocombustible, [['Gasolina', 0], ['Gas', 1], ['ACPM', 2]], {include_blank: 'Selecccione'}, { :class => 'form-control' }) %>
+                </div>
+              </div>
+
+
+              <div class="col-md-12">
+                <a  class="btn btn-info" id="sa"  href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Siguiente</a>
+
+              </div>
+
+              <script !src="">
+                    $(function(){
+                        $('#sa').click(function(){
+                            $($('.nav-tabs li')[0]).removeClass('active')
+                            $($('.nav-tabs li')[1]).addClass('active')
+                        })
+                    })
+              </script>
+            </div>
+
+
+
+
+
+          </div>
+          <div role="tabpanel" class="tab-pane" id="profile">
+
+
+
+<!-- 1 tractomula-->
+            <% if params[:v] == '1' %>
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :motors_truck_id, 'Marca motor' %>
+                      <%= f.collection_select :motors_truck_id, MotorsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :boxes_truck_id, 'Marca caja' %>
+                      <%= f.collection_select :boxes_truck_id, BoxesTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :transmissions_truck_id, 'Marca transmision' %>
+                      <%= f.collection_select :transmissions_truck_id, TransmissionsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :wheels_truck_id, 'Quinta Rueda' %>
+                      <%= f.collection_select :wheels_truck_id, WheelsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :empresaafiliada, 'Empresa Afiliada' %>
+                      <%= f.text_field :empresaafiliada, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :spaces_truck_id, 'Tipo Cupo' %>
+                      <%= f.collection_select :spaces_truck_id, SpacesTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="">   Se vende con trailer? </label><br/>
+
+                    <%= f.radio_button :sevendecontrailer, 'Si', :checked => true %> Si
+
+
+
+                    <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
+
+
+                    <script !src="">
+                      $('input[type=radio]').click(function(){
+                          if($('#truck_sevendecontrailer_si').is(':checked')) {
+                              $('.extras').show();
+                           }else{
+                              $('.extras').hide();
+                          }
+                      })
+                    </script>
+
+
+
+
+
+                    <br/><br/>
+                  </div>
+
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :tipotrailer, 'Tipo Trailer' %>
+                      <%= f.text_field :tipotrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :marcatrailer, 'Marca Trailer' %>
+                      <%= f.text_field :marcatrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :modelotrailer, 'Modelo Trailer' %>
+                      <%= f.text_field :modelotrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :numeroejestrailer, 'Numero de ejes' %>
+                      <%= f.text_field :numeroejestrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+
+
+                      <label>
+                        <%= f.check_box :negociable  %> Negociable
+                      </label>
+                      <br/>
+
+                      <label>
+                        <%= f.check_box :motorreparado  %> Motor Reparado
+                      </label> <br/>
+                      <label>
+                        <%= f.check_box :unicodueno  %> Unico dueño
+                      </label>
+                      <br/>
+
+
+
+                    </div>
+                  </div>
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+          <% end %>
+
+
+
+<!--volquetas 2-->
+            <% if params[:v] == '2' %>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :motors_truck_id, 'Marca motor' %>
+                      <%= f.collection_select :motors_truck_id, MotorsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :boxes_truck_id, 'Marca caja' %>
+                      <%= f.collection_select :boxes_truck_id, BoxesTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :transmissions_truck_id, 'Marca transmision' %>
+                      <%= f.collection_select :transmissions_truck_id, TransmissionsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :empresaafiliada, 'Empresa Afiliada' %>
+                      <%= f.text_field :empresaafiliada, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :marca_equipo_humedo_id, 'Marca Equipo Humedo' %>
+                      <%= f.collection_select :marca_equipo_humedo_id, MarcaEquipoHumedo.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :marca_volco_id, 'Marca volco' %>
+                      <%= f.collection_select :marca_volco_id, MarcaVolco.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :capacidadmetrica, 'Capacidad Metrica' %>
+                      <%= f.text_field :capacidadmetrica, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :cuantosmetroscubicos, 'Cuantos Metros cubicos' %>
+                      <%= f.text_field :cuantosmetroscubicos, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="">  Auto Carpado </label><br/>
+
+                    <%= f.radio_button :autocarpado, 'Si', :checked => false %> Si
+
+
+
+                    <%= f.radio_button :autocarpado, 'No', :checked => false %> No
+                    <br/><br/>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+
+
+                      <label>
+                        <%= f.check_box :negociable  %> Negociable
+                      </label>
+                      <br/>
+
+                      <label>
+                        <%= f.check_box :motorreparado  %> Motor Reparado
+                      </label> <br/>
+                      <label>
+                        <%= f.check_box :unicodueno  %> Unico dueño
+                      </label>
+                      <br/>
+
+
+
+                    </div>
+                  </div>
+
+
+
+
+
+                </div>
+
+
+
+            <% end %>
+
+
+
+
+
+            <!--Caminion 3-->
+            <% if params[:v] == '3' %>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :motors_truck_id, 'Marca motor' %>
+                      <%= f.collection_select :motors_truck_id, MotorsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :boxes_truck_id, 'Marca caja' %>
+                      <%= f.collection_select :boxes_truck_id, BoxesTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :transmissions_truck_id, 'Marca transmision' %>
+                      <%= f.collection_select :transmissions_truck_id, TransmissionsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :tipo_carroceria_id, 'Tipo carroceria' %>
+                      <%= f.collection_select :tipo_carroceria_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
+                      <%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :empresaafiliada, 'Empresa Afiliada' %>
+                      <%= f.text_field :empresaafiliada, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :marcacarpa, 'Marca Carga' %>
+                      <%= f.text_field :marcacarpa, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :capacidadcarga, 'Capacidad Carga' %>
+                      <%= f.text_field :capacidadcarga, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+
+
+                      <label>
+                        <%= f.check_box :negociable  %> Negociable
+                      </label>
+                      <br/>
+
+                      <label>
+                        <%= f.check_box :motorreparado  %> Motor Reparado
+                      </label> <br/>
+                      <label>
+                        <%= f.check_box :unicodueno  %> Unico dueño
+                      </label>
+                      <br/>
+
+
+
+                    </div>
+                  </div>
+
+
+
+
+
+                </div>
+
+
+
+            <% end %>
+
+
+
+            <!--buses 4-->
+            <% if params[:v] == '4' %>
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :motors_truck_id, 'Marca motor' %>
+                      <%= f.collection_select :motors_truck_id, MotorsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :boxes_truck_id, 'Marca caja' %>
+                      <%= f.collection_select :boxes_truck_id, BoxesTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :transmissions_truck_id, 'Marca transmision' %>
+                      <%= f.collection_select :transmissions_truck_id, TransmissionsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :contracts_truck_id, 'Poliza' %>
+                      <%= f.collection_select :contracts_truck_id, ContractsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :empresaafiliada, 'Empresa Afiliada' %>
+                      <%= f.text_field :empresaafiliada, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
+                      <%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :capacidadcarga, 'Capacidad Carga' %>
+                      <%= f.text_field :capacidadcarga, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :capacidadpasajeros, 'Capacidad Pasajeros' %>
+                      <%= f.text_field :capacidadpasajeros, :class =>'form-control'  %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+
+
+                      <label>
+                        <%= f.check_box :negociable  %> Negociable
+                      </label>
+                      <br/>
+
+                      <label>
+                        <%= f.check_box :vigia  %> Vigia
+                      </label> <br/>
+                      <label>
+                        <%= f.check_box :transmisionreparada  %> Transmision Reparada
+                      </label>
+                      <br/>
+
+
+
+                      <label>
+                        <%= f.check_box :frenosabs  %> Frenos ABS
+                      </label>
+                      <br/>
+
+
+
+                      <label>
+                        <%= f.check_box :cupo  %> Cupo
+                      </label>
+                      <br/>
+                      <label>
+                        <%= f.check_box :sillareclinable  %> Silla reclinable
+                      </label>
+                      <br/>
+
+                      <label>
+                        <%= f.check_box :bano  %> Baño
+                      </label>
+                      <br/>
+
+
+
+
+
+
+
+                    </div>
+
+
+                  </div>
+
+                  <div class="col-md-3">
+
+                    <label>
+                      <%= f.check_box :descansapies  %> Descansa pies
+                    </label>
+                    <br/>
+                    <label>
+                      <%= f.check_box :descansapies  %> Descansa pies
+                    </label>
+                    <br/>
+
+
+                    <label>
+                      <%= f.check_box :tv  %> tv
+                    </label>
+                    <br/>
+
+
+
+                    <label>
+                      <%= f.check_box :pantallaindividual  %> Pantalla individual
+                    </label>
+                    <br/>
+
+
+
+                    <label>
+                      <%= f.check_box :wifi  %> Wifi
+                    </label>
+                    <br/>
+
+
+                    <label>
+                      <%= f.check_box :audio  %> Audio
+                    </label>
+                    <br/>
+
+
+
+                    <label>
+                      <%= f.check_box :unicodueno  %> Unico Dueño
+                    </label>
+                    <br/>
+
+                  </div>
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+            <% end %>
+
+
+
+<!-- trailers-->
+            <% if params[:v] == '5' %>
+
+
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <%= f.label :motors_truck_id, 'Tipo Carroceria' %>
+                      <%= f.collection_select :motors_truck_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <%= f.label :boxes_truck_id, 'Marca Carroceria' %>
+                      <%= f.collection_select :boxes_truck_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <%= f.label :marcacarpa, 'Marca Carpa' %>
+                      <%= f.text_field :marcacarpa, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="">   Se vende con trailer? </label><br/>
+
+                    <%= f.radio_button :sevendecontrailer, 'Si', :checked => true %> Si
+
+
+
+                    <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
+
+
+                    <script !src="">
+                        $('input[type=radio]').click(function(){
+                            if($('#truck_sevendecontrailer_si').is(':checked')) {
+                                $('.extras').show();
+                            }else{
+                                $('.extras').hide();
+                            }
+                        })
+                    </script>
+
+
+
+
+
+                    <br/><br/>
+                  </div>
+
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :tipotrailer, 'Tipo Trailer' %>
+                      <%= f.text_field :tipotrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :marcatrailer, 'Marca Trailer' %>
+                      <%= f.text_field :marcatrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :modelotrailer, 'Modelo Trailer' %>
+                      <%= f.text_field :modelotrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 extras">
+                    <div class="form-group">
+                      <%= f.label :numeroejestrailer, 'Numero de ejes' %>
+                      <%= f.text_field :numeroejestrailer, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+
+
+                      <label>
+                        <%= f.check_box :negociable  %> Negociable
+                      </label>
+
+
+                      <label>
+                        <%= f.check_box :unicodueno  %> Unico dueño
+                      </label>
+
+
+                    </div>
+                  </div>
+
+
+
+
+
+                </div>
+
+
+            <% end %>
+
+
+            <!--VANS-->
+
+            <% if params[:v] == '6' %>
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :motors_truck_id, 'Marca motor' %>
+                      <%= f.collection_select :motors_truck_id, MotorsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :cilindrajecc, 'Cilindraje CC' %>
+                      <%= f.text_field :cilindrajecc, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :capacidadcarga, 'Capacidad Carga' %>
+                      <%= f.text_field :capacidadcarga, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :capacidadpasajeros, 'Capacidad pasajeros' %>
+                      <%= f.text_field :capacidadpasajeros, :class =>'form-control'  %>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for=""> Dirección </label><br/>
+
+                    <%= f.radio_button :direccion, 'Si', :checked => false %> Hidraulica
+
+
+
+                    <%= f.radio_button :direccion, 'No', :checked => false %> Mecanica
+                    <br/><br/>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+          <% end %>
+
+
+
+
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <%= f.label :descripccion, 'Descripccion' %>
+                <%= f.text_area :descripccion, :class =>'form-control'  %> <br/> <br/> <br/> <br/>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <%= f.label :picture1, 'Imagen 1' %>
+                  <%= f.file_field :picture1, :class =>'form-control'  %>
+
+
+
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <%= f.label :picture2, 'Imagen 2' %>
+                  <%= f.file_field :picture2, :class =>'form-control'  %>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <%= f.label :picture3, 'Imagen 3' %>
+                  <%= f.file_field :picture3, :class =>'form-control'  %>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <%= f.label :picture4, 'Imagen 4' %>
+                  <%= f.file_field :picture4, :class =>'form-control'  %>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <%= f.label :picture5, 'Imagen 5' %>
+                  <%= f.file_field :picture5, :class =>'form-control'  %>
+                </div>
+              </div>
+            </div>
+
+
+
+            <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+            <%=  link_to 'Cancelar', micamiones_path, :class=>'btn btn-warning' %>
+
+          </div>
+
+        </div>
+
+
+
+
+
+
+
+
+    <% end %>
+
+  </div>
+</div>
+
+
+
+<script>
+    var ready;
+    ready = function() {
+
+        $('#truck_state_id').on('change', function() {
+
+            $('#truck_city_id option').html('')
+            function loader(data){
+                $('#truck_city_id option').html('Cargando...')
+            };
+
+            function error(data){
+                alert("Error enviados los datos");
+            };
+
+
+
+            $.ajax({
+                async: true,
+                type: "GET",
+                dataType: 'json',
+                beforeSend:loader,
+                error:error,
+                success: function (msg) {
+
+
+                    $('#truck_city_id').html('')
+
+
+                    $.each(msg, function(index, value) {
+                        console.log('<option value="'+value.id+'">'+value.name+'</option>');
+                        $('#truck_city_id').append('<option value="'+value.id+'">'+value.name+'</option>')
+                    });
+
+                },
+
+                url:"/departamentos/"+this.value
+            });
+
+
+
+
+
+        });
+
+
+
+
+
+        $('#truck_placa_state_id').on('change', function() {
+
+            $('#truck_placa_city_id option').html('')
+            function loader(data){
+                $('#truck_placa_city_id option').html('Cargando...')
+            };
+
+            function error(data){
+                alert("Error enviados los datos");
+            };
+
+
+
+            $.ajax({
+                async: true,
+                type: "GET",
+                dataType: 'json',
+                beforeSend:loader,
+                error:error,
+                success: function (msg) {
+
+
+                    $('#truck_placa_city_id').html('')
+
+
+                    $.each(msg, function(index, value) {
+                        console.log('<option value="'+value.id+'">'+value.name+'</option>');
+                        $('#truck_placa_city_id').append('<option value="'+value.id+'">'+value.name+'</option>')
+                    });
+
+                },
+                url:"/departamentos/"+this.value
+            });
+
+
+
+
+
+        });
+
+
+    };
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+
+
+</script>
+
+
+
+
+
+
+
+
