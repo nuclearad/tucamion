@@ -1,5 +1,5 @@
 class BoxesTruck < ActiveRecord::Base
-  has_many :trucks
+  has_many :truck
 
 
   validates :name, presence: true
