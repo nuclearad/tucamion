@@ -42,3 +42,12 @@ gem 'quiet_assets', group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'pry-rails', group: :development
+gem 'ransack'
+gem 'kaminari'
+
+# HAML support
+gem 'haml'
+gem 'haml-rails'
+# Bootstrap support
+gem 'bootstrap-sass'
