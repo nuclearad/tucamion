@@ -594,7 +594,7 @@ ORDER BY created_at DESC')
 
 
   def camiones
-    puts "*****************************************************"
+    puts "***********************aqui entra el search del home******************************"
     #@types = TypeTruck.all
     #@p = params
     @fullbBase = request.original_url
