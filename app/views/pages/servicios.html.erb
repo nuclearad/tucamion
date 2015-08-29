@@ -34,7 +34,7 @@
                         <div class="product-image"><div class="image">
                           <a href="<%= servicio_path(servicio.id, servicio.link_rewrite) %>">
 
-                            <%=   image_tag servicio.picture1(:home ) %>
+                            <%=   image_tag servicio.picture1(:home ), size: "300x200" %>
                           </a>
                         </div></div><!-- /.product-image -->
                         <div class="product-info text-left">
@@ -76,7 +76,7 @@
 
 
     </div><!-- /.tab-content -->
-<%= render partial: '/includes/paginator', locals:{object: @services} %>
+  <%= render partial: '/includes/paginator', locals:{object: @services} %>
 
   </div><!-- /.search-result-container -->
 
