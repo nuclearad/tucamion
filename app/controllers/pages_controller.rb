@@ -453,7 +453,7 @@ ORDER BY created_at DESC')
 
 
     if(params[:param1].nil? && params[:param2].nil? && params[:param3].nil?)
-      @extras = Extra.all.where(active: 1).page(params[:page]).per(Environment::LIMIT_SEARCH)
+      @extras = Extra.all.where(active: 1).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
     end
 
 
@@ -463,19 +463,19 @@ ORDER BY created_at DESC')
 
       if TypeTruck.where(link_rewrite: params[:param1]).exists?
         types = TypeTruck.find_by_link_rewrite(params[:param1])
-        @extras = Extra.where(type_truck_id: types.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(type_truck_id: types.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
       if BrandExtra.where(link_rewrite: params[:param1]).exists?
         brand = BrandExtra.find_by_link_rewrite(params[:param1])
-        @extras = Extra.where(brand_extra_id: brand.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(brand_extra_id: brand.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
       if State.where(link_rewrite: params[:param1]).exists?
         state = State.find_by_link_rewrite(params[:param1])
-        @extras = Extra.where(state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
     end
@@ -524,47 +524,45 @@ ORDER BY created_at DESC')
       if @p1 == 'type' &&  @p2 == 'brand'
         type = TypeTruck.find_by_link_rewrite(params[:param1])
         brand = BrandExtra.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, brand_extra_id: brand.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(type_truck_id: type.id, brand_extra_id: brand.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
       if @p1 == 'brand' &&  @p2 == 'type'
         brand = BrandExtra.find_by_link_rewrite(params[:param1])
         type = TypeTruck.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, brand_extra_id: brand.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(type_truck_id: type.id, brand_extra_id: brand.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
       if @p1 == 'type' &&  @p2 == 'state'
         type = TypeTruck.find_by_link_rewrite(params[:param1])
         state = State.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(type_truck_id: type.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
       if @p1 == 'state' &&  @p2 == 'type'
         state = State.find_by_link_rewrite(params[:param1])
         type = TypeTruck.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(type_truck_id: type.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
       if @p1 == 'state' &&  @p2 == 'brand'
         state = State.find_by_link_rewrite(params[:param1])
         brand = BrandExtra.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
       if @p1 == 'brand' &&  @p2 == 'state'
         brand = BrandExtra.find_by_link_rewrite(params[:param1])
         state = State.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
 
     end
-
-
 
 
 
@@ -577,11 +575,8 @@ ORDER BY created_at DESC')
       brand = BrandExtra.find_by_link_rewrite(params[:param3])
 
       if !brand.nil? && !state.nil? && !type.nil?
-        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, type_truck_id: type.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, type_truck_id: type.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
-
-
-
 
     end
 
@@ -1337,7 +1332,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
     if(params[:param1].nil? && params[:param2].nil?)
     
-      @services = Service.all.where(active: 1).page(params[:page]).per(Environment::LIMIT_SEARCH)
+      @services = Service.all.where(active: 1).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
     end
 
 
@@ -1348,13 +1343,13 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
       if TypeService.where(link_rewrite: params[:param1]).exists?
         types = TypeService.find_by_link_rewrite(params[:param1])
-        @services = Service.where(type_service_id: types.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @services = Service.where(type_service_id: types.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
       if State.where(link_rewrite: params[:param1]).exists?
         state = State.find_by_link_rewrite(params[:param1])
-        @services = Service.where(state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @services = Service.where(state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
     end
@@ -1395,7 +1390,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
         type = TypeService.find_by_link_rewrite(params[:param1])
         state = State.find_by_link_rewrite(params[:param2])
-        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
@@ -1403,7 +1398,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
         type = TypeService.find_by_link_rewrite(params[:param2])
         state = State.find_by_link_rewrite(params[:param1])
-        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
       end
 
 
