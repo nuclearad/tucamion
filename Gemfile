@@ -49,5 +49,3 @@ gem 'kaminari'
 # HAML support
 gem 'haml'
 gem 'haml-rails'
-# Bootstrap support
-gem 'bootstrap-sass'
