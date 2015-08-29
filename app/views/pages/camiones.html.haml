@@ -33,8 +33,8 @@
                               %h3.name
                                 %a{:href => "#"}= truck.nombre
                               .description
-                                = truck.modelo
-                                | #{truck.state.name}
+                                - if truck.state
+                                  = "#{truck.modelo} | #{truck.state.name}"
                               .product-price
                                 %span.price= number_to_currency( truck.price,  precision: 0, delimiter: '.')
                             .cart.clearfix.animate-effect

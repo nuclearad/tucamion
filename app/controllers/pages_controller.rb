@@ -622,7 +622,7 @@ ORDER BY created_at DESC')
 
 
 
-      @trucks = Truck.all.where(active: 1).page(params[:page]).per(Environment::LIMIT_SEARCH)
+      @trucks = Truck.where(active: 1).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
 
 
       @modelos = Truck.
@@ -800,9 +800,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5')
       end
 
 
-
-
-        @trucks = Truck.where(toSql(@queryTrucks)).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @trucks = Truck.where(toSql(@queryTrucks)).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
 
 
         if TypeTruck.where(link_rewrite: params[:param1]).exists?
@@ -810,7 +808,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5')
           types = TypeTruck.find_by_link_rewrite(params[:param1])
 
           @queryTrucks.push(['type_truck_id', types.id])
-          @trucks = Truck.where(toSql(@queryTrucks)).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+          @trucks = Truck.where(toSql(@queryTrucks)).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
 
 
           @queryModelos.push (['type_truck_id', types.id])
@@ -827,7 +825,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5')
           @muestroMarca = false
           brand = BrandTruck.find_by_link_rewrite(params[:param1])
           @queryTrucks.push(['brand_truck_id', brand.id])
-          @trucks = Truck.where(toSql(@queryTrucks)).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+          @trucks = Truck.where(toSql(@queryTrucks)).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
 
           @queryModelos.push (['brand_truck_id', brand.id])
 
@@ -842,7 +840,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5')
           @muestroEstado = false
 
           @queryTrucks.push(['state_id', state.id])
-          @trucks = Truck.where(toSql(@queryTrucks)).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+          @trucks = Truck.where(toSql(@queryTrucks)).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
 
 
           @queryModelos.push (['state_id', state.id])
@@ -1041,7 +1039,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
       end
 
 
-      @trucks = Truck.where(toSql(@queryTrucks)).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+      @trucks = Truck.where(toSql(@queryTrucks)).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
 
 
       @modelos = Truck.
@@ -1258,7 +1256,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
       end
 
 
-      @trucks = Truck.where(toSql(@queryTrucks)).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
+      @trucks = Truck.where(toSql(@queryTrucks)).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
 
 
       @modelos = Truck.

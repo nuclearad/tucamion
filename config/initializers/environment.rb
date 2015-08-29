@@ -1,3 +1,3 @@
 class Environment
-  LIMIT_SEARCH  = 2
+  LIMIT_SEARCH  = 24
 end
