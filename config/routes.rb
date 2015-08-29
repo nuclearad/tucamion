@@ -74,7 +74,7 @@ Rails.application.routes.draw do
 
 
 
-  get 'camion/:id-:link' => 'pages#camion', :as =>'camion'
+  get 'camion/:id' => 'pages#camion', :as =>'camion'
   get 'camiones' => 'pages#camiones'
   get 'camiones/:param1' => 'pages#camiones'
   get 'camiones/:param1/:param2' => 'pages#camiones'

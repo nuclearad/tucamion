@@ -1,0 +1,50 @@
+.breadcrumb
+.container
+  .breadcrumb-inner
+    %ul.list-inline.list-unstyled
+      %li
+        %a{:href => "/"} Home
+      %li /
+      %li.active Camiones
+.body-content.outer-top-xs
+  .container
+    .row.outer-bottom-sm
+      .col-md-3.sidebar
+        = render 'includes/eliminar'
+        = render 'includes/categoriasmenu'
+        .sidebar-module-container
+          = render 'includes/buscadoravanzado'
+      .col-md-9
+        .search-result-container
+          #myTabContent.tab-content
+            #grid-container.tab-pane.active
+              .category-product.inner-top-vs
+                .row
+                  - if !@trucks.nil? && @trucks.count>0
+                    - @trucks.each do |truck|
+                      .col-md-3.wow.fadeInUp
+                        .products
+                          .product
+                            .product-image
+                              .image
+                                %a{:href => camion_path(truck.id, truck.link_rewrite)}
+                                  = image_tag truck.picture1(:thumb )
+                            .product-info.text-left
+                              %h3.name
+                                %a{:href => "#"}= truck.nombre
+                              .description
+                                - if truck.state
+                                  = "#{truck.modelo} | #{truck.state.name}"
+                              .product-price
+                                %span.price= number_to_currency( truck.price,  precision: 0, delimiter: '.')
+                            .cart.clearfix.animate-effect
+                              .action
+                                %ul.list-unstyled
+                                  %li.add-cart-button.btn-group
+                                    %a.btn.btn-primary{:href => camion_path(truck.id, truck.link_rewrite)} Ver más
+                  - else
+                    .row
+                      .col-md-12
+                        %p
+                          No se encuentran resultados con la busqueda
+          = render partial: '/includes/paginator', locals: {object: @trucks}
