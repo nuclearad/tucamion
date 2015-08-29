@@ -1,0 +1,108 @@
+.col-xs-12.col-sm-12.col-md-12
+  .product-tabs.outer-top-smal.wow.fadeInUp
+    %ul#product-tabs.nav.nav-tabs.nav-tab-cell-detail
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#camiones"} ENCUENTRA TU CAMIÓN
+      %li
+        %a{"data-toggle" => "tab", :href => "#repuestos"} REPUESTOS
+      %li
+        %a{"data-toggle" => "tab", :href => "#servicios"} SERVICIOS
+    / /.nav-tabs #product-tabs
+    .tab-content.outer-top-xs
+      #camiones.tab-pane.in.active
+        .product-tab.sty-tabsh
+          = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p
+                  TIPO DE
+                  %b CAMIÓN
+              .attribute_list
+                = select :camion,:type, options_for_select(@types.map{ |c| [c.name, c.link_rewrite, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, :class=>'form-control'
+              / /.attribute_list
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p MARCAS
+              .attribute_list
+                = collection_select(:camion, :brand, BrandTruck.order(:name), :link_rewrite, :name, {prompt: 'Todas las marcas'}, :class=>'form-control')
+              / /.attribute_list
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p UBICACIÓN
+              .attribute_list
+                = collection_select(:camion, :state, State.order(:id), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
+              / /.attribute_list
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}  
+              .attribute_list.pull-right{:style => "width: 100%;"}
+                %button#btn-camion.btn.btn-primary{:style => "width:100%", :type => "submit"} BUSCAR
+              / /.attribute_list
+      / /.tab-pane
+      #repuestos.tab-pane
+        .product-tab.sty-tabsh
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p
+                  TIPO DE
+                  %b CAMIÓN
+              .attribute_list
+                = select :servicio,:type, options_for_select(@types.map{ |c| [c.name, c.link_rewrite, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, :class=>'form-control'
+              / /.attribute_list
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p
+                  TIPO DE
+                  %b REPUESTOS
+              .attribute_list
+                = collection_select(:servicio, :brand, BrandExtra.order(:id), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
+              / /.attribute_list
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p UBICACIÓN
+              .attribute_list
+                = collection_select(:servicio, :state, State.order('name ASC'), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
+              / /.attribute_list
+          .col-xs-3.col-sm-3.col-md-3
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}  
+              .attribute_list.pull-right{:style => "width:100%"}
+                %button#btn-repuesto.btn.btn-primary{:style => "width:100%", :type => "button"} BUSCAR
+              / /.attribute_list
+        / /.product-tab
+      / /.tab-pane
+      #servicios.tab-pane
+        .product-tab.sty-tabsh
+          .col-xs-4.col-sm-4.col-md-4
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p
+                  TIPO DE
+                  %b SERVICIO
+              .attribute_list
+                = collection_select(:state, :service, TypeService.order(:id), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
+              / /.attribute_list
+          .col-xs-4.col-sm-4.col-md-4
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}
+                %p UBICACIÓN
+              .attribute_list
+                = collection_select(:servi, :state, State.order('name ASC'), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
+              / /.attribute_list
+          .col-xs-4.col-sm-4.col-md-4
+            %fieldset.attribute_fieldset
+              %label.attribute_label.attribute-key{:for => "group_1"}  
+              .attribute_list.pull-right{:style => "width:100%"}
+                %button#btn-servi.btn.btn-primary{:style => "width:100%", :type => "button"} BUSCAR
+              / /.attribute_list
+        / /.product-tab
+      / /.tab-pane
+    / /.tab-content
+  / /.product-tabs
+/ /.logo-holder
