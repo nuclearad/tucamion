@@ -1060,13 +1060,10 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
   end
 
-
-
   def repuestos
     search  = Extra.where(active: 1).includes(:state, :city).search(params[:q])
     @extras = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
   end
-
 
   def servicios
     search    = Service.where(active: 1).includes(:state, :city).search(params[:q])
@@ -1077,7 +1074,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @truck = Truck.find_by_id(params[:id])
     @ciudad = City.find_by_id(@truck.placa_city_id)
   end
-
 
   def servicio
     @service = Service.find_by_id(params[:id])
