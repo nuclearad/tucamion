@@ -417,9 +417,7 @@ GROUP BY S.id
 
 
     @banners = Banner.all.order('rand()').limit(3)
-    @tiposCaminiones = TypeTruck.all
-
-
+    @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
 
     if(params[:param1].nil? && params[:param2].nil? && params[:param3].nil?)
 
@@ -551,10 +549,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5')
         end
 
       end
-
-
-
-
 
 
       if params[:param1current].include? '_'
@@ -698,14 +692,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           order('name DESC').
           where(toSql(@queryModelos))
 
-
-
-
-
-
     end
-
-
 
 
     #busqueda de dos parametro
@@ -765,10 +752,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
       end
 
 
-
-
-
-
       if params[:param2].include? '_'
 
         @parametroUrl =  params[:param2].split('_')
@@ -805,7 +788,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
 
 
-
         if @parametroUrl.index('kilometraje')
           @mostrarKm = false
 
@@ -831,7 +813,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           end
 
         end
-
 
 
       end
@@ -888,11 +869,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           where(toSql(@queryTrucks)).
           group('name').
           order('name DESC')
-
-
-
-
-
 
 
     end
@@ -960,9 +936,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
       end
 
 
-
-
-
       if TypeTruck.where(link_rewrite: extraigoParametroprincicpal(params[:param3])).exists?
         @p3 = 'type'
 
@@ -986,9 +959,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
         state = State.find_by_link_rewrite(extraigoParametroprincicpal(params[:param3]))
         @queryTrucks.push(['state_id', state.id])
       end
-
-
-
 
 
       if params[:param3].include? '_'
@@ -1024,8 +994,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           @queryTrucks.push(['precio',valor])
 
         end
-
-
 
 
         if @parametroUrl.index('kilometraje')
@@ -1106,20 +1074,10 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           group('name').
           order('name DESC')
 
-
-
-
-
     end
 
   end
 
-
-
-  def camion
-    @truck = Truck.find_by_id(params[:id])
-    @ciudad = City.find_by_id(@truck.placa_city_id)
-  end
 
 
   def repuestos
@@ -1132,6 +1090,12 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     search    = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
   end
+
+  def camion
+    @truck = Truck.find_by_id(params[:id])
+    @ciudad = City.find_by_id(@truck.placa_city_id)
+  end
+
 
   def servicio
     @service = Service.find_by_id(params[:id])
