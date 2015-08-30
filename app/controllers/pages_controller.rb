@@ -12,7 +12,9 @@ class PagesController < ApplicationController
 
 
   def camiontipo
-    @trucks = Truck.where(sub_truck_id: params[:id]).order(:nombre).all
+    @trucks = Truck.where(sub_truck_id: params[:id])
+                   .all.order(:nombre).includes(:state)
+                   .page(params[:page]).per(Environment::LIMIT_SEARCH)
   end
 
   def busqueda
