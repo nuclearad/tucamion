@@ -466,19 +466,12 @@ ORDER BY created_at DESC')
 
     if(params[:param1].nil? && params[:param2].nil? && params[:param3].nil?)
 
-
-
-
-
       @trucks = Truck.where(active: 1).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
-
 
       @modelos = Truck.
           select('modelo, count(modelo) as total').
           group('modelo').
           order('modelo DESC')
-
-
 
       @estado = Truck.
           select('

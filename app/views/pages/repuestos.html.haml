@@ -23,7 +23,7 @@
                             .product-image
                               .image
                                 %a{:href => repuesto_path(extra.id, extra.link_rewrite)}
-                                  = image_tag extra.picture1(:thumb )
+                                  = image_tag extra.picture1(:thumb ), size: "120x120"
                             .product-info.text-left
                               %h3.name
                                 %a{:href => "#"}= extra.name

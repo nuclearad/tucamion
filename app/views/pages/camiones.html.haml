@@ -28,7 +28,7 @@
                             .product-image
                               .image
                                 %a{:href => camion_path(truck.id, truck.link_rewrite)}
-                                  = image_tag truck.picture1(:thumb )
+                                  = image_tag truck.picture1(:thumb ), size: "150x150"
                             .product-info.text-left
                               %h3.name
                                 %a{:href => "#"}= truck.nombre

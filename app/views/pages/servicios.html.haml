@@ -23,7 +23,7 @@
                             .product-image
                               .image
                                 %a{:href => servicio_path(servicio.id, servicio.link_rewrite)}
-                                  = image_tag servicio.picture1(:thumb )
+                                  = image_tag servicio.picture1(:thumb ), size: "150x150"
                             .product-info.text-left
                               %h3.name
                                 %a{:href => "#"}= servicio.name
