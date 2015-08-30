@@ -80,10 +80,7 @@ Rails.application.routes.draw do
 
 
   get 'repuesto/:id-:link' => 'pages#repuesto', :as =>'repuesto'
-  get 'repuestos' => 'pages#repuestos'
-  get 'repuestos/:param1' => 'pages#repuestos'
-  get 'repuestos/:param1/:param2' => 'pages#repuestos'
-  get 'repuestos/:param1/:param2/:param3' => 'pages#repuestos'
+  match 'repuestos' => 'pages#repuestos', via: [:get, :post]
 
 
 

@@ -43,37 +43,35 @@
               / /.attribute_list
       / /.tab-pane
       #repuestos.tab-pane
-        .product-tab.sty-tabsh
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p
-                  TIPO DE
-                  %b CAMIÓN
-              .attribute_list
-                = select :servicio,:type, options_for_select(@types.map{ |c| [c.name, c.link_rewrite, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, :class=>'form-control'
-              / /.attribute_list
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p
-                  TIPO DE
-                  %b REPUESTOS
-              .attribute_list
-                = collection_select(:servicio, :brand, BrandExtra.order(:id), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
-              / /.attribute_list
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p UBICACIÓN
-              .attribute_list
-                = collection_select(:servicio, :state, State.order('name ASC'), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
-              / /.attribute_list
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}  
-              .attribute_list.pull-right{:style => "width:100%"}
-                %button#btn-repuesto.btn.btn-primary{:style => "width:100%", :type => "button"} BUSCAR
+        = search_form_for @search_repu, url: repuestos_path, id: "search_repu", method: :post do |f|
+          .product-tab.sty-tabsh
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p
+                    TIPO DE
+                    %b CAMIÓN
+                .attribute_list
+                  = f.select(:type_truck_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'servicio_type'})
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p
+                    TIPO DE
+                    %b REPUESTOS
+                .attribute_list
+                  = f.select(:brand_extra_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p UBICACIÓN
+                .attribute_list
+                  = f.select(:state_id_eq, options_from_collection_for_select(State.order('name ASC'), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}  
+                .attribute_list.pull-right{:style => "width:100%"}
+                  = f.submit "BUSCAR", class: "btn-servi btn btn-primary"
       #servicios.tab-pane
         = search_form_for @search_serv, url:  servicios_path, id: "search_serv", method: :post do |f|
           .product-tab.sty-tabsh
