@@ -5,8 +5,9 @@ class PagesController < ApplicationController
   def index
     @search_serv = Service.search(params[:q])
     @search_repu = Extra.search(params[:q])
-    @types = TypeTruck.all
-    @banners = House.all
+    @states      = State.all.order(:name)
+    @types       = TypeTruck.all
+    @banners     = House.all
   end
 
 

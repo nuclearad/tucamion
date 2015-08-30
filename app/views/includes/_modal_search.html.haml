@@ -33,7 +33,7 @@
               %label.attribute_label.attribute-key{:for => "group_1"}
                 %p UBICACIÓN
               .attribute_list
-                = collection_select(:camion, :state, State.order(:id), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
+                = collection_select(:camion, :state, @states, :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
               / /.attribute_list
           .col-xs-3.col-sm-3.col-md-3
             %fieldset.attribute_fieldset
@@ -66,7 +66,7 @@
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p UBICACIÓN
                 .attribute_list
-                  = f.select(:state_id_eq, options_from_collection_for_select(State.order('name ASC'), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
+                  = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
             .col-xs-2.col-sm-2.col-md-2
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
@@ -100,7 +100,7 @@
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p UBICACIÓN
                 .attribute_list
-                  = f.select(:state_id_eq, options_from_collection_for_select(State.order('name ASC'), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
+                  = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
             .col-xs-4.col-sm-4.col-md-4
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}  
