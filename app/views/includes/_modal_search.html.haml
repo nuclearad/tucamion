@@ -74,35 +74,25 @@
               %label.attribute_label.attribute-key{:for => "group_1"}  
               .attribute_list.pull-right{:style => "width:100%"}
                 %button#btn-repuesto.btn.btn-primary{:style => "width:100%", :type => "button"} BUSCAR
-              / /.attribute_list
-        / /.product-tab
-      / /.tab-pane
       #servicios.tab-pane
-        .product-tab.sty-tabsh
-          .col-xs-4.col-sm-4.col-md-4
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p
-                  TIPO DE
-                  %b SERVICIO
-              .attribute_list
-                = collection_select(:state, :service, TypeService.order(:id), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
-              / /.attribute_list
-          .col-xs-4.col-sm-4.col-md-4
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p UBICACIÓN
-              .attribute_list
-                = collection_select(:servi, :state, State.order('name ASC'), :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
-              / /.attribute_list
-          .col-xs-4.col-sm-4.col-md-4
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}  
-              .attribute_list.pull-right{:style => "width:100%"}
-                %button#btn-servi.btn.btn-primary{:style => "width:100%", :type => "button"} BUSCAR
-              / /.attribute_list
-        / /.product-tab
-      / /.tab-pane
-    / /.tab-content
-  / /.product-tabs
-/ /.logo-holder
+        = search_form_for @search_serv, url:  servicios_path, id: "search_serv", method: :post do |f|
+          .product-tab.sty-tabsh
+            .col-xs-4.col-sm-4.col-md-4
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p
+                    TIPO DE
+                    %b SERVICIO
+                .attribute_list
+                  = f.select(:type_service_id_eq, options_from_collection_for_select(TypeService.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'state_service'})
+            .col-xs-4.col-sm-4.col-md-4
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p UBICACIÓN
+                .attribute_list
+                  = f.select(:state_id_eq, options_from_collection_for_select(State.order('name ASC'), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
+            .col-xs-4.col-sm-4.col-md-4
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}  
+                .attribute_list.pull-right{:style => "width:100%"}
+                  = f.submit "BUSCAR", class: "btn-servi btn btn-primary"

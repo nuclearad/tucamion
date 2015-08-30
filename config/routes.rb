@@ -66,10 +66,7 @@ Rails.application.routes.draw do
 
 
   get 'servicio/:id-:link' => 'pages#servicio', :as =>'servicio'
-  get 'servicios' => 'pages#servicios'
-  get 'servicios/:param1' => 'pages#servicios'
-  get 'servicios/:param1/:param2' => 'pages#servicios'
-
+  match 'servicios' => 'pages#servicios', via: [:get, :post]
 
 
 

@@ -3,10 +3,10 @@ class PagesController < ApplicationController
 
 
   def index
+    @search_serv = Service.search(params[:q])
     @types = TypeTruck.all
     @banners = House.all
   end
-
 
 
   def camiontipo
@@ -1330,89 +1330,9 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
   def servicios
 
-    if(params[:param1].nil? && params[:param2].nil?)
+    search    = Service.includes(:state, :city).search(params[:q])
+    @services = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
     
-      @services = Service.all.where(active: 1).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    end
-
-
-
-
-    #busqueda de un parametro
-    if(!params[:param1].nil? && params[:param2].nil?)
-
-      if TypeService.where(link_rewrite: params[:param1]).exists?
-        types = TypeService.find_by_link_rewrite(params[:param1])
-        @services = Service.where(type_service_id: types.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if State.where(link_rewrite: params[:param1]).exists?
-        state = State.find_by_link_rewrite(params[:param1])
-        @services = Service.where(state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-    end
-
-
-
-
-    #busqueda de dos parametro
-    if(!params[:param1].nil? && !params[:param2].nil? && params[:param3].nil?)
-      @p1 = nil
-      @p2 = nil
-
-
-      if Service.where(link_rewrite: params[:param1]).exists?
-        @p1 = 'service'
-      end
-
-
-      if State.where(link_rewrite: params[:param2]).exists?
-        @p2 = 'state'
-      end
-
-
-      if Service.where(link_rewrite: params[:param2]).exists?
-        @p2 = 'service'
-      end
-
-
-      if State.where(link_rewrite: params[:param1]).exists?
-        @p1 = 'state'
-      end
-
-
-
-
-
-      if @p1 == 'service' &&  @p2 == 'state'
-
-        type = TypeService.find_by_link_rewrite(params[:param1])
-        state = State.find_by_link_rewrite(params[:param2])
-        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if @p1 == 'state' &&  @p2 == 'service'
-
-        type = TypeService.find_by_link_rewrite(params[:param2])
-        state = State.find_by_link_rewrite(params[:param1])
-        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-
-
-
-
-    end
-
-
-
-
-
-
   end
 
   def servicio
