@@ -413,12 +413,10 @@ ORDER BY created_at DESC')
       render json: @brands
 
     else
-      @brands = Truck.where(type_truck_id: params[:id]).group(:brand_truck_id)
+      @brands = Truck.where(type_truck_id: params[:id]).group(:brand_truck_id).includes(:brand_truck)
       render json: @brands, :include =>[:brand_truck]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
     end
-
-
 
   end
 
@@ -434,12 +432,10 @@ ORDER BY created_at DESC')
       render json: @brands
 
     else
-      @brands = Extra.where(type_truck_id: params[:id]).group(:brand_extra_id)
+      @brands = Extra.where(type_truck_id: params[:id]).group(:brand_extra_id).includes(:brand_extra)
       render json: @brands, :include =>[:brand_extra]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
     end
-
-
 
   end
 
@@ -448,9 +444,7 @@ ORDER BY created_at DESC')
   end
 
   def camiones
-    puts "***********************aqui entra el search del home******************************"
-    #@types = TypeTruck.all
-    #@p = params
+   
     @fullbBase = request.original_url
     @queryModelos = []
     @queryStates = []
