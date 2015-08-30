@@ -4,20 +4,23 @@
     %ul.list-inline.list-unstyled
       %li
         %a{:href => "/"} Home
-      %li /
-      %li.active Camiones
+      %li.active= params[:consulta]
 .body-content.outer-top-xs
   .container
     .row.outer-bottom-sm
-      .col-md-3.sidebar
-        = render 'includes/eliminar'
-        = render 'includes/categoriasmenu'
-        .sidebar-module-container
-          = render 'includes/buscadoravanzado'
       .col-md-9
         .search-result-container
           #myTabContent.tab-content
             #grid-container.tab-pane.active
               .category-product.inner-top-vs
                 .row
+                  %h2 CAMIONES
                   = render partial: 'shared/list_trucks'
+                  %hr/
+                .row
+                  %h2 Repuestos
+                  = render partial: 'shared/list_extras'
+                  %hr/
+                .row
+                  %h2 Servicios
+                  %hr/

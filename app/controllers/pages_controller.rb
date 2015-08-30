@@ -17,39 +17,24 @@ class PagesController < ApplicationController
 
   def busqueda
 
+    strSearch = params[:consulta]
+    
+    @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
+                     .like_join(strSearch).includes(:state)
+                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-
-    @trucks = Truck.find_by_sql("SELECT * FROM trucks T
-INNER JOIN brand_trucks M ON  T.brand_truck_id = M.id
-INNER JOIN type_trucks C ON  T.type_truck_id = C.id
-INNER JOIN sub_trucks S ON  T.sub_truck_id = S.id
-WHERE
-T.nombre LIKE '%"+params[:consulta]+"%' OR
-M.name LIKE '%"+params[:consulta]+"%' OR
-C.name LIKE '%"+params[:consulta]+"%' OR
-S.name LIKE '%"+params[:consulta]+"%'
-GROUP BY T.id
-")
-
-
-
-
-    @extras = Extra.find_by_sql("SELECT E.* FROM extras E
-INNER JOIN brand_extras M ON E.brand_extra_id = M.id
-WHERE
-E.name LIKE '%"+params[:consulta]+"%' OR
-M.name LIKE '%"+params[:consulta]+"%'
-GROUP BY E.id
-")
-
+    @extras   = Extra.joins(:brand_extra, :type_truck)
+                     .like_join(strSearch).includes(:state, :city)
+                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
+=begin
 
     @services = Service.find_by_sql("SELECT S.* FROM services S
 INNER JOIN type_services T ON S.type_service_id = T.id
 WHERE S.name LIKE '%"+params[:consulta]+"%' OR
 T.name LIKE '%"+params[:consulta]+"%'
 GROUP BY S.id
-")
-
+").page(params[:page]).per(Environment::LIMIT_SEARCH)
+=end
   end
 
 

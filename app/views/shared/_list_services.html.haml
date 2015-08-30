@@ -1,0 +1,24 @@
+- if !@services.nil?  && @services.count>0
+  - @services.each do |servicio|
+    .col-md-3.wow.fadeInUp
+      .products
+        .product
+          .product-image
+            .image
+              %a{:href => servicio_path(servicio.id, servicio.link_rewrite)}
+                = image_tag servicio.picture1(:thumb ), size: "150x150"
+          .product-info.text-left
+            %h3.name
+              %a{:href => "#"}= servicio.name
+            .description
+              = servicio.city.name
+              | #{servicio.state.name}
+          .cart.clearfix.animate-effect
+            .action
+              %ul.list-unstyled
+                %li.add-cart-button.btn-group
+                  %a.btn.btn-primary{:href => servicio_path(servicio.id, servicio.link_rewrite)} Ver más
+- else
+  %p
+    No se encuentran resultados con la busqueda
+= render partial: '/includes/paginator', locals:{object: @services}

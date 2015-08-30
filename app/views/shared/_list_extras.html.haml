@@ -1,0 +1,26 @@
+- if !@extras.nil?  && @extras.size>0
+  - @extras.each do |extra|
+    .col-md-3.wow.fadeInUp
+      .products
+        .product
+          .product-image
+            .image
+              %a{:href => repuesto_path(extra.id, extra.link_rewrite)}
+                = image_tag extra.picture1(:thumb ), size: "120x120"
+          .product-info.text-left
+            %h3.name
+              %a{:href => "#"}= extra.name
+            .description
+              = extra.city.name
+              | #{extra.state.name}
+            .product-price
+              %span.price= number_to_currency( extra.price,  precision: 0, delimiter: '.')
+          .cart.clearfix.animate-effect
+            .action
+              %ul.list-unstyled
+                %li.add-cart-button.btn-group
+                  %a.btn.btn-primary{:href => repuesto_path(extra.id, extra.link_rewrite)} Ver más
+- else
+  %p
+    No se encuentran resultados con la busqueda
+= render partial: '/includes/paginator', locals: {object: @extras}
