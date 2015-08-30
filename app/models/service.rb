@@ -56,4 +56,9 @@ class Service < ActiveRecord::Base
   end
 
 
+  scope :like_join, ->(str){
+    self.where("services.name LIKE '%#{str}%' OR
+                type_services.name LIKE '%#{str}%'")
+  }
+
 end

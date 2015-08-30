@@ -26,15 +26,11 @@ class PagesController < ApplicationController
     @extras   = Extra.joins(:brand_extra, :type_truck)
                      .like_join(strSearch).includes(:state, :city)
                      .page(params[:page]).per(Environment::LIMIT_SEARCH)
-=begin
 
-    @services = Service.find_by_sql("SELECT S.* FROM services S
-INNER JOIN type_services T ON S.type_service_id = T.id
-WHERE S.name LIKE '%"+params[:consulta]+"%' OR
-T.name LIKE '%"+params[:consulta]+"%'
-GROUP BY S.id
-").page(params[:page]).per(Environment::LIMIT_SEARCH)
-=end
+    @services = Service.joins(:type_service)
+                       .like_join(strSearch).includes(:state, :city)
+                       .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
   end
 
 
