@@ -1061,8 +1061,9 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def repuestos
-    search  = Extra.where(active: 1).includes(:state, :city).search(params[:q])
-    @extras = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    search       = Extra.where(active: 1).includes(:state, :city).search(params[:q])
+    @extras      = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_trucks = TypeTruck.includes(:brand_extra)
   end
 
   def servicios
