@@ -68,21 +68,12 @@ GROUP BY S.id
 
   def departamentos
 
-
     @cities = City.where(state_id: params[:state_id]).order(:name).all
     @state = State.find_by_id(params[:state_id])
 
     render :json => @cities
 
-
-
-
-
-
   end
-
-
-
 
   def comprar
 
@@ -99,15 +90,10 @@ GROUP BY S.id
       end
     end
 
-
-
   end
 
 
-
   def guardarMensaje
-
-
 
     o = Message.new(
         :nombre => params[:nombre],
@@ -159,10 +145,8 @@ GROUP BY S.id
 
     end
 
-
     render json: data
   end
-
 
 
   def micamiones
@@ -176,7 +160,6 @@ GROUP BY S.id
       render :layout => 'layouts/cliente'
     end
   end
-
 
 
   def micamionesnew
@@ -204,7 +187,6 @@ GROUP BY S.id
 
     end
   end
-
 
 
   def micamionesedit
@@ -235,21 +217,10 @@ GROUP BY S.id
           render :layout => 'layouts/cliente'
         end
 
-
-
-
-
-
-
       end
-
-
-
 
     end
   end
-
-
 
 
   def mirepuestos
@@ -321,7 +292,6 @@ GROUP BY S.id
   end
 
 
-
   def miserviciosnew
     if session[:user].nil?
       redirect_to micuenta_path
@@ -349,58 +319,46 @@ GROUP BY S.id
   end
 
 
-
-
   def micuenta
 
+      if session[:user].nil?
+
+            @message = false
+            if request.post?
+              @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
+
+              if @usuario.count == 0
+                @message = true
+                flash[:notice] = ' Email o Clave invalida'
+              else
+                session[:user] = @usuario[0].id
 
 
+              end
+              redirect_to micuenta_path
+            else
+              render :action => 'micuentalogin', :layout => 'layouts/devise'
+            end
 
-  if session[:user].nil?
-
-      @message = false
-      if request.post?
-        @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
-
-        if @usuario.count == 0
-          @message = true
-          flash[:notice] = ' Email o Clave invalida'
-        else
-          session[:user] = @usuario[0].id
-
-
-        end
-        redirect_to micuenta_path
       else
-        render :action => 'micuentalogin', :layout => 'layouts/devise'
+
+        @user = Customer.find_by_id(session[:user])
+         
+        @offers = Offercustomer.where(:customer_id => session[:user])
+
+
+        @publicaciones  = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
+      UNION
+      (SELECT id,  name, created_at as nombre, 2 as tipo FROM services WHERE customer_id='+session[:user].to_s+')
+      UNION
+      (SELECT id, name, created_at as nombre, 3 as tipo  FROM extras WHERE customer_id='+session[:user].to_s+')
+      ORDER BY created_at DESC')
+
+        render :action => 'micuenta', :layout => 'layouts/cliente'
+      
       end
 
-  else
-
-    @user = Customer.find_by_id(session[:user])
-    @offers = Offercustomer.where(:customer_id => session[:user])
-
-
-    @publicaciones  = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
-UNION
-(SELECT id,  name, created_at as nombre, 2 as tipo FROM services WHERE customer_id='+session[:user].to_s+')
-UNION
-(SELECT id, name, created_at as nombre, 3 as tipo  FROM extras WHERE customer_id='+session[:user].to_s+')
-ORDER BY created_at DESC')
-
-
-
-    render :action => 'micuenta', :layout => 'layouts/cliente'
   end
-
-
-
-  end
-
-
-
-
-
 
 
   def getbrands
@@ -419,7 +377,6 @@ ORDER BY created_at DESC')
     end
 
   end
-
 
 
   def getbrandsextra
