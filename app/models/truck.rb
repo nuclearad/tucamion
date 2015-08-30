@@ -145,7 +145,8 @@ class Truck < ActiveRecord::Base
     self.where("trucks.nombre LIKE '%#{str}%' OR
                 brand_trucks.name LIKE '%#{str}%' OR
                 type_trucks.name LIKE '%#{str}%' OR
-                sub_trucks.name LIKE '%#{str}%'")#.group('trucks.id')
+                sub_trucks.name LIKE '%#{str}%' AND
+                trucks.active = 1")#.group('trucks.id')
   }
 
 end

@@ -64,7 +64,8 @@ class Extra < ActiveRecord::Base
   scope :like_join, ->(str){
     self.where("extras.name LIKE '%#{str}%' OR
                 brand_extras.name LIKE '%#{str}%' OR
-                type_trucks.name LIKE '%#{str}%'")
+                type_trucks.name LIKE '%#{str}%' AND
+                extras.active = 1")
   }
   
 end
