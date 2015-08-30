@@ -72,13 +72,13 @@
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p PRECIO MAYOR IGUAL
                 .attribute_list
-                  = f.select(:price_gteq, options_for_select(Extra.order('price ASC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'price_gteq'})
+                  = f.select(:price_gteq, options_for_select(Extra.order('price ASC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_gteq'})
             .col-xs-2.col-sm-2.col-md-2
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p PRECIO MENOR IGUAL
                 .attribute_list
-                  = f.select(:price_lteq, options_for_select(Extra.order('price DESC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'price_lteq'})
+                  = f.select(:price_lteq, options_for_select(Extra.order('price DESC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_lteq'})
             .col-xs-2.col-sm-2.col-md-2
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}  
