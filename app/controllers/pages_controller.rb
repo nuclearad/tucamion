@@ -21,19 +21,22 @@ class PagesController < ApplicationController
   def busqueda
 
     strSearch = params[:consulta]
-    
-    @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
-                     .like_join(strSearch).includes(:state)
-                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
+      if strSearch.size <= 50 
+      @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
+                       .like_join(strSearch).includes(:state)
+                       .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-    @extras   = Extra.joins(:brand_extra, :type_truck)
-                     .like_join(strSearch).includes(:state, :city)
-                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
-
-    @services = Service.joins(:type_service)
+      @extras   = Extra.joins(:brand_extra, :type_truck)
                        .like_join(strSearch).includes(:state, :city)
                        .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
+      @services = Service.joins(:type_service)
+                         .like_join(strSearch).includes(:state, :city)
+                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    else
+      @message = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
+    end
+    
   end
 
 
