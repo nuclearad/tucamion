@@ -15,6 +15,7 @@ class PagesController < ApplicationController
     @trucks = Truck.where(sub_truck_id: params[:id])
                    .all.order(:nombre).includes(:state)
                    .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
   end
 
   def busqueda

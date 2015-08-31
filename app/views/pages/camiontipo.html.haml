@@ -1,0 +1,21 @@
+.breadcrumb
+.container
+  .breadcrumb-inner
+    %ul.list-inline.list-unstyled
+      %li
+        %a{:href => "/"} Home
+      %li /
+      %li.active Camiones
+.body-content.outer-top-xs
+  .container
+    .row.outer-bottom-sm
+      .col-md-3.sidebar
+        = render 'includes/type_trucks'
+        .sidebar-module-container
+      .col-md-9
+        .search-result-container
+          #myTabContent.tab-content
+            #grid-container.tab-pane.active
+              .category-product.inner-top-vs
+                .row
+                  = render partial: 'shared/list_trucks'
