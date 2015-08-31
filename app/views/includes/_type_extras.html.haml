@@ -15,4 +15,4 @@
                     %ul.links.list-unstyled
                       - type.brand_extra.each do |brand|
                         %li
-                          %a{:href => "#"}= brand.name
+                          = link_to brand.name, "/repuesto-tipo/#{brand.id}"

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'comprar' => 'pages#comprar'
   get 'busqueda' => 'pages#busqueda'
   get 'camion-tipo/:id' => 'pages#camiontipo'
-
+  get 'repuesto-tipo/:id' => 'pages#repuestotipo'
 
   get 'mi-cuenta' => 'pages#micuenta', :as=> 'micuenta'
   post 'mi-cuenta' => 'pages#micuenta'
