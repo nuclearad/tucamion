@@ -35,8 +35,8 @@
       .col-xs-12.col-sm-12.col-md-6.top-search-holder{:style => "float:right"}
         .search-area
           = form_tag('/busqueda', {id: "form_search"}) do
-            %a.search-button{:href => "#", onClick: "document.getElementById('form_search').submit();"}
-            %input.search-field{:name => "consulta", :placeholder => "Buscar camiones, repuestos o servicios..."}/
+            = link_to '','#', class: 'search-button', onClick: "document.getElementById('form_search').submit();"
+            = text_field_tag "consulta", "",  maxlength: 50, class: 'search-field', placeholder: "Buscar camiones, repuestos o servicios..."
   .main-header.bgtoph
     .container
       .row
