@@ -3,50 +3,36 @@ class PagesController < ApplicationController
 
 
   def index
-    @types = TypeTruck.all
-    @banners = House.all
+    @search_serv = Service.search(params[:q])
+    @search_repu = Extra.search(params[:q])
+    @states      = State.all.order(:name)
+    @types       = TypeTruck.all
+    @banners     = House.all
   end
 
 
-
   def camiontipo
-    @trucks = Truck.where(sub_truck_id: params[:id]).order(:nombre).all
+    @trucks = Truck.where(sub_truck_id: params[:id], active: 1)
+                   .all.order(:nombre).includes(:state)
+                   .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @tiposCaminiones = TypeTruck.includes(:sub_trucks)
   end
 
   def busqueda
 
+    strSearch = params[:consulta]
+    
+    @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
+                     .like_join(strSearch).includes(:state)
+                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
+    @extras   = Extra.joins(:brand_extra, :type_truck)
+                     .like_join(strSearch).includes(:state, :city)
+                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-    @trucks = Truck.find_by_sql("SELECT * FROM trucks T
-INNER JOIN brand_trucks M ON  T.brand_truck_id = M.id
-INNER JOIN type_trucks C ON  T.type_truck_id = C.id
-INNER JOIN sub_trucks S ON  T.sub_truck_id = S.id
-WHERE
-T.nombre LIKE '%"+params[:consulta]+"%' OR
-M.name LIKE '%"+params[:consulta]+"%' OR
-C.name LIKE '%"+params[:consulta]+"%' OR
-S.name LIKE '%"+params[:consulta]+"%'
-GROUP BY T.id
-")
-
-
-
-
-    @extras = Extra.find_by_sql("SELECT E.* FROM extras E
-INNER JOIN brand_extras M ON E.brand_extra_id = M.id
-WHERE
-E.name LIKE '%"+params[:consulta]+"%' OR
-M.name LIKE '%"+params[:consulta]+"%'
-GROUP BY E.id
-")
-
-
-    @services = Service.find_by_sql("SELECT S.* FROM services S
-INNER JOIN type_services T ON S.type_service_id = T.id
-WHERE S.name LIKE '%"+params[:consulta]+"%' OR
-T.name LIKE '%"+params[:consulta]+"%'
-GROUP BY S.id
-")
+    @services = Service.joins(:type_service)
+                       .like_join(strSearch).includes(:state, :city)
+                       .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
   end
 
@@ -60,28 +46,17 @@ GROUP BY S.id
       @user = Customer.find_by_id(session[:user])
     end
 
-
-
   end
 
 
   def departamentos
-
 
     @cities = City.where(state_id: params[:state_id]).order(:name).all
     @state = State.find_by_id(params[:state_id])
 
     render :json => @cities
 
-
-
-
-
-
   end
-
-
-
 
   def comprar
 
@@ -98,15 +73,10 @@ GROUP BY S.id
       end
     end
 
-
-
   end
 
 
-
   def guardarMensaje
-
-
 
     o = Message.new(
         :nombre => params[:nombre],
@@ -158,10 +128,8 @@ GROUP BY S.id
 
     end
 
-
     render json: data
   end
-
 
 
   def micamiones
@@ -175,7 +143,6 @@ GROUP BY S.id
       render :layout => 'layouts/cliente'
     end
   end
-
 
 
   def micamionesnew
@@ -203,7 +170,6 @@ GROUP BY S.id
 
     end
   end
-
 
 
   def micamionesedit
@@ -234,21 +200,10 @@ GROUP BY S.id
           render :layout => 'layouts/cliente'
         end
 
-
-
-
-
-
-
       end
-
-
-
 
     end
   end
-
-
 
 
   def mirepuestos
@@ -320,7 +275,6 @@ GROUP BY S.id
   end
 
 
-
   def miserviciosnew
     if session[:user].nil?
       redirect_to micuenta_path
@@ -348,58 +302,46 @@ GROUP BY S.id
   end
 
 
-
-
   def micuenta
 
+      if session[:user].nil?
+
+            @message = false
+            if request.post?
+              @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
+
+              if @usuario.count == 0
+                @message = true
+                flash[:notice] = ' Email o Clave invalida'
+              else
+                session[:user] = @usuario[0].id
 
 
+              end
+              redirect_to micuenta_path
+            else
+              render :action => 'micuentalogin', :layout => 'layouts/devise'
+            end
 
-  if session[:user].nil?
-
-      @message = false
-      if request.post?
-        @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
-
-        if @usuario.count == 0
-          @message = true
-          flash[:notice] = ' Email o Clave invalida'
-        else
-          session[:user] = @usuario[0].id
-
-
-        end
-        redirect_to micuenta_path
       else
-        render :action => 'micuentalogin', :layout => 'layouts/devise'
+
+        @user = Customer.find_by_id(session[:user])
+         
+        @offers = Offercustomer.where(:customer_id => session[:user])
+
+
+        @publicaciones  = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
+      UNION
+      (SELECT id,  name, created_at as nombre, 2 as tipo FROM services WHERE customer_id='+session[:user].to_s+')
+      UNION
+      (SELECT id, name, created_at as nombre, 3 as tipo  FROM extras WHERE customer_id='+session[:user].to_s+')
+      ORDER BY created_at DESC')
+
+        render :action => 'micuenta', :layout => 'layouts/cliente'
+      
       end
 
-  else
-
-    @user = Customer.find_by_id(session[:user])
-    @offers = Offercustomer.where(:customer_id => session[:user])
-
-
-    @publicaciones  = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
-UNION
-(SELECT id,  name, created_at as nombre, 2 as tipo FROM services WHERE customer_id='+session[:user].to_s+')
-UNION
-(SELECT id, name, created_at as nombre, 3 as tipo  FROM extras WHERE customer_id='+session[:user].to_s+')
-ORDER BY created_at DESC')
-
-
-
-    render :action => 'micuenta', :layout => 'layouts/cliente'
   end
-
-
-
-  end
-
-
-
-
-
 
 
   def getbrands
@@ -412,15 +354,12 @@ ORDER BY created_at DESC')
       render json: @brands
 
     else
-      @brands = Truck.where(type_truck_id: params[:id]).group(:brand_truck_id)
+      @brands = Truck.where(type_truck_id: params[:id]).group(:brand_truck_id).includes(:brand_truck)
       render json: @brands, :include =>[:brand_truck]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
     end
 
-
-
   end
-
 
 
   def getbrandsextra
@@ -433,12 +372,10 @@ ORDER BY created_at DESC')
       render json: @brands
 
     else
-      @brands = Extra.where(type_truck_id: params[:id]).group(:brand_extra_id)
+      @brands = Extra.where(type_truck_id: params[:id]).group(:brand_extra_id).includes(:brand_extra)
       render json: @brands, :include =>[:brand_extra]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
     end
-
-
 
   end
 
@@ -446,157 +383,8 @@ ORDER BY created_at DESC')
     @extra = Extra.find_by_id(params[:id])
   end
 
-
-
-
-  def repuestos
-
-
-    if(params[:param1].nil? && params[:param2].nil? && params[:param3].nil?)
-      @extras = Extra.all.where(active: 1).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    end
-
-
-
-    #busqueda de un parametro
-    if(!params[:param1].nil? && params[:param2].nil? && params[:param3].nil?)
-
-      if TypeTruck.where(link_rewrite: params[:param1]).exists?
-        types = TypeTruck.find_by_link_rewrite(params[:param1])
-        @extras = Extra.where(type_truck_id: types.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if BrandExtra.where(link_rewrite: params[:param1]).exists?
-        brand = BrandExtra.find_by_link_rewrite(params[:param1])
-        @extras = Extra.where(brand_extra_id: brand.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if State.where(link_rewrite: params[:param1]).exists?
-        state = State.find_by_link_rewrite(params[:param1])
-        @extras = Extra.where(state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-    end
-
-
-
-
-
-    #busqueda de dos parametro
-    if(!params[:param1].nil? && !params[:param2].nil? && params[:param3].nil?)
-      @p1 = nil
-      @p2 = nil
-
-
-      if TypeTruck.where(link_rewrite: params[:param1]).exists?
-        @p1 = 'type'
-      end
-
-
-      if BrandExtra.where(link_rewrite: params[:param1]).exists?
-        @p1 = 'brand'
-      end
-
-
-      if State.where(link_rewrite: params[:param1]).exists?
-        @p1 = 'state'
-      end
-
-
-      if TypeTruck.where(link_rewrite: params[:param2]).exists?
-        @p2 = 'type'
-      end
-
-
-      if BrandExtra.where(link_rewrite: params[:param2]).exists?
-        @p2 = 'brand'
-      end
-
-
-      if State.where(link_rewrite: params[:param2]).exists?
-        @p2 = 'state'
-      end
-
-
-
-      if @p1 == 'type' &&  @p2 == 'brand'
-        type = TypeTruck.find_by_link_rewrite(params[:param1])
-        brand = BrandExtra.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, brand_extra_id: brand.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if @p1 == 'brand' &&  @p2 == 'type'
-        brand = BrandExtra.find_by_link_rewrite(params[:param1])
-        type = TypeTruck.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, brand_extra_id: brand.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-      if @p1 == 'type' &&  @p2 == 'state'
-        type = TypeTruck.find_by_link_rewrite(params[:param1])
-        state = State.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if @p1 == 'state' &&  @p2 == 'type'
-        state = State.find_by_link_rewrite(params[:param1])
-        type = TypeTruck.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(type_truck_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-      if @p1 == 'state' &&  @p2 == 'brand'
-        state = State.find_by_link_rewrite(params[:param1])
-        brand = BrandExtra.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if @p1 == 'brand' &&  @p2 == 'state'
-        brand = BrandExtra.find_by_link_rewrite(params[:param1])
-        state = State.find_by_link_rewrite(params[:param2])
-        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-
-    end
-
-
-
-
-
-#con tres parametros repuesto
-    if(!params[:param1].nil? && !params[:param2].nil? && !params[:param3].nil?)
-
-
-      state = State.find_by_link_rewrite(params[:param1])
-      type = TypeTruck.find_by_link_rewrite(params[:param2])
-      brand = BrandExtra.find_by_link_rewrite(params[:param3])
-
-      if !brand.nil? && !state.nil? && !type.nil?
-        @extras = Extra.where(brand_extra_id: brand.id, state_id: state.id, type_truck_id: type.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-
-
-    end
-
-
-
-  end
-
-
-
-
-
   def camiones
-    puts "***********************aqui entra el search del home******************************"
-    #@types = TypeTruck.all
-    #@p = params
+   
     @fullbBase = request.original_url
     @queryModelos = []
     @queryStates = []
@@ -612,25 +400,16 @@ ORDER BY created_at DESC')
 
 
     @banners = Banner.all.order('rand()').limit(3)
-    @tiposCaminiones = TypeTruck.all
-
-
+    @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
 
     if(params[:param1].nil? && params[:param2].nil? && params[:param3].nil?)
 
-
-
-
-
       @trucks = Truck.where(active: 1).all.includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
-
 
       @modelos = Truck.
           select('modelo, count(modelo) as total').
           group('modelo').
           order('modelo DESC')
-
-
 
       @estado = Truck.
           select('
@@ -753,10 +532,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5')
         end
 
       end
-
-
-
-
 
 
       if params[:param1current].include? '_'
@@ -900,14 +675,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           order('name DESC').
           where(toSql(@queryModelos))
 
-
-
-
-
-
     end
-
-
 
 
     #busqueda de dos parametro
@@ -967,10 +735,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
       end
 
 
-
-
-
-
       if params[:param2].include? '_'
 
         @parametroUrl =  params[:param2].split('_')
@@ -1007,7 +771,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
 
 
-
         if @parametroUrl.index('kilometraje')
           @mostrarKm = false
 
@@ -1033,7 +796,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           end
 
         end
-
 
 
       end
@@ -1090,11 +852,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           where(toSql(@queryTrucks)).
           group('name').
           order('name DESC')
-
-
-
-
-
 
 
     end
@@ -1162,9 +919,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
       end
 
 
-
-
-
       if TypeTruck.where(link_rewrite: extraigoParametroprincicpal(params[:param3])).exists?
         @p3 = 'type'
 
@@ -1188,9 +942,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
         state = State.find_by_link_rewrite(extraigoParametroprincicpal(params[:param3]))
         @queryTrucks.push(['state_id', state.id])
       end
-
-
-
 
 
       if params[:param3].include? '_'
@@ -1226,8 +977,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           @queryTrucks.push(['precio',valor])
 
         end
-
-
 
 
         if @parametroUrl.index('kilometraje')
@@ -1308,124 +1057,47 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
           group('name').
           order('name DESC')
 
-
-
-
-
     end
-
-
-
 
   end
 
+  def repuestos
+    search       = Extra.where(active: 1).includes(:state, :city).search(params[:q])
+    @extras      = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_trucks = TypeTruck.includes(:brand_extra)
+  end
+
+  def repuestotipo
+    id           = params[:id]
+    @extras      = Extra.where(brand_extra_id: id, active: 1).includes(:state, :city).order(:name)
+                        .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_trucks = TypeTruck.includes(:brand_extra)
+    render :repuestos
+  end
+
+  def servicios
+    search    = Service.where(active: 1).includes(:state, :city).search(params[:q])
+    @services = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_services = TypeService.all
+  end
+
+  def serviciotipo
+    id             = params[:id]
+    @services      = Service.where(type_service_id: id).includes(:state, :city).order(:name)
+                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_services = TypeService.all
+    render :servicios
+  end
 
 
   def camion
-
-
     @truck = Truck.find_by_id(params[:id])
-
     @ciudad = City.find_by_id(@truck.placa_city_id)
-  end
-
-
-
-
-
-  def servicios
-
-    if(params[:param1].nil? && params[:param2].nil?)
-    
-      @services = Service.all.where(active: 1).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    end
-
-
-
-
-    #busqueda de un parametro
-    if(!params[:param1].nil? && params[:param2].nil?)
-
-      if TypeService.where(link_rewrite: params[:param1]).exists?
-        types = TypeService.find_by_link_rewrite(params[:param1])
-        @services = Service.where(type_service_id: types.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if State.where(link_rewrite: params[:param1]).exists?
-        state = State.find_by_link_rewrite(params[:param1])
-        @services = Service.where(state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-    end
-
-
-
-
-    #busqueda de dos parametro
-    if(!params[:param1].nil? && !params[:param2].nil? && params[:param3].nil?)
-      @p1 = nil
-      @p2 = nil
-
-
-      if Service.where(link_rewrite: params[:param1]).exists?
-        @p1 = 'service'
-      end
-
-
-      if State.where(link_rewrite: params[:param2]).exists?
-        @p2 = 'state'
-      end
-
-
-      if Service.where(link_rewrite: params[:param2]).exists?
-        @p2 = 'service'
-      end
-
-
-      if State.where(link_rewrite: params[:param1]).exists?
-        @p1 = 'state'
-      end
-
-
-
-
-
-      if @p1 == 'service' &&  @p2 == 'state'
-
-        type = TypeService.find_by_link_rewrite(params[:param1])
-        state = State.find_by_link_rewrite(params[:param2])
-        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-      if @p1 == 'state' &&  @p2 == 'service'
-
-        type = TypeService.find_by_link_rewrite(params[:param2])
-        state = State.find_by_link_rewrite(params[:param1])
-        @services = Service.where(type_service_id: type.id, state_id: state.id, active: 1).all.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      end
-
-
-
-
-
-
-    end
-
-
-
-
-
-
   end
 
   def servicio
     @service = Service.find_by_id(params[:id])
   end
-
-
-
 
     private
     def allowed_params

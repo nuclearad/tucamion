@@ -1,0 +1,18 @@
+.side-menu.animate-dropdown.outer-bottom-xs
+  .head
+    %i.icon.fa.fa-align-justify.fa-fw
+    CATEGORIAS PRINCIPALES
+  %nav.yamm.megamenu-horizontal{:role => "navigation"}
+    %ul.nav
+      - @tiposCaminiones.each do |tipo|
+        - if tipo.sub_trucks.size > 0
+          %li.dropdown.menu-item
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}= tipo.name
+            %ul.dropdown-menu.mega-menu
+              %li.yamm-content
+                .row
+                  .col-sm-12.col-md-12
+                    %ul.links.list-unstyled
+                      - tipo.sub_trucks.each do |subtipo|
+                        %li
+                          %a{:href => "/camion-tipo/#{subtipo.id}"}= subtipo.name

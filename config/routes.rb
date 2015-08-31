@@ -1,17 +1,14 @@
 Rails.application.routes.draw do
 
-
-
-
-
   root 'pages#index'
 
   get 'tarifas' => 'pages#tarifas'
   get 'comprar' => 'pages#comprar'
   get 'busqueda' => 'pages#busqueda'
   get 'camion-tipo/:id' => 'pages#camiontipo'
-
-
+  get 'repuesto-tipo/:id' => 'pages#repuestotipo'
+  get 'servicio-tipo/:id' => 'pages#serviciotipo'
+  
   get 'mi-cuenta' => 'pages#micuenta', :as=> 'micuenta'
   post 'mi-cuenta' => 'pages#micuenta'
 
@@ -66,10 +63,7 @@ Rails.application.routes.draw do
 
 
   get 'servicio/:id-:link' => 'pages#servicio', :as =>'servicio'
-  get 'servicios' => 'pages#servicios'
-  get 'servicios/:param1' => 'pages#servicios'
-  get 'servicios/:param1/:param2' => 'pages#servicios'
-
+  match 'servicios' => 'pages#servicios', via: [:get, :post]
 
 
 
@@ -83,10 +77,7 @@ Rails.application.routes.draw do
 
 
   get 'repuesto/:id-:link' => 'pages#repuesto', :as =>'repuesto'
-  get 'repuestos' => 'pages#repuestos'
-  get 'repuestos/:param1' => 'pages#repuestos'
-  get 'repuestos/:param1/:param2' => 'pages#repuestos'
-  get 'repuestos/:param1/:param2/:param3' => 'pages#repuestos'
+  match 'repuestos' => 'pages#repuestos', via: [:get, :post]
 
 
 

@@ -1,6 +1,7 @@
 class Truck < ActiveRecord::Base
   belongs_to :brand_truck
   belongs_to :type_truck
+  belongs_to :sub_truck
   belongs_to :city
   belongs_to :state
   belongs_to :customer
@@ -14,14 +15,6 @@ class Truck < ActiveRecord::Base
   belongs_to :wheels_truck
   belongs_to :motors_truck
   belongs_to :transmissions_truck
-
-
-
-
-
-
-
-
 
 
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
@@ -148,5 +141,12 @@ class Truck < ActiveRecord::Base
 
   end
 
+  scope :like_join, ->(str){
+    self.where("trucks.nombre LIKE '%#{str}%' OR
+                brand_trucks.name LIKE '%#{str}%' OR
+                type_trucks.name LIKE '%#{str}%' OR
+                sub_trucks.name LIKE '%#{str}%' AND
+                trucks.active = 1")#.group('trucks.id')
+  }
 
 end

@@ -1,6 +1,8 @@
 class TypeTruck < ActiveRecord::Base
   has_many :trucks
   has_many :sub_trucks
+  has_many :extras
+  has_many :brand_extra, through: :extras
 
   HUMANIZED_ATTRIBUTES = {
       :name => 'Nombre'

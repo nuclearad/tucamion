@@ -1,0 +1,49 @@
+%header.header-style-1.header-style-3
+  .top-bar.animate-dropdown
+    .container
+      .header-top-inner
+        .cnt-account
+          %p
+            %b Llámenos:
+            011 252 2112
+            %b Email:
+            info@camion365.com
+        .cnt-block
+          %ul.list-unstyled.list-inline
+            %li.dropdown.dropdown-small
+              %a.dropdown-toggle{:href => "/mi-cuenta"} Mi Cuenta
+            %li.dropdown.dropdown-small
+              %a.dropdown-toggle{:href => "/mi-cuenta"} Publicar Anuncio
+            %li.dropdown.dropdown-small
+              %a.dropdown-toggle{:href => "/tarifas"} Tarifas
+        .clearfix
+  .header-nav.animate-dropdown.main-header
+    .container
+      .col-xs-12.col-sm-12.col-md-6
+        .yamm.navbar.navbar-default{:role => "navigation"}
+          .nav-bg-class
+            #mc-horizontal-menu-collapse.navbar-collapse.collapse
+              .nav-outer
+                %ul.nav.navbar-nav
+                  %li.active.dropdown.yamm-fw
+                    %a.dropdown-toggle{"data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "/"} Home
+                  %li.dropdown
+                    %a{:href => "/tarifas"} Vende tu camión
+                  %li.dropdown
+                    %a{:href => "/mi-cuenta"} Mis Anuncios
+                .clearfix
+      .col-xs-12.col-sm-12.col-md-6.top-search-holder{:style => "float:right"}
+        .search-area
+          %form{controller: "pages", action: "busqueda", id: "form_search"}
+            .control-group
+              %a.search-button{:href => "#", onClick: "document.getElementById('form_search').submit();"}
+              %input.search-field{:name => "consulta", :placeholder => "Buscar camiones, repuestos o servicios..."}/
+  .main-header.bgtoph
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.logo-holder
+          .logo
+            %a{:href => "/"}
+              = image_tag 'logo.png'
+          / /.logo
+        = render partial: 'includes/modal_search'

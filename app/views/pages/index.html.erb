@@ -297,14 +297,14 @@
 
 
                             $.each(msg, function(index, value) {
-                                $('#servicio_brand').append('<option value="'+value.link_rewrite+'">'+value.name+'</option>')
+                                $('#servicio_brand').append('<option value="'+value.id+'">'+value.name+'</option>')
                             });
 
                         } else{
 
                             $('#servicio_brand').append('<option value="">Todas las marcas</option>')
                             $.each(msg, function(index, value) {
-                                $('#servicio_brand').append('<option value="'+value.brand_extra.link_rewrite+'">'+value.brand_extra.name+'</option>')
+                                $('#servicio_brand').append('<option value="'+value.brand_extra.id+'">'+value.brand_extra.name+'</option>')
                             });
 
 
