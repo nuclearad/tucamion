@@ -2,6 +2,13 @@
   = search_form_for @search, url:  servicios_path, id: "search_serv", method: :post do |f|
     %p
       %fieldset.attribute_fieldset
+      %label.attribute_label.attribute-key{:for => "group_1"}
+        %p
+          NOMBRE
+      .attribute_list
+        = f.search_field :name_cont, class: "form-control", placeholder: ""
+    %p
+      %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
           %p
             TIPO DE

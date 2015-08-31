@@ -1,12 +1,20 @@
 .well
   = search_form_for @search, url: repuestos_path, id: "search_repu", method: :post do |f|
-    %fieldset.attribute_fieldset
+    %p
+      %fieldset.attribute_fieldset
       %label.attribute_label.attribute-key{:for => "group_1"}
         %p
-          TIPO DE
-          %b CAMIÓN
+          NOMBRE
       .attribute_list
-        = f.select(:type_truck_id_eq, options_for_select(@type_trucks.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'servicio_type'})
+        = f.search_field :name_cont, class: "form-control", placeholder: ""
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p
+            TIPO DE
+            %b CAMIÓN
+        .attribute_list
+          = f.select(:type_truck_id_eq, options_for_select(@type_trucks.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'servicio_type'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
