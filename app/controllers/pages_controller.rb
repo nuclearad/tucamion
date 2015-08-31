@@ -12,10 +12,10 @@ class PagesController < ApplicationController
 
 
   def camiontipo
-    @trucks = Truck.where(sub_truck_id: params[:id])
+    @trucks = Truck.where(sub_truck_id: params[:id], active: 1)
                    .all.order(:nombre).includes(:state)
                    .page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
+    @tiposCaminiones = TypeTruck.includes(:sub_trucks)
   end
 
   def busqueda
@@ -45,8 +45,6 @@ class PagesController < ApplicationController
 
       @user = Customer.find_by_id(session[:user])
     end
-
-
 
   end
 
@@ -1071,7 +1069,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
   def repuestotipo
     id           = params[:id]
-    @extras      = Extra.where(brand_extra_id: id).includes(:state, :city).order(:name)
+    @extras      = Extra.where(brand_extra_id: id, active: 1).includes(:state, :city).order(:name)
                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_trucks = TypeTruck.includes(:brand_extra)
     render :repuestos
@@ -1080,7 +1078,17 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   def servicios
     search    = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_services = TypeService.all
   end
+
+  def serviciotipo
+    id             = params[:id]
+    @services      = Service.where(type_service_id: id).includes(:state, :city).order(:name)
+                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_services = TypeService.all
+    render :servicios
+  end
+
 
   def camion
     @truck = Truck.find_by_id(params[:id])

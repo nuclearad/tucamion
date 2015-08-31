@@ -1,0 +1,9 @@
+.side-menu.animate-dropdown.outer-bottom-xs
+  .head
+    %i.icon.fa.fa-align-justify.fa-fw
+    CATEGORIAS PRINCIPALES
+  %nav.yamm.megamenu-horizontal{:role => "navigation"}
+    %ul.nav
+      - @type_services.each do |type|
+        %li.dropdown.menu-item
+          = link_to type.name, "/servicio-tipo/#{type.id}"

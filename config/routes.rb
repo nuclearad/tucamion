@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-
-
-
-
   root 'pages#index'
 
   get 'tarifas' => 'pages#tarifas'
@@ -11,7 +7,8 @@ Rails.application.routes.draw do
   get 'busqueda' => 'pages#busqueda'
   get 'camion-tipo/:id' => 'pages#camiontipo'
   get 'repuesto-tipo/:id' => 'pages#repuestotipo'
-
+  get 'servicio-tipo/:id' => 'pages#serviciotipo'
+  
   get 'mi-cuenta' => 'pages#micuenta', :as=> 'micuenta'
   post 'mi-cuenta' => 'pages#micuenta'
 

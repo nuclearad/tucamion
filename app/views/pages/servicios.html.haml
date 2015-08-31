@@ -9,7 +9,11 @@
 .body-content.outer-top-xs
   .container
     .row.outer-bottom-sm
-      .col-md-12
+      .col-md-3.sidebar
+        = render 'includes/type_services'
+        .sidebar-module-container
+          =# render 'includes/buscadoravanzado'
+      .col-md-9
         .search-result-container
           #myTabContent.tab-content
             #grid-container.tab-pane.active
