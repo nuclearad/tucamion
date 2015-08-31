@@ -13,15 +13,21 @@
           #myTabContent.tab-content
             #grid-container.tab-pane.active
               .category-product.inner-top-vs
-                .row
-                  %h2 CAMIONES
-                  = render partial: 'shared/list_trucks'
-                  %hr/
-                .row
-                  %h2 Repuestos
-                  = render partial: 'shared/list_extras'
-                  %hr/
-                .row
-                  %h2 Servicios
-                  = render partial: 'shared/list_services'
-                  %hr/
+                - if @result.nil?
+                  .row
+                    %h2 CAMIONES
+                    = render partial: 'shared/list_trucks'
+                    %hr/
+                  .row
+                    %h2 Repuestos
+                    = render partial: 'shared/list_extras'
+                    %hr/
+                  .row
+                    %h2 Servicios
+                    = render partial: 'shared/list_services'
+                    %hr/
+                - else
+                  .row
+                    %h2
+                      = @result.to_s
+

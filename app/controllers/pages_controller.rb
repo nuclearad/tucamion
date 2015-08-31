@@ -21,18 +21,25 @@ class PagesController < ApplicationController
   def busqueda
 
     strSearch = params[:consulta]
-    
-    @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
-                     .like_join(strSearch).includes(:state)
-                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    if strSearch.size <= 50
+      if validate_injection(strSearch) == false
+        @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
+                         .like_join(strSearch).includes(:state)
+                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-    @extras   = Extra.joins(:brand_extra, :type_truck)
-                     .like_join(strSearch).includes(:state, :city)
-                     .page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @extras   = Extra.joins(:brand_extra, :type_truck)
+                         .like_join(strSearch).includes(:state, :city)
+                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-    @services = Service.joins(:type_service)
-                       .like_join(strSearch).includes(:state, :city)
-                       .page(params[:page]).per(Environment::LIMIT_SEARCH)
+        @services = Service.joins(:type_service)
+                           .like_join(strSearch).includes(:state, :city)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
+      else
+        @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo" 
+      end
+    else
+      @result = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
+    end
 
   end
 
@@ -1100,6 +1107,17 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
     private
+
+    def validate_injection(str)
+       array_str = str.split(" ")
+       array_str.each do |word|
+         result = Environment::ARRAYSQL[word.downcase]
+         return true if result
+       end
+       return false
+    end
+
+
     def allowed_params
       params.require(:truck).permit!
     end
