@@ -1,6 +1,6 @@
 class TypeService < ActiveRecord::Base
 
-
+  has_many :services
 
   before_create do
 
