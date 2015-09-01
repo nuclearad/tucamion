@@ -9,7 +9,8 @@ class Admin::CustomersController < ApplicationController
   def index
 
     @customers = Customer.all
-
+    @search = @customers.search(params[:q])
+    @customers_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

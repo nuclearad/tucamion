@@ -7,6 +7,8 @@ class Admin::TipoCarroceriasController < ApplicationController
 
   def index
     @tipos = TipoCarroceria.all
+    @search = @tipos.search(params[:q])
+    @tipos_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

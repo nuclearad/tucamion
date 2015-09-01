@@ -8,6 +8,8 @@ class Admin::ColorsTruckController < ApplicationController
 
   def index
     @colors = ColorsTruck.all
+    @search = @colors.search(params[:q])
+    @colors_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

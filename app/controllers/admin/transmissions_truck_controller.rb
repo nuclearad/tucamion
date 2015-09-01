@@ -7,6 +7,9 @@ class Admin::TransmissionsTruckController < ApplicationController
 
   def index
     @transmissions = TransmissionsTruck.all
+    @search = @transmissions.search(params[:q])
+    @transmissions_filter = @search.result.page(params[:page]).per(5)
+  end
   end
 
   def new
