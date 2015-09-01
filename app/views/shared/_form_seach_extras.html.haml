@@ -1,0 +1,47 @@
+.well
+  = search_form_for @search, url: repuestos_path, id: "search_repu", method: :post do |f|
+    %p
+      %fieldset.attribute_fieldset
+      %label.attribute_label.attribute-key{:for => "group_1"}
+        %p
+          NOMBRE
+      .attribute_list
+        = f.search_field :name_cont, class: "form-control", placeholder: ""
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p
+            TIPO DE
+            %b CAMIÓN
+        .attribute_list
+          = f.select(:type_truck_id_eq, options_for_select(@type_trucks.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'servicio_type'})
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p
+            TIPO DE
+            %b REPUESTOS
+        .attribute_list
+          = f.select(:brand_extra_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p UBICACIÓN
+        .attribute_list
+          = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p PRECIO MAYOR IGUAL
+        .attribute_list
+          = f.select(:price_gteq, options_for_select(Extra.order('price ASC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_gteq'})
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p PRECIO MENOR IGUAL
+        .attribute_list
+          = f.select(:price_lteq, options_for_select(Extra.order('price DESC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_lteq'})
+    %fieldset.attribute_fieldset
+      %label.attribute_label.attribute-key{:for => "group_1"}  
+      .attribute_list.pull-right{:style => "width:100%"}
+        = f.submit "BUSCAR", class: "btn-servi btn btn-primary"
