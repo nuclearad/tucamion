@@ -45,7 +45,7 @@
       #repuestos.tab-pane
         = search_form_for @search_repu, url: repuestos_path, id: "search_repu", method: :post do |f|
           .product-tab.sty-tabsh
-            .col-xs-2.col-sm-2.col-md-2
+            .col-xs-3.col-sm-3.col-md-3
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p
@@ -53,7 +53,7 @@
                     %b CAMIÓN
                 .attribute_list
                   = f.select(:type_truck_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'servicio_type'})
-            .col-xs-2.col-sm-2.col-md-2
+            .col-xs-3.col-sm-3.col-md-3
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p
@@ -61,25 +61,13 @@
                     %b REPUESTOS
                 .attribute_list
                   = f.select(:brand_extra_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
-            .col-xs-2.col-sm-2.col-md-2
+            .col-xs-3.col-sm-3.col-md-3
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p UBICACIÓN
                 .attribute_list
                   = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
-            .col-xs-2.col-sm-2.col-md-2
-              %fieldset.attribute_fieldset
-                %label.attribute_label.attribute-key{:for => "group_1"}
-                  %p PRECIO MAYOR IGUAL
-                .attribute_list
-                  = f.select(:price_gteq, options_for_select(Extra.order('price ASC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_gteq'})
-            .col-xs-2.col-sm-2.col-md-2
-              %fieldset.attribute_fieldset
-                %label.attribute_label.attribute-key{:for => "group_1"}
-                  %p PRECIO MENOR IGUAL
-                .attribute_list
-                  = f.select(:price_lteq, options_for_select(Extra.order('price DESC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_lteq'})
-            .col-xs-2.col-sm-2.col-md-2
+            .col-xs-3.col-sm-3.col-md-3
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}  
                 .attribute_list.pull-right{:style => "width:100%"}

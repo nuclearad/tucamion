@@ -3,6 +3,9 @@ class TypeTruck < ActiveRecord::Base
   has_many :sub_trucks
   has_many :extras
   has_many :brand_extra, through: :extras
+  
+  #new relation jonathan rojas
+  has_many :brand_extras, through: :extras
 
   HUMANIZED_ATTRIBUTES = {
       :name => 'Nombre'
