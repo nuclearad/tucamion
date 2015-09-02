@@ -1069,10 +1069,12 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def repuestos
-    @search      = Extra.where(active: 1).includes(:state, :city).search(params[:q])
-    @extras      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_trucks = TypeTruck.group_by_brand
-    @states      = State.all.order(:name)
+    @search       = Extra.where(active: 1).includes(:state, :city).search(params[:q])
+    @extras       = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_trucks  = TypeTruck.group_by_brand
+    @states       = State.all.order(:name)
+    @brand_group  = Extra.brand_group
+    @states_group = Extra.state_group
   end
 
   def repuestotipo
@@ -1082,6 +1084,8 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states           = State.all.order(:name)
     @type_trucks      = TypeTruck.group_by_brand
+    @brand_group      = Extra.brand_group
+    @states_group     = Extra.state_group
     render :repuestos
   end
 
