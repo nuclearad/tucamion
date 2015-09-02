@@ -4,8 +4,6 @@ class TypeTruck < ActiveRecord::Base
   has_many :extras
   has_many :brand_extra, through: :extras
   
-  #new relation jonathan rojas
-  has_many :brand_extras, through: :extras
 
   HUMANIZED_ATTRIBUTES = {
       :name => 'Nombre'
@@ -43,7 +41,7 @@ class TypeTruck < ActiveRecord::Base
 
   end
 
-  scope :group_by_extras,->{
+  scope :group_by_brand,->{
       self.select('type_trucks.id,
                    type_trucks.name, 
                    COUNT(extras.type_truck_id) as total').
