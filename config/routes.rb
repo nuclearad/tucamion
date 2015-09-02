@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get  'comprar' => 'pages#comprar'
   post 'busqueda' => 'pages#busqueda'
   get  'camion-tipo/:id' => 'pages#camiontipo'
-  get  'repuesto-tipo/:id_trunk/:id_brand' => 'pages#repuestotipo'
+  get  'repuesto-tipo/:id_truck/:id_brand' => 'pages#repuestotipo'
   get  'servicio-tipo/:id' => 'pages#serviciotipo'
   
   get 'mi-cuenta' => 'pages#micuenta', :as=> 'micuenta'

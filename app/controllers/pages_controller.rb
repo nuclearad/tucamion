@@ -1077,9 +1077,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
   def repuestotipo
     id_brand          = params[:id_brand]
-    id_truck          = params[:id_trunk]
-    puts params[:id_trunk]
-    puts "*************"
+    id_truck          = params[:id_truck]
     @search           = Extra.where(brand_extra_id: id_brand, type_truck_id: id_truck, active: 1).includes(:state, :city).search(params[:q])
     @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states           = State.all.order(:name)
