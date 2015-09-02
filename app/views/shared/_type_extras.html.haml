@@ -7,7 +7,7 @@
       - @type_trucks.each do |type|
         - if type.brand_extra.size > 0
           %li.dropdown.menu-item
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}= type.name
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}= "#{type.name} <b>(#{type.total})</b>".html_safe
             %ul.dropdown-menu.mega-menu
               %li.yamm-content
                 .row
@@ -15,4 +15,4 @@
                     %ul.links.list-unstyled
                       - type.brand_extra.each do |brand|
                         %li
-                          = link_to brand.name, "/repuesto-tipo/#{brand.id}"
+                          = link_to brand.name , "/repuesto-tipo/#{type.id}/#{brand.id}"

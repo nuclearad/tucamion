@@ -39,4 +39,5 @@ class BrandExtra < ActiveRecord::Base
     end
 
   end
+
 end
