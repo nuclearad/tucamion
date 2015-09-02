@@ -1073,7 +1073,8 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @extras       = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_trucks  = TypeTruck.group_by_brand
     @states       = State.all.order(:name)
-    @states_group = Extra.select('extras.id, extras.name, count(extras.state_id) as total, states.name as state_name').joins(:state).group('states.name').order('states.name DESC')
+    @brand_group  = Extra.brand_group
+    @states_group = Extra.state_group
   end
 
   def repuestotipo
@@ -1083,6 +1084,8 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states           = State.all.order(:name)
     @type_trucks      = TypeTruck.group_by_brand
+    @brand_group      = Extra.brand_group
+    @states_group     = Extra.state_group
     render :repuestos
   end
 
