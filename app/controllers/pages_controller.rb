@@ -1090,10 +1090,11 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def servicios
-    @search    = Service.where(active: 1).includes(:state, :city).search(params[:q])
-    @services  = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @states      = State.all.order(:name)
+    @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
+    @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @states        = State.all.order(:name)
     @type_services = TypeService.group_by_services
+    @states_group  = Service.state_group
   end
 
   def serviciotipo
@@ -1102,6 +1103,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_services = TypeService.group_by_services
     @states        = State.all.order(:name)
+    @states_group  = Service.state_group
     render :servicios
   end
 
