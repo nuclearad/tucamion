@@ -1089,6 +1089,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @type_trucks      = TypeTruck.group_by_brand
     @brand_group      = Extra.brand_group
     @states_group     = Extra.state_group
+     @toggle_search = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
     render :repuestos
   end
 
