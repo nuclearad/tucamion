@@ -1070,12 +1070,14 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def repuestos
+    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
     @search       = Extra.where(active: 1).includes(:state, :city).search(params[:q])
     @extras       = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_trucks  = TypeTruck.group_by_brand
     @states       = State.all.order(:name)
     @brand_group  = Extra.brand_group
     @states_group = Extra.state_group
+    @toggle_search = self.nested_search(params[:q])
   end
 
   def repuestotipo

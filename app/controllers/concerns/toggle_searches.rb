@@ -28,12 +28,34 @@ module ToggleSearches
   def nested_search(query)
     array_searches = Array.new
     if query
-     unless query["name_cont"].blank?
+      #search for extras
+      
+      unless query["type_truck_id_eq"].blank?
         search     = Array.new
-        search[0]  = query["name_cont"]
-        search[1]  = {"name_cont" => ""}
+        search[0]  = query["type_truck_id_eq"]
+        search[1]  = {"type_truck_id_eq" => ""}
         array_searches << search
       end
+      unless query["brand_extra_id_eq"].blank?
+        search     = Array.new
+        search[0]  = query["brand_extra_id_eq"]
+        search[1]  = {"brand_extra_id_eq" => ""}
+        array_searches << search
+      end
+      unless query["price_gteq"].blank?
+        search     = Array.new
+        search[0]  = query["price_gteq"]
+        search[1]  = {"price_gteq" => ""}
+        array_searches << search
+      end
+      unless query["price_lteq"].blank?
+        search     = Array.new
+        search[0]  = query["price_lteq"]
+        search[1]  = {"price_lteq" => ""}
+        array_searches << search
+      end
+      
+      #search for services
       unless query["type_service_id_eq"].blank?
         search                      = Array.new
         search[0]                   = TypeService.select("id,name").find(query["type_service_id_eq"]).name
@@ -41,11 +63,19 @@ module ToggleSearches
         search[1]                   = {"type_service_id_eq" => ""}
         array_searches << search
       end
+
+      #search shared
       unless query["state_id_eq"].blank?
         search               = Array.new
         search[0]            =  State.select("id,name").find(query["state_id_eq"]).name
         query["state_id_eq"] = ""
         search[1]            = {"state_id_eq" => ""}
+        array_searches << search
+      end
+      unless query["name_cont"].blank?
+        search     = Array.new
+        search[0]  = query["name_cont"]
+        search[1]  = {"name_cont" => ""}
         array_searches << search
       end
     end
