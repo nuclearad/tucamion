@@ -25,7 +25,7 @@ module ToggleSearches
     session[:toggle_search]['q']
   end
  
-  def nested_search_service(query)
+  def nested_search(query)
     array_searches = Array.new
     if query
      unless query["name_cont"].blank?
