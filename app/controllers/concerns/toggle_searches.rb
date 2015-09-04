@@ -24,5 +24,33 @@ module ToggleSearches
   def get_toggle
     session[:toggle_search]['q']
   end
-      
+ 
+  def nested_search_service(query)
+    array_searches = Array.new
+    if query
+     unless query["name_cont"].blank?
+        search     = Array.new
+        search[0]  = query["name_cont"]
+        search[1]  = {"name_cont" => ""}
+        array_searches << search
+      end
+      unless query["type_service_id_eq"].blank?
+        search                      = Array.new
+        search[0]                   = TypeService.select("id,name").find(query["type_service_id_eq"]).name
+        query["type_service_id_eq"] = ""
+        search[1]                   = {"type_service_id_eq" => ""}
+        array_searches << search
+      end
+      unless query["state_id_eq"].blank?
+        search               = Array.new
+        search[0]            =  State.select("id,name").find(query["state_id_eq"]).name
+        query["state_id_eq"] = ""
+        search[1]            = {"state_id_eq" => ""}
+        array_searches << search
+      end
+    end
+    return array_searches
+  end
+
+
 end

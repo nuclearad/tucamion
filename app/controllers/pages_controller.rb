@@ -1097,28 +1097,29 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @states        = State.all.order(:name)
     @type_services = TypeService.group_by_services
     @states_group  = Service.state_group
-    @toggle_search = nested_search(params[:q])
+    @toggle_search = self.nested_search_service(params[:q])
   end
 
   def serviciotipo
+    self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
     id             = params[:id]
     @search        = Service.where(type_service_id: id).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_services = TypeService.group_by_services
     @states        = State.all.order(:name)
     @states_group  = Service.state_group
+    @toggle_search = self.nested_search_service(self.get_toggle) #le enviamos el hash de busqueda
     render :servicios
   end
 
   def service_toggle
-    self.read_toggle(params['q'])
+    self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
     @search        = Service.where(active: 1).includes(:state, :city).search(session[:toggle_search]['q'])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
     @type_services = TypeService.group_by_services
     @states_group  = Service.state_group
-    @toggle_search = nested_search(self.get_toggle)
-    puts "******#{session[:toggle_search]["q"]}**************"
+    @toggle_search = self.nested_search_service(self.get_toggle) #le enviamos el hash de busqueda
     render :servicios
   end
 
@@ -1142,34 +1143,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
        end
        return false
     end
-
-    def nested_search(query)
-      array_searches = Array.new
-      if query
-       unless query["name_cont"].blank?
-          search            = Array.new
-          search[0]         = query["name_cont"]
-          search[1]         = {"name_cont" => ""}
-          array_searches << search
-        end
-        unless query["type_service_id_eq"].blank?
-          search                     = Array.new
-          search[0]                  = TypeService.select("id,name").find(query["type_service_id_eq"]).name
-          query["type_service_id_eq"] = ""
-          search[1]                  = {"type_service_id_eq" => ""}
-          array_searches << search
-        end
-        unless query["state_id_eq"].blank?
-          search              = Array.new
-          search[0]           =  State.select("id,name").find(query["state_id_eq"]).name
-          query["state_id_eq"] = ""
-          search[1]           = {"state_id_eq" => ""}
-          array_searches << search
-        end
-      end
-      return array_searches
-    end
-
 
     def allowed_params
       params.require(:truck).permit!
