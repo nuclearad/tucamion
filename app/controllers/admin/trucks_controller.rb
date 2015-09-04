@@ -3,7 +3,7 @@ class Admin::TrucksController < ApplicationController
   layout  'admin/layouts/application'
   add_breadcrumb 'Camiones', :admin_trucks_path, :options => { :title =>'Inicio' }
 
-
+  before_action :checkTimes, only: [:edit,:update]
 
   def index
     @trucks = Truck.all
@@ -39,15 +39,18 @@ class Admin::TrucksController < ApplicationController
 
   end
 
+  def checkTimes
+    truck = Truck.find(params[:id])
+      @bandera= (truck.created_at >= Date.today - 10) #false indica que solo  puede editar telefono, precio y estado
+  end
+
   def edit
     @truck = Truck.find(params[:id])
   end
 
   def update
 
-
     @truck = Truck.find(params[:id])
-
 
     if @truck.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
