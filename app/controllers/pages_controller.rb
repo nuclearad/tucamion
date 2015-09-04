@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
 
   def index
+    session[:toggle_search] = nil
     @search_serv = Service.search(params[:q])
     @search_repu = Extra.search(params[:q])
     @states      = State.all.order(:name)
@@ -1090,20 +1091,43 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def servicios
+    session[:toggle_search] = {"q" => params[:q]}.to_s
+    puts "******#{session[:toggle_search]}**************"   
     @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
     @type_services = TypeService.group_by_services
     @states_group  = Service.state_group
+    @toggle_search = nested_search(params[:q])
   end
 
   def serviciotipo
+    session[:toggle_search] = {"q" => params[:q]}
     id             = params[:id]
     @search        = Service.where(type_service_id: id).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_services = TypeService.group_by_services
     @states        = State.all.order(:name)
     @states_group  = Service.state_group
+    render :servicios
+  end
+
+  def service_toggle
+    puts "******#{session[:toggle_search]}**************"
+    if params["q"]
+      new_hash = eval(params["q"])
+      session[:toggle_search] = eval(session[:toggle_search]) if session[:toggle_search]["q"].class.to_s == 'String'
+      session[:toggle_search]['q'][new_hash.keys[0]] = ""
+    end
+    puts "******#{session[:toggle_search]["q"]}**************"   
+    @search        = Service.where(active: 1).includes(:state, :city).search(session[:toggle_search]['q'])
+    @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @states        = State.all.order(:name)
+    @type_services = TypeService.group_by_services
+    @states_group  = Service.state_group
+    @toggle_search = nested_search(session[:toggle_search]['q'])
+    session[:toggle_search] = session[:toggle_search].to_s
+    puts "******#{session[:toggle_search].class}**************"
     render :servicios
   end
 
@@ -1126,6 +1150,33 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
          return true if result
        end
        return false
+    end
+
+    def nested_search(query)
+      array_searches = Array.new
+      if query
+       unless query["name_cont"].blank?
+          search            = Array.new
+          search[0]         = query["name_cont"]
+          search[1]         = {"name_cont" => ""}
+          array_searches << search
+        end
+        unless query["type_service_id_eq"].blank?
+          search                     = Array.new
+          search[0]                  = TypeService.select("id,name").find(query["type_service_id_eq"]).name
+          query["type_service_id_eq"] = ""
+          search[1]                  = {"type_service_id_eq" => ""}
+          array_searches << search
+        end
+        unless query["state_id_eq"].blank?
+          search              = Array.new
+          search[0]           =  State.select("id,name").find(query["state_id_eq"]).name
+          query["state_id_eq"] = ""
+          search[1]           = {"state_id_eq" => ""}
+          array_searches << search
+        end
+      end
+      return array_searches
     end
 
 
