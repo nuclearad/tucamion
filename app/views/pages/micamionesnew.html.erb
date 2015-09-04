@@ -66,7 +66,7 @@
               <div class="col-md-6">
                 <div class="form-group">
 
-                  <%= f.label :nombre, 'Nombre de camion' %>
+                  <%= f.label :nombre, 'Nombre de Vehiculo' %>
                   <%= f.text_field :nombre, :class =>'form-control'  %>
                   <%= f.hidden_field :type_truck_id, :value=>params['v']  %>
                 </div>
@@ -672,6 +672,29 @@
 
 
 
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <%= f.label :contracts_truck_id, 'Poliza' %>
+                    <%= f.collection_select :contracts_truck_id, ContractsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <%= f.label :tipocupo, 'Tipo de Cupo' %>
+                      <%= f.text_field :tipocupo, :class =>'form-control'  %>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
@@ -866,10 +889,6 @@
 
                   <div class="col-md-3">
 
-                    <label>
-                      <%= f.check_box :descansapies  %> Descansa pies
-                    </label>
-                    <br/>
                     <label>
                       <%= f.check_box :descansapies  %> Descansa pies
                     </label>

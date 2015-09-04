@@ -16,7 +16,6 @@ class Admin::ServicesController < ApplicationController
     @service = Service.new
     add_breadcrumb 'Agregar'
 
-
   end
 
   def create
