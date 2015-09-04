@@ -1,5 +1,6 @@
 module ToggleSearches
   extend ActiveSupport::Concern
+  include ActionView::Helpers::NumberHelper
   
   def init_toggle
     session[:toggle_search] = nil
@@ -32,25 +33,25 @@ module ToggleSearches
       
       unless query["type_truck_id_eq"].blank?
         search     = Array.new
-        search[0]  = query["type_truck_id_eq"]
+        search[0]  = TypeTruck.select("id,name").find(query["type_truck_id_eq"]).name
         search[1]  = {"type_truck_id_eq" => ""}
         array_searches << search
       end
       unless query["brand_extra_id_eq"].blank?
         search     = Array.new
-        search[0]  = query["brand_extra_id_eq"]
+        search[0]  = BrandExtra.select("id,name").find(query["brand_extra_id_eq"]).name
         search[1]  = {"brand_extra_id_eq" => ""}
         array_searches << search
       end
       unless query["price_gteq"].blank?
         search     = Array.new
-        search[0]  = query["price_gteq"]
+        search[0]  = "precio 1: #{number_to_currency(query['price_gteq'], precision: 0)}"
         search[1]  = {"price_gteq" => ""}
         array_searches << search
       end
       unless query["price_lteq"].blank?
         search     = Array.new
-        search[0]  = query["price_lteq"]
+        search[0]  = "precio 2: #{number_to_currency(query['price_lteq'], precision: 0)}"
         search[1]  = {"price_lteq" => ""}
         array_searches << search
       end

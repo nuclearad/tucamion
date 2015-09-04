@@ -1092,6 +1092,18 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     render :repuestos
   end
 
+  def repuesto_toggle
+    self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
+    @search       = Extra.where(active: 1).includes(:state, :city).search(self.get_toggle)
+    @extras       = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_trucks  = TypeTruck.group_by_brand
+    @states       = State.all.order(:name)
+    @brand_group  = Extra.brand_group
+    @states_group = Extra.state_group
+    @toggle_search = self.nested_search(self.get_toggle)
+    render :repuestos
+  end
+
   def servicios
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
     @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
@@ -1115,7 +1127,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
   def service_toggle
     self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
-    @search        = Service.where(active: 1).includes(:state, :city).search(session[:toggle_search]['q'])
+    @search        = Service.where(active: 1).includes(:state, :city).search(self.get_toggle)
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
     @type_services = TypeService.group_by_services
