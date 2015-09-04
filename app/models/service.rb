@@ -62,4 +62,13 @@ class Service < ActiveRecord::Base
                 services.active = 1")
   }
 
+  scope :state_group, ->{
+       self.select('services.id, services.name, 
+                    count(services.state_id) as total, 
+                    states.name as state_name').
+            joins(:state).group('states.name').
+            order('states.name DESC')
+  
+  }
+
 end
