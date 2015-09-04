@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
 
   def index
-    session[:toggle_search] = nil
+    self.init_toggle #inicia el despliegue de la busqueda anidada
     @search_serv = Service.search(params[:q])
     @search_repu = Extra.search(params[:q])
     @states      = State.all.order(:name)
@@ -1091,8 +1091,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def servicios
-    session[:toggle_search] = {"q" => params[:q]}.to_s
-    puts "******#{session[:toggle_search]}**************"   
+    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
     @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
@@ -1102,7 +1101,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def serviciotipo
-    session[:toggle_search] = {"q" => params[:q]}
     id             = params[:id]
     @search        = Service.where(type_service_id: id).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
@@ -1113,21 +1111,14 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def service_toggle
-    puts "******#{session[:toggle_search]}**************"
-    if params["q"]
-      new_hash = eval(params["q"])
-      session[:toggle_search] = eval(session[:toggle_search]) if session[:toggle_search]["q"].class.to_s == 'String'
-      session[:toggle_search]['q'][new_hash.keys[0]] = ""
-    end
-    puts "******#{session[:toggle_search]["q"]}**************"   
+    self.read_toggle(params['q'])
     @search        = Service.where(active: 1).includes(:state, :city).search(session[:toggle_search]['q'])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
     @type_services = TypeService.group_by_services
     @states_group  = Service.state_group
-    @toggle_search = nested_search(session[:toggle_search]['q'])
-    session[:toggle_search] = session[:toggle_search].to_s
-    puts "******#{session[:toggle_search].class}**************"
+    @toggle_search = nested_search(self.get_toggle)
+    puts "******#{session[:toggle_search]["q"]}**************"
     render :servicios
   end
 
