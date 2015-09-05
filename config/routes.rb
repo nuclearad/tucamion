@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get  'comprar' => 'pages#comprar'
   post 'busqueda' => 'pages#busqueda'
   get  'camion-tipo/:id' => 'pages#camiontipo'
-  get  'repuesto-tipo/:id' => 'pages#repuestotipo'
+  get  'repuesto-tipo/:id_truck/:id_brand' => 'pages#repuestotipo'
   get  'servicio-tipo/:id' => 'pages#serviciotipo'
   
   get 'mi-cuenta' => 'pages#micuenta', :as=> 'micuenta'
@@ -188,4 +188,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  get  'servicio-toggle/:q' => 'pages#service_toggle'
 end

@@ -1,3 +1,6 @@
+- @toggle_search.each do |toggle|
+  = link_to toggle[0], "/servicio-toggle/#{toggle[1]}"
+  %br
 .side-menu.animate-dropdown.outer-bottom-xs
   .head
     %i.icon.fa.fa-align-justify.fa-fw
@@ -6,4 +9,4 @@
     %ul.nav
       - @type_services.each do |type|
         %li.dropdown.menu-item
-          = link_to type.name, "/servicio-tipo/#{type.id}"
+          = link_to "#{type.name} <b>(#{type.total})</b>".html_safe, "/servicio-tipo/#{type.id}"

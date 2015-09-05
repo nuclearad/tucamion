@@ -67,5 +67,22 @@ class Extra < ActiveRecord::Base
                 type_trucks.name LIKE '%#{str}%' AND
                 extras.active = 1")
   }
+
+  scope :state_group, ->{
+       self.select('extras.id, extras.name, 
+                    count(extras.state_id) as total, 
+                    states.name as state_name').
+            joins(:state).group('states.name').
+            order('states.name DESC')
   
+  }
+
+  scope :brand_group, ->{
+     self.select('extras.id, extras.name, 
+              count(extras.brand_extra_id) as total, 
+              brand_extras.name as brand_name').
+      joins(:brand_extra).group('brand_extras.name').
+      order('brand_extras.name DESC')
+  }
+
 end

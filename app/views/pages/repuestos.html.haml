@@ -10,9 +10,10 @@
   .container
     .row.outer-bottom-sm
       .col-md-3.sidebar
-        = render 'includes/type_extras'
-        .sidebar-module-container
-          =# render 'includes/buscadoravanzado'
+        = render 'shared/type_extras'
+        = render "shared/buscadoravanzado_extras"
+        %hr
+        .sidebar-module-container 
       .col-md-9
         .search-result-container
           #myTabContent.tab-content

@@ -1,0 +1,54 @@
+.sidebar-filter
+  .sidebar-widget.wow.fadeInUp.outer-bottom-xs
+    .sidebar-widget-body.m-t-10
+      .accordion
+        .widget-header
+          %h4.widget-title.well Mas Opciones
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#ubicacion"} Ubicación
+          / /.accordion-heading
+          #ubicacion.accordion-body.collapse{:style => "height: 0px;"}
+            .accordion-inner
+              %ul
+                - @states_group.each do |state|
+                  %li
+                    %a{:href => "#"}
+                      = "-"
+                      = state.state_name
+                      %small
+                        (#{state.total})
+            / /.accordion-group
+          / /.accordion
+        / /.sidebar-widget-body
+        %hr
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#brand"} Marcas
+          / /.accordion-heading
+          #brand.accordion-body.collapse{:style => "height: 0px;"}
+            .accordion-inner
+              %ul
+                - @brand_group.each do |brand|
+                  %li
+                    %a{:href => "#"}
+                      = "-"
+                      = brand.brand_name
+                      %small
+                        (#{brand.total})
+            / /.accordion-group
+          / /.accordion
+        / /.sidebar-widget-body
+        %hr
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
+          / /.accordion-heading
+          #avanzada.accordion-body.collapse{:style => "height: 0px;"}
+            .accordion-inner
+              %ul= render 'shared/form_seach_extras'
+            / /.accordion-group
+          / /.accordion
+        / /.sidebar-widget-body
+      / /.sidebar-widget
+    / /.sidebar-filter

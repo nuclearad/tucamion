@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
 
   def index
+    self.init_toggle #inicia el despliegue de la busqueda anidada
     @search_serv = Service.search(params[:q])
     @search_repu = Extra.search(params[:q])
     @states      = State.all.order(:name)
@@ -1069,30 +1070,55 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
   end
 
   def repuestos
-    search       = Extra.where(active: 1).includes(:state, :city).search(params[:q])
-    @extras      = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_trucks = TypeTruck.includes(:brand_extra)
+    @search       = Extra.where(active: 1).includes(:state, :city).search(params[:q])
+    @extras       = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_trucks  = TypeTruck.group_by_brand
+    @states       = State.all.order(:name)
+    @brand_group  = Extra.brand_group
+    @states_group = Extra.state_group
   end
 
   def repuestotipo
-    id           = params[:id]
-    @extras      = Extra.where(brand_extra_id: id, active: 1).includes(:state, :city).order(:name)
-                        .page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_trucks = TypeTruck.includes(:brand_extra)
+    id_brand          = params[:id_brand]
+    id_truck          = params[:id_truck]
+    @search           = Extra.where(brand_extra_id: id_brand, type_truck_id: id_truck, active: 1).includes(:state, :city).search(params[:q])
+    @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @states           = State.all.order(:name)
+    @type_trucks      = TypeTruck.group_by_brand
+    @brand_group      = Extra.brand_group
+    @states_group     = Extra.state_group
     render :repuestos
   end
 
   def servicios
-    search    = Service.where(active: 1).includes(:state, :city).search(params[:q])
-    @services = search.result.order(:updated_at).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_services = TypeService.all
+    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
+    @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
+    @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @states        = State.all.order(:name)
+    @type_services = TypeService.group_by_services
+    @states_group  = Service.state_group
+    @toggle_search = self.nested_search(params[:q])
   end
 
   def serviciotipo
     id             = params[:id]
-    @services      = Service.where(type_service_id: id).includes(:state, :city).order(:name)
-                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_services = TypeService.all
+    @search        = Service.where(type_service_id: id).includes(:state, :city).search(params[:q])
+    @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @type_services = TypeService.group_by_services
+    @states        = State.all.order(:name)
+    @states_group  = Service.state_group
+    @toggle_search = Hash.new
+    render :servicios
+  end
+
+  def service_toggle
+    self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
+    @search        = Service.where(active: 1).includes(:state, :city).search(session[:toggle_search]['q'])
+    @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @states        = State.all.order(:name)
+    @type_services = TypeService.group_by_services
+    @states_group  = Service.state_group
+    @toggle_search = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
     render :servicios
   end
 
@@ -1116,7 +1142,6 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
        end
        return false
     end
-
 
     def allowed_params
       params.require(:truck).permit!
