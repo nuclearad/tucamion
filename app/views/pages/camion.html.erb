@@ -290,6 +290,7 @@
 
                 <% if @truck.numeroejes != '' %> <td><b>Numero de ejes</b><br> <%= @truck.numeroejes %></td><% end %>
                 <td><b>Con Trailer</b><br><% if @truck.trailer == false %>No <% else %> Si <% end %></td>
+                <td></td>
               </tr>
               <tr class="nymou">
                 <td class="cell-label"><b>Negociable</b><br> <% if @truck.negociable == false %>No <% else %> Si <% end %></td>
@@ -304,6 +305,8 @@
                   <% end %>
 
                 </td>
+                <td><b>Direccion</b><br>
+                  <%=@truck.direccion=='Si'? 'Hidraulica':'Mecanica' %> </td>
               </tr>
               <tr class="nymou">
                 <% if @truck.motorreparado != '' %><td class="cell-label"><b>Motor Reparado</b><br> <% if @truck.motorreparado == false %>No <% else %> Si <% end %></td><% end %>
@@ -313,7 +316,7 @@
               </tr>
               <tr class="nymou">
                 <% if @truck.cupo != '' %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.sillareclinable != '' %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.sillareclinable!= '' %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
                 <% if @truck.bano != '' %><td><b>Baño</b><br> <% if @truck.bano == false %>No <% else %> Si <% end %></td><% end %>
                 <% if @truck.descansapies != '' %><td><b>Descansa pies</b><br> <% if @truck.descansapies == false %>No <% else %> Si <% end %></td><% end %>
               </tr>
