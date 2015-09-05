@@ -224,7 +224,7 @@
 
     <div class="description-container m-t-20">
       <h4>Vendedor</h4>
-      <p>Teléfono: <b><%= @truck.customer.telefono %></b></p>
+      <p>Teléfono: <b><%= @truck.customer ? @truck.customer.telefono : "No registradoS" %></b></p>
 
     </div><!-- /.description-container -->
 
