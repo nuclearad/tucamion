@@ -15,7 +15,7 @@ class Truck < ActiveRecord::Base
   belongs_to :wheels_truck
   belongs_to :motors_truck
   belongs_to :transmissions_truck
-
+  belongs_to :referencia
 
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",

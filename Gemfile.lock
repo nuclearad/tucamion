@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (4.1.7)
       actionpack (= 4.1.7)
@@ -42,7 +42,7 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1.1)
+    coffee-script-source (1.8.0)
     devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -167,7 +167,7 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2015.2)
+    tzinfo-data (1.2015.6)
       tzinfo (>= 1.0.0)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
@@ -186,6 +186,7 @@ PLATFORMS
 DEPENDENCIES
   breadcrumbs_on_rails
   coffee-rails (~> 4.0.0)
+  coffee-script-source (= 1.8.0)
   devise
   haml
   haml-rails
@@ -205,6 +206,3 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   unicorn
-
-BUNDLED WITH
-   1.10.6

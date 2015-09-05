@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -30,7 +30,7 @@ gem 'devise'
 gem 'breadcrumbs_on_rails'
 gem 'paperclip'
 gem 'quiet_assets', group: :development
-
+gem 'coffee-script-source', '1.8.0', group: :development
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
