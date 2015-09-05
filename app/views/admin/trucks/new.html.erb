@@ -43,35 +43,44 @@
 
         <div class="col-md-6">
           <div class="form-group">
+            <%= f.label :brand_truck_id, 'Marca de camion' %>
+            <%= f.collection_select :brand_truck_id, BrandTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="form-group">
             <%= f.label :modelo, 'Modelo' %>
             <%= f.text_field :modelo, :class =>'form-control'  %>
           </div>
         </div>
 
-      </div>
-
-
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <%= f.label :brand_truck_id, 'Marca de camion' %>
-              <%= f.collection_select :brand_truck_id, BrandTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-            </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :referencia_id, 'Referencia' %>
+            <%= f.collection_select :referencia_id, Referencia.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
           </div>
+        </div>
 
-          <div class="col-md-6">
-            <div class="form-group">
-              <%= f.label :type_truck_id, 'Tipo de camion' %>
-              <%= f.collection_select :type_truck_id, TypeTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-            </div>
+        <!--
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :price, 'Precio' %>
+            <%= f.text_field :price, :class =>'form-control'  %>
           </div>
-
         </div>
 
 
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :pesobruto, 'Peso bruto' %>
+            <%= f.text_field :pesobruto, :class =>'form-control'  %>
+          </div>
+        </div>
+        !-->
 
-
+        </div>
 
 
 
