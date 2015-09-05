@@ -14,7 +14,7 @@
 <div class="row">
   <div class="col-md-12">
 
-    <%= form_for @truck, :url => micamionesnew_path do |f|  %>
+    <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
 
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
@@ -297,11 +297,11 @@
                   <div class="col-md-12">
                     <label for="">   Se vende con trailer? </label><br/>
 
-                    <%= f.radio_button :sevendecontrailer, 'Si', :checked => true %> Si
+                    <%= f.radio_button :sevendecontrailer, 'Si', :checked => (:sevendecontrailer=='Si'? true:false) %> Si
 
 
 
-                    <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
+                    <%= f.radio_button :sevendecontrailer, 'No', :checked => !(:sevendecontrailer=='Si'? true:false) %> No
 
 
                     <script !src="">
@@ -492,11 +492,11 @@
                   <div class="col-md-12">
                     <label for="">  Auto Carpado </label><br/>
 
-                    <%= f.radio_button :autocarpado, 'Si', :checked => false %> Si
+                    <%= f.radio_button :autocarpado, 'Si', :checked =>(:autocarpado=='Si'? true:false) %> Si
 
 
 
-                    <%= f.radio_button :autocarpado, 'No', :checked => false %> No
+                    <%= f.radio_button :autocarpado, 'No', :checked => !(:autocarpado=='Si'? true:false) %> No
                     <br/><br/>
                   </div>
                 </div>
@@ -931,11 +931,11 @@
                   <div class="col-md-12">
                     <label for="">   Se vende con trailer? </label><br/>
 
-                    <%= f.radio_button :sevendecontrailer, 'Si', :checked => true %> Si
+                    <%= f.radio_button :sevendecontrailer, 'Si', :checked =>  (:sevendecontrailer=='Si'? true:false) %> Si
 
 
 
-                    <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
+                    <%= f.radio_button :sevendecontrailer, 'No', :checked => !(:sevendecontrailer=='Si'? true:false) %> No
 
 
                     <script !src="">
@@ -1072,16 +1072,24 @@
                   <div class="col-md-12">
                     <label for=""> Dirección </label><br/>
 
-                    <%= f.radio_button :direccion, 'Si', :checked => false %> Hidraulica
+                    <%= f.radio_button :direccion, 'Si', :checked => ( :direccion== 'Si'? true:false) %> Hidraulica
 
-
-
-                    <%= f.radio_button :direccion, 'No', :checked => false %> Mecanica
+                    <%= f.radio_button :direccion, 'No', :checked => (:direccion=='No' ? true:false) %> Mecanica
                     <br/><br/>
                   </div>
                 </div>
 
 
+                <div class="row">
+                  <div class="col-md-12">
+
+                    <label>
+                      <%= f.check_box :unicodueno  %> Unico dueño
+                    </label>
+
+                    <br/><br/>
+                  </div>
+                </div>
 
 
 
