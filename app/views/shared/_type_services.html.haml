@@ -1,6 +1,10 @@
-- @toggle_search.each do |toggle|
-  = link_to toggle[0], "/servicio-toggle/#{toggle[1]}"
-  %br
+#eliminar
+  - @toggle_search.each do |toggle|
+    .widget-header
+      %h4.widget-title
+        %a{:href => "/servicio-toggle/#{toggle[1]}"}
+          = toggle[0].capitalize
+          %i.fa.fa-times
 .side-menu.animate-dropdown.outer-bottom-xs
   .head
     %i.icon.fa.fa-align-justify.fa-fw
