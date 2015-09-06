@@ -28,7 +28,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
-    bcrypt (3.1.10-x86-mingw32)
+    bcrypt (3.1.10)
     breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
     climate_control (0.0.3)
@@ -86,8 +86,8 @@ GEM
     mini_portile (0.6.2)
     minitest (5.8.0)
     multi_json (1.11.2)
-    mysql2 (0.3.20-x86-mingw32)
-    nokogiri (1.6.6.2-x86-mingw32)
+    mysql2 (0.3.20)
+    nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     paperclip (4.3.0)
@@ -98,11 +98,10 @@ GEM
       mimemagic (= 0.3.0)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
-    pry (0.10.1-x86-mingw32)
+    pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-      win32console (~> 1.3)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     quiet_assets (1.1.0)
@@ -167,7 +166,7 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2014.10)
+    tzinfo-data (1.2015.6)
       tzinfo (>= 1.0.0)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
@@ -178,10 +177,9 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
-    win32console (1.3.2-x86-mingw32)
 
 PLATFORMS
-  x86-mingw32
+  ruby
 
 DEPENDENCIES
   breadcrumbs_on_rails
