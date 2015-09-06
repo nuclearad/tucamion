@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -34,7 +34,7 @@ gem 'quiet_assets', group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
- gem 'unicorn'
+ gem 'unicorn', group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -49,3 +49,4 @@ gem 'kaminari'
 # HAML support
 gem 'haml'
 gem 'haml-rails'
+gem 'tzinfo-data'
