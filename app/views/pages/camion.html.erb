@@ -334,8 +334,17 @@
                   <% if @truck.autocarpado  %>
                       <b>Auto Carpado</b><br><%= @truck.autocarpado %>
                   <% end %>
+                  <%if @truck.tipocupo %>
+                    <b>Tipo de Cupo</b><br>
+                      <%= @truck.tipocupo %>
+                  <%end%>
                 </td>
-                <td></td>
+                <td>
+                    <% if @truck.contracts_truck %>
+                        <b>Poliza</b><br>
+                        <%= @truck.contracts_truck.name %>
+                    <%end %>
+                </td>
                 <td></td>
 
               </tr>
