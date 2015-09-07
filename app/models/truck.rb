@@ -168,4 +168,21 @@ class Truck < ActiveRecord::Base
   
   }
 
+  scope :modelo_group , ->{
+       self.select('trucks.id, trucks.modelo, 
+                    count(trucks.modelo) as total').
+            group('trucks.modelo').
+            order('trucks.modelo DESC')
+  
+  }
+
+
+  scope :km_group , ->{
+       self.select('trucks.id, trucks.kilometraje, 
+                    count(trucks.kilometraje) as total').
+            group('trucks.kilometraje').
+            order('trucks.kilometraje DESC')
+  
+  }
+
 end

@@ -1069,8 +1069,9 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
-    #@modelos_group   = Truck.modelo_group
+    @modelos_group   = Truck.modelo_group
     @brand_group     = Truck.marcas_group
+    @km_group        = Truck.km_group
     @toggle_search   = self.nested_search(params[:q])
   end
 
@@ -1082,7 +1083,8 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @tiposCaminiones = TypeTruck.includes(:sub_trucks)
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
-    #@modelos_group  = Truck.modelo_group
+    @modelos_group  = Truck.modelo_group
+    @km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search   = self.nested_search(self.get_toggle)
     render :camiones 
@@ -1095,7 +1097,8 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
-    #@modelos_group   = Truck.modelo_group
+    @modelos_group   = Truck.modelo_group
+    @km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search = self.nested_search(self.get_toggle)
     render :camiones  
