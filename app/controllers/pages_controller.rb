@@ -1075,6 +1075,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
     @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
+    @states          = State.all.order(:name)
     @states_group    = Truck.state_group
     #@modelos_group   = Truck.modelo_group
     @brand_group     = Truck.marcas_group
