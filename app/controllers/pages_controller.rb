@@ -12,14 +12,6 @@ class PagesController < ApplicationController
     @banners     = House.all
   end
 
-
-  def camiontipo
-    @trucks = Truck.where(sub_truck_id: params[:id], active: 1)
-                   .all.order(:nombre).includes(:state)
-                   .page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @tiposCaminiones = TypeTruck.includes(:sub_trucks)
-  end
-
   def busqueda
 
     strSearch = params[:consulta]
@@ -1082,10 +1074,32 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @toggle_search   = self.nested_search(params[:q])
   end
 
-  def camion_toggle
-    
+  def camiontipo
+    id_sub           = params[:id_sub]
+    id_truck         = params[:id_truck]
+    @search          = Truck.where(sub_truck_id: id_sub, type_truck_id: id_truck, active: 1).includes(:state).search(params[:q])
+    @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @tiposCaminiones = TypeTruck.includes(:sub_trucks)
+    @states          = State.all.order(:name)
+    @states_group    = Truck.state_group
+    #@modelos_group  = Truck.modelo_group
+    @brand_group     = Truck.marcas_group
+    @toggle_search   = self.nested_search(self.get_toggle)
+    render :camiones 
   end
 
+  def camion_toggle
+    self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
+    @search          = Truck.where(active: 1).includes(:state).search(self.get_toggle)
+    @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
+    @states          = State.all.order(:name)
+    @states_group    = Truck.state_group
+    #@modelos_group   = Truck.modelo_group
+    @brand_group     = Truck.marcas_group
+    @toggle_search = self.nested_search(self.get_toggle)
+    render :camiones  
+  end
 
   def repuestos
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
