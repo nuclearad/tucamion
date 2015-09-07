@@ -17,7 +17,6 @@
                       = state.state_name
                       %small
                         (#{state.total})
-        %hr
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#brand"} Marcas
@@ -27,11 +26,9 @@
                 - @brand_group.each do |brand|
                   %li
                     %a{:href => "#"}
-                      = "-"
                       = brand.brand_name
                       %small
                         (#{brand.total})
-        %hr
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
