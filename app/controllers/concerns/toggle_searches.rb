@@ -89,6 +89,12 @@ module ToggleSearches
         search[1]  = "name_cont"
         array_searches << search
       end
+      unless query["nombre_cont"].blank?
+        search     = Array.new
+        search[0]  = query["nombre_cont"]
+        search[1]  = "nombre_cont"
+        array_searches << search
+      end
     end
     return array_searches
   end
