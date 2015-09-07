@@ -7,30 +7,19 @@
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#ubicacion"} Ubicación
-          / /.accordion-heading
           #ubicacion.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
               %ul
                 - @states_group.each do |state|
                   %li
                     %a{:href => "#"}
-                      = "-"
                       = state.state_name
                       %small
                         (#{state.total})
-            / /.accordion-group
-          / /.accordion
-        / /.sidebar-widget-body
-        %hr
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
-          / /.accordion-heading
           #avanzada.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
               %ul= render 'shared/form_search_services'
-            / /.accordion-group
-          / /.accordion
-        / /.sidebar-widget-body
-      / /.sidebar-widget
-    / /.sidebar-filter
+= render partial: '/shared/banners'

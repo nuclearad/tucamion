@@ -224,7 +224,7 @@
 
 
                             $.each(msg, function(index, value) {
-                                $('#camion_brand').append('<option value="'+value.link_rewrite+'">'+value.name+'</option>')
+                                $('#camion_brand').append('<option value="'+value.id+'">'+value.name+'</option>')
                             });
 
 
@@ -233,7 +233,7 @@
 
                             $('#camion_brand').append('<option value="">Todas las marcas</option>')
                             $.each(msg, function(index, value) {
-                                $('#camion_brand').append('<option value="'+value.brand_truck.link_rewrite+'">'+value.brand_truck.name+'</option>')
+                                $('#camion_brand').append('<option value="'+value.brand_truck.id+'">'+value.brand_truck.name+'</option>')
                             });
 
 

@@ -1,3 +1,10 @@
+#eliminar
+  - @toggle_search.each do |toggle|
+    .widget-header
+      %h4.widget-title
+        %a{:href => "/camion-opciones/#{toggle[1]}"}
+          = toggle[0].capitalize
+          %i.fa.fa-times
 .side-menu.animate-dropdown.outer-bottom-xs
   .head
     %i.icon.fa.fa-align-justify.fa-fw
@@ -15,4 +22,4 @@
                     %ul.links.list-unstyled
                       - tipo.sub_trucks.each do |subtipo|
                         %li
-                          %a{:href => "/camion-tipo/#{subtipo.id}"}= subtipo.name
+                          %a{:href => "/camion-tipo/#{tipo.id}/#{subtipo.id}"}= subtipo.name

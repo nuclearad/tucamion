@@ -30,8 +30,32 @@
                         (#{brand.total})
         .accordion-group
           .accordion-heading
+            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#modelo"} Modelos
+          #modelo.accordion-body.collapse{:style => "height: 0px;"}
+            .accordion-inner
+              %ul
+                - @modelos_group.each do |modelo|
+                  %li
+                    %a{:href => "#"}
+                      = modelo.modelo
+                      %small
+                        (#{modelo.total})
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#km"} kilometraje
+          #km.accordion-body.collapse{:style => "height: 0px;"}
+            .accordion-inner
+              %ul
+                - @km_group.each do |km|
+                  %li
+                    %a{:href => "#"}
+                      = km.kilometraje
+                      %small
+                        (#{km.total})
+        .accordion-group
+          .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
           #avanzada.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
-              %ul= render 'shared/form_search_extras'
+              %ul= render 'shared/form_search_trucks'
 = render partial: '/shared/banners'

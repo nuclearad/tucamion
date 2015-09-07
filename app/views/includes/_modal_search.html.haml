@@ -11,35 +11,35 @@
     .tab-content.outer-top-xs
       #camiones.tab-pane.in.active
         .product-tab.sty-tabsh
-          = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p
-                  TIPO DE
-                  %b CAMIÓN
-              .attribute_list
-                = select :camion,:type, options_for_select(@types.map{ |c| [c.name, c.link_rewrite, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, :class=>'form-control'
-              / /.attribute_list
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p MARCAS
-              .attribute_list
-                = collection_select(:camion, :brand, BrandTruck.order(:name), :link_rewrite, :name, {prompt: 'Todas las marcas'}, :class=>'form-control')
-              / /.attribute_list
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}
-                %p UBICACIÓN
-              .attribute_list
-                = collection_select(:camion, :state, @states, :link_rewrite, :name, {prompt: 'Selecciona'}, :class=>'form-control')
-              / /.attribute_list
-          .col-xs-3.col-sm-3.col-md-3
-            %fieldset.attribute_fieldset
-              %label.attribute_label.attribute-key{:for => "group_1"}  
-              .attribute_list.pull-right{:style => "width: 100%;"}
-                %button#btn-camion.btn.btn-primary{:style => "width:100%", :type => "submit"} BUSCAR
+          = search_form_for @search_cam, url: camiones_path, id: "search_cam", method: :post do |f|
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p
+                    TIPO DE
+                    %b CAMIÓN
+                .attribute_list
+                  = f.select(:type_truck_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_type'})
+                / /.attribute_list
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p MARCAS
+                .attribute_list
+                  = f.select(:brand_truck_id_eq, options_from_collection_for_select(BrandTruck.order(:name), :id,:name), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_brand'})               
+                / /.attribute_list
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p UBICACIÓN
+                .attribute_list
+                  = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
+                / /.attribute_list
+            .col-xs-3.col-sm-3.col-md-3
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}  
+                .attribute_list.pull-right{:style => "width: 100%;"}
+                  = f.submit "BUSCAR", class: "btn-servi btn btn-primary"
               / /.attribute_list
       / /.tab-pane
       #repuestos.tab-pane
