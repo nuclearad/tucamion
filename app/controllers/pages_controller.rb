@@ -6,6 +6,7 @@ class PagesController < ApplicationController
     self.init_toggle #inicia el despliegue de la busqueda anidada
     @search_serv = Service.search(params[:q])
     @search_repu = Extra.search(params[:q])
+    @search_cam  = Truck.search(params[:q])
     @states      = State.all.order(:name)
     @types       = TypeTruck.all
     @banners     = House.all
@@ -391,7 +392,7 @@ class PagesController < ApplicationController
     @extra = Extra.find_by_id(params[:id])
   end
 
-  def camiones
+  def camiones_backup
    
     @fullbBase = request.original_url
     @queryModelos = []
@@ -1069,6 +1070,20 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
 
   end
 
+  def camiones
+    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
+    @search          = Truck.where(active: 1).includes(:state).search(params[:q])
+    @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @banners         = Banner.all.order('rand()').limit(3)
+    @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
+    @toggle_search   = self.nested_search(params[:q])
+  end
+
+  def camion_toggle
+    
+  end
+
+
   def repuestos
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
     @search       = Extra.where(active: 1).includes(:state, :city).search(params[:q])
@@ -1089,7 +1104,7 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
     @type_trucks      = TypeTruck.group_by_brand
     @brand_group      = Extra.brand_group
     @states_group     = Extra.state_group
-     @toggle_search = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
+    @toggle_search = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
     render :repuestos
   end
 

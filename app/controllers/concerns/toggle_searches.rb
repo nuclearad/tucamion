@@ -29,6 +29,17 @@ module ToggleSearches
   def nested_search(query)
     array_searches = Array.new
     if query
+
+      #search for trucks
+
+      unless query["brand_truck_id_eq"].blank?
+        search                      = Array.new
+        search[0]                   = BrandTruck.select("id,name").find(query["brand_truck_id_eq"]).name
+        query["brand_truck_id_eq"] = ""
+        search[1]                   = {"brand_truck_id_eq" => ""}
+        array_searches << search
+      end
+
       #search for extras
       
       unless query["type_truck_id_eq"].blank?

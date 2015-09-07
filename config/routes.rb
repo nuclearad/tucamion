@@ -69,7 +69,7 @@ Rails.application.routes.draw do
 
 
   get 'camion/:id' => 'pages#camion', :as =>'camion'
-  get 'camiones' => 'pages#camiones'
+  match 'camiones' => 'pages#camiones', via: [:get, :post]
   get 'camiones/:param1' => 'pages#camiones'
   get 'camiones/:param1/:param2' => 'pages#camiones'
   get 'camiones/:param1/:param2/:param3' => 'pages#camiones'
@@ -190,4 +190,5 @@ Rails.application.routes.draw do
   #   end
   get  'servicio-opciones/:q' => 'pages#service_toggle'
   get  'repuesto-opciones/:q' => 'pages#repuesto_toggle'
+  get  'camion-opciones/:q' => 'pages#camion_toggle'
 end
