@@ -7,7 +7,6 @@
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#ubicacion"} Ubicación
-          / /.accordion-heading
           #ubicacion.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
               %ul
@@ -18,14 +17,10 @@
                       = state.state_name
                       %small
                         (#{state.total})
-            / /.accordion-group
-          / /.accordion
-        / /.sidebar-widget-body
         %hr
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#brand"} Marcas
-          / /.accordion-heading
           #brand.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
               %ul
@@ -36,19 +31,11 @@
                       = brand.brand_name
                       %small
                         (#{brand.total})
-            / /.accordion-group
-          / /.accordion
-        / /.sidebar-widget-body
         %hr
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
-          / /.accordion-heading
           #avanzada.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
               %ul= render 'shared/form_search_extras'
-            / /.accordion-group
-          / /.accordion
-        / /.sidebar-widget-body
-      / /.sidebar-widget
-    / /.sidebar-filter
+= render partial: '/shared/banners'

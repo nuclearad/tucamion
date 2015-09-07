@@ -13,15 +13,25 @@
                 - @states_group.each do |state|
                   %li
                     %a{:href => "#"}
-                      = "-"
                       = state.state_name
                       %small
                         (#{state.total})
-        %hr
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#brand"} Marcas
+          #brand.accordion-body.collapse{:style => "height: 0px;"}
+            .accordion-inner
+              %ul
+                - @brand_group.each do |brand|
+                  %li
+                    %a{:href => "#"}
+                      = brand.brand_name
+                      %small
+                        (#{brand.total})
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
           #avanzada.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
-              %ul= render 'shared/form_search_services'
+              %ul=# render 'shared/form_search_extras'
 = render partial: '/shared/banners'
