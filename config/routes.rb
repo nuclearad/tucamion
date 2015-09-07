@@ -189,4 +189,5 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   get  'servicio-toggle/:q' => 'pages#service_toggle'
+  get  'repuesto-toggle/:q' => 'pages#repuesto_toggle'
 end
