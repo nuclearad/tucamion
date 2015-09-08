@@ -224,8 +224,9 @@
 
     <div class="description-container m-t-20">
       <h4>Vendedor</h4>
+      <p>Nombre: <b><%= @truck.customer ? @truck.customer.name.capitalize : "No registradoS" %></b></p>
       <p>Teléfono: <b><%= @truck.customer ? @truck.customer.telefono : "No registradoS" %></b></p>
-
+      <p>Email: <b><%= @truck.customer ? @truck.customer.email : "No registradoS" %></b></p>
     </div><!-- /.description-container -->
 
     <div class="row outer-top-vs"><div class="cart col-md-12 col-lg-6 clearfix animate-effect">
