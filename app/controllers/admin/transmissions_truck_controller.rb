@@ -10,7 +10,6 @@ class Admin::TransmissionsTruckController < ApplicationController
     @search = @transmissions.search(params[:q])
     @transmissions_filter = @search.result.page(params[:page]).per(5)
   end
-  end
 
   def new
     @transmission = TransmissionsTruck.new
