@@ -8,6 +8,8 @@ class Admin::TypeExtraController < ApplicationController
   def index
 
     @types = TypeExtra.all
+    @search = @types.search(params[:q])
+    @types_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

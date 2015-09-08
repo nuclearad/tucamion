@@ -6,6 +6,8 @@ class Admin::BrandExtraController < ApplicationController
 
   def index
     @brands = BrandExtra.all
+    @search = @brands.search(params[:q])
+    @brands_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

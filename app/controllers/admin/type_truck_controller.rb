@@ -4,6 +4,8 @@ class Admin::TypeTruckController < ApplicationController
   add_breadcrumb 'Tipo', :admin_type_truck_index_path, :options => { :title =>'Inicio' }
   def index
     @types = TypeTruck.all
+    @search = @types.search(params[:q])
+    @types_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

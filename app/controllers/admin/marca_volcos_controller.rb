@@ -7,6 +7,8 @@ class Admin::MarcaVolcosController < ApplicationController
 
   def index
     @marcas = MarcaVolco.all
+    @search = @marcas.search(params[:q])
+    @marcas_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

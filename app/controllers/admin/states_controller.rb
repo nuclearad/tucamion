@@ -7,6 +7,8 @@ class Admin::StatesController < ApplicationController
 
   def index
     @states = State.all
+    @search = @states.search(params[:q])
+    @states_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

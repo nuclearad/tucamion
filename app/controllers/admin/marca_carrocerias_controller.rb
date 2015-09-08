@@ -8,6 +8,8 @@ class Admin::MarcaCarroceriasController < ApplicationController
 
   def index
     @marcas = MarcaCarroceria.all
+    @search = @marcas.search(params[:q])
+    @marcas_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

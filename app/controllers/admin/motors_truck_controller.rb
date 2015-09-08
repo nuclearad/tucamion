@@ -7,6 +7,8 @@ class Admin::MotorsTruckController < ApplicationController
 
   def index
     @motors = MotorsTruck.all
+    @search = @motors.search(params[:q])
+    @motors_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

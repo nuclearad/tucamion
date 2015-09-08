@@ -7,6 +7,8 @@ class Admin::ScrapsTruckController < ApplicationController
 
   def index
     @scraps = ScrapsTruck.all
+    @search = @scraps.search(params[:q])
+    @scraps_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

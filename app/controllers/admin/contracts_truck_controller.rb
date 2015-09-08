@@ -8,6 +8,8 @@ class Admin::ContractsTruckController < ApplicationController
 
   def index
     @contracts = ContractsTruck.all
+    @search = @contracts.search(params[:q])
+    @contracts_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

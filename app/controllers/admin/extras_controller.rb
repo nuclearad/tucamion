@@ -7,7 +7,8 @@ class Admin::ExtrasController < ApplicationController
   def index
 
     @extras = Extra.all
-
+    @search = @extras.search(params[:q])
+    @extras_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

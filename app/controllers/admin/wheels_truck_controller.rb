@@ -8,6 +8,8 @@ class Admin::WheelsTruckController < ApplicationController
 
   def index
     @wheels = WheelsTruck.all
+    @search = @wheels.search(params[:q])
+    @wheels_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

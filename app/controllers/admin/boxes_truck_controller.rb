@@ -7,6 +7,8 @@ class Admin::BoxesTruckController < ApplicationController
 
   def index
     @boxes = BoxesTruck.all
+    @search = @boxes.search(params[:q])
+    @boxes_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

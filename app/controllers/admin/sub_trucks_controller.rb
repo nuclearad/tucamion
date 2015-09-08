@@ -5,12 +5,8 @@ class Admin::SubTrucksController < ApplicationController
 
 
   def index
-
-
-
     @subs = SubTruck.where(type_truck_id: params[:type_truck_id]).order(:name).all
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
-
   end
 
   def new

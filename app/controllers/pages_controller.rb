@@ -180,17 +180,18 @@ class PagesController < ApplicationController
 
       @user = Customer.find_by_id(session[:user])
       @truck = Truck.where(:id => params[:id], :customer_id => session[:user]).first
-
+      @lateUpdate = @truck.created_at < Date.today - Constants::TRUCK_LATE_UPDATE
 
       if @truck.blank?
         redirect_to micamiones_path
       else
 
-
-
         if request.post?
 
-          if @truck.update_attributes(allowed_params)
+          if @lateUpdate
+            salved = @truck.update_attributes(allowed_lateUpdate_params)
+          end
+          if @truck.update_attributes(allowed_params) or salved
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to micamiones_path
           else
@@ -1197,6 +1198,10 @@ SUM(CASE WHEN kilometraje >100000 THEN 1 ELSE 0 END) AS price_range_5').
        return false
     end
 
+
+    def allowed_lateUpdate_params
+      params.require(:truck).permit(:id,:active,:price, customer_attributes:[:id,:telefono,:email])
+    end
     def allowed_params
       params.require(:truck).permit!
     end
