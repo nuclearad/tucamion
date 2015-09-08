@@ -12,7 +12,7 @@
               %ul
                 - @states_group.each do |state|
                   %li
-                    %a{:href => "#"}
+                    %a{:href =>"repuestos-opciones/state_id/#{state.state_id}"}
                       = state.state_name
                       %small
                         (#{state.total})
@@ -24,7 +24,7 @@
               %ul
                 - @brand_group.each do |brand|
                   %li
-                    %a{:href => "#"}
+                    %a{:href => "repuestos-opciones/brand_extra_id/#{brand.brand_extra_id}"}
                       = brand.brand_name
                       %small
                         (#{brand.total})

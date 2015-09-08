@@ -151,7 +151,7 @@ class Truck < ActiveRecord::Base
 
 
   scope :state_group, ->{
-       self.select('trucks.id, trucks.nombre, 
+       self.select('trucks.id, trucks.nombre, trucks.state_id,
                     count(trucks.state_id) as total, 
                     states.name as state_name').
             joins(:state).group('states.name').
@@ -160,7 +160,7 @@ class Truck < ActiveRecord::Base
   }
 
    scope :marcas_group , ->{
-       self.select('trucks.id, trucks.nombre, 
+       self.select('trucks.id, trucks.nombre, trucks.brand_truck_id,
                     count(trucks.brand_truck_id) as total, 
                     brand_trucks.name as brand_name').
             joins(:brand_truck).group('brand_trucks.name').
