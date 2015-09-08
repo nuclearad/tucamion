@@ -8,6 +8,8 @@ class Admin::SpacesTruckController < ApplicationController
 
   def index
     @spaces = SpacesTruck.all
+    @search = @spaces.search(params[:q])
+    @spaces_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

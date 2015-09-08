@@ -9,7 +9,6 @@ class Admin::CitiesController < ApplicationController
     @cities = City.where(state_id: params[:state_id]).order(:name).all
     @state = State.find_by_id(params[:state_id])
     add_breadcrumb @state.name
-
     respond_to do |format|
       format.html
       format.json  { render :json => @cities }

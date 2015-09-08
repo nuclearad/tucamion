@@ -7,13 +7,14 @@ class Admin::ServicesController < ApplicationController
 
   def index
     @services = Service.all
+    @search = @services.search(params[:q])
+    @services_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new
 
     @service = Service.new
     add_breadcrumb 'Agregar'
-
 
   end
 

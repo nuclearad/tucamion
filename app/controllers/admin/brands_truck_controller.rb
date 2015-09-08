@@ -4,11 +4,9 @@ class Admin::BrandsTruckController < ApplicationController
   add_breadcrumb 'Marcas de camion', :admin_brands_truck_index_path, :options => { :title =>'Inicio' }
 
   def index
-
-
     @brands = BrandTruck.all
-
-
+    @search = @brands.search(params[:q])
+    @brands_filter = @search.result.page(params[:page]).per(5)
   end
 
 

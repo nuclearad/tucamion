@@ -8,6 +8,8 @@ class Admin::BannersController < ApplicationController
 
   def index
     @banners = Banner.all
+    @search = @banners.search(params[:q])
+    @banners_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new
