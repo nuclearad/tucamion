@@ -8,7 +8,8 @@ class Admin::HousesController < ApplicationController
 
   def index
     @banners = House.all
-
+    @search = @banners.search(params[:q])
+    @banners_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

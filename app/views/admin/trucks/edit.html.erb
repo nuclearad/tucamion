@@ -33,53 +33,65 @@
 <%= form_for @truck, :url => admin_truck_path, :method=>'PATCH' do |f|  %>
 
 
-      <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
         <li role="presentation"><a id="s" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Paso 2</a></li>
-      </ul>
+    </ul>
 
-      <br/><br/>
+    <br/><br/>
 
-      <div class="tab-content">
+    <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
 
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <%= f.label :sub_truck_id, 'Sub tipo' %>
+                        <%= f.collection_select :sub_truck_id, SubTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <%= f.label :nombre, 'Nombre de Vehiculo' %>
+                        <%= f.text_field :nombre, :class =>'form-control'  %>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <%= f.label :brand_truck_id, 'Marca de camion' %>
+                        <%= f.collection_select :brand_truck_id, BrandTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                </div>
 
 
-          <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <%= f.label :modelo, 'Modelo' %>
+                        <%= f.text_field :modelo, :class =>'form-control'  %>
+                    </div>
+                </div>
 
-            <div class="col-md-12">
-              <div class="form-group">
-
-                <%= f.label :sub_truck_id, 'Sub tipo' %>
-                <%= f.collection_select :sub_truck_id, SubTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-
-              </div>
-            </div>
-
-
-
-            <div class="col-md-6">
-              <div class="form-group">
-
-                <%= f.label :nombre, 'Nombre de camion' %>
-                <%= f.text_field :nombre, :class =>'form-control'  %>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= f.label :modelo, 'Modelo' %>
-                <%= f.text_field :modelo, :class =>'form-control'  %>
-              </div>
-            </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <%= f.label :referencia_id, 'Referencia' %>
+                        <%= f.collection_select :referencia_id, Referencia.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    </div>
+                </div>
 
 
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= f.label :price, 'Precio' %>
-                <%= f.text_field :price, :class =>'form-control'  %>
-              </div>
-            </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <%= f.label :price, 'Precio' %>
+                        <%= f.text_field :price, :class =>'form-control'  %>
+                    </div>
+                </div>
 
 
             <div class="col-md-6">
@@ -89,26 +101,7 @@
               </div>
             </div>
 
-
-
-
           </div>
-
-
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= f.label :brand_truck_id, 'Marca de camion' %>
-                <%= f.collection_select :brand_truck_id, BrandTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-              </div>
-            </div>
-
-
-          </div>
-
-
-
 
 
 
@@ -864,10 +857,6 @@
                     <%= f.check_box :descansapies  %> Descansa pies
                   </label>
                   <br/>
-                  <label>
-                    <%= f.check_box :descansapies  %> Descansa pies
-                  </label>
-                  <br/>
 
 
                   <label>
@@ -1108,7 +1097,16 @@
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-md-12">
 
+                  <label>
+                      <%= f.check_box :unicodueno  %> Unico dueño
+                  </label>
+
+                  <br/><br/>
+                </div>
+              </div>
 
 
 

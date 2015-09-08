@@ -8,8 +8,8 @@ class Admin::OffersController < ApplicationController
   def index
 
     @planes = Offer.all
-
-
+    @search = @planes.search(params[:q])
+    @planes_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

@@ -8,6 +8,8 @@ class Admin::TypeServiceController < ApplicationController
 
   def index
     @types = TypeService.all
+    @search = @types.search(params[:q])
+    @types_filter = @search.result.page(params[:page]).per(5)
   end
 
   def new

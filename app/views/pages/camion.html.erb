@@ -224,7 +224,7 @@
 
     <div class="description-container m-t-20">
       <h4>Vendedor</h4>
-      <p>Teléfono: <b><%= @truck.customer.telefono %></b></p>
+      <p>Teléfono: <b><%= @truck.customer ? @truck.customer.telefono : "No registradoS" %></b></p>
 
     </div><!-- /.description-container -->
 
@@ -290,6 +290,7 @@
 
                 <% if @truck.numeroejes != '' %> <td><b>Numero de ejes</b><br> <%= @truck.numeroejes %></td><% end %>
                 <td><b>Con Trailer</b><br><% if @truck.trailer == false %>No <% else %> Si <% end %></td>
+                <td></td>
               </tr>
               <tr class="nymou">
                 <td class="cell-label"><b>Negociable</b><br> <% if @truck.negociable == false %>No <% else %> Si <% end %></td>
@@ -304,6 +305,9 @@
                   <% end %>
 
                 </td>
+                <td><b>Direccion</b><br>
+                  <%=@truck.direccion=='Si'? 'Hidraulica':'Mecanica' %> </td>
+
               </tr>
               <tr class="nymou">
                 <% if @truck.motorreparado != '' %><td class="cell-label"><b>Motor Reparado</b><br> <% if @truck.motorreparado == false %>No <% else %> Si <% end %></td><% end %>
@@ -313,9 +317,9 @@
               </tr>
               <tr class="nymou">
                 <% if @truck.cupo != '' %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.sillareclinable != '' %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
                 <% if @truck.bano != '' %><td><b>Baño</b><br> <% if @truck.bano == false %>No <% else %> Si <% end %></td><% end %>
                 <% if @truck.descansapies != '' %><td><b>Descansa pies</b><br> <% if @truck.descansapies == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.sillareclinable!= '' %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
               </tr>
               <tr class="nymou">
 
@@ -326,11 +330,73 @@
               </tr>
               <tr class="nymou">
                 <% if @truck.unicodueno != '' %><td class="cell-label"><b>Único dueño</b><br> <% if @truck.unicodueno == false %>No <% else %> Si <% end %></td> <% end %>
-                <td></td>
-                <td></td>
+                <td class="cell-label">
+                  <% if @truck.autocarpado  %>
+                      <b>Auto Carpado</b><br><%= @truck.autocarpado %>
+                  <% end %>
+                  <%if @truck.tipocupo %>
+                    <b>Tipo de Cupo</b><br>
+                      <%= @truck.tipocupo %>
+                  <%end%>
+                </td>
+                <td>
+                    <% if @truck.contracts_truck %>
+                        <b>Poliza</b><br>
+                        <%= @truck.contracts_truck.name %>
+                    <%end %>
+                </td>
                 <td></td>
 
               </tr>
+              <%if @truck.sevendecontrailer == 'Si'%>
+                    <tr class="nymou">
+                        <td class="cell-label">
+                            <% if @truck.marcatrailer  %>
+                                <b>Marca Trailer</b><br><%= @truck.marcatrailer %>
+                            <% end %>
+                        </td>
+                        <td class="cell-label">
+                            <% if @truck.tipotrailer  %>
+                                <b>Tipo de Trailer</b><br><%= @truck.tipotrailer %>
+                            <% end %>
+                        </td>
+                       <td class="cell-label">
+                            <% if @truck.modelotrailer %>
+                                <b>Modelo Trailer</b></br><%= @truck.modelotrailer %>
+                            <% end %>
+                       </td>
+                       <td class="cell-label">
+                            <% if @truck.numeroejestrailer %>
+                                <b>Número de ejes del Trailer</b></br><%= @truck.numeroejestrailer %>
+                            <% end %>
+                       </td>
+                    </tr>
+              <%end %>
+              <% if @truck.type_truck_id ==2 %>
+                <tr class="mymou">
+                  <td class="cell-label">
+                    <% if @truck.marca_equipo_humedo_id  %>
+                        <b>Marca Eqipo humedo</b><br><%= MarcaEquipoHumedo.find(@truck.marca_equipo_humedo_id).name %>
+                    <% end %>
+                  </td>
+                  <td class="cell-label">
+                    <% if @truck.marca_volco_id  %>
+                        <b>Marca Volco</b><br><%= MarcaVolco.find(@truck.marca_volco_id).name %>
+                    <% end %>
+                  </td>
+                  <td class="cell-label">
+                    <% if @truck.capacidadmetrica  %>
+                        <b>Capacidad Metrica</b><br><%= @truck.capacidadmetrica %>
+                    <% end %>
+                  </td>
+                  <td class="cell-label">
+                    <% if @truck.cuantosmetroscubicos  %>
+                        <b>Metros Cubicos</b><br><%= @truck.cuantosmetroscubicos %>
+                    <% end %>
+                  </td>
+
+                </tr>
+              <%end%>
               </tbody>
             </table><!-- /.table .table-bordered -->
           </div><!-- /.table-responsive -->

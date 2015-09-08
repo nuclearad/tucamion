@@ -15,7 +15,7 @@ class Truck < ActiveRecord::Base
   belongs_to :wheels_truck
   belongs_to :motors_truck
   belongs_to :transmissions_truck
-
+  belongs_to :referencia
 
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
@@ -147,6 +147,42 @@ class Truck < ActiveRecord::Base
                 type_trucks.name LIKE '%#{str}%' OR
                 sub_trucks.name LIKE '%#{str}%' AND
                 trucks.active = 1")#.group('trucks.id')
+  }
+
+
+  scope :state_group, ->{
+       self.select('trucks.id, trucks.nombre, 
+                    count(trucks.state_id) as total, 
+                    states.name as state_name').
+            joins(:state).group('states.name').
+            order('states.name DESC')
+  
+  }
+
+   scope :marcas_group , ->{
+       self.select('trucks.id, trucks.nombre, 
+                    count(trucks.brand_truck_id) as total, 
+                    brand_trucks.name as brand_name').
+            joins(:brand_truck).group('brand_trucks.name').
+            order('brand_trucks.name DESC')
+  
+  }
+
+  scope :modelo_group , ->{
+       self.select('trucks.id, trucks.modelo, 
+                    count(trucks.modelo) as total').
+            group('trucks.modelo').
+            order('trucks.modelo DESC')
+  
+  }
+
+
+  scope :km_group , ->{
+       self.select('trucks.id, trucks.kilometraje, 
+                    count(trucks.kilometraje) as total').
+            group('trucks.kilometraje').
+            order('trucks.kilometraje DESC')
+  
   }
 
 end

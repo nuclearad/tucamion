@@ -27,7 +27,9 @@
 <div class="row">
   <div class="col-md-12">
     <p>
-      <%= link_to 'Nuevo Camion', new_admin_truck_path,:method=>'get', :class=>'btn  btn-primary' %>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Nuevo Vehiculo
+      </button>
     </p>
   </div>
 </div>
@@ -132,7 +134,7 @@
     <tr>
 
       <th class="name" custom-sort order="'nombre'" sort="sort">
-        Nombre
+          Nombre
 
       </th>
       <th class="description" custom-sort order="'price'" sort="sort">Precio</th>
@@ -201,6 +203,59 @@
   </table>
 </div>
 </div>
+
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Selecione Tipo de Camion</h4>
+      </div>
+      <div class="modal-body">
+        <%= select("post", "person_id", TypeTruck.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Seleccione Tipo de camion'}, {class:'form-control'}) %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script>
+    var ready;
+    ready = function() {
+
+
+
+
+        $('#post_person_id').on('change', function () {
+            var url = $(this).val(); // get selected value
+            url = '<%= new_admin_truck_path %>?v='+url;
+
+            if (url) { // require a URL
+                window.location = url; // redirect
+            }
+            return false;
+
+
+
+        });
+
+
+    };
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+
+
+</script>
 
 
 <script>
