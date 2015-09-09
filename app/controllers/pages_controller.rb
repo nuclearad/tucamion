@@ -385,6 +385,7 @@ class PagesController < ApplicationController
     @extra = Extra.find_by_id(params[:id])
   end
 
+  #hecho por jonathan rojas 09-09-2015 para cerrar session
   def logout
     session[:user] = nil
     redirect_to "/"
