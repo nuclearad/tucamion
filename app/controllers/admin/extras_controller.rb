@@ -5,10 +5,8 @@ class Admin::ExtrasController < ApplicationController
 
 
   def index
-
-    @extras = Extra.all
-    @search = @extras.search(params[:q])
-    @extras_filter = @search.result.page(params[:page]).per(5)
+    @search  = Extra.all.includes(:type_truck, :brand_extra, :state).search(params[:q])
+    @extras  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
   end
 
   def new
