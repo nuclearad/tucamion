@@ -12,10 +12,9 @@
               %ul
                 - @states_group.each do |state|
                   %li
-                    %a{:href => "#"}
-                      = state.state_name
-                      %small
-                        (#{state.total})
+                    = link_to state.state_name, "/camiones-opciones/state_id/#{state.state_id}", remote: true
+                    %small
+                      (#{state.total})
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#brand"} Marcas
@@ -24,10 +23,9 @@
               %ul
                 - @brand_group.each do |brand|
                   %li
-                    %a{:href => "#"}
-                      = brand.brand_name
-                      %small
-                        (#{brand.total})
+                    = link_to brand.brand_name, "/camiones-opciones/brand_truck_id/#{brand.brand_truck_id}", remote: true
+                    %small
+                      (#{brand.total})
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#modelo"} Modelos
@@ -36,22 +34,20 @@
               %ul
                 - @modelos_group.each do |modelo|
                   %li
-                    %a{:href => "#"}
-                      = modelo.modelo
-                      %small
-                        (#{modelo.total})
+                    = link_to modelo.modelo, "/camiones-opciones/modelo/#{modelo.modelo}", remote: true
+                    %small
+                      (#{modelo.total})
         .accordion-group
           .accordion-heading
-            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#km"} kilometraje
+            %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#km"} Kilometraje
           #km.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
               %ul
                 - @km_group.each do |km|
                   %li
-                    %a{:href => "#"}
-                      = km.kilometraje
-                      %small
-                        (#{km.total})
+                    = link_to km.kilometraje, "/camiones-opciones/kilometraje/#{km.kilometraje}", remote: true
+                    %small
+                      (#{km.total})
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
