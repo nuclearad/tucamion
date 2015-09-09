@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810202938) do
+ActiveRecord::Schema.define(version: 20150909202940) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -61,6 +61,20 @@ ActiveRecord::Schema.define(version: 20150810202938) do
 
   create_table "colors_trucks", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", force: true do |t|
+    t.string   "firstName"
+    t.string   "lastName"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "event"
+    t.string   "lang"
+    t.string   "subject"
+    t.text     "comments"
+    t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -131,6 +145,16 @@ ActiveRecord::Schema.define(version: 20150810202938) do
     t.datetime "picture_updated_at"
   end
 
+  create_table "images", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "marca_carroceria", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -184,6 +208,53 @@ ActiveRecord::Schema.define(version: 20150810202938) do
     t.datetime "updated_at"
   end
 
+  create_table "pictures", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "place_id"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+  end
+
+  create_table "places", force: true do |t|
+    t.string   "name"
+    t.string   "city"
+    t.string   "address"
+    t.string   "location"
+    t.datetime "date"
+    t.string   "meta_title"
+    t.string   "meta_description"
+    t.string   "meta_keywords"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "singlepricea"
+    t.string   "singlepriced"
+    t.string   "singlepricer"
+    t.string   "triplepricea"
+    t.string   "triplepriced"
+    t.string   "triplepricer"
+    t.string   "vippricea"
+    t.string   "vippriced"
+    t.string   "vippricer"
+  end
+
+  add_index "places", ["name"], name: "index_places_on_name", unique: true, using: :btree
+
+  create_table "questions", force: true do |t|
+    t.string   "question_es"
+    t.string   "question_pt"
+    t.text     "answer_es"
+    t.text     "answer_pt"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "referencias", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -191,10 +262,41 @@ ActiveRecord::Schema.define(version: 20150810202938) do
     t.integer  "type_truck_id"
   end
 
+  create_table "registers", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "firstName"
+    t.string   "lastName"
+    t.string   "emailAddress"
+    t.string   "customCheckbox"
+    t.integer  "place_id"
+  end
+
   create_table "scraps_trucks", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sections", force: true do |t|
+    t.string   "title"
+    t.string   "name_es"
+    t.string   "name_pt"
+    t.text     "content_es"
+    t.text     "content_pt"
+    t.integer  "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.string   "meta_title_es"
+    t.string   "meta_description_es"
+    t.string   "meta_keywords_es"
+    t.string   "meta_title_pt"
+    t.string   "meta_description_pt"
+    t.string   "meta_keywords_pt"
   end
 
   create_table "services", force: true do |t|
@@ -248,7 +350,7 @@ ActiveRecord::Schema.define(version: 20150810202938) do
 
   create_table "sub_trucks", force: true do |t|
     t.string   "name"
-    t.integer  "type_trucks_id"
+    t.integer  "type_truck_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -338,7 +440,7 @@ ActiveRecord::Schema.define(version: 20150810202938) do
     t.integer  "placa_city_id"
     t.integer  "placa_state_id"
     t.integer  "wheels_truck_id"
-    t.integer  "color_truck_id"
+    t.integer  "colors_truck_id"
     t.integer  "spaces_truck_id"
     t.integer  "transmissions_truck_id"
     t.integer  "scraps_truck_id"
@@ -348,7 +450,7 @@ ActiveRecord::Schema.define(version: 20150810202938) do
     t.integer  "customer_id"
     t.integer  "sub_truck_id"
     t.string   "pesobruto"
-    t.integer  "referecia_id"
+    t.integer  "referencia_id"
     t.string   "marcacapa"
     t.string   "tipotrailer"
     t.string   "marcatrailer"
@@ -356,13 +458,13 @@ ActiveRecord::Schema.define(version: 20150810202938) do
     t.string   "numeroejestrailer"
     t.string   "sevendecontrailer"
     t.string   "direccion"
-    t.integer  "marcaequipohumedo_id"
-    t.integer  "tipocarroceria_id"
-    t.integer  "marcacarroceria_id"
-    t.integer  "marcavolco_id"
+    t.integer  "marca_equipo_humedo_id"
+    t.integer  "tipo_carroceria_id"
+    t.integer  "marca_carroceria_id"
+    t.integer  "marca_volco_id"
     t.string   "capacidadmetrica"
     t.string   "cuantosmetroscubicos"
-    t.string   "Autocarpado"
+    t.string   "autocarpado"
   end
 
   create_table "type_extras", force: true do |t|
