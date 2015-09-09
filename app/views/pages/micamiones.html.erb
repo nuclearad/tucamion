@@ -10,7 +10,7 @@
   <div class="col-lg-12">
     <h1 class="page-header">
 
-      Camiones   <small><%= camiones-@trucks.count %></small>/<%= camiones %>
+      Camiones   <small><%= camiones-@trucks.size %></small>/<%= camiones %>
     </h1>
 
   </div>
@@ -36,7 +36,7 @@
 <div class="row">
   <div class="col-md-12">
     <p>
-      <% if camiones-@trucks.count > 0 %>
+      <% if camiones-@trucks.size > 0 %>
     <!--  <%= link_to 'Nuevo Camion', micamionesnewpost_path, :method=>'get', :class=>'btn  btn-primary' %>-->
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
            Nuevo Vehiculo
