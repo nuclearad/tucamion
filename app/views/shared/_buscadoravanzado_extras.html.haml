@@ -12,7 +12,7 @@
               %ul
                 - @states_group.each do |state|
                   %li
-                    = link_to state.state_name, "repuestos-opciones/state_id/#{state.state_id}", remote: true
+                    = link_to state.state_name, "/repuestos-opciones/state_id/#{state.state_id}", remote: true
                     %small
                       (#{state.total})
         .accordion-group
@@ -23,7 +23,7 @@
               %ul
                 - @brand_group.each do |brand|
                   %li
-                    = link_to brand.brand_name, "repuestos-opciones/brand_extra_id/#{brand.brand_extra_id}", remote: true
+                    = link_to brand.brand_name, "/repuestos-opciones/brand_extra_id/#{brand.brand_extra_id}", remote: true
                     %small
                       (#{brand.total})
         .accordion-group
