@@ -69,7 +69,7 @@ class Extra < ActiveRecord::Base
   }
 
   scope :state_group, ->{
-       self.select('extras.id, extras.name, 
+       self.select('extras.id, extras.name, extras.state_id,
                     count(extras.state_id) as total, 
                     states.name as state_name').
             joins(:state).group('states.name').
@@ -78,7 +78,7 @@ class Extra < ActiveRecord::Base
   }
 
   scope :brand_group, ->{
-     self.select('extras.id, extras.name, 
+     self.select('extras.id, extras.name, extras.brand_extra_id,
               count(extras.brand_extra_id) as total, 
               brand_extras.name as brand_name').
       joins(:brand_extra).group('brand_extras.name').

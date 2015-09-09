@@ -63,7 +63,7 @@ class Service < ActiveRecord::Base
   }
 
   scope :state_group, ->{
-       self.select('services.id, services.name, 
+       self.select('services.id, services.name, services.state_id,
                     count(services.state_id) as total, 
                     states.name as state_name').
             joins(:state).group('states.name').
