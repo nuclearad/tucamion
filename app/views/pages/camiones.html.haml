@@ -13,11 +13,5 @@
         = render 'shared/type_trucks'
         .sidebar-module-container
           = render "shared/buscadoravanzado_trucks"
-      .col-md-9
-        .search-result-container
-          #myTabContent.tab-content
-            #grid-container.tab-pane.active
-              .category-product.inner-top-vs
-                .row
-                  #list_trucks
-                    = render partial: 'shared/list_trucks'
+      #list_trucks
+        = render partial: 'shared/list_trucks'

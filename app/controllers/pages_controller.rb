@@ -396,6 +396,10 @@ class PagesController < ApplicationController
     @brand_group     = Truck.marcas_group
     @km_group        = Truck.km_group
     @toggle_search   = self.nested_search(params[:q])
+    respond_to do |format|
+      format.html { render :camiones }
+      format.js   { render :camiones }
+    end
   end
 
   def camiontipo
@@ -410,7 +414,10 @@ class PagesController < ApplicationController
     @km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search   = self.nested_search(self.get_toggle)
-    render :camiones 
+    respond_to do |format|
+      format.html { render :camiones }
+      format.js   { render :camiones }
+    end
   end
 
   def camion_toggle
@@ -424,11 +431,19 @@ class PagesController < ApplicationController
     @km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search = self.nested_search(self.get_toggle)
-    render :camiones  
+    respond_to do |format|
+      format.html { render :camiones }
+      format.js   { render :camiones }
+    end  
   end
 
   def camiones_ajax
-    
+    field = params[:field]
+    value = params[:value]
+    @trucks = Truck.where(active: 1, field.to_sym => value).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    respond_to do |format|
+      format.js { render :camiones }
+    end    
   end
 
   def repuestos
