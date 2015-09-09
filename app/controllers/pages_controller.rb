@@ -213,12 +213,10 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-
-      @user = Customer.find_by_id(session[:user])
-      @extras = Extra.where(:customer_id => session[:user])
+      @user    = Customer.find_by_id(session[:user])
+      @search  = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
+      @extras  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
-
-      puts @extras
     end
   end
 
