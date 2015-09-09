@@ -197,7 +197,7 @@
                 <tr class="nymou"><td>Placa:</td><td class="pull-right"><%= @truck.placa.upcase %></td></tr>
                 <tr class="nymou"><td>Ubicación Placa:</td><td class="pull-right"><%=  @ciudad.name %></td></tr>
                 <% if  @truck.colors_truck %>
-                <tr class="nymou"><td>Color:</td><td class="pull-right"><%=  @truck.colors_truck.name %></td></tr>
+                <tr class="nymou"><td>Color:</td><td class="pull-right"><%=  @truck.colors_truck.name if @truck.colors_truck.name %></td></tr>
                 <% end %>
                 <tr class="nymou"><td>Tipo Combustible</td>
                   <td class="pull-right">
