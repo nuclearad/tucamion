@@ -10,7 +10,7 @@
   <div class="col-lg-12">
     <h1 class="page-header">
 
-      Servicios   <small><%= servicios-@servicios.count %></small>/<%= servicios %>
+      Servicios   <small><%= servicios-@servicios.total_count %></small>/<%= servicios %>
     </h1>
 
   </div>
@@ -36,7 +36,7 @@
 <div class="row">
   <div class="col-md-12">
     <p>
-      <% if servicios-@servicios.count > 0 %>
+      <% if servicios-@servicios.total_count > 0 %>
           <%= link_to 'Nuevo Servicio', miserviciosnew_path, :method=>'get', :class=>'btn  btn-primary' %>
 
       <% end %>
@@ -109,7 +109,7 @@
       </table>
     </div>
 
-
+    <%= render partial: "includes/paginator_admin" , locals: {object: @servicios}%>
 
   </div>
 </div>
