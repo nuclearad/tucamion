@@ -51,4 +51,3 @@ gem 'kaminari'
 # HAML support
 gem 'haml'
 gem 'haml-rails'
-gem 'tzinfo-data'
