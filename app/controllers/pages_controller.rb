@@ -249,6 +249,39 @@ class PagesController < ApplicationController
     end
   end
 
+  def mirepuestosedit
+
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @user = Customer.find_by_id(session[:user])
+      @extra = Extra.find(params[:id])
+      @extraLateUpdate = @extra.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      if @extra.blank?
+        redirect_to mirepuestos_path
+      else
+
+        if request.post?
+
+          if @extraLateUpdate
+            salved = @extra.update_attributes(allowed_lateExtraUpdate_params)
+          end
+          if @extra.update_attributes(allowed_params) or salved
+            flash[:notice] = 'Información actualizada correctamente'
+            redirect_to micamiones_path
+          else
+            flash[:notice] = 'Informasssción actualizada correctamente'
+            redirect_to micamiones_path
+          end
+        else
+          render :layout => 'layouts/cliente'
+        end
+
+      end
+
+    end
+
+  end
 
   def miservicios
 
@@ -271,6 +304,16 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @service = Service.find(params[:id])
+      @serviceLateUpdate = @service.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      if request.post?
+
+        params[:service][:customer_id] = session[:user]
+        @extra = Service.new(allowed_paramsservice)
+        if @extra.save
+          flash[:notice] = 'Información agregada correctamente'
+          redirect_to mirepuestos_path
+        end
+      end
       render :layout => 'layouts/cliente'
     end
 
