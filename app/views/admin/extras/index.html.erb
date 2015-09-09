@@ -111,11 +111,7 @@
 
       </table>
     </div>
-    <div class = 'clearfix filters-container text-right' >
-      <div class= 'pagination-container' >
-         <%= paginate @extras %>
-      </div>
-   </div>
+    <%= render partial: "includes/paginator_admin" , locals: {object: @extras}%>
   </div>
 </div>
 <!-- /.row -->
