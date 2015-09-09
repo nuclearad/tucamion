@@ -455,6 +455,10 @@ class PagesController < ApplicationController
     @brand_group   = Extra.brand_group
     @states_group  = Extra.state_group
     @toggle_search = self.nested_search(params[:q])
+    respond_to do |format|
+      format.html { render :repuestos }
+      format.js   { render :repuestos }
+    end 
   end
 
   def repuestotipo
@@ -467,7 +471,10 @@ class PagesController < ApplicationController
     @brand_group      = Extra.brand_group
     @states_group     = Extra.state_group
     @toggle_search    = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
-    render :repuestos
+    respond_to do |format|
+      format.html { render :repuestos }
+      format.js   { render :repuestos }
+    end 
   end
 
   def repuesto_toggle
@@ -479,11 +486,19 @@ class PagesController < ApplicationController
     @brand_group   = Extra.brand_group
     @states_group  = Extra.state_group
     @toggle_search = self.nested_search(self.get_toggle)
-    render :repuestos
+    respond_to do |format|
+      format.html { render :repuestos }
+      format.js   { render :repuestos }
+    end 
   end
 
   def repuestos_ajax
-      
+    field = params[:field]
+    value = params[:value]
+    @extras = Extra.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    respond_to do |format|
+      format.js { render :repuestos }
+    end        
   end  
 
   def servicios

@@ -12,10 +12,9 @@
               %ul
                 - @states_group.each do |state|
                   %li
-                    %a{:href =>"repuestos-opciones/state_id/#{state.state_id}"}
-                      = state.state_name
-                      %small
-                        (#{state.total})
+                    = link_to state.state_name, "repuestos-opciones/state_id/#{state.state_id}", remote: true
+                    %small
+                      (#{state.total})
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#brand"} Marcas
@@ -24,10 +23,9 @@
               %ul
                 - @brand_group.each do |brand|
                   %li
-                    %a{:href => "repuestos-opciones/brand_extra_id/#{brand.brand_extra_id}"}
-                      = brand.brand_name
-                      %small
-                        (#{brand.total})
+                    = link_to brand.brand_name, "repuestos-opciones/brand_extra_id/#{brand.brand_extra_id}", remote: true
+                    %small
+                      (#{brand.total})
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada
