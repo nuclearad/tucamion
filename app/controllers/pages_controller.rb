@@ -249,6 +249,18 @@ class PagesController < ApplicationController
     end
   end
 
+  def mirepuestosedit
+
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @user = Customer.find_by_id(session[:user])
+      @extra = Extra.find(params[:id])
+      @extraLateUpdate = @extra.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      render :layout => 'layouts/cliente'
+    end
+
+  end
 
   def miservicios
 
@@ -271,6 +283,7 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @service = Service.find(params[:id])
+      @serviceLateUpdate = @service.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
       render :layout => 'layouts/cliente'
     end
 
