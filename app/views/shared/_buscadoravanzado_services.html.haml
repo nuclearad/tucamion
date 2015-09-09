@@ -12,10 +12,9 @@
               %ul
                 - @states_group.each do |state|
                   %li
-                    %a{:href => "servicios-opciones/state_id/#{state.state_id}"}
-                      = state.state_name
-                      %small
-                        (#{state.total})
+                    = link_to state.state_name, "/servicios-opciones/state_id/#{state.state_id}", remote: true
+                    %small
+                      (#{state.total})
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada

@@ -479,6 +479,10 @@ class PagesController < ApplicationController
     @type_services = TypeService.group_by_services
     @states_group  = Service.state_group
     @toggle_search = self.nested_search(params[:q])
+    respond_to do |format|
+      format.html { render :servicios }
+      format.js { render :servicios }
+    end
   end
 
   def serviciotipo
@@ -489,7 +493,10 @@ class PagesController < ApplicationController
     @states        = State.all.order(:name)
     @states_group  = Service.state_group
     @toggle_search = Hash.new
-    render :servicios
+    respond_to do |format|
+      format.html { render :servicios }
+      format.js { render :servicios }
+    end
   end
 
   def service_toggle
@@ -500,11 +507,19 @@ class PagesController < ApplicationController
     @type_services = TypeService.group_by_services
     @states_group  = Service.state_group
     @toggle_search = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
-    render :servicios
+    respond_to do |format|
+      format.html { render :servicios }
+      format.js { render :servicios }
+    end
   end
 
   def servicios_ajax
-    
+    field = params[:field]
+    value = params[:value]
+    @services = Service.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    respond_to do |format|
+      format.js { render :servicios }
+    end
   end
 
 
