@@ -142,4 +142,7 @@ Rails.application.routes.draw do
   get  'repuestos-opciones/:field/:value' => 'pages#repuestos_ajax'
   get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
 
+  #sessiones
+  get 'logout' => 'pages#logout'
+
 end
