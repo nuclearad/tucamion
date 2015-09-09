@@ -138,9 +138,9 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-      @user = Customer.find_by_id(session[:user])
-      @trucks = Truck.where(:customer_id => session[:user])
-
+      @user    = Customer.find_by_id(session[:user])
+      @search  = Truck.where(:customer_id => session[:user]).includes(:type_truck, :brand_truck, :state, :messages).search(params[:q])
+      @trucks  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
     end
   end
@@ -213,12 +213,10 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-
-      @user = Customer.find_by_id(session[:user])
-      @extras = Extra.where(:customer_id => session[:user])
+      @user    = Customer.find_by_id(session[:user])
+      @search  = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
+      @extras  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
-
-      puts @extras
     end
   end
 
@@ -255,8 +253,9 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-      @user = Customer.find_by_id(session[:user])
-      @servicios = Service.where(:customer_id => session[:user])
+      @user       = Customer.find_by_id(session[:user])
+      @search     = Service.where(:customer_id => session[:user]).includes(:type_service, :messages).search(params[:q])
+      @servicios  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
     end
 
