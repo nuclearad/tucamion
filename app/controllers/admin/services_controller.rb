@@ -6,9 +6,8 @@ class Admin::ServicesController < ApplicationController
 
 
   def index
-    @services = Service.all
-    @search = @services.search(params[:q])
-    @services_filter = @search.result.page(params[:page]).per(5)
+    @search  = Service.all.includes(:type_service, :state).search(params[:q])
+    @services  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
   end
 
   def new
