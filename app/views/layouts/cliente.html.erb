@@ -98,7 +98,7 @@
 
           <li class="divider"></li>
           <li>
-            <a href="#"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+            <i class="fa fa-fw fa-power-off"><%= link_to 'Salir', destroy_user_session_path, :method => :delete %></i>
           </li>
         </ul>
       </li>
