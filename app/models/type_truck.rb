@@ -2,7 +2,7 @@ class TypeTruck < ActiveRecord::Base
   has_many :trucks
   has_many :sub_trucks
   has_many :extras
-  has_many :brand_extra, through: :extras
+  has_many :brand_extra,->{self.uniq}, through: :extras
   
 
   HUMANIZED_ATTRIBUTES = {
