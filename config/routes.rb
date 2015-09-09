@@ -137,4 +137,9 @@ Rails.application.routes.draw do
   get  'servicio-opciones/:q' => 'pages#service_toggle'
   get  'repuesto-opciones/:q' => 'pages#repuesto_toggle'
   get  'camion-opciones/:q' => 'pages#camion_toggle'
+
+  get  'servicios-opciones/:field/:value' => 'pages#servicios_ajax'
+  get  'repuestos-opciones/:field/:value' => 'pages#repuestos_ajax'
+  get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
+
 end
