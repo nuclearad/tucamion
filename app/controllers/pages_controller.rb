@@ -138,9 +138,9 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-      @user = Customer.find_by_id(session[:user])
-      @trucks = Truck.where(:customer_id => session[:user])
-
+      @user    = Customer.find_by_id(session[:user])
+      @search  = Truck.where(:customer_id => session[:user]).includes(:type_truck, :brand_truck, :state, :messages).search(params[:q])
+      @trucks  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
     end
   end
@@ -213,12 +213,10 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-
-      @user = Customer.find_by_id(session[:user])
-      @extras = Extra.where(:customer_id => session[:user])
+      @user    = Customer.find_by_id(session[:user])
+      @search  = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
+      @extras  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
-
-      puts @extras
     end
   end
 
@@ -288,8 +286,9 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-      @user = Customer.find_by_id(session[:user])
-      @servicios = Service.where(:customer_id => session[:user])
+      @user       = Customer.find_by_id(session[:user])
+      @search     = Service.where(:customer_id => session[:user]).includes(:type_service, :messages).search(params[:q])
+      @servicios  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
     end
 
@@ -428,6 +427,14 @@ class PagesController < ApplicationController
     @extra = Extra.find_by_id(params[:id])
   end
 
+  #hecho por jonathan rojas 09-09-2015 para cerrar session
+  def logout
+    session[:user] = nil
+    redirect_to "/"
+  end
+
+  #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
+  
   def camiones
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
