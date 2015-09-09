@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810202938) do
+ActiveRecord::Schema.define(version: 20150909202940) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -348,7 +348,7 @@ ActiveRecord::Schema.define(version: 20150810202938) do
     t.integer  "customer_id"
     t.integer  "sub_truck_id"
     t.string   "pesobruto"
-    t.integer  "referecia_id"
+    t.integer  "referencia_id"
     t.string   "marcacapa"
     t.string   "tipotrailer"
     t.string   "marcatrailer"
