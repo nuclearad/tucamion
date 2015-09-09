@@ -385,6 +385,13 @@ class PagesController < ApplicationController
     @extra = Extra.find_by_id(params[:id])
   end
 
+  def logout
+    session[:user] = nil
+    redirect_to "/"
+  end
+
+  #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
+  
   def camiones
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
