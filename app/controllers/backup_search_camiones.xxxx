@@ -1,3 +1,4 @@
+  por si acaso
   def camiones_backup
    
     @fullbBase = request.original_url
@@ -11,7 +12,6 @@
     @mostrarEstado = true
     @mostrarPlaca = true
     @mostrarPrice  = true
-
 
 
     @banners = Banner.all.order('rand()').limit(3)
