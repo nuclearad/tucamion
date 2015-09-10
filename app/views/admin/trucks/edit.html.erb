@@ -92,16 +92,13 @@
                         <%= f.text_field :price, :class =>'form-control'  %>
                     </div>
                 </div>
-
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= f.label :pesobruto, 'Peso bruto' %>
-                <%= f.text_field :pesobruto, :class =>'form-control'  %>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :pesobruto, 'Peso bruto' %>
+                  <%= f.text_field :pesobruto, :class =>'form-control'  %>
+                </div>
               </div>
             </div>
-
-          </div>
 
 
 
@@ -117,14 +114,11 @@
             <div class="col-md-6">
               <div class="form-group">
                 <%= f.label :city_id, 'Ciudad' %>
-                <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                <%= f.collection_select :city_id, @cities.order(:name),:id,:name, {}, { class: 'form-control'} %>
               </div>
             </div>
 
           </div>
-
-
-
 
           <div class="row">
             <div class="col-md-6">
@@ -137,7 +131,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <%= f.label :placa_city_id, 'Ciudad placa' %>
-                <%= f.select(:placa_city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                <%= f.collection_select :placa_city_id, @placaCities.order(:name),:id,:name, {}, { class: 'form-control' } %>
               </div>
             </div>
 
@@ -214,7 +208,7 @@
 
             </div>
 
-            <script !src="">
+            <script >
                 $(function(){
                     $('#sa').click(function(){
                         $($('.nav-tabs li')[0]).removeClass('active')
@@ -224,11 +218,8 @@
             </script>
           </div>
 
-
-
-
-
         </div>
+
         <div role="tabpanel" class="tab-pane" id="profile">
 
 
@@ -320,7 +311,7 @@
                   <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
 
 
-                  <script !src="">
+                  <script>
                       $('input[type=radio]').click(function(){
                           if($('#truck_sevendecontrailer_si').is(':checked')) {
                               $('.extras').show();
@@ -918,14 +909,14 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <%= f.label :motors_truck_id, 'Tipo Carroceria' %>
-                    <%= f.collection_select :motors_truck_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    <%= f.collection_select :motors_truck_id,TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <%= f.label :boxes_truck_id, 'Marca Carroceria' %>
-                    <%= f.collection_select :boxes_truck_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    <%= f.collection_select :boxes_truck_id,MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                   </div>
                 </div>
 
@@ -954,7 +945,7 @@
                   <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
 
 
-                  <script !src="">
+                  <script>
                       $('input[type=radio]').click(function(){
                           if($('#truck_sevendecontrailer_si').is(':checked')) {
                               $('.extras').show();
@@ -1199,7 +1190,6 @@
 
 
 <script>
-
     $('.removePicture').click(function(){
 
 
@@ -1222,8 +1212,6 @@
 
         return false;
     })
-
-
 
     var ready;
     ready = function() {
@@ -1264,7 +1252,7 @@
                     });
 
                 },
-                url:"/admin/states/"+this.value+"/cities.json"
+                url:"/departamentos/"+this.value
             });
 
         });
@@ -1304,107 +1292,10 @@
                     });
 
                 },
-                url:"/admin/states/"+this.value+"/cities.json"
+                url:"/departamentos/"+this.value
             });
 
         });
-
-
-
-        //Cargo dato cuando carga la pagina
-
-
-
-        function loader(data){
-            $('#truck_city_id option').html('Cargando...')
-
-        };
-
-        function error(data){
-            alert("Error enviados los datos");
-        };
-
-
-
-        $.ajax({
-            async: true,
-            type: "GET",
-            dataType: 'json',
-            beforeSend:loader,
-            error:error,
-            success: function (msg) {
-
-    console.log(msg)
-                $('#truck_city_id').html('')
-
-
-                $.each(msg, function(index, value) {
-                    console.log('<option value="'+value.id+'">'+value.name+'</option>');
-                    if(value.id == '<%= @truck.city_id %>'){
-                        $('#truck_city_id').append('<option selected value="'+value.id+'">'+value.name+'</option>')
-                    }else{
-                        $('#truck_city_id').append('<option value="'+value.id+'">'+value.name+'</option>')
-                    }
-
-                });
-
-
-            },
-            url:"/admin/states/<%= @truck.state_id %>/cities.json"
-        });
-
-
-
-
-
-
-        function loader(data){
-
-            $('#truck_placa_city_id option').html('Cargando...')
-        };
-
-        function error(data){
-            alert("Error enviados los datos");
-        };
-
-
-
-        $.ajax({
-            async: true,
-            type: "GET",
-            dataType: 'json',
-            beforeSend:loader,
-            error:error,
-            success: function (msg) {
-
-                console.log(msg)
-
-                $('#truck_placa_city_id').html('')
-
-
-
-
-
-                $.each(msg, function(index, value) {
-                    console.log('<option value="'+value.id+'">'+value.name+'</option>');
-                    if(value.id == '<%= @truck.city_id %>'){
-                        $('#truck_placa_city_id').append('<option selected value="'+value.id+'">'+value.name+'</option>')
-                    }else{
-                        $('#truck_placa_city_id').append('<option value="'+value.id+'">'+value.name+'</option>')
-                    }
-
-                });
-
-            },
-            url:"/admin/states/<%= @truck.placa_state_id %>/cities.json"
-        });
-
-
-
-
-
-
-
 
 
     };
