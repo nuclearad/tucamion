@@ -114,14 +114,11 @@
             <div class="col-md-6">
               <div class="form-group">
                 <%= f.label :city_id, 'Ciudad' %>
-                <%= f.collection_select :city_id, @cities.order(:name),:id,:name, {}, { class: 'form-control' } %>
+                <%= f.collection_select :city_id, @cities.order(:name),:id,:name, {}, { class: 'form-control'} %>
               </div>
             </div>
 
           </div>
-
-
-
 
           <div class="row">
             <div class="col-md-6">
@@ -211,7 +208,7 @@
 
             </div>
 
-            <script !src="">
+            <script >
                 $(function(){
                     $('#sa').click(function(){
                         $($('.nav-tabs li')[0]).removeClass('active')
@@ -314,7 +311,7 @@
                   <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
 
 
-                  <script !src="">
+                  <script>
                       $('input[type=radio]').click(function(){
                           if($('#truck_sevendecontrailer_si').is(':checked')) {
                               $('.extras').show();
@@ -912,14 +909,14 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <%= f.label :motors_truck_id, 'Tipo Carroceria' %>
-                    <%= f.collection_select :motors_truck_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    <%= f.collection_select :motors_truck_id,TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <%= f.label :boxes_truck_id, 'Marca Carroceria' %>
-                    <%= f.collection_select :boxes_truck_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                    <%= f.collection_select :boxes_truck_id,MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                   </div>
                 </div>
 
@@ -948,7 +945,7 @@
                   <%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
 
 
-                  <script !src="">
+                  <script>
                       $('input[type=radio]').click(function(){
                           if($('#truck_sevendecontrailer_si').is(':checked')) {
                               $('.extras').show();
@@ -1193,7 +1190,6 @@
 
 
 <script>
-
     $('.removePicture').click(function(){
 
 
@@ -1216,8 +1212,6 @@
 
         return false;
     })
-
-
 
     var ready;
     ready = function() {
