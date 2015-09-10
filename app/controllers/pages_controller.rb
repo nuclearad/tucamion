@@ -17,8 +17,7 @@ class PagesController < ApplicationController
     strSearch = params[:consulta]
     if strSearch.size <= 50
       if validate_injection(strSearch) == false
-        @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
-                         .like_join(strSearch).includes(:state)
+        @trucks   = Truck.like_join(strSearch).includes(:state)
                          .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
         @extras   = Extra.joins(:brand_extra, :type_truck)
