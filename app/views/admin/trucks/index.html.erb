@@ -117,9 +117,7 @@
     </div>
 
 
-    <div>
-      <%= paginate @trucks_filter %>
-    </div>
+ <%= render partial: "includes/paginator_admin" , locals: {object: @trucks_filter}%>
   </div>
 </div>
 
