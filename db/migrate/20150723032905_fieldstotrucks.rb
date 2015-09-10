@@ -2,9 +2,8 @@ class Fieldstotrucks < ActiveRecord::Migration
   def change
 
     add_column :trucks, :pesobruto, :string
-    add_column :trucks, :referencia_id, :integer
+    add_column :trucks, :referecia_id, :integer
     add_column :trucks, :marcacapa, :string
-
     add_column :trucks, :tipotrailer, :string
     add_column :trucks, :marcatrailer, :string
     add_column :trucks, :modelotrailer, :string

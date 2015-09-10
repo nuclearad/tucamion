@@ -35,7 +35,7 @@
 </div>
 
 <!--Tabla normal-->
-<!-- /.row
+<!-- /.row-->
 <div class="row">
   <div class="col-lg-12">
 
@@ -55,7 +55,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @trucks.each do |truck| %>
+        <% @trucks_filter.each do |truck| %>
             <tr>
 
 
@@ -117,14 +117,14 @@
     </div>
 
 
-
+ <%= render partial: "includes/paginator_admin" , locals: {object: @trucks_filter}%>
   </div>
 </div>
--->
 
 
 
 
+<!--
 <div ng-controller="ctrlRead">
 
   <div class="table-responsive">
@@ -203,7 +203,7 @@
   </table>
 </div>
 </div>
-
+!-->
 
 <!-- Button trigger modal -->
 
