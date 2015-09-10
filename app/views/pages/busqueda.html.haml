@@ -5,29 +5,5 @@
       %li
         %a{:href => "/"} Home
       %li.active= params[:consulta]
-.body-content.outer-top-xs
-  .container
-    .row.outer-bottom-sm
-      .col-md-9
-        .search-result-container
-          #myTabContent.tab-content
-            #grid-container.tab-pane.active
-              .category-product.inner-top-vs
-                - if @result.nil?
-                  .row
-                    %h2 CAMIONES
-                    = render partial: 'shared/list_trucks'
-                    %hr/
-                  .row
-                    %h2 Repuestos
-                    = render partial: 'shared/list_extras'
-                    %hr/
-                  .row
-                    %h2 Servicios
-                    = render partial: 'shared/list_services'
-                    %hr/
-                - else
-                  .row
-                    %h2
-                      = @result.to_s
-
+  #all_searches
+    = render partial: "shared/buscador"

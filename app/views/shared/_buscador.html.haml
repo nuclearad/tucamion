@@ -1,0 +1,11 @@
+- if @result.nil?
+  %h2 CAMIONES
+  = render partial: 'shared/list_trucks'
+  %h2 Repuestos
+  = render partial: 'shared/list_extras'
+  %h2 Servicios
+  = render partial: 'shared/list_services'
+- else
+  .row
+    %h2
+      = @result.to_s

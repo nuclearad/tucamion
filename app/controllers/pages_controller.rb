@@ -42,7 +42,10 @@ class PagesController < ApplicationController
         @services = Service.all.includes(:state, :city)
                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
     end
-
+    respond_to do |format|
+      format.html { render :busqueda }
+      format.js { render :busqueda }
+    end
   end
 
 
