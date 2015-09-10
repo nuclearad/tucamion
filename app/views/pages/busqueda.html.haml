@@ -5,5 +5,8 @@
       %li
         %a{:href => "/"} Home
       %li.active= params[:consulta]
-  #all_searches
-    = render partial: "shared/buscador"
+.body-content.outer-top-xs
+  .container
+    .row.outer-bottom-sm
+      #all_searches
+        = render partial: "shared/buscador"
