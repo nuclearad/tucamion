@@ -1,3 +1,4 @@
+  por si acaso
   def camiones_backup
    
     @fullbBase = request.original_url
