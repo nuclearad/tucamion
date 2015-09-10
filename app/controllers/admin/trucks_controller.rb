@@ -46,6 +46,8 @@ class Admin::TrucksController < ApplicationController
 
   def edit
     @truck = Truck.find(params[:id])
+    @cities= City.where('state_id = ?', @truck.state_id)
+    @placaCities= City.where('state_id =?', @truck.placa_state_id)
   end
 
   def update
