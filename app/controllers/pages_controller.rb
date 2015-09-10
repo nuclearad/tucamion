@@ -254,31 +254,21 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @extra = Extra.find(params[:id])
-      @extraLateUpdate = @extra.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
-      if @extra.blank?
-        redirect_to mirepuestos_path
-      else
-
+      @extraLateUpdate = false#@extra.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
         if request.post?
-
+            logger.info 'EEEEEEEEE'
           if @extraLateUpdate
             salved = @extra.update_attributes(allowed_lateUpdate_paramsExtra)
+          else
+            salved =@extra.update_attributes(allowed_paramsextra)
           end
-          if @extra.update_attributes(allowed_paramsextra) or salved
+          if salved
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to mirepuestos_path
-          else
-            flash[:notice] = 'Informasssción actualizada correctamente'
-            redirect_to mirepuestos_path
           end
-        else
-          render :layout => 'layouts/cliente'
         end
-
-      end
-
+      render :layout => 'layouts/cliente'
     end
-
   end
 
 #Servicios
