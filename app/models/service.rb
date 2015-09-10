@@ -55,11 +55,11 @@ class Service < ActiveRecord::Base
 
   end
 
-
   scope :like_join, ->(str){
-    self.where("services.name LIKE '%#{str}%' OR
+    self.joins("LEFT JOIN type_services ON type_services.id = services.type_service_id ").
+         where("services.name LIKE '%#{str}%' OR
                 type_services.name LIKE '%#{str}%' AND
-                services.active = 1")
+                services.active = 1").uniq
   }
 
   scope :state_group, ->{
