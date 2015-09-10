@@ -13,7 +13,6 @@
     @mostrarPrice  = true
 
 
-
     @banners = Banner.all.order('rand()').limit(3)
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
 
