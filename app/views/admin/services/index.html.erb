@@ -58,11 +58,11 @@
               </td>
 
               <td>
-                <%= type.type_service.name %>
+                <%= type.type_service.name if type.type_service %>
               </td>
 
               <td>
-                <%= type.state.name %>
+                <%= type.state.name if type.state %>
               </td>
 
               <td>

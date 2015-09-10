@@ -145,7 +145,7 @@
               <div class="module-body outer-top-xs">
                 <div class="table-responsive">
                   <table class="table"><tbody>
-                  <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @extra.state.name %> - <%= @extra.city.name %></td></tr>
+                  <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @extra.state.name if @extra.state %> - <%= @extra.city.name  if  @extra.city %></td></tr>
                   <tr class="nymou"><td>Precio:</td><td class="pull-right"> <%= number_to_currency( @extra.price,  precision: 0, delimiter: '.') %></td></tr>
                   <tr class="nymou"><td>Teléfono:</td><td class="pull-right"><%= @extra.phone %></td></tr>
                   <tr class="nymou"><td>Horario:</td><td class="pull-right"><%= @extra.horario %></td></tr>

@@ -182,8 +182,8 @@
                 <table class="table"><tbody>
 
                 <tr class="nymou"><td>Modelo:</td><td class="pull-right"><%= @truck.modelo %></td></tr>
-                <tr class="nymou"><td>Marca:</td><td class="pull-right"><%= @truck.brand_truck.name %></td></tr>
-                <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @truck.state.name %> - <%= @truck.city.name %></td></tr>
+                <tr class="nymou"><td>Marca:</td><td class="pull-right"><%= @truck.brand_truck.name if @truck.brand_truck %></td></tr>
+                <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @truck.state.name  if @truck.state %> - <%= @truck.city.name if @truck.city %></td></tr>
                 <tr class="nymou"><td>Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje %> Km</td></tr>
                 <tr class="nymou"><td>Estado:</td><td class="pull-right">
                   <% if( @truck.estado == 0) %>
@@ -195,9 +195,9 @@
 
 
                 <tr class="nymou"><td>Placa:</td><td class="pull-right"><%= @truck.placa.upcase %></td></tr>
-                <tr class="nymou"><td>Ubicación Placa:</td><td class="pull-right"><%=  @ciudad.name %></td></tr>
+                <tr class="nymou"><td>Ubicación Placa:</td><td class="pull-right"><%=  @ciudad.name  if @ciudad %></td></tr>
                 <% if  @truck.colors_truck %>
-                <tr class="nymou"><td>Color:</td><td class="pull-right"><%=  @truck.colors_truck.name %></td></tr>
+                <tr class="nymou"><td>Color:</td><td class="pull-right"><%=  @truck.colors_truck.name  %></td></tr>
                 <% end %>
                 <tr class="nymou"><td>Tipo Combustible</td>
                   <td class="pull-right">
