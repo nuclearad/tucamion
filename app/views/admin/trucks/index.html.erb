@@ -67,15 +67,15 @@
               </td>
 
               <td>
-                <%=  truck.type_truck.name %>
+                <%=  truck.type_truck.name if truck.type_truck %>
               </td>
 
               <td>
-                <%=   truck.brand_truck.name %>
+                <%=   truck.brand_truck.name if truck.brand_truck %>
               </td>
 
               <td>
-                <%=  truck.state.name %>
+                <%=  truck.state.name if truck.state%>
               </td>
 
 
