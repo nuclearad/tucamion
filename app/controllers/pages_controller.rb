@@ -20,12 +20,10 @@ class PagesController < ApplicationController
         @trucks   = Truck.like_join(strSearch).includes(:state)
                          .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-        @extras   = Extra.joins(:brand_extra, :type_truck)
-                         .like_join(strSearch).includes(:state, :city)
+        @extras   = Extra.like_join(strSearch).includes(:state, :city)
                          .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-        @services = Service.joins(:type_service)
-                           .like_join(strSearch).includes(:state, :city)
+        @services = Service.like_join(strSearch).includes(:state, :city)
                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
       else
         @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo"
