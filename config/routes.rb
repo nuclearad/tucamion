@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get  'tarifas' => 'pages#tarifas'
   get  'comprar' => 'pages#comprar'
-  post 'busqueda' => 'pages#busqueda'
+  match 'busqueda' => 'pages#busqueda', via: [:get, :post]
   get  'camion-tipo/:id_truck/:id_sub'  => 'pages#camiontipo'
   get  'repuesto-tipo/:id_truck/:id_brand' => 'pages#repuestotipo'
   get  'servicio-tipo/:id' => 'pages#serviciotipo'

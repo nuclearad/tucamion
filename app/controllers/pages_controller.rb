@@ -15,21 +15,32 @@ class PagesController < ApplicationController
   def busqueda
 
     strSearch = params[:consulta]
-    if strSearch.size <= 50
-      if validate_injection(strSearch) == false
-        @trucks   = Truck.like_join(strSearch).includes(:state)
-                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
-
-        @extras   = Extra.like_join(strSearch).includes(:state, :city)
-                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
-
-        @services = Service.like_join(strSearch).includes(:state, :city)
+    if strSearch
+      if strSearch.size <= 50
+        if validate_injection(strSearch) == false
+          @trucks   = Truck.like_join(strSearch).includes(:state)
                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
+          @extras   = Extra.like_join(strSearch).includes(:state, :city)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
+          @services = Service.like_join(strSearch).includes(:state, :city)
+                             .page(params[:page]).per(Environment::LIMIT_SEARCH)
+        else
+          @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo"
+        end
       else
-        @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo"
+        @result = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
       end
     else
-      @result = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
+        @trucks   = Truck.all.includes(:state)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
+        @extras   = Extra.all.includes(:state, :city)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
+        @services = Service.all.includes(:state, :city)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
     end
 
   end
