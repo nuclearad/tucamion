@@ -29,7 +29,7 @@ class PagesController < ApplicationController
                            .like_join(strSearch).includes(:state, :city)
                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
       else
-        @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo" 
+        @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo"
       end
     else
       @result = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
@@ -247,7 +247,41 @@ class PagesController < ApplicationController
     end
   end
 
+  def mirepuestosedit
 
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @user = Customer.find_by_id(session[:user])
+      @extra = Extra.find(params[:id])
+      @extraLateUpdate = @extra.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      if @extra.blank?
+        redirect_to mirepuestos_path
+      else
+
+        if request.post?
+
+          if @extraLateUpdate
+            salved = @extra.update_attributes(allowed_lateUpdate_paramsExtra)
+          end
+          if @extra.update_attributes(allowed_paramsextra) or salved
+            flash[:notice] = 'Información actualizada correctamente'
+            redirect_to mirepuestos_path
+          else
+            flash[:notice] = 'Informasssción actualizada correctamente'
+            redirect_to mirepuestos_path
+          end
+        else
+          render :layout => 'layouts/cliente'
+        end
+
+      end
+
+    end
+
+  end
+
+#Servicios
   def miservicios
 
     if session[:user].nil?
@@ -262,7 +296,6 @@ class PagesController < ApplicationController
 
   end
 
-
   def miserviciosedit
 
     if session[:user].nil?
@@ -270,6 +303,16 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @service = Service.find(params[:id])
+      @serviceLateUpdate = @service.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      if request.post?
+
+        params[:service][:customer_id] = session[:user]
+        @extra = Service.new(allowed_paramsservice)
+        if @extra.save
+          flash[:notice] = 'Información agregada correctamente'
+          redirect_to mirepuestos_path
+        end
+      end
       render :layout => 'layouts/cliente'
     end
 
@@ -301,6 +344,7 @@ class PagesController < ApplicationController
 
     end
   end
+#EndServicios
 
 
   def micuenta
@@ -327,7 +371,7 @@ class PagesController < ApplicationController
       else
 
         @user = Customer.find_by_id(session[:user])
-         
+
         @offers = Offercustomer.where(:customer_id => session[:user])
 
 
@@ -339,7 +383,7 @@ class PagesController < ApplicationController
       ORDER BY created_at DESC')
 
         render :action => 'micuenta', :layout => 'layouts/cliente'
-      
+
       end
 
   end
@@ -391,7 +435,7 @@ class PagesController < ApplicationController
   end
 
   #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
-  
+
   def camiones
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
@@ -441,7 +485,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html { render :camiones }
       format.js   { render :camiones }
-    end  
+    end
   end
 
   def camiones_ajax
@@ -450,11 +494,11 @@ class PagesController < ApplicationController
     @trucks = Truck.where(active: 1, field.to_sym => value).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.js { render :camiones }
-    end    
+    end
   end
 
   def repuestos
-    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
+    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search        = Extra.where(active: 1).includes(:state, :city).search(params[:q])
     @extras        = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_trucks   = TypeTruck.group_by_brand
@@ -465,7 +509,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html { render :repuestos }
       format.js   { render :repuestos }
-    end 
+    end
   end
 
   def repuestotipo
@@ -481,7 +525,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html { render :repuestos }
       format.js   { render :repuestos }
-    end 
+    end
   end
 
   def repuesto_toggle
@@ -496,7 +540,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html { render :repuestos }
       format.js   { render :repuestos }
-    end 
+    end
   end
 
   def repuestos_ajax
@@ -505,11 +549,11 @@ class PagesController < ApplicationController
     @extras = Extra.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.js { render :repuestos }
-    end        
-  end  
+    end
+  end
 
   def servicios
-    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar  
+    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
@@ -584,6 +628,9 @@ class PagesController < ApplicationController
        return false
     end
 
+    def allowed_lateUpdate_paramsExtra
+      params.require(:extra).permit(:id,:active,:price, customer_attributes:[:id,:telefono,:email])
+    end
 
     def allowed_lateUpdate_params
       params.require(:truck).permit(:id,:active,:price, customer_attributes:[:id,:telefono,:email])
