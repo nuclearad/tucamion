@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   post 'mi-cuenta/camiones/agregar' => 'pages#micamionesnew', :as=> 'micamionesnewpost'
   get 'mi-cuenta/camiones/editar/:id' => 'pages#micamionesedit', :as=> 'micamionesedit'
   post 'mi-cuenta/camiones/editar/:id' => 'pages#micamionesedit', :as=> 'micamioneseditpost'
-
+  delete 'mi-cuenta/camiones/delete/:id' => 'pages#micamionesdelete', :as=> 'micamionesdelete'
 
 
   get 'mi-cuenta/repuestos' => 'pages#mirepuestos', :as=> 'mirepuestos'
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   post 'mi-cuenta/servicios/agregar' => 'pages#miserviciosnew', :as=> 'miserviciosnewpost'
   get 'mi-cuenta/servicios/editar/:id' => 'pages#miserviciosedit', :as=> 'miserviciosedit'
   post 'mi-cuenta/servicios/editar/:id' => 'pages#miserviciosedit', :as=> 'miservicioseditpost'
-
+  delete 'mi-cuenta/servicios/delete/:id' => 'pages#miserviciosdelete', :as=> 'miserviciosdelete'
 
 
 

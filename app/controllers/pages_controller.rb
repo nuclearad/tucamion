@@ -143,7 +143,7 @@ class PagesController < ApplicationController
     render json: data
   end
 
-
+# Camiones
   def micamiones
 
     if session[:user].nil?
@@ -220,7 +220,21 @@ class PagesController < ApplicationController
     end
   end
 
+  def micamionesdelete
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @truck = Truck.find(params[:id])
+      if @truck.destroy
+        flash[:notice] = 'Información eliminada correctamente'
+      else
+        flash[:notice] = 'Error eliminando informacion'
+      end
+    redirect_to micamiones_path
+    end
+  end
 
+#repuestos
   def mirepuestos
 
     if session[:user].nil?
@@ -311,7 +325,6 @@ class PagesController < ApplicationController
       render :layout => 'layouts/cliente'
     end
 
-
   end
 
   def miserviciosedit
@@ -335,7 +348,6 @@ class PagesController < ApplicationController
     end
 
   end
-
 
   def miserviciosnew
     if session[:user].nil?
@@ -362,9 +374,23 @@ class PagesController < ApplicationController
 
     end
   end
-#EndServicios
 
+  def miserviciosdelete
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @service = Service.find(params[:id])
+      if @service.destroy
+        flash[:notice] = 'Información eliminada correctamente'
+      else
+        flash[:notice] = 'Error eliminando informacion'
+      end
+    redirect_to miservicios_path
+    end
+  end
+#
 
+#mi cuenta
   def micuenta
 
       if session[:user].nil?
@@ -452,7 +478,7 @@ class PagesController < ApplicationController
     redirect_to "/"
   end
 
-  #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
+#hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
 
   def camiones
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
@@ -631,6 +657,7 @@ class PagesController < ApplicationController
     @service = Service.find_by_id(params[:id])
   end
 
+#private
     private
 
     def load_banners
