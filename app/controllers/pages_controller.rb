@@ -250,7 +250,7 @@ class PagesController < ApplicationController
           flash[:notice] = 'Información agregada correctamente'
           redirect_to mirepuestos_path
         else
-          render 'new'
+          render 'mirepuestosnew'
         end
 
       else
