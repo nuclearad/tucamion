@@ -285,6 +285,20 @@ class PagesController < ApplicationController
     end
   end
 
+  def mirepuestosdelete
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @extra = Extra.find(params[:id])
+      if @extra.destroy
+        flash[:notice] = 'Información eliminada correctamente'
+      else
+        flash[:notice] = 'Error eliminando informacion'
+      end
+    redirect_to mirepuestos_path
+    end
+  end
+
 #Servicios
   def miservicios
 
