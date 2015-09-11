@@ -191,7 +191,7 @@ class PagesController < ApplicationController
 
       @user = Customer.find_by_id(session[:user])
       @truck = Truck.where(:id => params[:id], :customer_id => session[:user]).first
-      @lateUpdate = @truck.created_at < Date.today - Constants::TRUCK_LATE_UPDATE
+      @lateUpdate = @truck.created_at < Date.today - Environment::TRUCK_LATE_UPDATE
 
       if @truck.blank?
         redirect_to micamiones_path
@@ -265,7 +265,7 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @extra = Extra.find(params[:id])
-      @extraLateUpdate = @extra.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      @extraLateUpdate = @extra.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
         if request.post?
             logger.info 'EEEEEEEEE'
           if @extraLateUpdate==true
@@ -306,7 +306,7 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @service = Service.find(params[:id])
-      @serviceLateUpdate = @service.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      @serviceLateUpdate = @service.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       if request.post?
 
         params[:service][:customer_id] = session[:user]
