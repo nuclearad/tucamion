@@ -191,7 +191,9 @@ class PagesController < ApplicationController
 
       @user = Customer.find_by_id(session[:user])
       @truck = Truck.where(:id => params[:id], :customer_id => session[:user]).first
-      @lateUpdate = @truck.created_at < Date.today - Environment::TRUCK_LATE_UPDATE
+      @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
+      @cities= City.where('state_id = ?', @truck.state_id)
+      @placaCities= City.where('state_id =?', @truck.placa_state_id)
 
       if @truck.blank?
         redirect_to micamiones_path
