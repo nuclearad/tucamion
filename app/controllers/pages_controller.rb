@@ -265,6 +265,7 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @extra = Extra.find(params[:id])
+      @cities= City.where('state_id = ?', @extra.state_id)
       @extraLateUpdate = @extra.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
         if request.post?
             logger.info 'EEEEEEEEE'
@@ -275,12 +276,12 @@ class PagesController < ApplicationController
           end
           if salved==true
             flash[:notice] = 'Información actualizada correctamente'
-            redirect_to mirepuestos_path
+            redirect_to mirepuestos_path and return
+          else
+            flash[:notice] = 'Información No actualizada'
           end
-        else
-          render :layout => 'layouts/cliente'
         end
-
+      render :layout => 'layouts/cliente'
     end
   end
 
