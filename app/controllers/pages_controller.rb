@@ -248,15 +248,13 @@ class PagesController < ApplicationController
         @extra = Extra.new(allowed_paramsextra)
         if @extra.save
           flash[:notice] = 'Información agregada correctamente'
-          redirect_to mirepuestos_path
+          redirect_to mirepuestos_path and return
         else
-          render 'mirepuestosnew'
+          flash[:notice] = 'Error Guardando informacion'
         end
 
-      else
-        render :layout => 'layouts/cliente'
       end
-
+      render :layout => 'layouts/cliente'
     end
   end
 
