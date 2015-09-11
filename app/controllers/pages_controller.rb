@@ -15,26 +15,37 @@ class PagesController < ApplicationController
   def busqueda
 
     strSearch = params[:consulta]
-    if strSearch.size <= 50
-      if validate_injection(strSearch) == false
-        @trucks   = Truck.joins(:brand_truck, :type_truck, :sub_truck)
-                         .like_join(strSearch).includes(:state)
-                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
-
-        @extras   = Extra.joins(:brand_extra, :type_truck)
-                         .like_join(strSearch).includes(:state, :city)
-                         .page(params[:page]).per(Environment::LIMIT_SEARCH)
-
-        @services = Service.joins(:type_service)
-                           .like_join(strSearch).includes(:state, :city)
+    if strSearch
+      if strSearch.size <= 50
+        if validate_injection(strSearch) == false
+          @trucks   = Truck.like_join(strSearch).includes(:state)
                            .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
+          @extras   = Extra.like_join(strSearch).includes(:state, :city)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
+          @services = Service.like_join(strSearch).includes(:state, :city)
+                             .page(params[:page]).per(Environment::LIMIT_SEARCH)
+        else
+          @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo"
+        end
       else
-        @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo"
+        @result = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
       end
     else
-      @result = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
-    end
+        @trucks   = Truck.all.includes(:state)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
 
+        @extras   = Extra.all.includes(:state, :city)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
+
+        @services = Service.all.includes(:state, :city)
+                           .page(params[:page]).per(Environment::LIMIT_SEARCH)
+    end
+    respond_to do |format|
+      format.html { render :busqueda }
+      format.js { render :busqueda }
+    end
   end
 
 
@@ -180,9 +191,10 @@ class PagesController < ApplicationController
 
       @user = Customer.find_by_id(session[:user])
       @truck = Truck.where(:id => params[:id], :customer_id => session[:user]).first
-      @lateUpdate = @truck.created_at < Date.today - Constants::TRUCK_LATE_UPDATE
+      @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
+
       if @truck.blank?
         redirect_to micamiones_path
       else
@@ -255,7 +267,7 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @extra = Extra.find(params[:id])
-      @extraLateUpdate = @extra.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      @extraLateUpdate = @extra.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
         if request.post?
             logger.info 'EEEEEEEEE'
           if @extraLateUpdate==true
@@ -296,7 +308,7 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @service = Service.find(params[:id])
-      @serviceLateUpdate = @service.created_at < Date.today - Constants::EXTRA_LATE_UPDATE
+      @serviceLateUpdate = @service.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       if request.post?
 
         params[:service][:customer_id] = session[:user]

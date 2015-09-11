@@ -62,10 +62,12 @@ class Extra < ActiveRecord::Base
   end
 
   scope :like_join, ->(str){
-    self.where("extras.name LIKE '%#{str}%' OR
+    self.joins("LEFT JOIN brand_extras ON brand_extras.id = extras.brand_extra_id 
+                LEFT JOIN type_trucks  ON type_trucks.id =  extras.type_truck_id").
+         where("extras.name LIKE '%#{str}%' OR
                 brand_extras.name LIKE '%#{str}%' OR
                 type_trucks.name LIKE '%#{str}%' AND
-                extras.active = 1")
+                extras.active = 1").uniq
   }
 
   scope :state_group, ->{
