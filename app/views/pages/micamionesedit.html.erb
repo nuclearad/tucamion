@@ -222,7 +222,7 @@
                         <a  class="btn btn-info" id="sa"  href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Siguiente</a>
                       </div>
 
-                      <script !src="">
+                      <script>
                       $(function(){
                           $('#sa').click(function(){
                               $($('.nav-tabs li')[0]).removeClass('active')
@@ -324,7 +324,7 @@
                     <%= f.radio_button :sevendecontrailer, 'No', :checked => !(:sevendecontrailer=='Si'? true:false) %> No
 
 
-                    <script !src="">
+                    <script >
                         $('input[type=radio]').click(function(){
                             if($('#truck_sevendecontrailer_si').is(':checked')) {
                                 $('.extras').show();
@@ -908,7 +908,7 @@
                     <%= f.radio_button :sevendecontrailer, 'No', :checked => !(:sevendecontrailer=='Si'? true:false) %> No
 
 
-                    <script !src="">
+                    <script >
                         $('input[type=radio]').click(function(){
                             if($('#truck_sevendecontrailer_si').is(':checked')) {
                                 $('.extras').show();
