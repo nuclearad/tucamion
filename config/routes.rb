@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get  'camion-tipo/:id_truck/:id_sub'  => 'pages#camiontipo'
   get  'repuesto-tipo/:id_truck/:id_brand' => 'pages#repuestotipo'
   get  'servicio-tipo/:id' => 'pages#serviciotipo'
-  
+
   get  'mi-cuenta' => 'pages#micuenta', :as=> 'micuenta'
   post 'mi-cuenta' => 'pages#micuenta'
 
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   post 'mi-cuenta/repuestos/agregar' => 'pages#mirepuestosnew', :as=> 'mirepuestosnewpost'
   get 'mi-cuenta/repuestos/editar/:id' => 'pages#mirepuestosedit', :as=> 'mirepuestosedit'
   post 'mi-cuenta/repuestos/editar/:id' => 'pages#mirepuestosedit', :as=> 'mirepuestoseditpost'
-
+  delete 'mi-cuenta/repuestos/delete/:id' => 'pages#mirepuestosdelete', :as=> 'mirepuestosdelete'
 
   get 'mi-cuenta/servicios' => 'pages#miservicios', :as=> 'miservicios'
   get 'mi-cuenta/servicios/agregar' => 'pages#miserviciosnew', :as=> 'miserviciosnew'
