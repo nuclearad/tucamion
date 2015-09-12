@@ -16,6 +16,7 @@ class Extra < ActiveRecord::Base
   validates :city_id, presence: true
   validates :brand_extra_id, presence: true
   validates :type_truck_id, presence: true
+  validates_uniqueness_of :nombre
 
 
 

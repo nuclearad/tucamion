@@ -7,7 +7,7 @@ class Service < ActiveRecord::Base
 
 
   has_many :messages, -> { where(tipo: 3)}, :foreign_key => :item
-
+  validates_uniqueness_of :nombre
 
 
 

@@ -156,7 +156,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def micamionesnew
     if session[:user].nil?
       redirect_to micuenta_path
@@ -173,7 +172,7 @@ class PagesController < ApplicationController
           flash[:notice] = 'Información agregada correctamente'
           redirect_to micamiones_path
         else
-          render 'new'
+          render 'micamionesnew',:layout => 'layouts/cliente'
         end
 
       else
@@ -182,7 +181,6 @@ class PagesController < ApplicationController
 
     end
   end
-
 
   def micamionesedit
     if session[:user].nil?
