@@ -14,7 +14,7 @@
 <%  if @contract.errors.any? %>
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <%= pluralize(@color.errors.count, "Errores") %> tratando de guardar:
+        <%= pluralize@contract.errors.count, "Errores") %> tratando de guardar:
       </div>
       <p>
       <ul>

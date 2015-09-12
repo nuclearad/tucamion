@@ -248,15 +248,13 @@ class PagesController < ApplicationController
         @extra = Extra.new(allowed_paramsextra)
         if @extra.save
           flash[:notice] = 'Información agregada correctamente'
-          redirect_to mirepuestos_path
+          redirect_to mirepuestos_path and return
         else
-          render 'mirepuestosnew'
+          flash[:notice] = 'Error Guardando informacion'
         end
 
-      else
-        render :layout => 'layouts/cliente'
       end
-
+      render :layout => 'layouts/cliente'
     end
   end
 
@@ -267,6 +265,7 @@ class PagesController < ApplicationController
     else
       @user = Customer.find_by_id(session[:user])
       @extra = Extra.find(params[:id])
+      @cities= City.where('state_id = ?', @extra.state_id)
       @extraLateUpdate = @extra.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
         if request.post?
             logger.info 'EEEEEEEEE'
@@ -277,12 +276,26 @@ class PagesController < ApplicationController
           end
           if salved==true
             flash[:notice] = 'Información actualizada correctamente'
-            redirect_to mirepuestos_path
+            redirect_to mirepuestos_path and return
+          else
+            flash[:notice] = 'Información No actualizada'
           end
-        else
-          render :layout => 'layouts/cliente'
         end
+      render :layout => 'layouts/cliente'
+    end
+  end
 
+  def mirepuestosdelete
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @extra = Extra.find(params[:id])
+      if @extra.destroy
+        flash[:notice] = 'Información eliminada correctamente'
+      else
+        flash[:notice] = 'Error eliminando informacion'
+      end
+    redirect_to mirepuestos_path
     end
   end
 

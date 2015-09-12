@@ -95,12 +95,12 @@
       </div>
 
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <%= f.label :city_id, 'Ciudad' %>
-          <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
-        </div>
-      </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.label :city_id, 'Ciudad' %>
+                <%= f.collection_select :city_id, @cities.order(:name),:id,:name, {}, { class: 'form-control'} %>
+              </div>
+            </div>
 
 
 
