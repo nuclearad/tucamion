@@ -143,6 +143,12 @@ Rails.application.routes.draw do
   get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
 
   #sessiones
-  get 'logout' => 'pages#logout'
+  resources :sessions, only: [:index] do
+    collection do
+      get 'logout'
+      get "registrar_usuario"
+      post "crear_usuario"
+    end
+  end
 
 end

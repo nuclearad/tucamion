@@ -11,7 +11,15 @@
         .cnt-block
           %ul.list-unstyled.list-inline
             %li.dropdown.dropdown-small
-              %a.dropdown-toggle{:href => "/mi-cuenta"} Mi Cuenta
+              - if session[:user]
+                %a.dropdown-toggle{:href => ""} Cerrar sesion
+              - else
+                %a.dropdown-toggle{:href => "/registrarse"} Iniciar sesion
+            %li.dropdown.dropdown-small
+              - if session[:user]
+                %a.dropdown-toggle{:href => "/mi-cuenta"} Mi Cuenta
+              - else
+                %a.dropdown-toggle{:href => "/registrarse"} Registrarse
             %li.dropdown.dropdown-small
               %a.dropdown-toggle{:href => "/mi-cuenta"} Publicar Anuncio
             %li.dropdown.dropdown-small
