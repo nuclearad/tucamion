@@ -12,8 +12,42 @@
 
 
 <div class="row">
-    <div class="col-md-12">
+  <% if flash[:notice] %>
 
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <%= flash[:notice] %>
+          </div>
+        </div>
+      </div>
+
+
+  <% end %>
+    <div class="col-md-12">
+      <% if !@truck.blank? %>
+          <%= form_for @truck,:url => micamioneseditpost_path, method: 'post',  html:  {multipart: true} do |f| %>
+              <% if @truck.errors.any? %>
+                  <div class="container t10">
+                    <div class="col-md-6 col-xs-12 col-md-offset-3">
+                      <div id="error_explanation">
+                        <h3>
+                          <%= "#{pluralize(@truck.errors.count, "Error(es)")} #{'Evita(n) que se salve el nuevo registro'}:" %>
+                        </h3>
+                        <ul>
+                          <% @truck.errors.full_messages.each do |msg| %>
+                              <li>
+                                <%= msg %>
+                              </li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+              <% end %>
+          <% end %>
+      <% end %>
         <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
 
             <ul class="nav nav-tabs" role="tablist">

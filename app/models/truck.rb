@@ -17,7 +17,7 @@ class Truck < ActiveRecord::Base
   belongs_to :transmissions_truck
   belongs_to :referencia
   accepts_nested_attributes_for :customer
-  validates_uniqueness_of :nombre, :error_message=> 'Disculpe, el nombre ya se encuentra registrado'
+  validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {

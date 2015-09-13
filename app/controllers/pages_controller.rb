@@ -204,10 +204,10 @@ class PagesController < ApplicationController
           end
           if @truck.update_attributes(allowed_params) or salved
             flash[:notice] = 'Información actualizada correctamente'
-            redirect_to micamiones_path
+            redirect_to micamiones_path and return
           else
-            flash[:notice] = 'Informasssción actualizada correctamente'
-            redirect_to micamiones_path
+            flash[:notice] = 'La informacion no se ha guardado'
+            redirect_to micamioneseditpost_path, layout: 'layouts/cliente' and return
           end
         else
           render :layout => 'layouts/cliente'
@@ -386,7 +386,7 @@ class PagesController < ApplicationController
     redirect_to miservicios_path
     end
   end
-#
+#EndServicios
 
 #mi cuenta
   def micuenta
