@@ -16,4 +16,7 @@ class Environment
             servicios: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1}
            }
   
+  
+  TYPE   = {clientes: {normal: 0, revendedor: 1, libre: 2}}
+
 end
