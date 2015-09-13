@@ -10,11 +10,16 @@
             info@camion365.com
         .cnt-block
           %ul.list-unstyled.list-inline
-            %li.dropdown.dropdown-small
-              - if session[:user]
+            - if session[:user]
+              %li.dropdown.dropdown-small
+                %a.dropdown-toggle{:href => logout_sessions_path } Cerrar sesion
+              %li.dropdown.dropdown-small
                 %a.dropdown-toggle{:href => "/mi-cuenta"} Mi Cuenta
-              - else
-                %a.dropdown-toggle{:href => "/registrarse"} Registrarse
+            - else
+              %li.dropdown.dropdown-small
+                %a.dropdown-toggle{:href => "/mi-cuenta"} Iniciar sesion
+              %li.dropdown.dropdown-small
+                %a.dropdown-toggle{:href => ""} Registrarse
             %li.dropdown.dropdown-small
               %a.dropdown-toggle{:href => "/mi-cuenta"} Publicar Anuncio
             %li.dropdown.dropdown-small
