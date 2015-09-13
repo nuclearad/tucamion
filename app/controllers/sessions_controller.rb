@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def registrar_usuario	
+    @cliente = Customer.new
   end
 
   def crear_usuario
