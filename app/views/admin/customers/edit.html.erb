@@ -11,7 +11,7 @@
 <%  if @customer.errors.any? %>
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <%= pluralize(@truck.errors.count, "Errores") %> tratando de guardar:
+        <%= pluralize(@customer.errors.count, "Errores") %> tratando de guardar:
       </div>
       <p>
       <ul>
@@ -88,7 +88,7 @@
 
 
               <%= f.label :typeuser, 'Tipo Usuario' %>
-              <%= f.select(:typeuser, [['Normal', 0], ['Vendedor', 1]], {}, { :class => 'form-control' }) %>
+              <%= f.select(:typeuser, Environment::TYPE[:clientes], {}, { :class => 'form-control' }) %>
 
             </div>
           </div>

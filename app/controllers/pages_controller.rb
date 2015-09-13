@@ -378,8 +378,6 @@ class PagesController < ApplicationController
                 flash[:notice] = ' Email o Clave invalida'
               else
                 session[:user] = @usuario[0].id
-
-
               end
               redirect_to micuenta_path
             else
