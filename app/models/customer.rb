@@ -27,20 +27,6 @@ class Customer < ActiveRecord::Base
 
   def cargar_planes
     begin
-     case self.plan_active
-     when -1 #el plan es gratis pero esta caducado
-       return -1
-     when 1 #el plan es gratis pero esta activo
-       return 1
-     when 2 #tiene planes que no son gratis
-       return self.offercustomers.size
-     end
-    rescue Exception => e
-       return 0
-    end
-  end
-
-  def plan_active
      offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:gratis])
      if offer
        if self.comparar_fecha(3.months)
@@ -49,8 +35,11 @@ class Customer < ActiveRecord::Base
          return -1
        end
      else
-       return 2
+       return self.offercustomers.siz
      end
+    rescue Exception => e
+       return 0
+    end
   end
 
   def comparar_fecha(meses)
