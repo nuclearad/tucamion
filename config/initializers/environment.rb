@@ -10,7 +10,8 @@ class Environment
   EXTRA_LATE_UPDATE=10
   EXTRA_AVAILABLES_DAYS=180
 
-  STATUS = {camiones:  {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
+  STATUS = {clientes:  {activo: 1, inactivo: 0, eliminado: -1},
+            camiones:  {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
             repuestos: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
             servicios: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1}
            }

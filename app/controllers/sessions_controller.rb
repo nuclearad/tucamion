@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
   end
 
   def crear_usuario
-     @cliente = Customer.new customer_params
+     @cliente        = Customer.new customer_params
+     @cliente.estado = Environment::STATUS[:clientes][:activo]
      #if @cliente.save
      #  session[:user] = @cliente.id
      #  redirect_to micuenta_path
