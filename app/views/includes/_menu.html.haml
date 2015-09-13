@@ -15,13 +15,13 @@
                 %a.dropdown-toggle{:href => logout_sessions_path } Cerrar sesion
               %li.dropdown.dropdown-small
                 %a.dropdown-toggle{:href => "/mi-cuenta"} Mi Cuenta
+              %li.dropdown.dropdown-small
+                %a.dropdown-toggle{:href => "/mi-cuenta"} Publicar Anuncio                
             - else
               %li.dropdown.dropdown-small
                 %a.dropdown-toggle{:href => "/mi-cuenta"} Iniciar sesion
               %li.dropdown.dropdown-small
                 %a.dropdown-toggle{:href => registrar_usuario_sessions_path} Registrarse
-            %li.dropdown.dropdown-small
-              %a.dropdown-toggle{:href => "/mi-cuenta"} Publicar Anuncio
             %li.dropdown.dropdown-small
               %a.dropdown-toggle{:href => "/tarifas"} Tarifas
         .clearfix
