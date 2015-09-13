@@ -13,7 +13,9 @@ class Customer < ActiveRecord::Base
   validates_presence_of       :telefono, message: "El telefono es un campo obligatorio"
   validates_presence_of       :email,    message: "El correo es un campo obligatorio"
   validates_confirmation_of   :clave,    message: "Las contraseñas no son iguales"
-
+  
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i ,    message: "El formato del correo no es permitido"
+  
   validates :clave_confirmation, presence: true
   validates :name, length:     { minimum: 5,  maximum: 50 ,   message: "El nombre debe tener minimo 5 y maximo 50 caracteres" }
   validates :telefono, length: { minimum: 13,  maximum: 14 ,   message: "El formato indicado del telefono (xxx)-xxx-xxxx" }
