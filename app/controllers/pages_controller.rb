@@ -206,7 +206,8 @@ class PagesController < ApplicationController
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to micamiones_path and return
           else
-            flash[:notice] = 'La informacion no se ha guardado'
+            flash[:error] = 'La informacion no se ha guardado'
+            logger.error 'No se ha guardado el registrOOOOOOOOOO ' + @truck.errors.any?.to_s + ' Errores presentes ***********'
             redirect_to micamioneseditpost_path, layout: 'layouts/cliente' and return
           end
         else

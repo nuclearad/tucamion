@@ -12,31 +12,28 @@
 
 
 <div class="row">
-  <% if flash[:notice] %>
+  <% if flash[:error] %>
 
       <div class="row">
         <div class="col-lg-12">
-          <div class="alert alert-info alert-dismissable">
+          <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <%= flash[:notice] %>
+            <%= flash[:error] %>
           </div>
         </div>
       </div>
 
-
   <% end %>
+
     <div class="col-md-12">
-      <% if !@truck.blank? %>
-          <%= form_for @truck,:url => micamioneseditpost_path, method: 'post',  html:  {multipart: true} do |f| %>
-              <% if @truck.errors.any? %>
-                  <div class="container t10">
+        <div class="row">
+            <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
+                <% if @truck.errors.any? %>
+                  <div class="alert alert:danger">
                     <div class="col-md-6 col-xs-12 col-md-offset-3">
                       <div id="error_explanation">
-                        <h3>
-                          <%= "#{pluralize(@truck.errors.count, "Error(es)")} #{'Evita(n) que se salve el nuevo registro'}:" %>
-                        </h3>
                         <ul>
-                          <% @truck.errors.full_messages.each do |msg| %>
+                          <% @truck.errors.each do |msg| %>
                               <li>
                                 <%= msg %>
                               </li>
@@ -45,21 +42,23 @@
                       </div>
                     </div>
                   </div>
-              <% end %>
+            <% end %>
           <% end %>
-      <% end %>
+        </div>
+
         <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
 
-            <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
-          <li role="presentation"><a id="s" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Paso 2</a></li>
-        </ul>
-
-            <br/><br/>
 
             <div class="tab-content">
                 <% if @lateUpdate %>
-                    <div role="tabpanel" class="tab-pane active" id="home">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
+                    
+                  </ul>
+
+                  <br/><br/>
+
+                  <div role="tabpanel" class="tab-pane active" id="home">
 
                         <div class="row">
                             <div class="col-md-3">
@@ -68,9 +67,8 @@
                                 </label>
                                 <br/><br/>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
+
+                            <div class="col-md-6 col-md-offset-3">
                                 <div class="form-group">
                                     <%= f.label :price, 'Precio' %>
                                     <%= f.text_field :price, :class =>'form-control'  %>
@@ -98,7 +96,14 @@
                         <%=  link_to 'Cancelar', micamiones_path, :class=>'btn btn-warning' %>
                     </div>
                 <% else %>
-                    <div role="tabpanel" class="tab-pane active " id="home">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
+                    <li role="presentation"><a id="s" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Paso 2</a></li>
+                  </ul>
+
+                  <br/><br/>
+
+                  <div role="tabpanel" class="tab-pane active " id="home">
 
                         <div class="row">
                             <div class="col-md-12">
@@ -267,7 +272,7 @@
                     </div>
                   </div>
 
-          <div role="tabpanel" class="tab-pane" id="profile">
+                    <div role="tabpanel" class="tab-pane" id="profile">
 
 
 
