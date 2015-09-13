@@ -29,7 +29,7 @@ class Customer < ActiveRecord::Base
     begin
      offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:gratis])
      if offer
-       if self.comparar_fecha(-3.months)
+       if self.comparar_fecha(3.months)
          return 1
        else
          return -1
@@ -43,11 +43,11 @@ class Customer < ActiveRecord::Base
   end
 
   def comparar_fecha(meses)
-      if (self.created_at + meses) > Time.now
-        true
-      else
-        false
-      end
+    if (self.created_at + meses) > Time.now
+      true
+    else
+      false
+    end
   end
 
 end
