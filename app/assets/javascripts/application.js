@@ -22,9 +22,9 @@
 
 var ready;
 ready = function() {
-
+    console.log('desde el application.js');
     $('#customer_telefono').inputmask('(9999)-9999999');
-
+    $('#truck_customer_attributes_telefono').inputmask('(9999)-9999999');
 };
 
 $(document).ready(ready);
