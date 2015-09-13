@@ -23,6 +23,42 @@ class Customer < ActiveRecord::Base
   validates_uniqueness_of     :email,    message: "El correo electronico ya esta registrado"
   validates_uniqueness_of     :cedula,   message: "El documento de identidad  ya esta registrado"
   
+  #jonathanse compara para ver si el usuario tiene un plan activo gratis o no 
 
+  def cargar_planes
+    begin
+     case self.plan_active
+     when -1 #el plan es gratis pero esta caducado
+       return -1
+     when 1 #el plan es gratis pero esta activo
+       return 1
+     when 2 #tiene planes que no son gratis
+       return self.offercustomers.size
+     end
+    rescue Exception => e
+       return 0
+    end
+  end
+
+  def plan_active
+     offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:gratis])
+     if offer
+       if self.comparar_fecha(3.months)
+         return 1
+       else
+         return -1
+       end
+     else
+       return 2
+     end
+  end
+
+  def comparar_fecha(meses)
+      if (self.created_at + meses) > Time.now
+        true
+      else
+        false
+      end
+  end
 
 end

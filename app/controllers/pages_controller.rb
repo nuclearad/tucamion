@@ -145,14 +145,13 @@ class PagesController < ApplicationController
 
 
   def micamiones
-
     if session[:user].nil?
-      redirect_to micuenta_path
+       redirect_to micuenta_path
     else
-      @user    = Customer.find_by_id(session[:user])
-      @search  = Truck.where(:customer_id => session[:user]).includes(:type_truck, :brand_truck, :state, :messages).search(params[:q])
-      @trucks  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
-      render :layout => 'layouts/cliente'
+       @user    = Customer.find_by_id(session[:user])
+       @search  = Truck.where(:customer_id => session[:user]).includes(:type_truck, :brand_truck, :state, :messages).search(params[:q])
+       @trucks  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
+       render :layout => 'layouts/cliente'
     end
   end
 
@@ -369,28 +368,28 @@ class PagesController < ApplicationController
 
       if session[:user].nil?
 
-            @message = false
-            if request.post?
-              @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
-
-              if @usuario.count == 0
-                @message = true
-                flash[:notice] = ' Email o Clave invalida'
-              else
-                session[:user] = @usuario[0].id
-              end
-              redirect_to micuenta_path
-            else
-              render :action => 'micuentalogin', :layout => 'layouts/devise'
-            end
+        @message = false
+        if request.post?
+           @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
+           
+          if @usuario.count == 0
+             @message = true
+            flash[:notice] = ' Email o Clave invalida'
+           else
+            session[:user] = @usuario[0].id
+          end
+          redirect_to micuenta_path
+        else
+          render :action => 'micuentalogin', :layout => 'layouts/devise'
+        end
 
       else
 
         @user = Customer.find_by_id(session[:user])
-
+        # se valida si el plan esta inscrito y esta vigente jonathan
+        @user_cargar_planes = @user.cargar_planes
+        flash[:warning] = "Su plan gratis ha caducado su valides fue de 3 meses el plan fue inscrito el #{@user.created_at.strftime('%d-%m-%Y')}" if @user_cargar_planes == -1
         @offers = Offercustomer.where(:customer_id => session[:user])
-
-
         @publicaciones  = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
       UNION
       (SELECT id,  name, created_at as nombre, 2 as tipo FROM services WHERE customer_id='+session[:user].to_s+')
@@ -623,7 +622,8 @@ class PagesController < ApplicationController
     @service = Service.find_by_id(params[:id])
   end
 
-    private
+
+  private
 
     def load_banners
        @banners = Banner.all.order('rand()').limit(3)

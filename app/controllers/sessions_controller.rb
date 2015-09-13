@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
      @cliente          = Customer.new customer_params
      @cliente.estado   = Environment::STATUS[:clientes][:activo]
      @cliente.typeuser = Environment::TYPE[:clientes][:libre]
-     free_plan         = Offer.find_by(precio1: 0, precio2: 0)          
+     free_plan         = Offer.find_by(precio1: 0, precio2: 0, typeoffer: Environment::TYPE[:planes][:gratis])          
      if free_plan
        if @cliente.save
          Offercustomer.create(customer_id: @cliente.id, offer_id: free_plan.id)

@@ -33,6 +33,16 @@
     <%= form_for @plan, :url => admin_offer_path, :method=>'PATCH' do |f|  %>
 
         <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label :typeoffer, 'Tipo de Oferta' %>
+              <%= f.select(:typeoffer, Environment::TYPE[:planes], {selected: @plan.typeoffer}, { :class => 'form-control' }) %>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
           <div class="col-md-6">
             <div class="form-group">
 
