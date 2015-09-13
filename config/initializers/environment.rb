@@ -17,6 +17,8 @@ class Environment
            }
   
   
-  TYPE   = {clientes: {normal: 0, revendedor: 1, libre: 2}}
+  TYPE   = {clientes: {normal: 0, revendedor: 1},
+            planes:   {pago: 0, gratis: 1}
+           }
 
 end

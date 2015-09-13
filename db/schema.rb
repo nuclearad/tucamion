@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909202941) do
+ActiveRecord::Schema.define(version: 20150913171955) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(version: 20150909202941) do
     t.integer  "extra",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "typeoffer",   default: 0
   end
 
   create_table "pictures", force: true do |t|
@@ -217,42 +218,6 @@ ActiveRecord::Schema.define(version: 20150909202941) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-  end
-
-  create_table "places", force: true do |t|
-    t.string   "name"
-    t.string   "city"
-    t.string   "address"
-    t.string   "location"
-    t.datetime "date"
-    t.string   "meta_title"
-    t.string   "meta_description"
-    t.string   "meta_keywords"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.string   "singlepricea"
-    t.string   "singlepriced"
-    t.string   "singlepricer"
-    t.string   "triplepricea"
-    t.string   "triplepriced"
-    t.string   "triplepricer"
-    t.string   "vippricea"
-    t.string   "vippriced"
-    t.string   "vippricer"
-  end
-
-  add_index "places", ["name"], name: "index_places_on_name", unique: true, using: :btree
-
-  create_table "questions", force: true do |t|
-    t.string   "question_es"
-    t.string   "question_pt"
-    t.text     "answer_es"
-    t.text     "answer_pt"
-    t.integer  "order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "referencias", force: true do |t|
