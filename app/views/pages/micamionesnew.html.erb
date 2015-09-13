@@ -11,7 +11,30 @@
 <div class="row">
     <div class="col-md-12">
 
-	    <%= form_for @truck, :url => micamionesnew_path do |f|  %>
+        <% if !@truck.blank? %>
+            <%= form_for @truck,:url => micamionesnew_path, html:  {multipart: true} do |f| %>
+                <% if @truck.errors.any? %>
+                    <div class="container t10">
+                        <div class="col-md-6 col-xs-12 col-md-offset-3">
+                            <div id="error_explanation">
+                                <h3>
+                                    <%= "#{pluralize(@truck.errors.count, "error")} #{'Evita que se salve el nuevo registro'}:" %>
+                                </h3>
+                                <ul>
+                                    <% @truck.errors.full_messages.each do |msg| %>
+                                        <li>
+                                            <%= msg %>
+                                        </li>
+                                    <% end %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
+
+        <%= form_for @truck, :url => micamionesnew_path do |f|  %>
 
 		    <div class="row">
 		        <div class="col-md-12">
