@@ -8,7 +8,7 @@
         - object.errors.full_messages.each do |msg|
           %li= msg
 - flash.each do |type, msg|
-  .panel.panel-danger
+  %div{class: "panel panel-#{type}"}
     .panel-heading
       %p
         %ul
