@@ -160,25 +160,24 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-
       @user = Customer.find_by_id(session[:user])
       @truck = Truck.new
-
-      if request.post?
-
-        params[:truck][:customer_id] = session[:user]
-        @truck = Truck.new(allowed_params)
-        if @truck.save
-          flash[:notice] = 'Información agregada correctamente'
-          redirect_to micamiones_path
+      if @user.cargar_planes > 0
+        if request.post?
+          params[:truck][:customer_id] = session[:user]
+          @truck = Truck.new(allowed_params)
+          if @truck.save
+            flash[:notice] = 'Información agregada correctamente'
+            redirect_to micamiones_path
+          else
+           render :layout => 'layouts/cliente'
+          end
         else
-          render 'new'
+          render :layout => 'layouts/cliente'
         end
-
       else
-        render :layout => 'layouts/cliente'
+        redirect_to miservicios_path, flash: {warning: "No posee planes para realizar la operacion"}
       end
-
     end
   end
 
@@ -234,27 +233,32 @@ class PagesController < ApplicationController
 
 
   def mirepuestosnew
+
     if session[:user].nil?
       redirect_to micuenta_path
     else
 
       @user = Customer.find_by_id(session[:user])
       @extra = Extra.new
-
-      if request.post?
-
-        params[:extra][:customer_id] = session[:user]
-        @extra = Extra.new(allowed_paramsextra)
-        if @extra.save
-          flash[:notice] = 'Información agregada correctamente'
-          redirect_to mirepuestos_path and return
-        else
-          flash[:notice] = 'Error Guardando informacion'
+      
+      if @user.cargar_planes > 0
+        if request.post?
+          params[:extra][:customer_id] = session[:user]
+          @extra = Extra.new(allowed_paramsextra)
+          if @extra.save
+            flash[:notice] = 'Información agregada correctamente'
+            redirect_to mirepuestos_path
+          else
+            flash[:notice] = 'Error Guardando informacion'
+            render :layout => 'layouts/cliente'
+          end
         end
-
+      else
+        redirect_to mirepuestos_path, flash: {warning: "No posee planes para realizar la operacion"}
       end
-      render :layout => 'layouts/cliente'
+      
     end
+
   end
 
   def mirepuestosedit
@@ -340,25 +344,25 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-
       @user = Customer.find_by_id(session[:user])
-      @service = Service.new
-
-      if request.post?
-
-        params[:service][:customer_id] = session[:user]
-        @service = Service.new(allowed_paramsservice)
-        if @service.save
-          flash[:notice] = 'Información agregada correctamente'
-          redirect_to miservicios_path
+      if @user.cargar_planes > 0
+       
+        @service = Service.new
+        if request.post?
+          params[:service][:customer_id] = session[:user]
+          @service = Service.new(allowed_paramsservice)
+          if @service.save
+            flash[:notice] = 'Información agregada correctamente'
+            redirect_to miservicios_path
+          else
+            render :layout => 'layouts/cliente'
+          end
         else
-          render 'new'
+          render :layout => 'layouts/cliente'
         end
-
       else
-        render :layout => 'layouts/cliente'
+        redirect_to miservicios_path, flash: {warning: "No posee planes para realizar la operacion"}
       end
-
     end
   end
 #EndServicios
@@ -388,9 +392,9 @@ class PagesController < ApplicationController
         @user = Customer.find_by_id(session[:user])
         # se valida si el plan esta inscrito y esta vigente jonathan
         @user_cargar_planes = @user.cargar_planes
-        flash[:warning] = "Su plan gratis ha caducado su valides fue de 3 meses el plan fue inscrito el #{@user.created_at.strftime('%d-%m-%Y')}" if @user_cargar_planes == -1
-        @offers = Offercustomer.where(:customer_id => session[:user])
-        @publicaciones  = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
+        flash[:warning]     = "Su plan gratis ha caducado su valides fue de 3 meses el plan fue inscrito el #{@user.created_at.strftime('%d-%m-%Y')}" if @user_cargar_planes == -1
+        @offers             = Offercustomer.where(:customer_id => session[:user])
+        @publicaciones      = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
       UNION
       (SELECT id,  name, created_at as nombre, 2 as tipo FROM services WHERE customer_id='+session[:user].to_s+')
       UNION

@@ -29,13 +29,13 @@ class Customer < ActiveRecord::Base
     begin
      offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:gratis])
      if offer
-       if self.comparar_fecha(3.months)
+       if self.comparar_fecha(-3.months)
          return 1
        else
          return -1
        end
      else
-       return self.offercustomers.siz
+       return self.offercustomers.size
      end
     rescue Exception => e
        return 0
