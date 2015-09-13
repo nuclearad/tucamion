@@ -1,0 +1,67 @@
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label :typeuser, 'Tipo Usuario' %>
+              <%= f.select(:typeuser, Environment::TYPE[:clientes], {selected: @customer.typeuser}, { :class => 'form-control' }) %>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :name, 'Nombre' %>
+              <%= f.text_field :name, :class =>'form-control'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :cedula, 'Cedula' %>
+              <%= f.text_field :cedula, :class =>'form-control'  %>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+
+              <%= f.label :telefono, 'Telefono' %>
+              <%= f.text_field :telefono, :class =>'form-control'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :email, 'Email' %>
+              <%= f.text_field :email, :class =>'form-control', :autocorrect=>'off' %>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+
+              <%= f.label :clave, 'Clave' %>
+              <%= f.text_field :clave, :class =>'form-control',  :autocorrect=>'off'  %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label "Confirmar password", class: "info-title" %>
+              <%= f.password_field :clave_confirmation, class: "form-control", required: true,  autocorrect: 'off' %>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+        <%=  link_to 'Cancelar', admin_customers_path, :class=>'btn btn-warning' %>
