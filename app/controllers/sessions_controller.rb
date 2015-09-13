@@ -11,6 +11,19 @@ class SessionsController < ApplicationController
   end
 
   def crear_usuario
+     @cliente = Customer.new customer_params
+     #if @cliente.save
+     #  session[:user] = @cliente.id
+     #  redirect_to micuenta_path
+     #else
+     #  render :registrar_usuario
+     #end
   end
+
+  private
+
+    def customer_params
+      params.require(:customer).permit(:cedula, :name, :email, :clave, :confirm_clave)
+    end
 
 end
