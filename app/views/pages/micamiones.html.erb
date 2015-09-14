@@ -1,16 +1,11 @@
 <%= render partial: "/includes/messages_errors", locals: {object:  @user} %>
-<%
-   camiones = 0
-   @user.offer.each do |item|
-     camiones = camiones + item.trucks
-   end
-%>
+
 
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
 
-      Camiones   <small><%= camiones-@trucks.total_count %></small>/<%= camiones %>
+      Camiones  <small><%=  @quantity.current_trucks %></small>/<%= @quantity.total_trucks %>
     </h1>
 
   </div>
@@ -36,7 +31,7 @@
 <div class="row">
   <div class="col-md-12">
     <p>
-      <% if  @user.cargar_planes > 0 && (camiones-@trucks.total_count > 0) %>
+      <% if  @user.cargar_planes > 0 && ( @quantity.total_trucks - @quantity.current_trucks > 0) %>
     <!--  <%= link_to 'Nuevo Camion', micamionesnewpost_path, :method=>'get', :class=>'btn  btn-primary' %>-->
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
            Nuevo Vehiculo

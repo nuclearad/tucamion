@@ -1,16 +1,9 @@
 <%= render partial: "/includes/messages_errors", locals: {object:  @user} %>
-<%
-   extras = 0
-   @user.offer.each do |item|
-     extras = extras + item.extra
-   end
-%>
 
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-
-      Repuestos   <small><%= extras-@extras.total_count %></small>/<%= extras %>
+      Repuestos  <small><%=  @quantity.current_extras %></small>/<%= @quantity.total_extras %>
     </h1>
 
   </div>
@@ -36,9 +29,8 @@
 <div class="row">
   <div class="col-md-12">
     <p>
-      <% if  @user.cargar_planes > 0 && (extras-@extras.total_count > 0) %>
+      <% if  @user.cargar_planes > 0 && ( @quantity.total_extras - @quantity.current_extras > 0) %>
           <%= link_to 'Nuevo Repuesto', mirepuestosnew_path, :method=>'get', :class=>'btn  btn-primary' %>
-
       <% end %>
     </p>
   </div>

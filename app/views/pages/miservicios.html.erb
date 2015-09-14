@@ -1,16 +1,9 @@
 <%= render partial: "/includes/messages_errors", locals: {object:  @user} %>
-<%
-   servicios = 0
-   @user.offer.each do |item|
-     servicios = servicios + item.service
-   end
-%>
 
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-
-      Servicios   <small><%= servicios-@servicios.total_count %></small>/<%= servicios %>
+      Servicios   <small><%=  @quantity.current_services %></small>/<%= @quantity.total_services %>
     </h1>
 
   </div>
@@ -36,7 +29,7 @@
 <div class="row">
   <div class="col-md-12">
     <p>
-      <%  if  @user.cargar_planes > 0 && (servicios-@servicios.total_count > 0) %>
+      <%  if  @user.cargar_planes > 0 && (@quantity.total_services- @quantity.current_services  > 0) %>
           <%= link_to 'Nuevo Servicio', miserviciosnew_path, :method=>'get', :class=>'btn  btn-primary' %>
 
       <% end %>

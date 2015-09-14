@@ -15,9 +15,7 @@
 <% if @user_cargar_planes > 0 %>
 <div class="row">
 
-<% quantity =  @user.quantities.first  %>
-
-<% if quantity.total_trucks > 0 %>
+<% if @quantity.total_trucks > 0 %>
   <div class="col-lg-3 col-md-6">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -26,7 +24,7 @@
             <i class="fa fa-car fa-5x"></i>
           </div>
           <div class="col-xs-9 text-right">
-            <div class="huge"><small> <%= quantity.current_trucks %></small>/<%= quantity.total_trucks %></div>
+            <div class="huge"><small> <%= @quantity.current_trucks %></small>/<%= @quantity.total_trucks %></div>
             <div>Camiones</div>
           </div>
         </div>
@@ -43,7 +41,7 @@
 <% end %>
 
 
-  <% if quantity.total_extras > 0 %>
+  <% if @quantity.total_extras > 0 %>
   <div class="col-lg-3 col-md-6">
     <div class="panel panel-green">
       <div class="panel-heading">
@@ -52,7 +50,7 @@
             <i class="fa fa-tasks fa-5x"></i>
           </div>
           <div class="col-xs-9 text-right">
-            <div class="huge"><small> <%= quantity.current_extras %></small>/<%= quantity.total_extras %></div>
+            <div class="huge"><small> <%= @quantity.current_extras %></small>/<%= @quantity.total_extras %></div>
             <div>Repuestos</div>
           </div>
         </div>
@@ -69,7 +67,7 @@
 
   <% end %>
 
-  <% if quantity.total_services > 0 %>
+  <% if @quantity.total_services > 0 %>
   <div class="col-lg-3 col-md-6">
     <div class="panel panel-yellow">
       <div class="panel-heading">
@@ -78,7 +76,7 @@
             <i class="fa fa-shopping-cart fa-5x"></i>
           </div>
           <div class="col-xs-9 text-right">
-            <div class="huge"><small> <%= quantity.current_services %></small>/<%= quantity.total_services %></div>
+            <div class="huge"><small> <%= @quantity.current_services %></small>/<%= @quantity.total_services %></div>
             <div>Servicios</div>
           </div>
         </div>

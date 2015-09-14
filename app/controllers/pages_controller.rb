@@ -148,9 +148,10 @@ class PagesController < ApplicationController
     if session[:user].nil?
        redirect_to micuenta_path
     else
-       @user    = Customer.find_by_id(session[:user])
-       @search  = Truck.where(:customer_id => session[:user]).includes(:type_truck, :brand_truck, :state, :messages).search(params[:q])
-       @trucks  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
+       @user     = Customer.find_by_id(session[:user])
+       @quantity = @user.quantities.first
+       @search   = Truck.where(:customer_id => session[:user]).includes(:type_truck, :brand_truck, :state, :messages).search(params[:q])
+       @trucks   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
        render :layout => 'layouts/cliente'
     end
   end
@@ -160,23 +161,30 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-      @user = Customer.find_by_id(session[:user])
-      @truck = Truck.new
-      if @user.cargar_planes > 0
-        if request.post?
-          params[:truck][:customer_id] = session[:user]
-          @truck = Truck.new(allowed_params)
-          if @truck.save
-            flash[:notice] = 'Información agregada correctamente'
-            redirect_to micamiones_path
+      @user     = Customer.find_by_id(session[:user])
+      @quantity = @user.quantities.first
+      @truck    = Truck.new
+      
+      if @quantity.total_trucks - @quantity.current_trucks > 0
+      
+        if @user.cargar_planes > 0
+          if request.post?
+            params[:truck][:customer_id] = session[:user]
+            @truck = Truck.new(allowed_params)
+            if @truck.save
+              flash[:notice] = 'Información agregada correctamente'
+              redirect_to micamiones_path
+            else
+             render :layout => 'layouts/cliente'
+            end
           else
-           render :layout => 'layouts/cliente'
+            render :layout => 'layouts/cliente'
           end
         else
-          render :layout => 'layouts/cliente'
+          redirect_to micamiones_path, flash: {warning: "No posee planes para realizar la operacion"}
         end
       else
-        redirect_to miservicios_path, flash: {warning: "No posee planes para realizar la operacion"}
+        redirect_to micamiones_path, flash: {warning: "Debes adquirir un plan para seguir disfrutando del servicio"}
       end
     end
   end
@@ -224,9 +232,10 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-      @user    = Customer.find_by_id(session[:user])
-      @search  = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
-      @extras  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
+      @user     = Customer.find_by_id(session[:user])
+      @quantity = @user.quantities.first
+      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
+      @extras   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
     end
   end
@@ -238,27 +247,31 @@ class PagesController < ApplicationController
       redirect_to micuenta_path
     else
 
-      @user = Customer.find_by_id(session[:user])
-      @extra = Extra.new
+      @user     = Customer.find_by_id(session[:user])
+      @quantity = @user.quantities.first
+      @extra    = Extra.new
       
-      if @user.cargar_planes > 0
-        if request.post?
-          params[:extra][:customer_id] = session[:user]
-          @extra = Extra.new(allowed_paramsextra)
-          if @extra.save
-            flash[:notice] = 'Información agregada correctamente'
-            redirect_to mirepuestos_path
+      if @quantity.total_extras - @quantity.current_extras > 0
+        if @user.cargar_planes > 0
+          if request.post?
+            params[:extra][:customer_id] = session[:user]
+            @extra = Extra.new(allowed_paramsextra)
+            if @extra.save
+              flash[:notice] = 'Información agregada correctamente'
+              redirect_to mirepuestos_path
+            else
+              flash[:notice] = 'Error Guardando informacion'
+              render :layout => 'layouts/cliente'
+            end
           else
-            flash[:notice] = 'Error Guardando informacion'
             render :layout => 'layouts/cliente'
           end
         else
-          render :layout => 'layouts/cliente'
+          redirect_to mirepuestos_path, flash: {warning: "No posee planes para realizar la operacion"}
         end
       else
-        redirect_to mirepuestos_path, flash: {warning: "No posee planes para realizar la operacion"}
+        redirect_to mirepuestos_path, flash: {warning: "Debes adquirir un plan para seguir disfrutando del servicio"}
       end
-      
     end
 
   end
@@ -310,11 +323,11 @@ class PagesController < ApplicationController
       redirect_to micuenta_path
     else
       @user       = Customer.find_by_id(session[:user])
+      @quantity   =  @user.quantities.first
       @search     = Service.where(:customer_id => session[:user]).includes(:type_service, :messages).search(params[:q])
       @servicios  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
       render :layout => 'layouts/cliente'
     end
-
 
   end
 
@@ -348,24 +361,29 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-      @user = Customer.find_by_id(session[:user])
-      if @user.cargar_planes > 0
-       
-        @service = Service.new
-        if request.post?
-          params[:service][:customer_id] = session[:user]
-          @service = Service.new(allowed_paramsservice)
-          if @service.save
-            flash[:notice] = 'Información agregada correctamente'
-            redirect_to miservicios_path
+      @user     = Customer.find_by_id(session[:user])
+      @quantity = @user.quantities.first
+      @service  = Service.new
+      
+      if @quantity.total_services - @quantity.current_services > 0
+        if @user.cargar_planes > 0
+          if request.post?
+            params[:service][:customer_id] = session[:user]
+            @service = Service.new(allowed_paramsservice)
+            if @service.save
+              flash[:notice] = 'Información agregada correctamente'
+              redirect_to miservicios_path
+            else
+              render :layout => 'layouts/cliente'
+            end
           else
             render :layout => 'layouts/cliente'
           end
         else
-          render :layout => 'layouts/cliente'
+          redirect_to miservicios_path, flash: {warning: "No posee planes para realizar la operacion"}
         end
       else
-        redirect_to miservicios_path, flash: {warning: "No posee planes para realizar la operacion"}
+        redirect_to miservicios_path, flash: {warning: "Debes adquirir un plan para seguir disfrutando del servicio"}
       end
     end
   end
@@ -396,6 +414,7 @@ class PagesController < ApplicationController
         @user = Customer.find_by_id(session[:user])
         # se valida si el plan esta inscrito y esta vigente jonathan
         @user_cargar_planes = @user.cargar_planes
+        @quantity           =  @user.quantities.first
         flash[:warning]     = "Su plan gratis ha caducado su valides fue de 3 meses el plan fue inscrito el #{@user.created_at.strftime('%d-%m-%Y')}" if @user_cargar_planes == -1
         @offers             = Offercustomer.where(:customer_id => session[:user])
         @publicaciones      = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
