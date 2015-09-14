@@ -17,6 +17,7 @@ class Admin::CustomersController < ApplicationController
 
 
     @customer = Customer.new
+    @customer.quantities.build
     add_breadcrumb 'Agregar'
 
 

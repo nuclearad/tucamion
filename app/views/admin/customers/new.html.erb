@@ -30,7 +30,7 @@
 
 
 
-    <%= form_for @customer, :url => admin_customers_path, :method=>'post' do |f|  %>
+    <%= simple_form_for @customer, :url => admin_customers_path, :method=>'post' do |f|  %>
       
       <%= render partial: "form", locals: {f: f} %>
 

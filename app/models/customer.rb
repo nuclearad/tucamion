@@ -1,13 +1,14 @@
 class Customer < ActiveRecord::Base
 
   attr_accessor :clave_confirmation
-  
+
+
   has_many :offercustomers
   has_many :offer, through: :offercustomers
   has_many :extras
   has_many :trucks
   has_many :services
-  has_many :quantities
+  has_many :quantities, dependent: :destroy
 
   validates_presence_of       :cedula,   message: "El documento de identidad es un campo obligatorio"
   validates_presence_of       :name,     message: "El nombre es un campo obligatorio"
@@ -26,6 +27,7 @@ class Customer < ActiveRecord::Base
   validates_uniqueness_of     :email,    message: "El correo electronico ya esta registrado"
   validates_uniqueness_of     :cedula,   message: "El documento de identidad  ya esta registrado"
   
+  accepts_nested_attributes_for :quantities , allow_destroy: true
   #jonathanse compara para ver si el usuario tiene un plan activo gratis o no 
 
   def cargar_planes

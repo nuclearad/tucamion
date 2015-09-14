@@ -19,6 +19,25 @@
 .form-group.col-md-4
   = f.label "Confirmar password", class: "info-title"
   = f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true, value: @customer.clave
+= f.simple_fields_for :quantities do |q|
+  .form-group.col-md-4
+    = q.label :total_trucks, "Cupos de camiones"
+    = q.number_field :total_trucks, class: "form-control unicase-form-control text-input"
+  .form-group.col-md-4
+    = q.label :total_extras, "Cupos de respuestos"
+    = q.number_field :total_extras, class: "form-control unicase-form-control text-input"
+  .form-group.col-md-4
+    = q.label :total_services, "Cupos de servicios"
+    = q.number_field :total_services, class: "form-control unicase-form-control text-input"
+  .form-group.col-md-4
+    = q.label :current_trucks, "Cupos de camiones"
+    = q.number_field :current_trucks, class: "form-control unicase-form-control text-input"
+  .form-group.col-md-4
+    = q.label :current_extras, "Cupos de respuestos"
+    = q.number_field :current_extras, class: "form-control unicase-form-control text-input"
+  .form-group.col-md-4
+    = q.label :current_services, "Cupos de servicios"
+    = q.number_field :current_services, class: "form-control unicase-form-control text-input"
 .col-md-4.col-sm-12.cart-shopping-total.pull-right
   %table.table
     %thead
