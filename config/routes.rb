@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get  'comprar' => 'pages#comprar'
   match 'busqueda' => 'pages#busqueda', via: [:get, :post]
   get  'camion-tipo/:id_truck/:id_sub'  => 'pages#camiontipo'
+  get 'camion-marca/:id_truck/:id_brand'  => 'pages#camionmarca'
   get  'repuesto-tipo/:id_truck/:id_brand' => 'pages#repuestotipo'
   get  'servicio-tipo/:id' => 'pages#serviciotipo'
 

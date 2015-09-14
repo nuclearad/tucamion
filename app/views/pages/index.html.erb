@@ -36,7 +36,7 @@
            <div class="accordion-inner">
              <ul>
                <% type.brand_trucks.each do |brand| %>
-                 <li><a href="#"><%= brand.name.capitalize %></a></li>
+                 <li><a href=<%="/camion-marca/#{type.id}/#{brand.id}"%>><%= brand.name.capitalize %></a></li>
                <% end %>
              </ul>
            </div><!-- /.accordion-inner -->
