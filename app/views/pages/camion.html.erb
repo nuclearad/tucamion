@@ -311,26 +311,26 @@
 
               </tr>
               <tr class="nymou">
-                <% if @truck.motorreparado != '' %><td class="cell-label"><b>Motor Reparado</b><br> <% if @truck.motorreparado == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.cajareparada != '' %><td><b>Caja Reparada</b><br> <% if @truck.cajareparada == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.transmisionreparada != '' %><td><b>Transmisión Reparada</b><br> <% if @truck.transmisionreparada == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.frenosabs != '' %><td><b>Frenos ABS</b><br> <% if @truck.frenosabs == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.motorreparado %><td class="cell-label"><b>Motor Reparado</b><br> <% if @truck.motorreparado == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.cajareparada  %><td><b>Caja Reparada</b><br> <% if @truck.cajareparada == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.transmisionreparada %><td><b>Transmisión Reparada</b><br> <% if @truck.transmisionreparada == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.frenosabs %><td><b>Frenos ABS</b><br> <% if @truck.frenosabs == false %>No <% else %> Si <% end %></td><% end %>
               </tr>
               <tr class="nymou">
-                <% if @truck.cupo != '' %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.bano != '' %><td><b>Baño</b><br> <% if @truck.bano == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.descansapies != '' %><td><b>Descansa pies</b><br> <% if @truck.descansapies == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.sillareclinable!= '' %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.cupo  %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.bano %><td><b>Baño</b><br> <% if @truck.bano == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.descansapies %><td><b>Descansa pies</b><br> <% if @truck.descansapies == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.sillareclinable %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
               </tr>
               <tr class="nymou">
 
-                <% if @truck.tv != '' %> <td class="cell-label"><b>TV</b><br> <% if @truck.tv == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.pantallaindividual != '' %> <td><b>Pantalla individual</b><br> <% if @truck.pantallaindividual == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.wifi != '' %> <td><b>Wifi</b><br> <% if @truck.wifi == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.audio != '' %> <td><b>Audio</b><br> <% if @truck.audio == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.tv  %> <td class="cell-label"><b>TV</b><br> <% if @truck.tv == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.pantallaindividual %> <td><b>Pantalla individual</b><br> <% if @truck.pantallaindividual == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.wifi  %> <td><b>Wifi</b><br> <% if @truck.wifi == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.audio  %> <td><b>Audio</b><br> <% if @truck.audio == false %>No <% else %> Si <% end %></td><% end %>
               </tr>
               <tr class="nymou">
-                <% if @truck.unicodueno != '' %><td class="cell-label"><b>Único dueño</b><br> <% if @truck.unicodueno == false %>No <% else %> Si <% end %></td> <% end %>
+                <% if @truck.unicodueno  %><td class="cell-label"><b>Único dueño</b><br> <% if @truck.unicodueno == false %>No <% else %> Si <% end %></td> <% end %>
                 <td class="cell-label">
                   <% if @truck.autocarpado  %>
                       <b>Auto Carpado</b><br><%= @truck.autocarpado %>
