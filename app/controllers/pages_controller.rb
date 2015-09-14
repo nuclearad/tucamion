@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     @search_repu = Extra.search(params[:q])
     @search_cam  = Truck.search(params[:q])
     @states      = State.all.order(:name)
-    @types       = TypeTruck.all
+    @types       = TypeTruck.all.includes(:brand_trucks)
     @banners     = House.all
   end
 
@@ -506,6 +506,26 @@ class PagesController < ApplicationController
       format.js   { render :camiones }
     end
   end
+
+
+  def camionmarca
+    id_brand         = params[:id_brand]
+    id_truck         = params[:id_truck]
+    @search          = Truck.where(brand_truck_id: id_brand, type_truck_id: id_truck, active: 1).includes(:state).search(params[:q])
+    @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @tiposCaminiones = TypeTruck.includes(:sub_trucks)
+    @states          = State.all.order(:name)
+    @states_group    = Truck.state_group
+    @modelos_group   = Truck.modelo_group
+    @km_group        = Truck.km_group
+    @brand_group     = Truck.marcas_group
+    @toggle_search   = Array.new()
+    respond_to do |format|
+      format.html { render :camiones }
+      format.js   { render :camiones }
+    end
+  end
+
 
   def camion_toggle
     self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda

@@ -28,6 +28,7 @@ class Customer < ActiveRecord::Base
   validates_uniqueness_of     :cedula,   message: "El documento de identidad  ya esta registrado"
   
   accepts_nested_attributes_for :quantities , allow_destroy: true
+  accepts_nested_attributes_for :offer
   #jonathanse compara para ver si el usuario tiene un plan activo gratis o no 
 
   def cargar_planes

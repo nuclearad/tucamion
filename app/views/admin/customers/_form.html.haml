@@ -19,6 +19,9 @@
 .form-group.col-md-4
   = f.label "Confirmar password", class: "info-title"
   = f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true, value: @customer.clave
+.form-group.col-md-12
+  = f.label "Planes", class: "info-title"
+  = f.association :offer, as: :check_boxes, collection: @offers.collect{|o| [o.nombre, o.id]}, label: false
 = f.simple_fields_for :quantities do |q|
   .form-group.col-md-4
     = q.label :total_trucks, "Cupos de camiones"
