@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     @search_repu = Extra.search(params[:q])
     @search_cam  = Truck.search(params[:q])
     @states      = State.all.order(:name)
-    @types       = TypeTruck.all
+    @types       = TypeTruck.all.includes(:brand_trucks)
     @banners     = House.all
   end
 

@@ -30,79 +30,18 @@
 
     <div class="col-md-12 col-sm-12 estilos-hm" style="padding:0px !important;">
       <h1><b>CAMIONES Y MARCAS</b> MÁS BUSCADOS</h1>
-
-      <div class="col-md-2 col-sm-2">
-        <h3 class="section-title">CAMIONES</h3>
-        <div class="accordion-inner">
-          <ul>
-            <li><a href="#">gaming</a></li>
-            <li><a href="#">office</a></li>
-            <li><a href="#">kids</a></li>
-            <li><a href="#">for women</a></li>
-          </ul>
-        </div><!-- /.accordion-inner -->
-      </div>
-
-      <div class="col-md-2 col-sm-2">
-        <h3 class="section-title">VOLQUETAS</h3>
-        <div class="accordion-inner">
-          <ul>
-            <li><a href="#">gaming</a></li>
-            <li><a href="#">office</a></li>
-            <li><a href="#">kids</a></li>
-            <li><a href="#">for women</a></li>
-          </ul>
-        </div><!-- /.accordion-inner -->
-      </div>
-
-      <div class="col-md-2 col-sm-2">
-        <h3 class="section-title">TRACTOMULAS</h3>
-        <div class="accordion-inner">
-          <ul>
-            <li><a href="#">gaming</a></li>
-            <li><a href="#">office</a></li>
-            <li><a href="#">kids</a></li>
-            <li><a href="#">for women</a></li>
-          </ul>
-        </div><!-- /.accordion-inner -->
-      </div>
-
-      <div class="col-md-2 col-sm-2">
-        <h3 class="section-title">BUSES</h3>
-        <div class="accordion-inner">
-          <ul>
-            <li><a href="#">gaming</a></li>
-            <li><a href="#">office</a></li>
-            <li><a href="#">kids</a></li>
-            <li><a href="#">for women</a></li>
-          </ul>
-        </div><!-- /.accordion-inner -->
-      </div>
-
-      <div class="col-md-2 col-sm-2">
-        <h3 class="section-title">VANS</h3>
-        <div class="accordion-inner">
-          <ul>
-            <li><a href="#">gaming</a></li>
-            <li><a href="#">office</a></li>
-            <li><a href="#">kids</a></li>
-            <li><a href="#">for women</a></li>
-          </ul>
-        </div><!-- /.accordion-inner -->
-      </div>
-
-      <div class="col-md-2 col-sm-2">
-        <h3 class="section-title">TRAILERS</h3>
-        <div class="accordion-inner">
-          <ul>
-            <li><a href="#">gaming</a></li>
-            <li><a href="#">office</a></li>
-            <li><a href="#">kids</a></li>
-            <li><a href="#">for women</a></li>
-          </ul>
-        </div><!-- /.accordion-inner -->
-      </div>
-
+      <% @types.each do |type| %>
+         <div class="col-md-2 col-sm-2">
+           <h3 class="section-title"><%= type.name.upcase %></h3>
+           <div class="accordion-inner">
+             <ul>
+               <% type.brand_trucks.each do |brand| %>
+                 <li><a href="#"><%= brand.name.capitalize %></a></li>
+               <% end %>
+             </ul>
+           </div><!-- /.accordion-inner -->
+        </div>
+      <% end %>
     </div>
 
 
