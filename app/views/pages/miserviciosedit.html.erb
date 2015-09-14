@@ -6,11 +6,37 @@
 
   </div>
 </div>
-
-
+<% if flash[:error] %>
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= flash[:error] %>
+    </div>
+<% end %>
 <div class="row">
   <div class="col-md-12">
-    <%= form_for @service, :url => miserviciosedit_path, :method=>'post' do |f|  %>
+    <% if !@service.blank? %>
+        <%= form_for @service,:url => miserviciosedit_path, html:  {multipart: true} do |f| %>
+            <% if @service.errors.any? %>
+                <div class="container t10">
+                  <div class="col-md-6 col-xs-12 col-md-offset-3">
+                    <div id="error_explanation" style="text-align: center">
+                      <ul>
+                        <% @service.errors.full_messages.each do |msg| %>
+
+                            <li class="alert alert-danger alert-dismissable">
+                              <%= msg %>
+                            </li>
+
+
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
+  <%= form_for @service, :url => miserviciosedit_path, :method=>'post' do |f|  %>
 
         <div class="row">
           <div class="col-md-6">

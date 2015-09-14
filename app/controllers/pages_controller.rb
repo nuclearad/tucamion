@@ -246,7 +246,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def mirepuestosnew
     if session[:user].nil?
       redirect_to micuenta_path
@@ -335,12 +334,12 @@ class PagesController < ApplicationController
       @service = Service.find(params[:id])
       @serviceLateUpdate = @service.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       if request.post?
-
         params[:service][:customer_id] = session[:user]
-        @extra = Service.new(allowed_paramsservice)
-        if @extra.save
-          flash[:notice] = 'Información agregada correctamente'
-          redirect_to mirepuestos_path
+        if @service.update_attributes(allowed_paramsservice)
+          flash[:notice] = 'Información editada correctamente'
+          redirect_to miservicios_path and return
+        else
+          flash[:error] ='La informacion no se pudo guardar'
         end
       end
       render :layout => 'layouts/cliente'
@@ -362,9 +361,9 @@ class PagesController < ApplicationController
         @service = Service.new(allowed_paramsservice)
         if @service.save
           flash[:notice] = 'Información agregada correctamente'
-          redirect_to miservicios_path
+          redirect_to miservicios_path and return
         else
-          render 'new'
+          render :layout => 'layouts/cliente'
         end
 
       else

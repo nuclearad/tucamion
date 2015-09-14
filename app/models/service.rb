@@ -7,8 +7,8 @@ class Service < ActiveRecord::Base
 
 
   has_many :messages, -> { where(tipo: 3)}, :foreign_key => :item
-  validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
-
+  validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
+  validates_presence_of [:name, :phone, :type_service_id], message: 'No puede estar vacio'
 
 
 
