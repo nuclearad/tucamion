@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913171955) do
+ActiveRecord::Schema.define(version: 20150914030253) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -219,6 +219,20 @@ ActiveRecord::Schema.define(version: 20150913171955) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
   end
+
+  create_table "quantities", force: true do |t|
+    t.integer  "customer_id",                  null: false
+    t.integer  "total_trucks",     default: 0
+    t.integer  "total_extras",     default: 0
+    t.integer  "total_services",   default: 0
+    t.integer  "current_trucks",   default: 0
+    t.integer  "current_extras",   default: 0
+    t.integer  "current_services", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "quantities", ["customer_id"], name: "index_quantities_on_customer_id", using: :btree
 
   create_table "referencias", force: true do |t|
     t.string   "name"

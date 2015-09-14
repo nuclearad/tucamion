@@ -7,6 +7,7 @@ class Customer < ActiveRecord::Base
   has_many :extras
   has_many :trucks
   has_many :services
+  has_many :quantities
 
   validates_presence_of       :cedula,   message: "El documento de identidad es un campo obligatorio"
   validates_presence_of       :name,     message: "El nombre es un campo obligatorio"
