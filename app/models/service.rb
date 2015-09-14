@@ -55,6 +55,16 @@ class Service < ActiveRecord::Base
 
   end
 
+  before_create :add_quantity_current
+
+  def add_quantity_current
+    quantity = Quantity.find_by(customer_id: self.customer_id)
+    if quantity
+      quantity.current_services += 1
+      quantity.save      
+    end
+  end
+
   scope :like_join, ->(str){
     self.joins("LEFT JOIN type_services ON type_services.id = services.type_service_id ").
          where("services.name LIKE '%#{str}%' OR

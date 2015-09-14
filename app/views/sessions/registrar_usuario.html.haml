@@ -1,0 +1,32 @@
+.body-content.outer-top-bd
+  .container
+    = render partial: 'includes/messages_errors', locals: {object: @cliente}
+    .track-order-page.inner-bottom-sm
+      .row
+        .col-md-12
+          = form_for @cliente, url: crear_usuario_sessions_path, method: :post, class: "register-form outer-top-xs"   do |f|
+            .form-group.col-md-4
+              = f.label "Documento De Identidad", class: "info-title"
+              = f.text_field :cedula, class: "form-control unicase-form-control text-input", required: true, maxlength: 13, autofocus: true
+            .form-group.col-md-4
+              = f.label "nombre_y_apellido".capitalize
+              = f.text_field :name, class: "form-control unicase-form-control text-input", required: true, maxlength: 50
+            .form-group.col-md-4
+              = f.label "correo", class: "info-title"
+              = f.email_field :email, class: "form-control unicase-form-control text-input", required: true, maxlength: 50
+            .form-group.col-md-4
+              = f.label :telefono, class: "info-title"
+              = f.text_field :telefono, class: "form-control unicase-form-control text-input", required: true, maxlength: 14            
+            .form-group.col-md-4
+              = f.label :clave, class: "info-title"
+              = f.password_field :clave, class: "form-control unicase-form-control text-input", required: true
+            .form-group.col-md-4
+              = f.label "Confirmar password", class: "info-title"
+              = f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true
+            .col-md-4.col-sm-12.cart-shopping-total.pull-right
+              %table.table
+                %thead
+                  %tr
+                    %td
+                      .cart-checkout-btn.pull-right
+                        = f.submit "Registrarse", class: "btn btn-primary"

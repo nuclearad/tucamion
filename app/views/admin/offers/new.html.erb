@@ -11,7 +11,7 @@
 <%  if @plan.errors.any? %>
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <%= pluralize(@truck.errors.count, "Errores") %> tratando de guardar:
+        <%= pluralize(@plan.errors.count, "Errores") %> tratando de guardar:
       </div>
       <p>
       <ul>
@@ -32,6 +32,14 @@
 
     <%= form_for @plan, :url => admin_offers_path, :method=>'post' do |f|  %>
 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label :typeoffer, 'Tipo de Oferta' %>
+              <%= f.select(:typeoffer, Environment::TYPE[:planes], {}, { :class => 'form-control' }) %>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -59,14 +67,14 @@
             <div class="form-group">
 
               <%= f.label :precio1, 'Precio' %>
-              <%= f.text_field :precio1, :class =>'form-control'  %>
+              <%= f.text_field :precio1, :class =>'form-control', value: 0  %>
             </div>
           </div>
 
           <div class="col-md-6">
             <div class="form-group">
               <%= f.label :precio2, 'Precio Revendedor' %>
-              <%= f.text_field :precio2, :class =>'form-control' %>
+              <%= f.text_field :precio2, :class =>'form-control', value: 0 %>
             </div>
           </div>
 
@@ -110,17 +118,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+  </div>
 
 
         <%= f.submit 'Guardar', :class=> 'btn btn-info' %>

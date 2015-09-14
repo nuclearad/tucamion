@@ -17,6 +17,7 @@ class Admin::CustomersController < ApplicationController
 
 
     @customer = Customer.new
+    @customer.quantities.build
     add_breadcrumb 'Agregar'
 
 
@@ -50,7 +51,7 @@ class Admin::CustomersController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_customers_path
     else
-      render 'new'
+      render 'edit'
     end
 
   end
