@@ -1,3 +1,29 @@
 Nota:
 por hacer 13-09-2015 jonathan
 cuando caduque la fecha de prueba de anuncios para publicar al momento de el hacer la compra del plan debemos validar que no tenga un plan gratis si lo tiene debemos eliminarlo
+
+
+Reingenieria de los planes y sus contadores 2 dias
+
+- debemos crear una tabla customer_quantities
+  1- id
+  2- customer_id
+  3- trucks_count
+  4- extras_count
+  5- services_count
+
+- en el modelo customer debemos crear la relacion has_many con customer_quantities
+
+- en el modelo  customer_quantities debemos crear la relacion belongs_to con customers
+
+- al registrarse un usuario debemos cargarle a los cupos la cantidad del plan adquirido en inicio los gratis
+
+- debemos validar lo siguiente al agregar un nuevo plan al usuario debemos cargar los cupos comprados.
+
+- el las vistas micuenta debemos validar la cantidad de cupos disponbles por categoria camion, servicio, repuestos
+
+- los usuarios normales solo podran crear anuncios si poseen cupos.
+
+- al crear anuncios debemos descontar de la tabla cupos segun su tipo de anuncio
+
+- debemos validar en las vistas miscamiones, misrepuestos, misservicios la cantidad que se imprime en la barra superior.
