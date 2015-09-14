@@ -20,10 +20,10 @@ Reingenieria de los planes y sus contadores 2 dias
 
 - debemos validar lo siguiente al agregar un nuevo plan al usuario debemos cargar los cupos comprados.
 
-- el las vistas micuenta debemos validar la cantidad de cupos disponbles por categoria camion, servicio, repuestos
+- al crear anuncios debemos sumar a los campos current de la tabla quantities segun su tipo de anuncio *
 
-- los usuarios normales solo podran crear anuncios si poseen cupos.
+- el las vistas micuenta debemos validar la cantidad de cupos disponbles por categoria camion, servicio, repuestos *
 
-- al crear anuncios debemos descontar de la tabla cupos segun su tipo de anuncio
+- los usuarios normales solo podran crear anuncios si poseen cupos. *
 
-- debemos validar en las vistas miscamiones, misrepuestos, misservicios la cantidad que se imprime en la barra superior.
+- debemos validar en las vistas miscamiones, misrepuestos, misservicios la cantidad que se imprime en la barra superior. *

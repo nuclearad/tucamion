@@ -252,6 +252,8 @@ class PagesController < ApplicationController
             flash[:notice] = 'Error Guardando informacion'
             render :layout => 'layouts/cliente'
           end
+        else
+          render :layout => 'layouts/cliente'
         end
       else
         redirect_to mirepuestos_path, flash: {warning: "No posee planes para realizar la operacion"}
@@ -271,7 +273,6 @@ class PagesController < ApplicationController
       @cities= City.where('state_id = ?', @extra.state_id)
       @extraLateUpdate = @extra.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
         if request.post?
-            logger.info 'EEEEEEEEE'
           if @extraLateUpdate==true
             salved = @extra.update_attributes(allowed_lateUpdate_paramsExtra)
           else
@@ -328,13 +329,16 @@ class PagesController < ApplicationController
       if request.post?
 
         params[:service][:customer_id] = session[:user]
-        @extra = Service.new(allowed_paramsservice)
-        if @extra.save
+        
+        if @service.update_attributes allowed_paramsservice
           flash[:notice] = 'Información agregada correctamente'
-          redirect_to mirepuestos_path
+          redirect_to miservicios_path
+        else
+          render :layout => 'layouts/cliente'
         end
+      else
+        render :layout => 'layouts/cliente'
       end
-      render :layout => 'layouts/cliente'
     end
 
   end
