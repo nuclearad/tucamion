@@ -28,10 +28,10 @@ Reingenieria de los planes y sus contadores 2 dias
 
 - debemos validar en las vistas miscamiones, misrepuestos, misservicios la cantidad que se imprime en la barra superior.
 
-- debemos validar Contactos de camiones que sale 
+- debemos validar Contactos de camiones que sale *
 Daniel, 4819289 
 QUiero ese carro
 Diana, 4819289 
 QUiero mas informacion de ese vehiculo
 
-- debemos agregar en la creacion de usuarios por parte del admin los campos del quantity apra que pueda ser agregado si es nuevo usr y editada si es un user ya existente
+- debemos agregar en la creacion de usuarios por parte del admin los campos del quantity apra que pueda ser agregado si es nuevo usr y editada si es un user ya existente *
