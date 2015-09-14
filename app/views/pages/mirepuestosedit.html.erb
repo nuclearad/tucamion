@@ -7,7 +7,29 @@
   </div>
 </div>
 
+<% if flash[:error] %>
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= flash[:error] %>
+    </div>
+<% end %>
 
+<% if !@extra.blank? %>
+    <%= form_for @extra,:url => micamionesedit_path, html:  {multipart: true} do |f| %>
+        <% if @extra.errors.any? %>
+
+                <div id="error_explanation" style="text-align: center">
+                    <% @extra.errors.full_messages.each do |msg| %>
+                        <div class="alert alert-danger alert-dismissable col-md-6 col-md-offset-3">
+                          <%= msg %>
+                        </div>
+                    <% end %>
+
+                </div>
+
+        <% end %>
+    <% end %>
+<% end %>
 <div class="row">
 
     <%= form_for @extra, :url => mirepuestosedit_path , :method=> 'post' do |f|  %>
@@ -30,36 +52,36 @@
         </div>
         <!--precio y marca-->
         <div class="row">
-        <div class="col-md-5 col-md-offset-1">
+            <div class="col-md-5 col-md-offset-1">
             <div class="form-group">
                 <%= f.label :price, 'Precio' %>
                 <%= f.number_field :price, :class =>'form-control text_field'  %>
             </div>
         </div>
 
-        <div class="col-md-5">
+            <div class="col-md-5">
 
-            <div class="form-group">
-                <%= f.label :brand_extra_id, 'Marca de Repuesto' %>
-                <%= f.collection_select :brand_extra_id, BrandExtra.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                <div class="form-group">
+                    <%= f.label :brand_extra_id, 'Marca de Repuesto' %>
+                    <%= f.collection_select :brand_extra_id, BrandExtra.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                </div>
             </div>
         </div>
-    </div>
         <!--Telefono y Horario-->
         <div class="row">
-        <div class='col-md-5 col-md-offset-1'>
+            <div class='col-md-5 col-md-offset-1'>
             <div class="form-group">
                 <%= f.label :phone, 'Teléfono' %>
                 <%= f.text_field :phone, :class =>'form-control'  %>
             </div>
         </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <%= f.label :horario, 'Horario' %>
-                <%= f.text_field :horario, :class =>'form-control'  %>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <%= f.label :horario, 'Horario' %>
+                        <%= f.text_field :horario, :class =>'form-control'  %>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
         <!--Direccion-->
         <div class="row">
 

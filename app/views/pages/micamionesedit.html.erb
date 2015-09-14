@@ -10,42 +10,39 @@
   </div>
 </div>
 
-
+<% if flash[:error] %>
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= flash[:error] %>
+    </div>
+<% end %>
 <div class="row">
-  <% if flash[:error] %>
+  <% if !@truck.blank? %>
+      <%= form_for @truck,:url => micamionesedit_path, html:  {multipart: true} do |f| %>
+          <% if @truck.errors.any? %>
+              <div class="container t10">
+                <div class="col-md-6 col-xs-12 col-md-offset-3">
+                  <div id="error_explanation" style="text-align: center">
+                    <ul>
+                      <% @truck.errors.full_messages.each do |msg| %>
 
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <%= flash[:error] %>
-          </div>
-        </div>
-      </div>
+                          <li class="alert alert-danger alert-dismissable">
+                            <%= msg %>
+                          </li>
 
+
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+      <% end %>
   <% end %>
 </div>
 
     <div class="col-md-12">
-        <div class="row">
-            <%= form_for @truck, :url => micamionesedit_path, :method=>'get' do |f|  %>
-                <% if @truck.errors.any? %>
-                  <div class="alert alert:danger">
-                    <div class="col-md-6 col-xs-12 col-md-offset-3">
-                      <div id="error_explanation">
-                        <ul>
-                          <% @truck.errors.each do |msg| %>
-                              <li>
-                                <%= msg %>
-                              </li>
-                          <% end %>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-            <% end %>
-          <% end %>
-        </div>
+
 
         <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
 

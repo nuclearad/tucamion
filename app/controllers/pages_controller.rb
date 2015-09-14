@@ -186,19 +186,15 @@ class PagesController < ApplicationController
     if session[:user].nil?
       redirect_to micuenta_path
     else
-
       @user = Customer.find_by_id(session[:user])
       @truck = Truck.where(:id => params[:id], :customer_id => session[:user]).first
       @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
-
       if @truck.blank?
         redirect_to micamiones_path
       else
-
         if request.post?
-
           if @lateUpdate
             salved = @truck.update_attributes(allowed_lateUpdate_params)
           end
@@ -208,14 +204,10 @@ class PagesController < ApplicationController
           else
             flash[:error] = 'La informacion no se ha guardado'
             @truck.errors.full_messages.each {|e| logger.error e}
-            redirect_to micamioneseditpost_path
           end
-        else
-          render :layout => 'layouts/cliente'
         end
-
+          render :layout => 'layouts/cliente'
       end
-
     end
   end
 
@@ -290,7 +282,7 @@ class PagesController < ApplicationController
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to mirepuestos_path and return
           else
-            flash[:notice] = 'Información No actualizada'
+            flash[:error] = 'Información No actualizada'
           end
         end
       render :layout => 'layouts/cliente'
