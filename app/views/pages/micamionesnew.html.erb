@@ -16,15 +16,18 @@
                 <% if @truck.errors.any? %>
                     <div class="container t10">
                         <div class="col-md-6 col-xs-12 col-md-offset-3">
-                            <div id="error_explanation">
+                            <div id="error_explanation" style="text-align: center">
                                 <h3>
-                                    <%= "#{pluralize(@truck.errors.count, "Error(es)")} #{'Evita(n) que se salve el nuevo registro'}:" %>
+                                    <%= "#{pluralize(@truck.errors.count, "Error(es)")} #{'evita(n) que se guarde el nuevo registro'}:" %>
                                 </h3>
                                 <ul>
                                     <% @truck.errors.full_messages.each do |msg| %>
-                                        <li>
-                                            <%= msg %>
-                                        </li>
+
+                                            <li class="alert alert-danger alert-dismissable">
+                                                <%= msg %>
+                                            </li>
+
+
                                     <% end %>
                                 </ul>
                             </div>
