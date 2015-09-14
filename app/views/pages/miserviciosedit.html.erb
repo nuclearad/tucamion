@@ -66,8 +66,12 @@
 
           <div class="col-md-6">
             <div class="form-group">
-              <%= f.label :horario, 'Horario' %>
-              <%= f.text_field :horario, :class =>'form-control'  %>
+              <%= f.label :horario, 'Horario Desde' %>
+              <%= f.time_select :horario, {minute_step: 15, ampm:true,prompt: true},{class: "select-horarios",style:"padding-left:0px;"} %>
+            </div>
+            <div class="form-group">
+              <%= f.label :horario, 'Horario Hasta' %>
+              <%= f.time_select :horario, {minute_step: 15, ampm:true,prompt: true},{class: "select-horarios",style:"padding-left:0px;"} %>
             </div>
           </div>
 

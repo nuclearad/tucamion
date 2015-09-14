@@ -37,28 +37,32 @@
               <%= f.text_field :address, :class =>'form-control'  %>
             </div>
           </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <%= f.label :horario, 'Horario' %>
-              <%= f.text_field :horario, :class =>'form-control'  %>
-            </div>
-          </div>
-
-        </div>
-
-
-
-
-
-        <div class="row">
-
           <div class="col-md-6">
             <div class="form-group">
               <%= f.label :type_truck_id, 'Tipo de servicio' %>
               <%= f.collection_select :type_service_id, TypeService.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
             </div>
           </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-3">
+            <%= f.label :horario, 'Horario Desde' %>
+            <%= f.time_select :horario, {minute_step: 15, ampm:true,prompt: false},{class: "form-control",style:"padding-left:0px;"} %>
+          </div>
+
+          <div class="col-md-3">
+            <%= f.label :horario, 'Horario Hasta' %>
+            <%= time_select :Hhasta, {minute_step: 15, ampm:true,prompt: false},{class: "form-control",style:"padding-left:0px;"} %>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+
+
 
 
 
