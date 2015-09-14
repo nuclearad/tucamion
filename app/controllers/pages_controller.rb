@@ -207,8 +207,8 @@ class PagesController < ApplicationController
             redirect_to micamiones_path and return
           else
             flash[:error] = 'La informacion no se ha guardado'
-            logger.error 'No se ha guardado el registrOOOOOOOOOO ' + @truck.errors.any?.to_s + ' Errores presentes ***********'
-            redirect_to micamioneseditpost_path, layout: 'layouts/cliente' and return
+            @truck.errors.full_messages.each {|e| logger.error e}
+            redirect_to micamioneseditpost_path
           end
         else
           render :layout => 'layouts/cliente'

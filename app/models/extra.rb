@@ -11,12 +11,9 @@ class Extra < ActiveRecord::Base
   has_many :messages, -> { where(tipo: 2)}, :foreign_key => :item
 
 
-  validates :name, presence: true
-  validates :state_id, presence: true
-  validates :city_id, presence: true
-  validates :brand_extra_id, presence: true
-  validates :type_truck_id, presence: true
-  validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
+  validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address]
+  validates :type_trucks_id, presence: true
+  validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
 
 

@@ -18,7 +18,7 @@ class Truck < ActiveRecord::Base
   belongs_to :referencia
   accepts_nested_attributes_for :customer
   validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
-  validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:ubicacion], message: 'No puede estar en blanco'
+  validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state], message: 'No puede estar en blanco'
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
@@ -105,6 +105,7 @@ class Truck < ActiveRecord::Base
       :state_id => 'Departamento',
       :brand_truck_id => 'Marca',
       :brand_truck => 'Marca',
+      :state => 'Departamento',
       :type_truck_id => 'Tipo',
       :tipocombustible => 'Tipo combustible',
       :placa_city_id => 'Ciudad Matricula',
