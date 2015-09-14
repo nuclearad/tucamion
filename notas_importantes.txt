@@ -10,3 +10,11 @@ Diana, 4819289
 QUiero mas informacion de ese vehiculo
 
 - al crear un usuario con el admin y asignarle plan generico u otro plan se esta duplicando los cupos *
+
+
+Nota para documentar en el funcionamiento
+
+la admin debe crear dos planes obligatorios:
+ - uno de tipo promocional-> este es para los usuarios que se registren de forma gratuita este sera asignado por el sistema al registrase tiene vigencia limitada por ahora de 3 meses
+ 
+ - el otro plan es de tipo generico este debe tener sus cupos en 0 ya que solo es asignado por el administrador al crear usuarios.

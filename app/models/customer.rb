@@ -33,7 +33,7 @@ class Customer < ActiveRecord::Base
 
   def cargar_planes
     begin
-     offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:gratis])
+     offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
      if offer
        if self.comparar_fecha(3.months)
          return 1
