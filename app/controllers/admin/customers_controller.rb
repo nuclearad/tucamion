@@ -17,7 +17,7 @@ class Admin::CustomersController < ApplicationController
 
 
     @customer = Customer.new
-    @offers   = Offer.where(typeoffer: Environment::TYPE[:planes][:gratis])
+    @offers   = Offer.where(typeoffer: Environment::TYPE[:planes][:generico])
     @customer.quantities.build
     add_breadcrumb 'Agregar'
 
@@ -34,7 +34,7 @@ class Admin::CustomersController < ApplicationController
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_customers_path
     else
-      @offers = Offer.where(typeoffer: Environment::TYPE[:planes][:gratis])
+      @offers = Offer.where(typeoffer: Environment::TYPE[:planes][:generico])
       render 'new'
     end
 
@@ -43,7 +43,7 @@ class Admin::CustomersController < ApplicationController
   end
 
   def edit
-    @offers   = Offer.where(typeoffer: Environment::TYPE[:planes][:gratis])
+    @offers   = Offer.where(typeoffer: Environment::TYPE[:planes][:generico])
     @customer = Customer.find(params[:id])
   end
 
@@ -54,7 +54,7 @@ class Admin::CustomersController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_customers_path
     else
-      @offers = Offer.where(typeoffer: Environment::TYPE[:planes][:gratis])
+      @offers = Offer.where(typeoffer: Environment::TYPE[:planes][:generico])
       render 'edit'
     end
 
