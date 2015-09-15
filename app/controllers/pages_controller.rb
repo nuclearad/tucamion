@@ -298,8 +298,6 @@ class PagesController < ApplicationController
           if salved==true
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to mirepuestos_path and return
-          else
-            flash[:error] = 'Información No actualizada'
           end
         end
       render :layout => 'layouts/cliente'

@@ -11,7 +11,7 @@ class Extra < ActiveRecord::Base
   has_many :messages, -> { where(tipo: 2)}, :foreign_key => :item
 
 
-  validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address]
+  validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address],message: 'No puede estar vacio'
   validates :type_truck_id, presence: true
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
@@ -68,7 +68,20 @@ class Extra < ActiveRecord::Base
       quantity.save      
     end
   end
+  HUMANIZED_ATTRIBUTES = {
+      :nombre => 'Nombre',
+      :city_id => 'Ciudad',
+      :city => 'Ciudad',
+      :state_id => 'Departamento',
+      :brand_truck_id => 'Marca',
+      :brand_truck => 'Marca',
+      :state => 'Departamento',
+      :type_truck_id => 'Tipo',
+      :tipocombustible => 'Tipo combustible',
+      :placa_city_id => 'Ciudad Matricula',
+      :placa_state_id => 'Departamento Matricula'
 
+  }
 
   scope :like_join, ->(str){
     self.joins("LEFT JOIN brand_extras ON brand_extras.id = extras.brand_extra_id 
