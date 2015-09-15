@@ -1,24 +1,23 @@
-Nota:
-por hacer 13-09-2015 jonathan
-cuando caduque la fecha de prueba de anuncios para publicar al momento de el hacer la compra del plan debemos validar que no tenga un plan gratis si lo tiene debemos eliminarlo
+- debemos encriptar el pass y debemos desencriptarlo al momento del inicio de session PRIORIDAD
 
+- validar bug del lado del comprador para evitar que reciente la app en su nivel mas basico PRIORIDAD
+
+- agregar el boton vendido en el vehiculo solo lo hace el dueño del anuncio PRIORIDAD
+
+- crear un menu inbox basico de los mensajes (listar, ver, eliminar)
+
+- en la barra solo se listaran los dos mas viejos
+
+- al agregar un plan debemos eliminar el promocional pero mantiene los cupos del plan promocional mas los del nuevo plan
+
+- cuando caduque la fecha de prueba de anuncios para publicar al momento de hacer la compra del plan debemos validar que no tenga un plan gratis si lo tiene debemos eliminarlo
+
+- debemos validar la salida de mensajes al realizar un proceso
+
+- el sistema debera tener el boton de comprar anuncio si el plan gratis caduco o si no tiene ningun cupo a favor
 
 - debemos validar Contactos de camiones que sale *
 Daniel, 4819289 
 QUiero ese carro
 Diana, 4819289 
 QUiero mas informacion de ese vehiculo
-
-- crear un menu inbox basico de los mensajes (listar, ver, eliminar)
-
-- agregar el boton vendido en el vehiculo solo lo hace el dueño del anuncio
-
-- en la barra solo se listaran los dos mas viejos
-
-- al agregar un plan debemos eliminar el promocional pero mantiene los cupos del plan promocional mas los del nuevo plan
-
-- debemos validar la salida de mensajes al realizar un proceso
-
-- validar bug del lado del comprador para evitar que reciente la app en su nivel mas basico
-
-- el sistema debera tener el boton de comprar anuncio si el plan gratis caduco o si no tiene ningun cupo a favor
