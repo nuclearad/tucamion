@@ -21,3 +21,5 @@ Daniel, 4819289
 QUiero ese carro
 Diana, 4819289 
 QUiero mas informacion de ese vehiculo
+
+- agregar enlace de registrase en el form del login
