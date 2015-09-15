@@ -208,7 +208,6 @@ class PagesController < ApplicationController
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to micamiones_path and return
           else
-            flash[:error] = 'La informacion no se ha guardado'
             @truck.errors.full_messages.each {|e| logger.error e}
           end
         end
@@ -254,7 +253,7 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @extra    = Extra.new
-
+      @horas = Environment::HORARIOS
       if @quantity.total_extras - @quantity.current_extras > 0
         if @user.cargar_planes > 0
           if request.post?
@@ -264,7 +263,6 @@ class PagesController < ApplicationController
               flash[:notice] = 'Información agregada correctamente'
               redirect_to mirepuestos_path
             else
-              flash[:notice] = 'Error Guardando informacion'
               render :layout => 'layouts/cliente'
             end
           else
@@ -289,6 +287,7 @@ class PagesController < ApplicationController
       @extra = Extra.find(params[:id])
       @cities= City.where('state_id = ?', @extra.state_id)
       @extraLateUpdate = @extra.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
+      @horas = Environment::HORARIOS
         if request.post?
           if @extraLateUpdate==true
             salved = @extra.update_attributes(allowed_lateUpdate_paramsExtra)
@@ -298,6 +297,8 @@ class PagesController < ApplicationController
           if salved==true
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to mirepuestos_path and return
+          else
+            flash[:error] = 'La Información no se pudo Actualizar'
           end
         end
       render :layout => 'layouts/cliente'
@@ -342,6 +343,7 @@ class PagesController < ApplicationController
       @user = Customer.find_by_id(session[:user])
       @service = Service.find(params[:id])
       @serviceLateUpdate = @service.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
+      @horas = Environment::HORARIOS
       if request.post?
         params[:service][:customer_id] = session[:user]
 

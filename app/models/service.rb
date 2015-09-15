@@ -8,7 +8,7 @@ class Service < ActiveRecord::Base
 
   has_many :messages, -> { where(tipo: 3)}, :foreign_key => :item
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
-  validates_presence_of [:name, :phone, :type_service_id,:state_id], message: 'No puede estar vacio'
+  validates_presence_of [:name, :phone, :type_service_id,:state_id,:address], message: 'No puede estar vacio'
 
 
 
@@ -33,8 +33,14 @@ class Service < ActiveRecord::Base
       :name => 'Nombre',
       :phone => 'Telefono',
       :type_service_id => 'Tipo de Servicio',
-      :state_id => 'Departamento'
+      :state_id => 'Departamento',
+      :address => 'Dirreccion'
+
   }
+  def self.human_attribute_name(attr, options = {})
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
+
 
 
   before_create do
