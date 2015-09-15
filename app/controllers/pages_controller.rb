@@ -240,6 +240,7 @@ class PagesController < ApplicationController
       @quantity = @user.quantities.first
       @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
       @extras   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
+
       render :layout => 'layouts/cliente'
     end
   end
@@ -487,6 +488,8 @@ class PagesController < ApplicationController
 
   def repuesto
     @extra = Extra.find_by_id(params[:id])
+    #@horas = Environment::HORARIOS.key(@extra.horario)
+    #logger.info 'la hora es'+ @horas
   end
 
 
