@@ -13,30 +13,31 @@
 .form-group.col-md-4
   = f.label :telefono, class: "info-title"
   = f.text_field :telefono, class: "form-control unicase-form-control text-input", required: true, maxlength: 14            
-.form-group.col-md-4
-  = f.label :clave, class: "info-title"
-  = f.password_field :clave, class: "form-control unicase-form-control text-input", required: true, value: @customer.clave
-.form-group.col-md-4
-  = f.label "Confirmar password", class: "info-title"
-  = f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true, value: @customer.clave
+- if @customer.id.blank?
+  .form-group.col-md-4
+    = f.label :clave, class: "info-title"
+    = f.password_field :clave, class: "form-control unicase-form-control text-input", required: true, value: @customer.clave
+  .form-group.col-md-4
+    = f.label "Confirmar password", class: "info-title"
+    = f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true, value: @customer.clave
 = f.simple_fields_for :quantities do |q|
   .form-group.col-md-4
-    = q.label :total_trucks, "Cupos de camiones"
+    = q.label :total_trucks, "Cupos de camiones", {:style=>'color: green;'}
     = q.number_field :total_trucks, class: "form-control unicase-form-control text-input"
   .form-group.col-md-4
-    = q.label :total_extras, "Cupos de respuestos"
+    = q.label :total_extras, "Cupos de respuestos", {:style=>'color: green;'}
     = q.number_field :total_extras, class: "form-control unicase-form-control text-input"
   .form-group.col-md-4
-    = q.label :total_services, "Cupos de servicios"
+    = q.label :total_services, "Cupos de servicios", {:style=>'color: green;'}
     = q.number_field :total_services, class: "form-control unicase-form-control text-input"
   .form-group.col-md-4
-    = q.label :current_trucks, "Cantidad consumida camiones"
+    = q.label :current_trucks, "Cantidad consumida camiones", {:style=>'color: red;'}
     = q.number_field :current_trucks, class: "form-control unicase-form-control text-input"
   .form-group.col-md-4
-    = q.label :current_extras, "Cantidad consumida respuestos"
+    = q.label :current_extras, "Cantidad consumida respuestos", {:style=>'color: red;'}
     = q.number_field :current_extras, class: "form-control unicase-form-control text-input"
   .form-group.col-md-4
-    = q.label :current_services, "Cantidad consumidas ervicios"
+    = q.label :current_services, "Cantidad consumidas servicios", {:style=>'color: red;'}
     = q.number_field :current_services, class: "form-control unicase-form-control text-input"
 .col-md-4.col-sm-12.cart-shopping-total.pull-right
   %table.table
