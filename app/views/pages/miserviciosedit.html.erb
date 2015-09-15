@@ -42,7 +42,7 @@
         <div class="row">
           <div class="col-md-3">
             <%= f.label :horario, 'Horario de atencion' %>
-            <%= f.collection_select :horario, @horas,:last,:first,{},{class: 'form-control text_field'} %>
+            <%= f.collection_select :horario, @horas,:last,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
           </div>
         </div>
 
@@ -55,7 +55,7 @@
 
           <div class="col-md-6">
             <div class="form-group">
-              <%= f.label :type_truck_id, 'Tipo de servicio' %>
+              <%= f.label :type_service_id, 'Tipo de servicio' %>
               <%= f.collection_select :type_service_id, TypeService.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
             </div>
           </div>

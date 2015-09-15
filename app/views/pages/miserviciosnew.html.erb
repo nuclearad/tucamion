@@ -40,7 +40,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <%= f.label :type_truck_id, 'Tipo de servicio' %>
+              <%= f.label :type_service_id, 'Tipo de servicio' %>
               <%= f.collection_select :type_service_id, TypeService.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
             </div>
           </div>
