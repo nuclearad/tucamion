@@ -1,4 +1,3 @@
-- debemos encriptar el pass y debemos desencriptarlo al momento del inicio de session PRIORIDAD
 
 - validar bug del lado del comprador para evitar que reciente la app en su nivel mas basico PRIORIDAD
 
