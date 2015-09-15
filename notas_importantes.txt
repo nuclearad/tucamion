@@ -9,12 +9,16 @@ QUiero ese carro
 Diana, 4819289 
 QUiero mas informacion de ese vehiculo
 
-- al crear un usuario con el admin y asignarle plan generico u otro plan se esta duplicando los cupos *
+- crear un menu inbox basico de los mensajes (listar, ver, eliminar)
 
+- agregar el boton vendido en el vehiculo solo lo hace el dueño del anuncio
 
-Nota para documentar en el funcionamiento
+- en la barra solo se listaran los dos mas viejos
 
-la admin debe crear dos planes obligatorios:
- - uno de tipo promocional-> este es para los usuarios que se registren de forma gratuita este sera asignado por el sistema al registrase tiene vigencia limitada por ahora de 3 meses
- 
- - el otro plan es de tipo generico este debe tener sus cupos en 0 ya que solo es asignado por el administrador al crear usuarios.
+- al agregar un plan debemos eliminar el promocional pero mantiene los cupos del plan promocional mas los del nuevo plan
+
+- debemos validar la salida de mensajes al realizar un proceso
+
+- validar bug del lado del comprador para evitar que reciente la app en su nivel mas basico
+
+- el sistema debera tener el boton de comprar anuncio si el plan gratis caduco o si no tiene ningun cupo a favor
