@@ -3,11 +3,11 @@ class Customer < ActiveRecord::Base
   attr_accessor :clave_confirmation
 
 
-  has_many :offercustomers
+  has_many :offercustomers, dependent: :destroy
   has_many :offer, through: :offercustomers
-  has_many :extras
-  has_many :trucks
-  has_many :services
+  has_many :extras, dependent: :destroy
+  has_many :trucks, dependent: :destroy
+  has_many :services, dependent: :destroy
   has_many :quantities, dependent: :destroy
 
   validates_presence_of       :cedula,   message: "El documento de identidad es un campo obligatorio"
