@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get  'comprar' => 'pages#comprar'
   match 'busqueda' => 'pages#busqueda', via: [:get, :post]
   get  'camion-tipo/:id_truck/:id_sub'  => 'pages#camiontipo'
+  get 'camion-marca/:id_truck/:id_brand'  => 'pages#camionmarca'
   get  'repuesto-tipo/:id_truck/:id_brand' => 'pages#repuestotipo'
   get  'servicio-tipo/:id' => 'pages#serviciotipo'
 
@@ -143,6 +144,12 @@ Rails.application.routes.draw do
   get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
 
   #sessiones
-  get 'logout' => 'pages#logout'
+  resources :sessions, only: [:index] do
+    collection do
+      get 'logout'
+      get "registrar_usuario"
+      post "crear_usuario"
+    end
+  end
 
 end

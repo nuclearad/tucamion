@@ -1,0 +1,16 @@
+- if object.errors.any?
+  .panel.panel-danger
+    .panel-heading
+      = pluralize(object.errors.count, "Errores")
+      tratando de guardar:
+    %p
+      %ul
+        - object.errors.full_messages.each do |msg|
+          %li= msg
+- flash.each do |type, msg|
+  %div{class: "panel panel-#{type}"}
+    .panel-heading
+      %p
+        %ul
+          %li= msg 
+- flash.clear

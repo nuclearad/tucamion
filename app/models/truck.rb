@@ -119,9 +119,6 @@ class Truck < ActiveRecord::Base
 
 
 
-
-
-
   before_create do
 
     self.link_rewrite = self.nombre.downcase
@@ -144,6 +141,17 @@ class Truck < ActiveRecord::Base
     end
 
   end
+
+  before_create :add_quantity_current
+
+  def add_quantity_current
+    quantity = Quantity.find_by(customer_id: self.customer_id)
+    if quantity
+      quantity.current_trucks += 1
+      quantity.save      
+    end
+  end
+
 
   scope :like_join, ->(str){
     self.joins("LEFT JOIN brand_trucks ON brand_trucks.id = trucks.brand_truck_id 

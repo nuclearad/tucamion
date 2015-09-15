@@ -59,6 +59,17 @@ class Extra < ActiveRecord::Base
 
   end
 
+  before_create :add_quantity_current
+
+  def add_quantity_current
+    quantity = Quantity.find_by(customer_id: self.customer_id)
+    if quantity
+      quantity.current_extras += 1
+      quantity.save      
+    end
+  end
+
+
   scope :like_join, ->(str){
     self.joins("LEFT JOIN brand_extras ON brand_extras.id = extras.brand_extra_id 
                 LEFT JOIN type_trucks  ON type_trucks.id =  extras.type_truck_id").
