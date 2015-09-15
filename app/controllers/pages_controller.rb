@@ -143,7 +143,7 @@ class PagesController < ApplicationController
     render json: data
   end
 
-
+# Camiones
   def micamiones
     if session[:user].nil?
        redirect_to micuenta_path
@@ -156,7 +156,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def micamionesnew
     if session[:user].nil?
       redirect_to micuenta_path
@@ -164,9 +163,9 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @truck    = Truck.new
-      
+
       if @quantity.total_trucks - @quantity.current_trucks > 0
-      
+
         if @user.cargar_planes > 0
           if request.post?
             params[:truck][:customer_id] = session[:user]
@@ -175,7 +174,7 @@ class PagesController < ApplicationController
               flash[:notice] = 'Información agregada correctamente'
               redirect_to micamiones_path
             else
-             render :layout => 'layouts/cliente'
+              render :layout => 'layouts/cliente'
             end
           else
             render :layout => 'layouts/cliente'
@@ -189,44 +188,50 @@ class PagesController < ApplicationController
     end
   end
 
-
   def micamionesedit
     if session[:user].nil?
       redirect_to micuenta_path
     else
-
       @user = Customer.find_by_id(session[:user])
       @truck = Truck.where(:id => params[:id], :customer_id => session[:user]).first
       @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
-
       if @truck.blank?
         redirect_to micamiones_path
       else
-
         if request.post?
-
           if @lateUpdate
             salved = @truck.update_attributes(allowed_lateUpdate_params)
           end
           if @truck.update_attributes(allowed_params) or salved
             flash[:notice] = 'Información actualizada correctamente'
-            redirect_to micamiones_path
+            redirect_to micamiones_path and return
           else
-            flash[:notice] = 'Informasssción actualizada correctamente'
-            redirect_to micamiones_path
+            flash[:error] = 'La informacion no se ha guardado'
+            @truck.errors.full_messages.each {|e| logger.error e}
           end
-        else
-          render :layout => 'layouts/cliente'
         end
-
+          render :layout => 'layouts/cliente'
       end
-
     end
   end
 
+  def micamionesdelete
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @truck = Truck.find(params[:id])
+      if @truck.destroy
+        flash[:notice] = 'Información eliminada correctamente'
+      else
+        flash[:notice] = 'Error eliminando informacion'
+      end
+    redirect_to micamiones_path
+    end
+  end
 
+#repuestos
   def mirepuestos
 
     if session[:user].nil?
@@ -240,7 +245,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def mirepuestosnew
 
     if session[:user].nil?
@@ -250,7 +254,7 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @extra    = Extra.new
-      
+
       if @quantity.total_extras - @quantity.current_extras > 0
         if @user.cargar_planes > 0
           if request.post?
@@ -294,8 +298,6 @@ class PagesController < ApplicationController
           if salved==true
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to mirepuestos_path and return
-          else
-            flash[:notice] = 'Información No actualizada'
           end
         end
       render :layout => 'layouts/cliente'
@@ -326,6 +328,7 @@ class PagesController < ApplicationController
       @quantity   =  @user.quantities.first
       @search     = Service.where(:customer_id => session[:user]).includes(:type_service, :messages).search(params[:q])
       @servicios  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
+
       render :layout => 'layouts/cliente'
     end
 
@@ -340,14 +343,14 @@ class PagesController < ApplicationController
       @service = Service.find(params[:id])
       @serviceLateUpdate = @service.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       if request.post?
-
         params[:service][:customer_id] = session[:user]
-        
-        if @service.update_attributes allowed_paramsservice
-          flash[:notice] = 'Información agregada correctamente'
-          redirect_to miservicios_path
+
+        if @service.update_attributes(allowed_paramsservice)
+          flash[:notice] = 'Información editada correctamente'
+          redirect_to miservicios_path and return
         else
           render :layout => 'layouts/cliente'
+
         end
       else
         render :layout => 'layouts/cliente'
@@ -356,7 +359,6 @@ class PagesController < ApplicationController
 
   end
 
-
   def miserviciosnew
     if session[:user].nil?
       redirect_to micuenta_path
@@ -364,7 +366,7 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @service  = Service.new
-      
+      @horas = Environment::HORARIOS
       if @quantity.total_services - @quantity.current_services > 0
         if @user.cargar_planes > 0
           if request.post?
@@ -381,21 +383,49 @@ class PagesController < ApplicationController
           end
         else
           redirect_to miservicios_path, flash: {warning: "No posee planes para realizar la operacion"}
+
         end
       else
         redirect_to miservicios_path, flash: {warning: "Debes adquirir un plan para seguir disfrutando del servicio"}
       end
     end
   end
+
+  def miserviciosdelete
+    if session[:user].nil?
+      redirect_to micuenta_path
+    else
+      @service = Service.find(params[:id])
+      if @service.destroy
+        flash[:notice] = 'Información eliminada correctamente'
+      else
+        flash[:notice] = 'Error eliminando informacion'
+      end
+    redirect_to miservicios_path
+    end
+  end
 #EndServicios
 
-
+#mi cuenta
   def micuenta
 
       if session[:user].nil?
-        
+
+        @message = false
+        if request.post?
+           @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
+
+          if @usuario.count == 0
+            @message = true
+            flash[:notice] = ' Email o Clave invalida'
+           else
+            session[:user] = @usuario[0].id
+          end
+          redirect_to micuenta_path
+        else
           render :action => 'micuentalogin', :layout => 'layouts/devise'
-      
+        end
+
       else
 
         @user = Customer.find_by_id(session[:user])
@@ -457,7 +487,15 @@ class PagesController < ApplicationController
     @extra = Extra.find_by_id(params[:id])
   end
 
-  #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
+
+  #hecho por jonathan rojas 09-09-2015 para cerrar session
+  def logout
+    session[:user] = nil
+    redirect_to "/"
+  end
+
+#hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
+
 
   def camiones
     self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
@@ -656,7 +694,7 @@ class PagesController < ApplicationController
     @service = Service.find_by_id(params[:id])
   end
 
-
+#private
   private
 
     def load_banners
