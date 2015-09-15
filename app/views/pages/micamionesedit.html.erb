@@ -6,16 +6,12 @@
     <h1 class="page-header">
       Camiones <small>/ Editar</small>
     </h1>
-
   </div>
 </div>
 
-<%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
-</div>
-
+<div class="row">
     <div class="col-md-12">
-
-
+      <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
         <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
 
 
