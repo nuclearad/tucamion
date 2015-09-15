@@ -328,6 +328,7 @@ class PagesController < ApplicationController
       @quantity   =  @user.quantities.first
       @search     = Service.where(:customer_id => session[:user]).includes(:type_service, :messages).search(params[:q])
       @servicios  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
+
       render :layout => 'layouts/cliente'
     end
 
@@ -365,7 +366,7 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @service  = Service.new
-      
+      @horas = [[1,'1'],[2,'2']]
       if @quantity.total_services - @quantity.current_services > 0
         if @user.cargar_planes > 0
           if request.post?
