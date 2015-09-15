@@ -9,8 +9,8 @@ $(document).on "page:change", ->
 
   return
 
-$(document).on'page:load', ->
+$(document).on "page:load", ->
   console.log 'cofeescript de customer'
-    $('#customer_telefono').inputmask '(9999)-9999999'
+  $('#customer_telefono').inputmask '(9999)-9999999'
 
   return
