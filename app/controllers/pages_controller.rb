@@ -163,9 +163,9 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @truck    = Truck.new
-      
+
       if @quantity.total_trucks - @quantity.current_trucks > 0
-      
+
         if @user.cargar_planes > 0
           if request.post?
             params[:truck][:customer_id] = session[:user]
@@ -254,7 +254,7 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @extra    = Extra.new
-      
+
       if @quantity.total_extras - @quantity.current_extras > 0
         if @user.cargar_planes > 0
           if request.post?
@@ -366,7 +366,7 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @service  = Service.new
-      @horas = [[1,'1'],[2,'2']]
+      @horas = Environment::HORARIOS
       if @quantity.total_services - @quantity.current_services > 0
         if @user.cargar_planes > 0
           if request.post?
@@ -414,7 +414,7 @@ class PagesController < ApplicationController
         @message = false
         if request.post?
            @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
-           
+
           if @usuario.count == 0
             @message = true
             flash[:notice] = ' Email o Clave invalida'
