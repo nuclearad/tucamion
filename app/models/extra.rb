@@ -11,11 +11,9 @@ class Extra < ActiveRecord::Base
   has_many :messages, -> { where(tipo: 2)}, :foreign_key => :item
 
 
-  validates :name, presence: true
-  validates :state_id, presence: true
-  validates :city_id, presence: true
-  validates :brand_extra_id, presence: true
+  validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address],message: 'No puede estar vacio'
   validates :type_truck_id, presence: true
+  validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
 
 
@@ -67,13 +65,31 @@ class Extra < ActiveRecord::Base
     quantity = Quantity.find_by(customer_id: self.customer_id)
     if quantity
       quantity.current_extras += 1
-      quantity.save      
+      quantity.save
     end
+  end
+  HUMANIZED_ATTRIBUTES = {
+      :name => 'Nombre',
+      :city_id => 'Ciudad',
+      :city => 'Ciudad',
+      :state_id => 'Departamento',
+      :brand_extra_id => 'Marca',
+      :brand_extra => 'Marca',
+      :state => 'Departamento',
+      :type_truck_id => 'Tipo',
+      :price => 'Precio',
+      :phone => 'Telefono',
+      :address => 'Direccion'
+
+  }
+    def self.human_attribute_name(attr, options = {})
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
 
 
+
   scope :like_join, ->(str){
-    self.joins("LEFT JOIN brand_extras ON brand_extras.id = extras.brand_extra_id 
+    self.joins("LEFT JOIN brand_extras ON brand_extras.id = extras.brand_extra_id
                 LEFT JOIN type_trucks  ON type_trucks.id =  extras.type_truck_id").
          where("extras.name LIKE '%#{str}%' OR
                 brand_extras.name LIKE '%#{str}%' OR
@@ -83,16 +99,16 @@ class Extra < ActiveRecord::Base
 
   scope :state_group, ->{
        self.select('extras.id, extras.name, extras.state_id,
-                    count(extras.state_id) as total, 
+                    count(extras.state_id) as total,
                     states.name as state_name').
             joins(:state).group('states.name').
             order('states.name DESC')
-  
+
   }
 
   scope :brand_group, ->{
      self.select('extras.id, extras.name, extras.brand_extra_id,
-              count(extras.brand_extra_id) as total, 
+              count(extras.brand_extra_id) as total,
               brand_extras.name as brand_name').
       joins(:brand_extra).group('brand_extras.name').
       order('brand_extras.name DESC')

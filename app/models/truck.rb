@@ -6,7 +6,6 @@ class Truck < ActiveRecord::Base
   belongs_to :state
   belongs_to :customer
   has_many :messages, -> { where(tipo: 1)}, :foreign_key => :item
-
   belongs_to :colors_truck
   belongs_to :spaces_truck
   belongs_to :boxes_truck
@@ -17,6 +16,8 @@ class Truck < ActiveRecord::Base
   belongs_to :transmissions_truck
   belongs_to :referencia
   accepts_nested_attributes_for :customer
+  validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
+  validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state,:city, :placa_state_id, :kilometraje], message: 'No puede estar en blanco'
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
@@ -100,8 +101,11 @@ class Truck < ActiveRecord::Base
   HUMANIZED_ATTRIBUTES = {
       :nombre => 'Nombre',
       :city_id => 'Ciudad',
+      :city => 'Ciudad',
       :state_id => 'Departamento',
       :brand_truck_id => 'Marca',
+      :brand_truck => 'Marca',
+      :state => 'Departamento',
       :type_truck_id => 'Tipo',
       :tipocombustible => 'Tipo combustible',
       :placa_city_id => 'Ciudad Matricula',

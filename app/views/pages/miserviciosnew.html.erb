@@ -10,6 +10,7 @@
 
 <div class="row">
   <div class="col-md-12">
+    <%= render partial: 'includes/messages_errors', locals: {object: @service} %>
     <%= form_for @service, :url => miserviciosnew_path, :method=>'post' do |f|  %>
 
         <div class="row">
@@ -37,34 +38,21 @@
               <%= f.text_field :address, :class =>'form-control'  %>
             </div>
           </div>
-
           <div class="col-md-6">
             <div class="form-group">
-              <%= f.label :horario, 'Horario' %>
-              <%= f.text_field :horario, :class =>'form-control'  %>
-            </div>
-          </div>
-
-        </div>
-
-
-
-
-
-        <div class="row">
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <%= f.label :type_truck_id, 'Tipo de servicio' %>
+              <%= f.label :type_service_id, 'Tipo de servicio' %>
               <%= f.collection_select :type_service_id, TypeService.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
             </div>
           </div>
-
-
-
         </div>
 
 
+        <div class="row">
+          <div class="col-md-3">
+            <%= f.label :horario, 'Horario de atencion' %>
+            <%= f.collection_select :horario, @horas,:last,:first,{},{class: 'form-control text_field'} %>
+          </div>
+        </div>
 
 
         <div class="row">

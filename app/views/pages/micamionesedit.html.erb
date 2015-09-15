@@ -4,28 +4,27 @@
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-      Camiones <small>/ editar</small>
+      Camiones <small>/ Editar</small>
     </h1>
-
   </div>
 </div>
 
-
 <div class="row">
     <div class="col-md-12">
-
+      <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
         <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
 
-            <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
-          <li role="presentation"><a id="s" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Paso 2</a></li>
-        </ul>
-
-            <br/><br/>
 
             <div class="tab-content">
                 <% if @lateUpdate %>
-                    <div role="tabpanel" class="tab-pane active" id="home">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
+
+                  </ul>
+
+                  <br/><br/>
+
+                  <div role="tabpanel" class="tab-pane active" id="home">
 
                         <div class="row">
                             <div class="col-md-3">
@@ -34,12 +33,11 @@
                                 </label>
                                 <br/><br/>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
+
+                            <div class="col-md-6 col-md-offset-3">
                                 <div class="form-group">
                                     <%= f.label :price, 'Precio' %>
-                                    <%= f.text_field :price, :class =>'form-control'  %>
+                                    <%= f.number_field :price, :class =>'form-control text_field'  %>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +62,14 @@
                         <%=  link_to 'Cancelar', micamiones_path, :class=>'btn btn-warning' %>
                     </div>
                 <% else %>
-                    <div role="tabpanel" class="tab-pane active " id="home">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Paso 1</a></li>
+                    <li role="presentation"><a id="s" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Paso 2</a></li>
+                  </ul>
+
+                  <br/><br/>
+
+                  <div role="tabpanel" class="tab-pane active " id="home">
 
                         <div class="row">
                             <div class="col-md-12">
@@ -117,7 +122,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <%= f.label :price, 'Precio' %>
-                                    <%= f.text_field :price, :class =>'form-control'  %>
+                                    <%= f.number_field :price, :class =>'form-control text_field'  %>
                                 </div>
                             </div>
 
@@ -125,7 +130,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <%= f.label :pesobruto, 'Peso bruto' %>
-                                    <%= f.text_field :pesobruto, :class =>'form-control'  %>
+                                    <%= f.number_field :pesobruto, :class =>'form-control text_filed'  %>
                                 </div>
                             </div>
                         </div>
@@ -233,7 +238,7 @@
                     </div>
                   </div>
 
-          <div role="tabpanel" class="tab-pane" id="profile">
+                    <div role="tabpanel" class="tab-pane" id="profile">
 
 
 

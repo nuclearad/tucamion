@@ -11,6 +11,24 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.inputmask
+//= require jquery.inputmask.extensions
+//= require jquery.inputmask.numeric.extensions
+//= require jquery.inputmask.date.extensions
 //= require jquery_ujs
 //= require turbolinks
+
+
+var ready;
+ready = function() {
+    console.log('desde el application.js');
+    $('#customer_telefono').inputmask('(9999)-9999999');
+    $('#truck_customer_attributes_telefono').inputmask('(9999)-9999999');
+    $('#extra_phone').inputmask('(9999)-9999999');
+    $('#service_phone').inputmask('(9999)-9999999');
+
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
 

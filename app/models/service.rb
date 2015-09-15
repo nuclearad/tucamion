@@ -7,8 +7,8 @@ class Service < ActiveRecord::Base
 
 
   has_many :messages, -> { where(tipo: 3)}, :foreign_key => :item
-
-
+  validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
+  validates_presence_of [:name, :phone, :type_service_id,:state_id,:address], message: 'No puede estar vacio'
 
 
 
@@ -29,6 +29,17 @@ class Service < ActiveRecord::Base
   validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/
 
 
+  HUMANIZED_ATTRIBUTES = {
+      :name => 'Nombre',
+      :phone => 'Telefono',
+      :type_service_id => 'Tipo de Servicio',
+      :state_id => 'Departamento',
+      :address => 'Dirreccion'
+
+  }
+  def self.human_attribute_name(attr, options = {})
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
 
 
 
@@ -61,7 +72,7 @@ class Service < ActiveRecord::Base
     quantity = Quantity.find_by(customer_id: self.customer_id)
     if quantity
       quantity.current_services += 1
-      quantity.save      
+      quantity.save
     end
   end
 
@@ -74,11 +85,11 @@ class Service < ActiveRecord::Base
 
   scope :state_group, ->{
        self.select('services.id, services.name, services.state_id,
-                    count(services.state_id) as total, 
+                    count(services.state_id) as total,
                     states.name as state_name').
             joins(:state).group('states.name').
             order('states.name DESC')
-  
+
   }
 
 end
