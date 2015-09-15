@@ -54,9 +54,9 @@
             </div>
         </div>
                 <div class="col-md-5">
-                    <div class="form-group">
-                        <%= f.label :horario, 'Horario' %>
-                        <%= f.text_field :horario, :class =>'form-control'  %>
+                    <div class="col-md-3">
+                        <%= f.label :horario, 'Horario de atencion' %>
+                        <%= f.collection_select :horario, @horas,:last,:first,{},{class: 'form-control text_field'} %>
                     </div>
                 </div>
             </div>

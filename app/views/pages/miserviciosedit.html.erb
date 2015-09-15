@@ -39,14 +39,13 @@
           </div>
 
           <div class="col-md-6">
-            <div class="form-group">
-              <%= f.label :horario, 'Horario Desde' %>
-              <%= f.time_select :horario, {minute_step: 15, ampm:true,prompt: true},{class: "select-horarios",style:"padding-left:0px;"} %>
-            </div>
-            <div class="form-group">
-              <%= f.label :horario, 'Horario Hasta' %>
-              <%= f.time_select :horario, {minute_step: 15, ampm:true,prompt: true},{class: "select-horarios",style:"padding-left:0px;"} %>
-            </div>
+        <div class="row">
+          <div class="col-md-3">
+            <%= f.label :horario, 'Horario de atencion' %>
+            <%= f.collection_select :horario, @horas,:last,:first,{},{class: 'form-control text_field'} %>
+          </div>
+        </div>
+
           </div>
 
         </div>
