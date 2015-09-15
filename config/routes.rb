@@ -146,9 +146,10 @@ Rails.application.routes.draw do
   #sessiones
   resources :sessions, only: [:index] do
     collection do
-      get 'logout'
-      get "registrar_usuario"
-      post "crear_usuario"
+      post :login
+      get  :logout
+      get  :registrar_usuario
+      post :crear_usuario
     end
   end
 

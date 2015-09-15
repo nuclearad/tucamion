@@ -393,22 +393,9 @@ class PagesController < ApplicationController
   def micuenta
 
       if session[:user].nil?
-
-        @message = false
-        if request.post?
-           @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
-           
-          if @usuario.count == 0
-            @message = true
-            flash[:notice] = ' Email o Clave invalida'
-           else
-            session[:user] = @usuario[0].id
-          end
-          redirect_to micuenta_path
-        else
+        
           render :action => 'micuentalogin', :layout => 'layouts/devise'
-        end
-
+      
       else
 
         @user = Customer.find_by_id(session[:user])

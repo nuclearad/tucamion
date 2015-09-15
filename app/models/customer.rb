@@ -29,11 +29,22 @@ class Customer < ActiveRecord::Base
   
   accepts_nested_attributes_for :quantities , allow_destroy: true
   accepts_nested_attributes_for :offer
+  
+  before_create :password_digest
+  before_update :password_digest
   #jonathanse compara para ver si el usuario tiene un plan activo gratis o no 
+
+  def password_digest
+    self.clave = BCrypt::Password.create(self.clave)
+  end
+
+  def is_password?(password)
+    BCrypt::Password.new(self.clave) == password
+  end
 
   def cargar_planes
     begin
-     offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:gratis])
+     offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
      if offer
        if self.comparar_fecha(3.months)
          return 1
