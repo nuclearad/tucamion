@@ -1,0 +1,1 @@
+(function(){$(document).on("page:change",function(){console.log("page:change call"),$("#customer_telefono").inputmask("(9999)-9999999")}),$(document).on("page:load",function(){console.log("cofeescript de customer"),$("#customer_telefono").inputmask("(9999)-9999999")})}).call(this);
