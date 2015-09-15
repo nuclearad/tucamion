@@ -99,7 +99,8 @@
 
               <td>
                 <%= link_to 'Editar', micamionesedit_path(truck.id), :class=>'btn btn-info' %>
-                <%= link_to 'Eliminar',micamionesnew_path(truck.id), :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :class=>'btn btn-danger' %>
+                <%= link_to 'Eliminar',micamionesdelete_path(truck.id), :method=> 'delete',:data => {:confirm => 'Estas seguro de eliminar este elemento?'},:class=>'btn btn-danger' %>
+
               </td>
 
 
