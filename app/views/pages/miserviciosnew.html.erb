@@ -50,7 +50,7 @@
         <div class="row">
           <div class="col-md-3">
             <%= f.label :horario, 'Horario de atencion' %>
-            <%= f.collection_select :horario, @horas,:last,:first,{},{class: 'form-control text_field'} %>
+            <%= f.collection_select :horario, @horas,:first,:first,{},{class: 'form-control text_field'} %>
           </div>
         </div>
 
