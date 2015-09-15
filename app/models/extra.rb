@@ -12,7 +12,7 @@ class Extra < ActiveRecord::Base
 
 
   validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address]
-  validates :type_trucks_id, presence: true
+  validates :type_truck_id, presence: true
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
 
