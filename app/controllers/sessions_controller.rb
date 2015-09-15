@@ -1,6 +1,20 @@
 class SessionsController < ApplicationController
 	
   #hecho por jonathan rojas 09-09-2015 para cerrar session
+  def login
+     @message = false
+     @usuario = Customer.where('email = ? and clave = ?', params[:email], params[:clave])
+     if @usuario.count == 0
+       @message = true
+       flash[:notice] = ' Email o Clave invalida'
+       render '/pages/micuentalogin', :layout => 'layouts/devise'
+     else
+       session[:user] = @usuario[0].id
+       redirect_to micuenta_path
+     end
+  end
+
+
   def logout
     session[:user] = nil
     redirect_to "/"
