@@ -47,15 +47,18 @@ class Admin::TypeTruckController < ApplicationController
 
   def destroy
 
-
-    @type = TypeTruck.find(params[:id])
-    if @type.destroy
-      flash[:notice] = 'Información eliminada correctamente'
+    begin
+      @type = TypeTruck.find(params[:id])
+      if @type.destroy
+        flash[:notice] = 'Información eliminada correctamente'
+        redirect_to admin_type_truck_index_path
+      else
+        render 'new'
+      end
+    rescue Exception => e
+      flash[:notice] = 'El Tipo de camion no existe'
       redirect_to admin_type_truck_index_path
-    else
-      render 'new'
     end
-
 
 
   end
