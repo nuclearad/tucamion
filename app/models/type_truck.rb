@@ -1,7 +1,7 @@
 class TypeTruck < ActiveRecord::Base
-  has_many :trucks
-  has_many :sub_trucks
-  has_many :extras
+  has_many :trucks, dependent: :destroy
+  has_many :sub_trucks, dependent: :destroy
+  has_many :extras, dependent: :destroy
   has_many :brand_extra,->{self.uniq}, through: :extras
   has_many :brand_trucks, through: :trucks
 
@@ -43,7 +43,7 @@ class TypeTruck < ActiveRecord::Base
 
   scope :group_by_brand,->{
       self.select('type_trucks.id,
-                   type_trucks.name, 
+                   type_trucks.name,
                    COUNT(extras.type_truck_id) as total').
        joins(:extras).
        group('type_trucks.id').includes(:brand_extra)

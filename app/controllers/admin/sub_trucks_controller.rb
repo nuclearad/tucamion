@@ -66,6 +66,13 @@ class Admin::SubTrucksController < ApplicationController
   end
 
   def destroy
+    @sub = SubTruck.find(params[:id])
+    if @sub.destroy
+      flash[:notice] = 'Información eliminada correctamente'
+      redirect_to admin_type_truck_sub_trucks_path
+    else
+      render 'new'
+    end
   end
 
 
