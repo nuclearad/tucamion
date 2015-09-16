@@ -1,3 +1,4 @@
+State.destroy_all
 departamentos = ['Amazonas',
 'Antioquía',
 'Arauca',
