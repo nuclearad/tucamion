@@ -46,8 +46,6 @@ class Admin::TypeTruckController < ApplicationController
   end
 
   def destroy
-
-
     @type = TypeTruck.find(params[:id])
     if @type.destroy
       flash[:notice] = 'Información eliminada correctamente'
