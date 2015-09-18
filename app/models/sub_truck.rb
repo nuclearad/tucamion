@@ -1,3 +1,3 @@
 class SubTruck < ActiveRecord::Base
-  belongs_to :type_truck, dependent: :destroy
+  belongs_to :type_truck
 end
