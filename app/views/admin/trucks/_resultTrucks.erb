@@ -1,0 +1,78 @@
+
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Tipo</th>
+        <th>Marca</th>
+        <th>Departamento</th>
+        <th>Acciones</th>
+        <th>Estado</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @trucks_filter.each do |truck| %>
+          <tr>
+
+
+            <td>
+              <%= truck.nombre %>
+            </td>
+            <td>
+              <%= number_to_currency( truck.price) %>
+            </td>
+
+            <td>
+              <%=  truck.type_truck.name if truck.type_truck %>
+            </td>
+
+            <td>
+              <%=   truck.brand_truck.name if truck.brand_truck %>
+            </td>
+
+            <td>
+              <%=  truck.state.name if truck.state%>
+            </td>
+
+
+            <td>
+              <%= link_to 'Editar', edit_admin_truck_path(truck.id), :class=>'btn btn-info' %>
+              <%= link_to 'Eliminar', {:controller => 'admin/trucks', :action => 'destroy', :id => truck.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+            </td>
+
+
+            <td>
+              <% if truck.active == 1 %>
+
+
+                  <%= link_to admin_updateState_path(truck.id,1,'truck'), :class=>'btn btn-success' do %>
+                      <i class="fa fa-check"></i>
+                  <% end %>
+
+
+              <% else %>
+
+                  <%= link_to admin_updateState_path(truck.id,0,'truck'), :class=>'btn btn-danger' do %>
+                      <i class="fa fa-times"></i>
+                  <% end %>
+
+
+              <% end %>
+            </td>
+
+
+          </tr>
+      <% end %>
+
+
+      </tbody>
+
+
+
+    </table>
+  </div>
+
+

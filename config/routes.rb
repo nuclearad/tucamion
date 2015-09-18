@@ -108,6 +108,7 @@ Rails.application.routes.draw do
       :boxes_truck,
       :transmissions_truck,
       :offers,
+      :sub_trucks,
       :banners,
                :marcas_equipos_humedos,
                :tipo_carrocerias,
@@ -128,7 +129,6 @@ Rails.application.routes.draw do
       resources :sub_trucks,
                 :referencias
     end
-
 
 
 

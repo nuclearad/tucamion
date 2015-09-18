@@ -10,14 +10,7 @@
 <!-- /.row -->
 <% if flash[:notice] %>
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="alert alert-info alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <%= flash[:notice] %>
-        </div>
-      </div>
-    </div>
+<%= render partial: 'shared/flashNoticeMessage' %>
 
 
 <% end %>
@@ -57,7 +50,7 @@
 
 
                 <%= link_to 'Editar', edit_admin_type_truck_sub_truck_path( type.type_truck_id, type.id), :class=>'btn btn-info' %>
-                <%= link_to 'Eliminar', {:controller => 'admin/type_truck', :action => 'destroy', :id => type.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+                <%= link_to 'Eliminar', admin_sub_truck_path(type.id), :method => 'DELETE', :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :class=>'btn btn-danger' %>
               </td>
             </tr>
         <% end %>
