@@ -1,13 +1,9 @@
 
-  <div class="form-group">
+  <div class=" md-col-6 form-group">
     <%= search_form_for object, url: search_path.to_s, id:"searchForm" ,method: "get", remote: true  do |f| %>
-    <!--%= search_form_for @search, url: school_methodAlumnsIndexSchool_path, id:"searchForm" ,method: "get", remote: true  do |f| %-->
         <div>
           <%= label_tag "isr",'Buscar:' %>
           <%= f.search_field query_search_field, class: "form-control form-el" %>
-        </div>
-        <div class="col-md-2 p20 t30">
-          <%= image_submit_tag("search-icon.png", class: "glyphicon glyphicon-search", alt: "Buscar") %>
         </div>
     <% end %>
   </div>
