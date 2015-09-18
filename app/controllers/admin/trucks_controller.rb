@@ -8,10 +8,12 @@ class Admin::TrucksController < ApplicationController
   def index
     @trucks = Truck.all
     @search = @trucks.search(params[:q])
+    @query_search_field= 'nombre_cont'
     @trucks_filter = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.html {}
       format.json { render json: @trucks_filter, :include =>[:state, :type_truck, :brand_truck, :customer] }
+      format.js{ }
     end
 
 

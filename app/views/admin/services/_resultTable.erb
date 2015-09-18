@@ -1,0 +1,60 @@
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+  <tr>
+    <th>Nombre</th>
+    <th>Tipo de servicio</th>
+    <th>Departamento</th>
+    <th>Acciones</th>
+    <th>Estado</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @services.each do |type| %>
+      <tr>
+
+
+        <td>
+          <%= type.name %>
+        </td>
+
+        <td>
+          <%= type.type_service.name if type.type_service %>
+        </td>
+
+        <td>
+          <%= type.state.name if type.state %>
+        </td>
+
+        <td>
+          <%= link_to 'Editar', edit_admin_service_path(type.id), :class=>'btn btn-info' %>
+          <%= link_to 'Eliminar', {:controller => 'admin/services', :action => 'destroy', :id => type.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+        </td>
+
+        <td>
+          <% if type.active == 1 %>
+
+
+              <%= link_to admin_updateState_path(type.id,1,'service'), :class=>'btn btn-success' do %>
+                  <i class="fa fa-check"></i>
+              <% end %>
+
+
+          <% else %>
+
+              <%= link_to admin_updateState_path(type.id,0,'service'), :class=>'btn btn-danger' do %>
+                  <i class="fa fa-times"></i>
+              <% end %>
+
+
+          <% end %>
+        </td>
+
+      </tr>
+  <% end %>
+
+
+  </tbody>
+
+
+
+</table>

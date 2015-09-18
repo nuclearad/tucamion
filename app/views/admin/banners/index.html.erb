@@ -10,14 +10,7 @@
 <!-- /.row -->
 <% if flash[:notice] %>
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="alert alert-info alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <%= flash[:notice] %>
-        </div>
-      </div>
-    </div>
+<%= render partial: 'shared/flashNoticeMessage' %>
 
 
 <% end %>
@@ -25,10 +18,13 @@
 <!-- /.row -->
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-3">
     <p>
       <%= link_to 'Nuevo Banner', new_admin_banner_path, :method=>'get', :class=>'btn  btn-primary' %>
     </p>
+  </div>
+  <div class="col-md-3 col-md-offset-6">
+    <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
   </div>
 </div>
 
