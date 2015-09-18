@@ -7,9 +7,9 @@ class Admin::CustomersController < ApplicationController
 
 
   def index
-
     @customers = Customer.all
     @search = @customers.search(params[:q])
+    @query_search_field= 'name_or_cedula_cont'
     @customers_filter = @search.result.page(params[:page]).per(5)
   end
 

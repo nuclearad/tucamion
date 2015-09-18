@@ -35,78 +35,8 @@
 
 
 
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover table-striped">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Cedula</th>
-          <th>Teléfono</th>
-          <th>Email</th>
-
-          <th>
-            Planes
-          </th>
-          <th>Tipo Usuario</th>
-          <th>Acciones</th>
-          <th>Estado</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @customers.each do |customer| %>
-
-           <tr>
-             <td><%= customer.name %></td>
-             <td><%= customer.cedula %></td>
-             <td><%= customer.telefono %></td>
-             <td><%= customer.email %></td>
-             <td>
-               <%  if !customer.offercustomers.blank? %>
-                   <%= link_to 'Ver Planes', admin_customer_offerscustomers_path(customer.id), :class=>'btn btn-info' %>
-               <% else %>
-                    Sin planes
-               <% end %>
-
-             </td>
-             <td><%= if customer.typeuser == 0 then 'Normal' else 'Revendedor' end %></td>
-             <td>
-               <%= link_to 'Editar', edit_admin_customer_path(customer.id), :class=>'btn btn-info' %>
-               <%= link_to 'Eliminar', {:controller => 'admin/customers', :action => 'destroy', :id => customer.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
-
-             </td>
-             <td>
-
-
-               <% if customer.estado == 1 %>
-
-
-                   <%= link_to admin_updateStateCustomer_path(customer.id,1), :class=>'btn btn-success' do %>
-                       <i class="fa fa-check"></i>
-                   <% end %>
-
-
-               <% else %>
-
-                   <%= link_to admin_updateStateCustomer_path(customer.id,0), :class=>'btn btn-danger' do %>
-                       <i class="fa fa-times"></i>
-                   <% end %>
-
-
-               <% end %>
-
-
-
-             </td>
-           </tr>
-
-
-
-        <% end %>
-        </tbody>
-
-
-
-      </table>
+    <div  id="tabla" class="table-responsive">
+        <%= render partial: 'tableResult' %>
     </div>
 
 
