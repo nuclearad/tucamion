@@ -1,9 +1,9 @@
 
-  <div class=" md-col-6 form-group">
+  <div class="form-group">
     <%= search_form_for object, url: search_path.to_s, id:"searchForm" ,method: "get", remote: true  do |f| %>
         <div>
           <%= label_tag "isr",'Buscar:' %>
-          <%= f.search_field query_search_field, class: "form-control form-el" %>
+          <%= f.search_field (query_search_field.nil? ? :name_cont : query_search_field), class: "form-control form-el" %>
         </div>
     <% end %>
   </div>

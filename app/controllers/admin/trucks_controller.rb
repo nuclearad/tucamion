@@ -9,7 +9,6 @@ class Admin::TrucksController < ApplicationController
     @trucks = Truck.all
     @search = @trucks.search(params[:q])
     @query_search_field= 'nombre_cont'
-    @search_path =admin_trucks_path
     @trucks_filter = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.html {}
