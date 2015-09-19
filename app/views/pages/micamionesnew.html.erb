@@ -912,29 +912,25 @@
 				</div>
 
 
-
-
-
-
-
-
-
 				<div class="row">
-				  <div class="col-md-3">
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label>
+                            <%= f.check_box :negociable  %> Negociable
+                        </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
 					<div class="form-group">
-
-
-					  <label>
-						<%= f.check_box :negociable  %> Negociable
-					  </label>
-
 
 					  <label>
 						<%= f.check_box :unicodueno  %> Unico dueño
 					  </label>
 
-
 					</div>
+
+
 				  </div>
 
 
@@ -1003,23 +999,28 @@
 				  </div>
 				</div>
 
-				<div class="row">
-				  <div class="col-md-12">
-                    <label>
-                      <%= f.check_box :negociable  %> Negociable
-                    </label>
-					<label>
-					  <%= f.check_box :unicodueno  %> Unico dueño
-					</label>
+                <div class="row">
 
-					<br/><br/>
-				  </div>
-				</div>
+                    <div class="col-md-3">
+                          <div class="form-group">
+                            <label>
+                              <%= f.check_box :negociable  %> Negociable
+                            </label>
+                          </div>
+                        </div>
+                    <div class="col-md-3">
+                          <div class="form-group">
+
+                            <label>
+                              <%= f.check_box :unicodueno  %> Unico dueño
+                            </label>
+
+                          </div>
 
 
+                        </div>
 
-
-
+                </div>
 
 		  <% end %>
 
