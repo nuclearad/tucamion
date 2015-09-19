@@ -197,7 +197,7 @@
                         <script>
                             $(function(){
                             $('#sa').click(function(){
-                                $($('.nav-tabs li')[0]).removeClass('active')
+                                $($('.nav-tabs li')[0]).removeClass('active');
                                 $($('.nav-tabs li')[1]).addClass('active')
                             })
                         })
@@ -1005,7 +1005,9 @@
 
 				<div class="row">
 				  <div class="col-md-12">
-
+                    <label>
+                      <%= f.check_box :negociable  %> Negociable
+                    </label>
 					<label>
 					  <%= f.check_box :unicodueno  %> Unico dueño
 					</label>
@@ -1094,18 +1096,14 @@
 
 		$('#truck_state_id').on('change', function() {
 
-			$('#truck_city_id option').html('')
+			$('#truck_city_id option').html('');
 			function loader(data){
 				$('#truck_city_id option').html('Cargando...')
-			};
-
-			function error(data){
+            }
+            function error(data){
 				alert("Error enviados los datos");
-			};
-
-
-
-			$.ajax({
+            }
+            $.ajax({
 				async: true,
 				type: "GET",
 				dataType: 'json',
@@ -1114,7 +1112,7 @@
 				success: function (msg) {
 
 
-					$('#truck_city_id').html('')
+					$('#truck_city_id').html('');
 
 
 					$.each(msg, function(index, value) {
@@ -1139,18 +1137,14 @@
 
 		$('#truck_placa_state_id').on('change', function() {
 
-			$('#truck_placa_city_id option').html('')
+			$('#truck_placa_city_id option').html('');
 			function loader(data){
 				$('#truck_placa_city_id option').html('Cargando...')
-			};
-
-			function error(data){
+            }
+            function error(data){
 				alert("Error enviados los datos");
-			};
-
-
-
-			$.ajax({
+            }
+            $.ajax({
 				async: true,
 				type: "GET",
 				dataType: 'json',
@@ -1159,7 +1153,7 @@
 				success: function (msg) {
 
 
-					$('#truck_placa_city_id').html('')
+					$('#truck_placa_city_id').html('');
 
 
 					$.each(msg, function(index, value) {
