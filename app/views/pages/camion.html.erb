@@ -48,7 +48,7 @@
                 <tr class="nymou"><td>Modelo:</td><td class="pull-right"><%= @truck.modelo %></td></tr>
                 <tr class="nymou"><td>Marca:</td><td class="pull-right"><%= @truck.brand_truck.name if @truck.brand_truck %></td></tr>
                 <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @truck.state.name  if @truck.state %> - <%= @truck.city.name if @truck.city %></td></tr>
-                <tr class="nymou"><td>Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje %> Km</td></tr>
+                <tr class="nymou"><td>Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje? ? @truck.kilometraje+ ' Km' : 'Sin Info' %></td></tr>
                 <tr class="nymou"><td>Estado:</td><td class="pull-right">
                   <% if( @truck.estado == 0) %>
                         Nuevo
@@ -88,9 +88,9 @@
 
     <div class="description-container m-t-20">
       <h4>Vendedor</h4>
-      <p>Nombre: <b><%= @truck.customer ? @truck.customer.name.capitalize : "No registradoS" %></b></p>
-      <p>Teléfono: <b><%= @truck.customer ? @truck.customer.telefono : "No registradoS" %></b></p>
-      <p>Email: <b><%= @truck.customer ? @truck.customer.email : "No registradoS" %></b></p>
+      <p>Nombre: <b><%= @truck.customer ? @truck.customer.name.capitalize : "No registrado" %></b></p>
+      <p>Teléfono: <b><%= @truck.customer ? @truck.customer.telefono : "No registrado" %></b></p>
+      <p>Email: <b><%= @truck.customer ? @truck.customer.email : "No registrado" %></b></p>
     </div><!-- /.description-container -->
 
     <div class="row outer-top-vs"><div class="cart col-md-12 col-lg-6 clearfix animate-effect">
@@ -154,7 +154,7 @@
                 <% if @truck.capacidadpasajeros != '' %><td class="cell-label"><b>Capacidad de Pasajeros</b><br> <%= @truck.capacidadpasajeros %></td><% end %>
 
                 <% if @truck.numeroejes != '' %> <td><b>Numero de ejes</b><br> <%= @truck.numeroejes %></td><% end %>
-                <td><b>Con Trailer</b><br><% if @truck.trailer == false %>No <% else %> Si <% end %></td>
+                <td><b>Con Trailer</b><br><% if @truck.trailer %>Si <% else %> No <% end %></td>
                 <td></td>
               </tr>
               <tr class="nymou">
@@ -175,10 +175,10 @@
 
               </tr>
               <tr class="nymou">
-                <% if @truck.motorreparado %><td class="cell-label"><b>Motor Reparado</b><br> <% if @truck.motorreparado == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.cajareparada  %><td><b>Caja Reparada</b><br> <% if @truck.cajareparada == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.transmisionreparada %><td><b>Transmisión Reparada</b><br> <% if @truck.transmisionreparada == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.frenosabs %><td><b>Frenos ABS</b><br> <% if @truck.frenosabs == false %>No <% else %> Si <% end %></td><% end %>
+                <td class="cell-label"><% if @truck.motorreparado %><b>Motor Reparado</b><br><% if @truck.motorreparado %>Si<% else %>No<% end %><% end %></td>
+                <td><% if @truck.cajareparada  %><b>Caja Reparada</b><br><% if @truck.cajareparada %>Si<% else %>No<% end %><% end %></td>
+                <td> <% if @truck.transmisionreparada %><b>Transmisión Reparada</b><br> <% if @truck.transmisionreparada %>Si<% else %> No <% end %><% end %></td>
+                <td><% if @truck.frenosabs %><b>Frenos ABS</b><br> <% if @truck.frenosabs == false %>No <% else %> Si <% end %><% end %></td>
               </tr>
               <tr class="nymou">
                 <% if @truck.cupo  %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo == false %>No <% else %> Si <% end %></td><% end %>

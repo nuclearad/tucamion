@@ -40,6 +40,8 @@ class Referencia < ActiveRecord::Base
     end
 
   end
-
+  scope :getByTypeTruckId, ->(type){
+  select(:name,:id).where(type_truck_id: type)
+  }
 
 end

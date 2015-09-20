@@ -86,7 +86,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <%= f.label :referencia_id, 'Referencia' %>
-                                <%= f.collection_select :referencia_id, Referencia.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                                <%= f.collection_select :referencia_id, Referencia.getByTypeTruckId(params['v']).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <%= f.label :pesobruto, 'Peso bruto' %>
+                                <%= f.label :pesobruto, 'Peso bruto (Tons)' %>
                                 <%= f.number_field :pesobruto, :class =>'form-control text_field',min: 0, :step => 'any'  %>
                             </div>
                         </div>
@@ -343,7 +343,16 @@
 					  <%= f.text_field :numeroejestrailer, :class =>'form-control'  %>
 					</div>
 				  </div>
+                  <div class="col-md-3 extras ">
+                    <div class="form-gorup">
+                      <label for="">numero de ejes retractiles </label><br/>
 
+                      <%= f.radio_button :ejesretractiles, 1, :checked => true %> 1
+
+                      <%= f.radio_button :ejesretractiles, 2, :checked => false %> 2
+
+                    </div>
+                  </div>
 
 				</div>
 
@@ -847,9 +856,6 @@
 				</div>
 
 
-
-
-
 				<div class="row">
 				  <div class="col-md-12">
 					<label for="">   Se vende con trailer? </label><br/>
@@ -911,6 +917,16 @@
 
 				</div>
 
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="">numero de ejes retractiles </label><br/>
+
+                    <%= f.radio_button :ejesretractiles, '1', :checked => true %> 1
+
+                    <%= f.radio_button :ejesretractiles, '2', :checked => false %> 2
+
+                  </div>
+                </div>
 
 				<div class="row">
 

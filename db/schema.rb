@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914030253) do
+ActiveRecord::Schema.define(version: 20150919212148) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -444,6 +444,7 @@ ActiveRecord::Schema.define(version: 20150914030253) do
     t.string   "capacidadmetrica"
     t.string   "cuantosmetroscubicos"
     t.string   "autocarpado"
+    t.integer  "ejesRetractiles",                   default: 0
   end
 
   create_table "type_extras", force: true do |t|

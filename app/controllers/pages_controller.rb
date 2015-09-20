@@ -27,10 +27,10 @@ class PagesController < ApplicationController
           @services = Service.like_join(strSearch).includes(:state, :city)
                              .page(params[:page]).per(Environment::LIMIT_SEARCH)
         else
-          @result = "Se valida la cadena y hay un intento no permitido por favor intentar de nuevo"
+          @result = 'Se valida la cadena y hay un intento no permitido por favor intentar de nuevo'
         end
       else
-        @result = "La cadena enviada para generar la consulta debe ser menor a 50 caracteres"
+        @result = 'La cadena enviada para generar la consulta debe ser menor a 50 caracteres'
       end
     else
         @trucks   = Truck.all.includes(:state)
@@ -48,10 +48,8 @@ class PagesController < ApplicationController
     end
   end
 
-
   def tarifas
     @planes = Offer.all
-
 
     if !session[:user].nil?
 
@@ -59,7 +57,6 @@ class PagesController < ApplicationController
     end
 
   end
-
 
   def departamentos
 
@@ -86,7 +83,6 @@ class PagesController < ApplicationController
     end
 
   end
-
 
   def guardarMensaje
 
@@ -152,7 +148,7 @@ class PagesController < ApplicationController
        @quantity = @user.quantities.first
        @search   = Truck.where(:customer_id => session[:user]).includes(:type_truck, :brand_truck, :state, :messages).search(params[:q])
        @trucks   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
-       render :layout => 'layouts/cliente'
+       render layout: 'layouts/cliente'
     end
   end
 
@@ -174,21 +170,22 @@ class PagesController < ApplicationController
               flash[:notice] = 'Información agregada correctamente'
               redirect_to micamiones_path
             else
-              render :layout => 'layouts/cliente'
+              render layout: 'layouts/cliente'
             end
           else
-            render :layout => 'layouts/cliente'
+            render layout: 'layouts/cliente'
           end
         else
-          redirect_to micamiones_path, flash: {warning: "No posee planes para realizar la operacion"}
+          redirect_to micamiones_path, flash: {warning: 'No posee planes para realizar la operacion'}
         end
       else
-        redirect_to micamiones_path, flash: {warning: "Debes adquirir un plan para seguir disfrutando del servicio"}
+        redirect_to micamiones_path, flash: {warning: 'Debes adquirir un plan para seguir disfrutando del servicio'}
       end
     end
   end
 
   def micamionesedit
+    salved=false
     if session[:user].nil?
       redirect_to micuenta_path
     else
@@ -201,6 +198,7 @@ class PagesController < ApplicationController
         redirect_to micamiones_path
       else
         if request.post?
+
           if @lateUpdate
             salved = @truck.update_attributes(allowed_lateUpdate_params)
           end
@@ -211,7 +209,7 @@ class PagesController < ApplicationController
             @truck.errors.full_messages.each {|e| logger.error e}
           end
         end
-          render :layout => 'layouts/cliente'
+          render layout: 'layouts/cliente'
       end
     end
   end
@@ -241,7 +239,7 @@ class PagesController < ApplicationController
       @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
       @extras   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
 
-      render :layout => 'layouts/cliente'
+      render layout: 'layouts/cliente'
     end
   end
 
@@ -270,17 +268,17 @@ class PagesController < ApplicationController
             render :layout => 'layouts/cliente'
           end
         else
-          redirect_to mirepuestos_path, flash: {warning: "No posee planes para realizar la operacion"}
+          redirect_to mirepuestos_path, flash: {warning: 'No posee planes para realizar la operacion'}
         end
       else
-        redirect_to mirepuestos_path, flash: {warning: "Debes adquirir un plan para seguir disfrutando del servicio"}
+        redirect_to mirepuestos_path, flash: {warning: 'Debes adquirir un plan para seguir disfrutando del servicio'}
       end
     end
 
   end
 
   def mirepuestosedit
-
+    salved=false
     if session[:user].nil?
       redirect_to micuenta_path
     else
@@ -290,12 +288,12 @@ class PagesController < ApplicationController
       @extraLateUpdate = @extra.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @horas = Environment::HORARIOS
         if request.post?
-          if @extraLateUpdate==true
+          if @extraLateUpdate
             salved = @extra.update_attributes(allowed_lateUpdate_paramsExtra)
           else
             salved =@extra.update_attributes(allowed_paramsextra)
           end
-          if salved==true
+          if salved
             flash[:notice] = 'Información actualizada correctamente'
             redirect_to mirepuestos_path and return
           else
@@ -347,20 +345,23 @@ class PagesController < ApplicationController
       @horas = Environment::HORARIOS
       if request.post?
         params[:service][:customer_id] = session[:user]
-
-        if @service.update_attributes(allowed_paramsservice)
+        if @serviceLateUpdate
+          salved=service.update_attributes(allowed_lateUpdate_paramsservice)
+        else
+          salved=@service.update_attributes(allowed_paramsservice)
+        end
+        if salved
           flash[:notice] = 'Información editada correctamente'
           redirect_to miservicios_path and return
         else
           render :layout => 'layouts/cliente'
-
         end
       else
         render :layout => 'layouts/cliente'
       end
     end
-
   end
+
 
   def miserviciosnew
     if session[:user].nil?
@@ -379,17 +380,17 @@ class PagesController < ApplicationController
               flash[:notice] = 'Información agregada correctamente'
               redirect_to miservicios_path
             else
-              render :layout => 'layouts/cliente'
+              render layout: 'layouts/cliente'
             end
           else
-            render :layout => 'layouts/cliente'
+            render layout: 'layouts/cliente'
           end
         else
-          redirect_to miservicios_path, flash: {warning: "No posee planes para realizar la operacion"}
+          redirect_to miservicios_path, flash: {warning: 'No posee planes para realizar la operacion'}
 
         end
       else
-        redirect_to miservicios_path, flash: {warning: "Debes adquirir un plan para seguir disfrutando del servicio"}
+        redirect_to miservicios_path, flash: {warning: 'Debes adquirir un plan para seguir disfrutando del servicio'}
       end
     end
   end
@@ -496,14 +497,13 @@ class PagesController < ApplicationController
   #hecho por jonathan rojas 09-09-2015 para cerrar session
   def logout
     session[:user] = nil
-    redirect_to "/"
+    redirect_to '/'
   end
 
 #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
 
-
   def camiones
-    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
+    self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
     @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
@@ -537,7 +537,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def camionmarca
     id_brand         = params[:id_brand]
     id_truck         = params[:id_truck]
@@ -549,13 +548,12 @@ class PagesController < ApplicationController
     @modelos_group   = Truck.modelo_group
     @km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
-    @toggle_search   = Array.new()
+    @toggle_search   = Array.new
     respond_to do |format|
       format.html { render :camiones }
-      format.js   { render :camiones }
+      format.js { render :camiones }
     end
   end
-
 
   def camion_toggle
     self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
@@ -584,7 +582,7 @@ class PagesController < ApplicationController
   end
 
   def repuestos
-    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
+    self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search        = Extra.where(active: 1).includes(:state, :city).search(params[:q])
     @extras        = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_trucks   = TypeTruck.group_by_brand
@@ -639,7 +637,7 @@ class PagesController < ApplicationController
   end
 
   def servicios
-    self.load_toggle({"q" => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
+    self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
@@ -689,7 +687,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def camion
     @truck = Truck.find_by_id(params[:id])
     @ciudad = City.find_by_id(@truck.placa_city_id)
@@ -707,7 +704,7 @@ class PagesController < ApplicationController
     end
 
     def validate_injection(str)
-       array_str = str.split(" ")
+       array_str = str.split(' ')
        array_str.each do |word|
          result = Environment::ARRAYSQL[word.downcase]
          return true if result
@@ -715,13 +712,18 @@ class PagesController < ApplicationController
        return false
     end
 
-    def allowed_lateUpdate_paramsExtra
-      params.require(:extra).permit!
-    end
-
     def allowed_lateUpdate_params
       params.require(:truck).permit(:id,:active,:price, customer_attributes:[:id,:telefono,:email])
     end
+
+    def allowed_lateUpdate_paramsExtra
+      params.require(:extra).permit(:id, :active, :price, customer_attributes:[:id,:telefono,:email])
+    end
+
+    def allowed_lateUpdate_paramsservice
+      params.require(:service).permit(:id,:active, custmoer_attributes:[:id,:telefono,:email])
+    end
+
     def allowed_params
       params.require(:truck).permit!
     end
