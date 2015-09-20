@@ -1,6 +1,6 @@
 class BrandExtra < ActiveRecord::Base
 
-  has_many :extras
+  has_many :extras, dependent: :destroy
 
 
 

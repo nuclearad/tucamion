@@ -1,7 +1,6 @@
 class ScrapsTruck < ActiveRecord::Base
 
-  has_many :truck
-
+  has_many :truck, dependent: :destroy
 
   validates :name, presence: true
 

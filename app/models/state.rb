@@ -1,7 +1,7 @@
 class State < ActiveRecord::Base
   has_many :city, dependent: :destroy
-  has_many :trucks
-  has_many :services
+  has_many :trucks, dependent: :destroy
+  has_many :services, dependent: :destroy
 
   default_scope { order("name ASC") }
 

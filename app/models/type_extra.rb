@@ -1,5 +1,5 @@
 class TypeExtra < ActiveRecord::Base
-  has_many :extras
+  has_many :extras, dependent: :destroy
 
 
   HUMANIZED_ATTRIBUTES = {
