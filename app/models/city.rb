@@ -1,5 +1,5 @@
 class City < ActiveRecord::Base
-  belongs_to :state, dependent: :destroy
+  belongs_to :state
   has_many :trucks, dependent: :destroy
   has_many :services, dependent: :destroy
 
