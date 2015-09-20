@@ -1,4 +1,5 @@
 class InboxController < ApplicationController
+  #solos e hace para los clientes
   def index
     @user = Customer.find_by_id(session[:user])
     if @user
