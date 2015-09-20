@@ -75,8 +75,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
 
-    resources :users
-
     get '', to: 'dashboard#index', as: '/'
 
    # get '/updateState/:iditem/:idstate/:type', to: 'dashboard#updatestate', as: 'updateState'
