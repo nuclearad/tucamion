@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  
-
   root 'pages#index'
 
   get  'tarifas' => 'pages#tarifas'
@@ -145,6 +143,12 @@ Rails.application.routes.draw do
       get  :logout
       get  :registrar_usuario
       post :crear_usuario
+    end
+  end
+
+  resources :inbox, only: [:index, :show, :destroy] do
+    collection do
+      get :read
     end
   end
 

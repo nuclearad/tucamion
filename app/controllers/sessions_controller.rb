@@ -26,15 +26,6 @@ class SessionsController < ApplicationController
     redirect_to "/"
   end
 
-  def inbox
-    @user     = Customer.find_by_id(session[:user])
-    if @user
-      render :layout => 'layouts/cliente'
-    else
-      render '/pages/micuentalogin', :layout => 'layouts/devise'
-    end
-  end
-
   def registrar_usuario	
     @cliente = Customer.new
   end

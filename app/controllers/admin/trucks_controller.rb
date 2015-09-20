@@ -31,6 +31,7 @@ class Admin::TrucksController < ApplicationController
   def create
 
     @truck = Truck.new(allowed_params)
+    @truck.user_id = current_user.id
     if @truck.save
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_trucks_path

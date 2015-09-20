@@ -20,6 +20,8 @@ class Admin::ExtrasController < ApplicationController
 
 
     @extra = Extra.new(allowed_params)
+    @extra.user_id = current_user.id
+    
     if @extra.save
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_extras_path
