@@ -1330,6 +1330,7 @@ ciudades.each do |ciudad|
 
 end
 
+Customer.destroy_all
 User.destroy_all
 
 params_user = {first_name:   "Super", 
