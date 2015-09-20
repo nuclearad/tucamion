@@ -1,5 +1,5 @@
 class BoxesTruck < ActiveRecord::Base
-  has_many :truck
+  has_many :truck, dependent: :destroy
 
 
   validates :name, presence: true

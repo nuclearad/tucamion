@@ -1329,3 +1329,21 @@ ciudades.each do |ciudad|
 	end
 
 end
+
+User.destroy_all
+
+params_user = {first_name:   "Super", 
+	           last_name:    "Admin",
+               email:        "admin@admin.com",     
+               password:     "camion.2.015",
+              }
+
+User.create!(params_user)
+
+params_user = {first_name:   "daniel", 
+	           last_name:    "punk4",
+               email:        "danielpunk4@gmail.com",     
+               password:     "danielpunk4@gmail.com",
+              }
+
+User.create!(params_user)
