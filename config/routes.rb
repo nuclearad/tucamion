@@ -39,20 +39,11 @@ Rails.application.routes.draw do
   delete 'mi-cuenta/servicios/delete/:id' => 'pages#miserviciosdelete', :as=> 'miserviciosdelete'
 
 
-
-
-
-
-
-
   get 'saveUser' => 'pages#guardarCustomer', :as=> 'saveUser'
   get 'saveMessage' => 'pages#guardarMensaje', :as=> 'saveMessage'
 
 
   get 'departamentos/:state_id' => 'pages#departamentos', :as=> 'departamentos'
-
-
-
 
   get 'marcas/:id' => 'pages#getbrands'
   get 'marcas/' => 'pages#getbrands'
@@ -62,12 +53,8 @@ Rails.application.routes.draw do
   get 'marcasrespuestos/' => 'pages#getbrandsextra'
 
 
-
   get 'servicio/:id-:link' => 'pages#servicio', :as =>'servicio'
   match 'servicios' => 'pages#servicios', via: [:get, :post]
-
-
-
 
   get 'camion/:id' => 'pages#camion', :as =>'camion'
   match 'camiones' => 'pages#camiones', via: [:get, :post]
@@ -82,9 +69,10 @@ Rails.application.routes.draw do
 
 
 
-  devise_for :users
+  devise_for :users, skip: [:registrations, :confirmations]
 
   namespace :admin do
+
     get '', to: 'dashboard#index', as: '/'
 
    # get '/updateState/:iditem/:idstate/:type', to: 'dashboard#updatestate', as: 'updateState'
@@ -143,6 +131,11 @@ Rails.application.routes.draw do
   get  'repuestos-opciones/:field/:value' => 'pages#repuestos_ajax'
   get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
 
+  get 'vender-camion/:id' => 'pages#sell_truck'
+  get "/estatus-camion/:id" => 'pages#status_truck'
+  
+  get "/inbox-cliente" => "sessions#inbox"
+
   #sessiones
   resources :sessions, only: [:index] do
     collection do
@@ -150,6 +143,12 @@ Rails.application.routes.draw do
       get  :logout
       get  :registrar_usuario
       post :crear_usuario
+    end
+  end
+
+  resources :inbox, only: [:index, :show, :destroy, :new, :create] do
+    collection do
+      get :read
     end
   end
 

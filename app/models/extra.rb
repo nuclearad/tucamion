@@ -1,6 +1,6 @@
 class Extra < ActiveRecord::Base
 
-
+  belongs_to :user
   belongs_to :brand_extra
   belongs_to :type_truck
   belongs_to :city

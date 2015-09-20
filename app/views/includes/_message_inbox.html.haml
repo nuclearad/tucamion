@@ -1,0 +1,28 @@
+#contactar.tab-pane
+  .product-tab{:style => "height: auto !important; background-color: transparent; margin-top:-50px;"}
+    %br
+    = render partial: 'includes/messages_errors', locals: {object:  @message}
+    .review-form
+      .form-container
+        = form_for  @message , url: inbox_index_path, method: :post, class: "register-form outer-top-xs"   do |f|
+          .row
+            .col-sm-6
+              .form-group
+                = f.label :nombre
+                %span.astk *
+                = f.text_field :nombre, class: 'form-control txt e'
+                = f.hidden_field :tipo, value: anuncio
+                = f.hidden_field :item, value: object.id
+                = f.hidden_field :user_id, value: object.user_id
+                = f.hidden_field :customer_id, value: object.customer_id
+              .form-group
+                = f.label :telefono
+                %span.astk *
+                = f.text_field :telefono, class: 'form-control txt e'
+            .col-md-6
+              .form-group
+                = f.label :mensaje
+                %span.astk *
+                = f.text_area :mensaje, class: 'form-control txt e', rows: 4
+          .action.text-right
+            = f.submit "ENVIAR CONSULTA", class: 'btn btn-primary btn-upper'

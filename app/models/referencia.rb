@@ -2,7 +2,7 @@ class Referencia < ActiveRecord::Base
 
   self.table_name = 'referencias'
 
-  has_many :trucks
+  has_many :trucks, dependent: :destroy
 
 
   HUMANIZED_ATTRIBUTES = {

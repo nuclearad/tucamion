@@ -26,7 +26,8 @@ ready = function() {
     $('#truck_customer_attributes_telefono').inputmask('(9999)-9999999');
     $('#extra_phone').inputmask('(9999)-9999999');
     $('#service_phone').inputmask('(9999)-9999999');
-
+    $('#message_telefono').inputmask('(9999)-9999999');
+    
 };
 
 $(document).ready(ready);
