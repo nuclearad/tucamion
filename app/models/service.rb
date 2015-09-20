@@ -1,5 +1,5 @@
 class Service < ActiveRecord::Base
-
+  belongs_to :user
   belongs_to :type_service
   belongs_to :city
   belongs_to :state

@@ -55,44 +55,7 @@
     </div><!-- /.product-info -->
   </div><!-- /.col-sm-5 -->
 
-  <div class="col-md-12" style="border-top:1px solid #CCC; margin-top:30px; padding-top: 20px;">
-
-    <div class="review-form">
-      <div class="form-container">
-        <form role="form" class="cnt-form">
-
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="exampleInputName">Nombre <span class="astk">*</span></label>
-                <input type="text" class="form-control txt e" id="nombre" placeholder="" name="nombre">
-                <input type="hidden" class="form-control" id="exampleInputName" placeholder="" name="tipo" value="2">
-                <input type="hidden" class="form-control " id="exampleInputName" placeholder="" name="item" value="<%= @extra.id %>">
-              </div><!-- /.form-group -->
-              <div class="form-group">
-                <label for="exampleInputSummary">Teléfono <span class="astk">*</span></label>
-                <input type="text" class="form-control txt e" id="telefono" placeholder="" name="telefono">
-              </div><!-- /.form-group -->
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="exampleInputReview">Mensaje <span class="astk">*</span></label>
-                <textarea class="form-control txt txt-review e" id="mensaje" rows="4" placeholder="" name="mensaje"></textarea>
-              </div><!-- /.form-group -->
-            </div>
-          </div><!-- /.row -->
-
-          <div class="action text-right">
-            <button class="btn btn-primary btn-upper" id="enviarconsulta">ENVIAR CONSULTA</button>
-          </div><!-- /.action -->
-
-        </form><!-- /.cnt-form -->
-      </div><!-- /.form-container -->
-    </div><!-- /.review-form -->
-
-  </div>
-
+  <%= render partial: "includes/message_inbox", locals: {object: @extra, anuncio: '2'}  %>
 
 
 </div><!-- /.col -->
@@ -109,55 +72,3 @@
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->		</div><!-- /.homepage-container -->
 </div><!-- /.container -->
 </div><!-- /.body-content -->
-
-
-
-<% content_for :footer do %>
-    <script>
-
-        $(function(){
-
-            $('#c').click(function(){
-                $("#c1 a").trigger("click");
-            });
-
-
-
-            $('.cnt-form').submit(function(){
-                var data = $( ".cnt-form" ).serialize();
-
-                console.log(data)
-
-                $('#enviarconsulta').attr("disabled", "disabled");
-
-
-
-
-
-                $.ajax({
-                    url: '<%= saveMessage_path %>',
-                    error: function() {
-
-                    },
-                    data:data,
-                    success: function(data) {
-                        $('#enviarconsulta').removeAttr("disabled");
-                        alert('Gracias por escribir el vendedor se pondra en contacto con usted')
-                        $('.e').val('')
-                    },
-                    type: 'GET'
-                });
-
-
-
-
-                return false;
-            })
-
-
-
-        })
-
-    </script>
-
-<% end%>

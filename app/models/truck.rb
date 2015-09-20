@@ -1,4 +1,5 @@
 class Truck < ActiveRecord::Base
+  belongs_to :user
   belongs_to :brand_truck
   belongs_to :type_truck
   belongs_to :sub_truck

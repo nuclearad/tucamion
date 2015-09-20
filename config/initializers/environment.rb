@@ -13,7 +13,8 @@ class Environment
   STATUS = {clientes:  {activo: 1, inactivo: 0, eliminado: -1},
             camiones:  {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
             repuestos: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
-            servicios: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1}
+            servicios: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
+            mensajes:  {activo: 1, inactivo: 0, eliminado: -1}
            }
 
 

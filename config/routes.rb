@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  
-
   root 'pages#index'
 
   get  'tarifas' => 'pages#tarifas'
@@ -136,6 +134,8 @@ Rails.application.routes.draw do
   get 'vender-camion/:id' => 'pages#sell_truck'
   get "/estatus-camion/:id" => 'pages#status_truck'
   
+  get "/inbox-cliente" => "sessions#inbox"
+
   #sessiones
   resources :sessions, only: [:index] do
     collection do
@@ -143,6 +143,12 @@ Rails.application.routes.draw do
       get  :logout
       get  :registrar_usuario
       post :crear_usuario
+    end
+  end
+
+  resources :inbox, only: [:index, :show, :destroy, :new, :create] do
+    collection do
+      get :read
     end
   end
 
