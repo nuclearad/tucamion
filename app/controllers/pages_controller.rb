@@ -240,7 +240,7 @@ class PagesController < ApplicationController
         truck.update_attributes(active: 1)
       end
     end
-    redirect_to '/mi-cuenta/camiones'    
+    redirect_to '/mi-cuenta/camiones'
   end
 
   def status_truck
