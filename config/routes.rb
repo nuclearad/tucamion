@@ -146,10 +146,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :inbox, only: [:index, :show, :destroy, :new, :create] do
-    collection do
-      get :read
-    end
-  end
+  resources :inbox, only: [:index, :show, :destroy, :new, :create]
 
 end

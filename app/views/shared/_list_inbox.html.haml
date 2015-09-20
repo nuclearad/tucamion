@@ -1,0 +1,25 @@
+%table.table.table-bordered.table-hover.table-striped
+  %thead
+    %tr
+      %th Nombre
+      %th Tipo de anuncio
+      %th telefono
+      %th Acciones
+  %tbody
+    - @messages.each do |message|
+      %tr
+        %td
+          = message.nombre
+        %td
+          = "#{message.truck.nombre} (Camiones)"  if message.truck
+          = "#{message.extra.name} (Repuestos)"   if message.extra
+          = "#{message.service.name} (Servicios)" if message.service
+        %td
+          = message.telefono
+        %td
+          - if message.status == 1
+            %b
+              = link_to 'Leer', inbox_path(message.id), :class=>'btn btn-success'
+          - elsif  message.status == 0
+            = link_to 'Leer', inbox_path(message.id), :class=>'btn btn-default'
+          = link_to 'Eliminar', {:controller => 'inbox', :action => 'destroy', :id => message.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger'

@@ -6,7 +6,7 @@ class Service < ActiveRecord::Base
   belongs_to :customer
 
 
-  has_many :messages, -> { where(tipo: 3)}, :foreign_key => :item
+  has_many :messages, :foreign_key => :item
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
   validates_presence_of [:name, :phone, :type_service_id,:state_id,:address], message: 'No puede estar vacio'
 

@@ -3,7 +3,7 @@ class InboxController < ApplicationController
   def index
     @user = Customer.find_by_id(session[:user])
     if @user
-      @messages = @user.messages.order(:status).desc
+      @messages = @user.messages.includes(:truck, :service, :extra).order(:status, :tipo)
       render :layout => 'layouts/cliente'
     else
       render '/pages/micuentalogin', :layout => 'layouts/devise'
@@ -37,13 +37,18 @@ class InboxController < ApplicationController
     end
   end
 
-  def read	
-  end
-
   def destroy
+    @message = Message.find_by_id params[:id]
+    @message.destroy
+    redirect_to inbox_index_path
   end
 
   def show
+    @user = Customer.find_by_id(session[:user])
+    @message = Message.find_by_id params[:id]
+    @message.status = Environment::STATUS[:mensajes][:inactivo]
+    @message.save
+    render :layout => 'layouts/cliente'
   end
   
   private
