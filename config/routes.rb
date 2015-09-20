@@ -143,6 +143,9 @@ Rails.application.routes.draw do
   get  'repuestos-opciones/:field/:value' => 'pages#repuestos_ajax'
   get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
 
+  get 'vender-camion/:id' => 'pages#sell_truck'
+  get "/estatus-camion/:id" => 'pages#status_truck'
+  
   #sessiones
   resources :sessions, only: [:index] do
     collection do
