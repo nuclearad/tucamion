@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  
+
   root 'pages#index'
 
   get  'tarifas' => 'pages#tarifas'
@@ -72,6 +74,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :admin do
+
+    resources :users, only: [:index]
+
     get '', to: 'dashboard#index', as: '/'
 
    # get '/updateState/:iditem/:idstate/:type', to: 'dashboard#updatestate', as: 'updateState'
