@@ -89,20 +89,22 @@ class PagesController < ApplicationController
 
 
   def guardarMensaje
+    
 
     o = Message.new(
-        :nombre => params[:nombre],
-        :telefono => params[:telefono],
-        :mensaje => params[:mensaje],
-        :tipo => params[:tipo],
-        :item => params[:item]
+        :nombre       => params[:nombre],
+        :telefono     => params[:telefono],
+        :mensaje      => params[:mensaje],
+        :tipo         => params[:tipo],
+        :item         => params[:item],
+        :user_id      => params[:user],
+        :customer_id  => params[:customer]
     )
+
+
     if o.save
-
-    data = [:estado => 'si']
-    render json: data
-
-
+      data = [:estado => 'si']
+      render json: data
     end
 
   end
@@ -512,7 +514,8 @@ class PagesController < ApplicationController
   end
 
   def repuesto
-    @extra = Extra.find_by_id(params[:id])
+    @message = Message.new
+    @extra   = Extra.find_by_id(params[:id])
     #@horas = Environment::HORARIOS.key(@extra.horario)
     #logger.info 'la hora es'+ @horas
   end
@@ -716,12 +719,14 @@ class PagesController < ApplicationController
 
 
   def camion
-    @truck = Truck.find_by_id(params[:id])
-    @ciudad = City.find_by_id(@truck.placa_city_id)
+    @message = Message.new
+    @truck   = Truck.find_by_id(params[:id])
+    @ciudad  = City.find_by_id(@truck.placa_city_id)
   end
 
   
   def servicio
+    @message = Message.new
     @service = Service.find_by_id(params[:id])
   end
 
