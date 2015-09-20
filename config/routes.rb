@@ -136,6 +136,8 @@ Rails.application.routes.draw do
   get 'vender-camion/:id' => 'pages#sell_truck'
   get "/estatus-camion/:id" => 'pages#status_truck'
   
+  get "/inbox-cliente" => "sessions#inbox"
+
   #sessiones
   resources :sessions, only: [:index] do
     collection do
