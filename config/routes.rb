@@ -71,11 +71,11 @@ Rails.application.routes.draw do
 
 
 
-  devise_for :users
+  devise_for :users, skip: [:registrations, :confirmations]
 
   namespace :admin do
 
-    resources :users, only: [:index]
+    resources :users
 
     get '', to: 'dashboard#index', as: '/'
 
