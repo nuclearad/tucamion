@@ -36,7 +36,7 @@ class InboxController < ApplicationController
     end
   end
 
-  def read  	
+  def read	
   end
 
   def destroy
