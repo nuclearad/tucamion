@@ -1,0 +1,27 @@
+#contactar.tab-pane
+  .product-tab{:style => "height: auto !important; background-color: transparent; margin-top:-50px;"}
+    .review-form
+      .form-container
+        %form.cnt-form{:role => "form"}
+          .row
+            .col-sm-6
+              .form-group
+                %label{:for => "exampleInputName"}
+                  Nombre
+                  %span.astk *
+                %input#nombre.form-control.txt.e{:name => "nombre", :placeholder => "", :type => "text"}
+                  %input#exampleInputName.form-control{:name => "tipo", :placeholder => "", :type => "hidden", :value => "1"}
+                    %input#exampleInputName.form-control{:name => "item", :placeholder => "", :type => "hidden", :value => object.id}
+              .form-group
+                %label{:for => "exampleInputSummary"}
+                  Teléfono
+                  %span.astk *
+                %input#telefono.form-control.txt.e{:name => "telefono", :placeholder => "", :type => "text"}
+            .col-md-6
+              .form-group
+                %label{:for => "exampleInputReview"}
+                  Mensaje
+                  %span.astk *
+                %textarea#mensaje.form-control.txt.txt-review.e{:name => "mensaje", :placeholder => "", :rows => "4"}
+          .action.text-right
+            %button#enviarconsulta.btn.btn-primary.btn-upper ENVIAR CONSULTA
