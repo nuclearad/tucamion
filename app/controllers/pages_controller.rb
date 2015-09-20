@@ -236,8 +236,6 @@ class PagesController < ApplicationController
     if truck
       if truck.active == 1
         truck.update_attributes(active: Environment::STATUS[:camiones][:vendido])
-      else
-        truck.update_attributes(active: 1)
       end
     end
     redirect_to '/mi-cuenta/camiones'
