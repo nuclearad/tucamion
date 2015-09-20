@@ -39,20 +39,11 @@ Rails.application.routes.draw do
   delete 'mi-cuenta/servicios/delete/:id' => 'pages#miserviciosdelete', :as=> 'miserviciosdelete'
 
 
-
-
-
-
-
-
   get 'saveUser' => 'pages#guardarCustomer', :as=> 'saveUser'
   get 'saveMessage' => 'pages#guardarMensaje', :as=> 'saveMessage'
 
 
   get 'departamentos/:state_id' => 'pages#departamentos', :as=> 'departamentos'
-
-
-
 
   get 'marcas/:id' => 'pages#getbrands'
   get 'marcas/' => 'pages#getbrands'
@@ -62,12 +53,8 @@ Rails.application.routes.draw do
   get 'marcasrespuestos/' => 'pages#getbrandsextra'
 
 
-
   get 'servicio/:id-:link' => 'pages#servicio', :as =>'servicio'
   match 'servicios' => 'pages#servicios', via: [:get, :post]
-
-
-
 
   get 'camion/:id' => 'pages#camion', :as =>'camion'
   match 'camiones' => 'pages#camiones', via: [:get, :post]
