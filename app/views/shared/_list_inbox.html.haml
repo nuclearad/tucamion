@@ -20,9 +20,4 @@
         %td
           = time_ago_in_words message.created_at
         %td
-          - if message.status == 1
-            %b
-              = link_to 'Leer', inbox_path(message.id), :class=>'btn btn-success'
-          - elsif  message.status == 0
-            = link_to 'Leer', inbox_path(message.id), :class=>'btn btn-default'
-          = link_to 'Eliminar', {:controller => 'inbox', :action => 'destroy', :id => message.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger'
+          = render partial: "shared/actions_inbox", locals: {message: message ,type: tye_user}
