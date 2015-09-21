@@ -29,6 +29,7 @@ class Admin::CustomersController < ApplicationController
     if @customer.save
       plan = Offer.find_by(typeoffer: Environment::TYPE[:planes][:generico])
       Offercustomer.create(customer_id: @customer.id, offer_id: plan.id)
+      Customer::CustomerMailer.create_by_admin(@customer).deliver
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_customers_path
     else

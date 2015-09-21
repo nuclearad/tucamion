@@ -14,7 +14,7 @@ ActionMailer::Base.smtp_settings = {
   :port                 => 587,
   :domain               => "localhost",
   :user_name            => "tucamionsoporte@gmail.com",
-  :password             => "tucamionsoporte",
+  :password             => "tucamionsoporte2",
   :authentication       => "plain",
   :enable_starttls_auto => true
 }
