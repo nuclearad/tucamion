@@ -25,6 +25,7 @@ class Admin::TrucksController < ApplicationController
   def new
 
     @truck = Truck.new
+    @truck.type_truck_id= params['v']
     add_breadcrumb 'Agregar'
   end
 

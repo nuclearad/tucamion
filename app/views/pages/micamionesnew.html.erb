@@ -52,7 +52,7 @@
                             <div class="form-group">
 
                                 <%= f.label :sub_truck_id, 'Sub tipo' %>
-                                <%= f.collection_select :sub_truck_id, SubTruck.where(:type_truck_id => params[:v]).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                                <%= f.collection_select :sub_truck_id, SubTruck.where(:type_truck_id => @truck.type_truck_id).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
 
                             </div>
 
@@ -86,7 +86,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <%= f.label :referencia_id, 'Referencia' %>
-                                <%= f.collection_select :referencia_id, Referencia.getByTypeTruckId(params['v']).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                                <%= f.collection_select :referencia_id, Referencia.getByTypeTruckId(@truck.type_truck_id).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                             </div>
                         </div>
 

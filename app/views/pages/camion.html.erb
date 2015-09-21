@@ -48,9 +48,9 @@
                 <tr class="nymou"><td>Modelo:</td><td class="pull-right"><%= @truck.modelo %></td></tr>
                 <tr class="nymou"><td>Marca:</td><td class="pull-right"><%= @truck.brand_truck.name if @truck.brand_truck %></td></tr>
                 <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @truck.state.name  if @truck.state %> - <%= @truck.city.name if @truck.city %></td></tr>
-                <tr class="nymou"><td>Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje? ? @truck.kilometraje+ ' Km' : 'Sin Info' %></td></tr>
+                <tr class="nymou"><td>Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje!= null ? @truck.kilometraje+ ' Km' : 'Sin Info' %></td></tr>
                 <tr class="nymou"><td>Estado:</td><td class="pull-right">
-                  <% if( @truck.estado == 0) %>
+                  <% if @truck.estado == 0 %>
                         Nuevo
                   <% else %>
                         Usado
@@ -88,9 +88,9 @@
 
     <div class="description-container m-t-20">
       <h4>Vendedor</h4>
-      <p>Nombre: <b><%= @truck.customer ? @truck.customer.name.capitalize : "No registrado" %></b></p>
-      <p>Teléfono: <b><%= @truck.customer ? @truck.customer.telefono : "No registrado" %></b></p>
-      <p>Email: <b><%= @truck.customer ? @truck.customer.email : "No registrado" %></b></p>
+      <p>Nombre: <b><%= @truck.customer ? @truck.customer.name.capitalize : 'No registrado' %></b></p>
+      <p>Teléfono: <b><%= @truck.customer ? @truck.customer.telefono : 'No registrado' %></b></p>
+      <p>Email: <b><%= @truck.customer ? @truck.customer.email : 'No registrado' %></b></p>
     </div><!-- /.description-container -->
 
     <div class="row outer-top-vs"><div class="cart col-md-12 col-lg-6 clearfix animate-effect">
@@ -158,9 +158,9 @@
                 <td></td>
               </tr>
               <tr class="nymou">
-                <td class="cell-label"><b>Negociable</b><br> <% if @truck.negociable == false %>No <% else %> Si <% end %></td>
+                <td class="cell-label"><b>Negociable</b><br> <% if @truck.negociable %>Si <% else %> No <% end %></td>
 
-                <% if @truck.vigia != '' %><td><b>Vigias</b><br> <% if @truck.vigia == false %>No <% else %> Si <% end %></td><% end %>
+                <td><% if @truck.vigia %><b>Vigias</b><br> <% if @truck.vigia %>Si <% else %> No <% end %><% end %></td>
                 <td><b>Tipo de Caja</b><br>
 
                   <% if  @truck.tipodecaja == 0 %>
@@ -178,23 +178,23 @@
                 <td class="cell-label"><% if @truck.motorreparado %><b>Motor Reparado</b><br><% if @truck.motorreparado %>Si<% else %>No<% end %><% end %></td>
                 <td><% if @truck.cajareparada  %><b>Caja Reparada</b><br><% if @truck.cajareparada %>Si<% else %>No<% end %><% end %></td>
                 <td> <% if @truck.transmisionreparada %><b>Transmisión Reparada</b><br> <% if @truck.transmisionreparada %>Si<% else %> No <% end %><% end %></td>
-                <td><% if @truck.frenosabs %><b>Frenos ABS</b><br> <% if @truck.frenosabs == false %>No <% else %> Si <% end %><% end %></td>
+                <td><% if @truck.frenosabs %><b>Frenos ABS</b><br> <% if @truck.frenosabs %>Si <% else %> No <% end %><% end %></td>
               </tr>
               <tr class="nymou">
-                <% if @truck.cupo  %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.bano %><td><b>Baño</b><br> <% if @truck.bano == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.descansapies %><td><b>Descansa pies</b><br> <% if @truck.descansapies == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.sillareclinable %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable == false %>No <% else %> Si <% end %></td><% end %>
+                <% if @truck.cupo  %><td class="cell-label"><b>Se vende con cupo</b><br> <% if @truck.cupo %>Si <% else %> No <% end %></td><% end %>
+                <% if @truck.bano %><td><b>Baño</b><br> <% if @truck.bano %>Si <% else %> No <% end %></td><% end %>
+                <% if @truck.descansapies %><td><b>Descansa pies</b><br> <% if @truck.descansapies %>Si <% else %> No <% end %></td><% end %>
+                <% if @truck.sillareclinable %><td><b>Sillas reclinables</b><br> <% if @truck.sillareclinable %>Si <% else %> No <% end %></td><% end %>
               </tr>
               <tr class="nymou">
 
-                <% if @truck.tv  %> <td class="cell-label"><b>TV</b><br> <% if @truck.tv == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.pantallaindividual %> <td><b>Pantalla individual</b><br> <% if @truck.pantallaindividual == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.wifi  %> <td><b>Wifi</b><br> <% if @truck.wifi == false %>No <% else %> Si <% end %></td><% end %>
-                <% if @truck.audio  %> <td><b>Audio</b><br> <% if @truck.audio == false %>No <% else %> Si <% end %></td><% end %>
+                <td class="cell-label"> <% if @truck.tv  %> <b>TV</b><br> <% if @truck.tv  %>Si <% else %> No <% end %><% end %></td>
+                <td><% if @truck.pantallaindividual %> <b>Pantalla individual</b><br> <% if @truck.pantallaindividual %>Si <% else %> No <% end %><% end %></td>
+                <td><% if @truck.wifi  %><b>Wifi</b><br> <% if @truck.wifi %>SI <% else %>No <% end %><% end %></td>
+                <td><% if @truck.audio  %> <b>Audio</b><br> <% if @truck.audio %>Si <% else %> No <% end %><% end %></td>
               </tr>
               <tr class="nymou">
-                <% if @truck.unicodueno  %><td class="cell-label"><b>Único dueño</b><br> <% if @truck.unicodueno == false %>No <% else %> Si <% end %></td> <% end %>
+                <td class="cell-label"><% if @truck.unicodueno  %><b>Único dueño</b><br> <% if @truck.unicodueno %>Si <% else %> No <% end %> <% end %> </td>
                 <td class="cell-label">
                   <% if @truck.autocarpado  %>
                       <b>Auto Carpado</b><br><%= @truck.autocarpado %>
@@ -269,7 +269,7 @@
       </div>
     </div><!-- /.tab-pane -->
 
-    <%= render partial: "includes/message_inbox", locals: {object: @truck, anuncio: '1'}  %>
+    <%= render partial: 'includes/message_inbox', locals: {object: @truck, anuncio: '1'}  %>
 
   </div><!-- /.tab-pane -->
 
@@ -290,5 +290,5 @@
 
 </div><!-- /.logo-slider -->
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->		</div><!-- /.homepage-container -->
-</div><!-- /.container -->
-</div>
+<!--</div> /.container
+</div>-->

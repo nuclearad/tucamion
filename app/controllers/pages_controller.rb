@@ -161,6 +161,7 @@ class PagesController < ApplicationController
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
       @truck    = Truck.new
+      @truck.type_truck_id = params['v']
 
       if @quantity.total_trucks - @quantity.current_trucks > 0
 
