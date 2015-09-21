@@ -51,6 +51,10 @@ class SessionsController < ApplicationController
      end
   end
 
+  def active_account
+    puts "este va ser la busqueda por token #{params[:token]}"
+  end
+
   private
 
     def customer_params
