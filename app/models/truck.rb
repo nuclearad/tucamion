@@ -1,11 +1,12 @@
 class Truck < ActiveRecord::Base
+  belongs_to :user
   belongs_to :brand_truck
   belongs_to :type_truck
   belongs_to :sub_truck
   belongs_to :city
   belongs_to :state
   belongs_to :customer
-  has_many :messages, -> { where(tipo: 1)}, :foreign_key => :item, dependent: :destroy
+  has_many :messages, :foreign_key => :item, dependent: :destroy
   belongs_to :colors_truck
   belongs_to :spaces_truck
   belongs_to :boxes_truck

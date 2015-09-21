@@ -30,6 +30,8 @@ class SessionsController < ApplicationController
     @cliente = Customer.new
   end
 
+
+
   def crear_usuario
      @cliente          = Customer.new customer_params
      @cliente.estado   = Environment::STATUS[:clientes][:activo]

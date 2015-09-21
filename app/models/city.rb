@@ -1,7 +1,7 @@
 class City < ActiveRecord::Base
   belongs_to :state
-  has_many :trucks
-  has_many :services
+  has_many :trucks, dependent: :destroy
+  has_many :services, dependent: :destroy
 
 
   HUMANIZED_ATTRIBUTES = {
