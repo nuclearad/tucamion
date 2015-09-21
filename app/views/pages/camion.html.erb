@@ -129,6 +129,7 @@
                   </tr>
               </thead>-->
               <tbody>
+              <!-- Tabla vieja
               <tr class="nymou">
                 <% if  @truck.motors_truck %>
                 <td class="cell-label"><b>Marca Motor</b><br> <%= @truck.motors_truck.name %></td>
@@ -261,8 +262,46 @@
                   </td>
 
                 </tr>
-              <%end%>
+              <%end%> -->
+              <!--NUEVA TABLA-->
+
+                    <tr class="nymou"> <!----PRIMER ROW--->
+                        <%= if @truck.type_truck_id != 5 %>
+                            <td class="cell-label">
+                                <b>Marca Motor</b><br>
+                                <%= @truck.motors_truck ? @truck.motors_truck.name : 'Sin información' %>
+                            </td>
+                            <%= if @truck.type_truck_id !=6 %>
+                                <td>
+                                    <b>Marca de la Caja</b><br>
+                                    <%=@truck.boxes_truck ? @truck.boxes_truck.name : 'Sin Información' %>
+                                </td>
+
+                                <td>
+                                    <b>Marca de Transmisión</b><br>
+                                    <%= @truck.transmissions_truck ? @truck.transmissions_truck.name : 'Sin Información' %>
+                                </td>
+                                <td>
+                                    <b>Empresa Afiliada</b><br>
+                                    <%= @truck.empresaafiliada? ? @truck.empresaafiliada : 'Sin información' %>
+                                </td>
+                            <% end %>
+
+                         <% end %>
+                    </tr>
+                    <tr class="nymou">
+                      <%= if @truck.type_truck_id ==1 %>
+                          <td>
+                            <b>Quinta Rueda</b><br>
+                            <%= @truck.wheels_truck? ? @truck.wheels_truck.name: 'Sin Informacion' %>
+                          </td>
+                      <%= end %>
+                    </tr>
               </tbody>
+
+
+
+
             </table><!-- /.table .table-bordered -->
           </div><!-- /.table-responsive -->
         </div><!-- /.review-table -->
