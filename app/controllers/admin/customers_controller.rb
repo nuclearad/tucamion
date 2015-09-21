@@ -27,7 +27,7 @@ class Admin::CustomersController < ApplicationController
 
     @customer = Customer.new(allowed_params)
     @customer.token_active = Digest::MD5.hexdigest("md5tucamion2#{Time.now.strftime('%d%m%Y%H%M%S')}")
-    @customer.stado        = Environment::STATUS[:clientes][:inactivo]
+    @customer.estado       = Environment::STATUS[:clientes][:inactivo]
     url                    = "#{request.protocol}#{request.host_with_port}/activar-cuenta/#{@customer.token_active}"
     if @customer.save
       plan = Offer.find_by(typeoffer: Environment::TYPE[:planes][:generico])
