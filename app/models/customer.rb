@@ -68,4 +68,12 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def messages_no_leidos
+    self.messages.where(:status => 1)
+  end
+
+  def list_messages
+    self.messages.includes(:truck, :service, :extra).order("status DESC, tipo, created_at DESC")
+  end
+
 end
