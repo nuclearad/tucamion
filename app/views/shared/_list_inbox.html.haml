@@ -3,7 +3,8 @@
     %tr
       %th Nombre
       %th Tipo de anuncio
-      %th telefono
+      %th Telefono
+      %th Hace
       %th Acciones
   %tbody
     - @messages.each do |message|
@@ -16,6 +17,8 @@
           = "#{message.service.name} (Servicios)" if message.service
         %td
           = message.telefono
+        %td
+          = time_ago_in_words message.created_at
         %td
           - if message.status == 1
             %b
