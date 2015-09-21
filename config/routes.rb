@@ -117,9 +117,8 @@ Rails.application.routes.draw do
       resources :sub_trucks,
                 :referencias
     end
-
-
-
+    
+    resources :inbox, only: [:index, :show, :destroy]
 
   end
 

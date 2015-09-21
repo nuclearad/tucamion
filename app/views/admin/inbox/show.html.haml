@@ -1,0 +1,26 @@
+%h1 Mensaje
+%br
+.row
+  .col-md-12
+    %b
+      Fecha: 
+    = @message.created_at.strftime('%d-%m-%Y')
+.row
+  .col-md-12
+    %b
+      Enviado Por: 
+    = @message.nombre
+.row
+  .col-md-12
+    %b
+      Telefono:
+    = @message.telefono
+%br
+.row
+  .col-md-12
+    %b
+      Mensaje:
+    %p  
+      = @message.mensaje
+%hr      
+= link_to 'Inbox', admin_inbox_index_path, :class=>'btn btn-primary'
