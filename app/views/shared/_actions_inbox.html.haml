@@ -1,0 +1,12 @@
+- if type == 'user'
+  - if message.status == 1
+    = link_to 'Leer', inbox_path(message.id), :class=>'btn btn-success'
+  - elsif  message.status == 0
+    = link_to 'Leer', inbox_path(message.id), :class=>'btn btn-default'
+  = link_to 'Eliminar', {:controller => 'inbox', :action => 'destroy', :id => message.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger'
+- elsif  type == 'admin'
+  - if message.status == 1
+    = link_to 'Leer', admin_inbox_path(message.id), :class=>'btn btn-success'
+  - elsif  message.status == 0
+    = link_to 'Leer', admin_inbox_path(message.id), :class=>'btn btn-default'
+  = link_to 'Eliminar', {:controller => 'admin/inbox', :action => 'destroy', :id => message.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger'

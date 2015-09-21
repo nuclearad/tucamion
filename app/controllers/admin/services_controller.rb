@@ -20,6 +20,7 @@ class Admin::ServicesController < ApplicationController
   def create
 
     @service = Service.new(allowed_params)
+    @service.user_id = current_user.id
     if @service.save
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_services_path

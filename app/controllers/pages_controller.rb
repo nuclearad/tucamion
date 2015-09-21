@@ -85,20 +85,22 @@ class PagesController < ApplicationController
   end
 
   def guardarMensaje
+    
 
     o = Message.new(
-        :nombre => params[:nombre],
-        :telefono => params[:telefono],
-        :mensaje => params[:mensaje],
-        :tipo => params[:tipo],
-        :item => params[:item]
+        :nombre       => params[:nombre],
+        :telefono     => params[:telefono],
+        :mensaje      => params[:mensaje],
+        :tipo         => params[:tipo],
+        :item         => params[:item],
+        :user_id      => params[:user],
+        :customer_id  => params[:customer]
     )
+
+
     if o.save
-
-    data = [:estado => 'si']
-    render json: data
-
-
+      data = [:estado => 'si']
+      render json: data
     end
 
   end
@@ -227,6 +229,31 @@ class PagesController < ApplicationController
     redirect_to micamiones_path
     end
   end
+
+  def sell_truck
+    id_truck = params[:id]
+    truck = Truck.find_by(id: id_truck, customer_id: session[:user])
+    if truck
+      if truck.active == 1
+        truck.update_attributes(active: Environment::STATUS[:camiones][:vendido])
+      end
+    end
+    redirect_to '/mi-cuenta/camiones'
+  end
+
+  def status_truck
+    id_truck = params[:id]
+    truck = Truck.find_by(id: id_truck, customer_id: session[:user])
+    if truck
+      if truck.active == 1
+        truck.update_attributes(active: Environment::STATUS[:camiones][:inactivo])
+      else
+        truck.update_attributes(active: Environment::STATUS[:camiones][:activo])
+      end
+    end
+    redirect_to '/mi-cuenta/camiones'
+  end
+
 
 #repuestos
   def mirepuestos
@@ -488,7 +515,8 @@ class PagesController < ApplicationController
   end
 
   def repuesto
-    @extra = Extra.find_by_id(params[:id])
+    @message = Message.new
+    @extra   = Extra.find_by_id(params[:id])
     #@horas = Environment::HORARIOS.key(@extra.horario)
     #logger.info 'la hora es'+ @horas
   end
@@ -688,11 +716,14 @@ class PagesController < ApplicationController
   end
 
   def camion
-    @truck = Truck.find_by_id(params[:id])
-    @ciudad = City.find_by_id(@truck.placa_city_id)
+    @message = Message.new
+    @truck   = Truck.find_by_id(params[:id])
+    @ciudad  = City.find_by_id(@truck.placa_city_id)
   end
 
+  
   def servicio
+    @message = Message.new
     @service = Service.find_by_id(params[:id])
   end
 

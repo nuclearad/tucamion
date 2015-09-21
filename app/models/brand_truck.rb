@@ -1,5 +1,5 @@
 class BrandTruck < ActiveRecord::Base
-  has_many :trucks
+  has_many :trucks, dependent: :destroy
 
 
   HUMANIZED_ATTRIBUTES = {

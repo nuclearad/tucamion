@@ -39,28 +39,31 @@
 
 
             <td>
+              <% if truck.active == 1 %>
               <%= link_to 'Editar', edit_admin_truck_path(truck.id), :class=>'btn btn-info' %>
               <%= link_to 'Eliminar', {:controller => 'admin/trucks', :action => 'destroy', :id => truck.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+              <% end %>
             </td>
 
 
             <td>
-              <% if truck.active == 1 %>
 
+              <% if truck.active == 1 %>
 
                   <%= link_to admin_updateState_path(truck.id,1,'truck'), :class=>'btn btn-success' do %>
                       <i class="fa fa-check"></i>
                   <% end %>
 
-
-              <% else %>
+             <% elsif truck.active == 0 %>
 
                   <%= link_to admin_updateState_path(truck.id,0,'truck'), :class=>'btn btn-danger' do %>
                       <i class="fa fa-times"></i>
                   <% end %>
 
+             <% elsif truck.active == 2 %>
+                  Vendido
+             <% end %>
 
-              <% end %>
             </td>
 
 

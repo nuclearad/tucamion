@@ -9,6 +9,7 @@ class Customer < ActiveRecord::Base
   has_many :trucks, dependent: :destroy
   has_many :services, dependent: :destroy
   has_many :quantities, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   validates_presence_of       :cedula,   message: "El documento de identidad es un campo obligatorio"
   validates_presence_of       :name,     message: "El nombre es un campo obligatorio"
@@ -65,6 +66,14 @@ class Customer < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def messages_no_leidos
+    self.messages.where(:status => 1)
+  end
+
+  def list_messages
+    self.messages.includes(:truck, :service, :extra).order("status DESC, tipo, created_at DESC")
   end
 
 end
