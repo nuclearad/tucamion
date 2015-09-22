@@ -206,7 +206,7 @@ class PagesController < ApplicationController
             salved = @truck.update_attributes(allowed_lateUpdate_params)
           end
           if @truck.update_attributes(allowed_params) or salved
-            flash[:notice] = 'Información actualizada correctamente'
+            flash[:success] = 'Información actualizada correctamente'
             redirect_to micamiones_path and return
           else
             @truck.errors.full_messages.each {|e| logger.error e}
@@ -225,7 +225,7 @@ class PagesController < ApplicationController
       if @truck.destroy
         flash[:notice] = 'Información eliminada correctamente'
       else
-        flash[:notice] = 'Error eliminando informacion'
+        flash[:danger] = 'Error eliminando informacion'
       end
     redirect_to micamiones_path
     end
@@ -287,7 +287,7 @@ class PagesController < ApplicationController
             params[:extra][:customer_id] = session[:user]
             @extra = Extra.new(allowed_paramsextra)
             if @extra.save
-              flash[:notice] = 'Información agregada correctamente'
+              flash[:success] = 'Información agregada correctamente'
               redirect_to mirepuestos_path
             else
               render :layout => 'layouts/cliente'
