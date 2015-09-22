@@ -26,6 +26,7 @@ class Admin::ServicesController < ApplicationController
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_services_path
     else
+      @horas = Environment::HORARIOS
       render 'new'
     end
 
@@ -47,7 +48,8 @@ class Admin::ServicesController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_services_path
     else
-      render 'new'
+      @horas = Environment::HORARIOS
+      render 'edit'
     end
 
 
@@ -59,12 +61,12 @@ class Admin::ServicesController < ApplicationController
     @service = Service.find(params[:id])
     if @service.destroy
       flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_services_path
     else
-      render 'new'
+      flash[:notice] = 'No se eliminada el elemento'
     end
 
-
+    redirect_to admin_services_path
+   
   end
 
 
