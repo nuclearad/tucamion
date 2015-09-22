@@ -75,11 +75,11 @@ class SessionsController < ApplicationController
        else
          @cliente.token_active = token
          @cliente.estado       = Environment::STATUS[:clientes][:inactivo]
-         flash[:error] = "La cuenta no se pudo activar intente de nuevo"
+         flash[:notice] = "La cuenta no se pudo activar intente de nuevo"
          render :active_account
        end
      else
-        flash[:error] = "Las contraseñas no son iguales"
+        flash[:notice] = "Las contraseñas no son iguales"
         render :active_account
      end
   end
