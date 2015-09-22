@@ -18,6 +18,8 @@ class Customer < ActiveRecord::Base
   validates_confirmation_of   :clave,    message: "Las contraseñas no son iguales", on: :create
   
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i ,    message: "El formato del correo no es permitido"
+
+  validates_format_of :name, :with => /\A([a-zA-Z_áéíóúñ\s]*$)/i ,message: "Deben ser solo letras"
   
   validates :clave_confirmation, presence: true, on: :create
   validates :name, length:     { minimum: 5,  maximum: 50 ,   message: "El nombre debe tener minimo 5 y maximo 50 caracteres" }
