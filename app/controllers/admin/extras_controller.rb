@@ -12,16 +12,16 @@ class Admin::ExtrasController < ApplicationController
   def new
 
     @extra = Extra.new
+    @horas = Environment::HORARIOS
     add_breadcrumb 'Agregar'
 
   end
 
   def create
 
-
     @extra = Extra.new(allowed_params)
     @extra.user_id = current_user.id
-    
+
     if @extra.save
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_extras_path
@@ -35,22 +35,17 @@ class Admin::ExtrasController < ApplicationController
   def edit
 
     @extra = Extra.find(params[:id])
+    @horas = Environment::HORARIOS
   end
 
   def update
-
-
     @extra = Extra.find(params[:id])
-
     if @extra.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_extras_path
     else
       render 'new'
     end
-
-
-
   end
 
   def destroy

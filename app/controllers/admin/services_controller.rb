@@ -13,6 +13,7 @@ class Admin::ServicesController < ApplicationController
   def new
 
     @service = Service.new
+    @horas = Environment::HORARIOS
     add_breadcrumb 'Agregar'
 
   end
@@ -34,6 +35,7 @@ class Admin::ServicesController < ApplicationController
 
   def edit
     @service = Service.find(params[:id])
+    @horas = Environment::HORARIOS
   end
 
   def update
