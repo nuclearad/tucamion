@@ -26,6 +26,7 @@ class Admin::ExtrasController < ApplicationController
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_extras_path
     else
+      @horas = Environment::HORARIOS
       render 'new'
     end
 
@@ -44,7 +45,8 @@ class Admin::ExtrasController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_extras_path
     else
-      render 'new'
+      @horas = Environment::HORARIOS
+      render 'edit'
     end
   end
 
@@ -52,12 +54,11 @@ class Admin::ExtrasController < ApplicationController
 
     @extra = Extra.find(params[:id])
     if @extra.destroy
-      flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_extras_path
+      flash[:notice] = 'Información eliminada correctamente'  
     else
-      render 'new'
+      flash[:notice] = 'No se eliminada el elemento'
     end
-
+    redirect_to admin_extras_path
 
   end
 
