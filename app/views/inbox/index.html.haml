@@ -1,2 +1,3 @@
-%h1 Inbox#index
-%p Find me in app/views/inbox/index.html.haml
+%h1
+  Lista de mensajes
+= render partial: 'shared/list_inbox', locals: {tye_user: "user"}

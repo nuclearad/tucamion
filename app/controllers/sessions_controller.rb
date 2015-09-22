@@ -51,10 +51,43 @@ class SessionsController < ApplicationController
      end
   end
 
+  def active_account
+    @cliente = Customer.find_by(token_active: params[:token])
+    if @cliente
+      render :active_account
+    else
+      @message = true
+      flash[:notice] = 'La cuenta se encuentra activa ingrese sus credenciales'
+      redirect_to micuenta_path
+    end
+  end
+
+  def process_account
+     token    = params[:customer][:token_active]
+     id       = params[:id]
+     @cliente = Customer.find_by(id: id, token_active: token)
+     if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
+       params[:customer][:estado]       = Environment::STATUS[:clientes][:activo]
+       params[:customer][:token_active] = ''
+       if @cliente.update customer_params
+         session[:user] = @cliente.id
+         redirect_to micuenta_path
+       else
+         @cliente.token_active = token
+         @cliente.estado       = Environment::STATUS[:clientes][:inactivo]
+         flash[:notice] = "La cuenta no se pudo activar intente de nuevo"
+         render :active_account
+       end
+     else
+        flash[:notice] = "Las contraseñas no son iguales"
+        render :active_account
+     end
+  end
+  
   private
 
     def customer_params
-      params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation)
+      params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation, :token_active, :estado)
     end
 
 end

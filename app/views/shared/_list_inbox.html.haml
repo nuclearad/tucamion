@@ -1,0 +1,23 @@
+%table.table.table-bordered.table-hover.table-striped
+  %thead
+    %tr
+      %th Nombre
+      %th Tipo de anuncio
+      %th Telefono
+      %th Hace
+      %th Acciones
+  %tbody
+    - @messages.each do |message|
+      %tr
+        %td
+          = message.nombre
+        %td
+          = "#{message.truck.nombre} (Camiones)"  if message.truck
+          = "#{message.extra.name} (Repuestos)"   if message.extra
+          = "#{message.service.name} (Servicios)" if message.service
+        %td
+          = message.telefono
+        %td
+          = time_ago_in_words message.created_at
+        %td
+          = render partial: "shared/actions_inbox", locals: {message: message ,type: tye_user}

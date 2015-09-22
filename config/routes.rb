@@ -117,9 +117,8 @@ Rails.application.routes.draw do
       resources :sub_trucks,
                 :referencias
     end
-
-
-
+    
+    resources :inbox, only: [:index, :show, :destroy]
 
   end
 
@@ -136,8 +135,18 @@ Rails.application.routes.draw do
   
   get "/inbox-cliente" => "sessions#inbox"
 
+  
+
   #sessiones
+  
+  get "/activar-cuenta/:token" => 'sessions#active_account'
+
   resources :sessions, only: [:index] do
+    
+    member do
+      post :process_account
+    end
+    
     collection do
       post :login
       get  :logout
@@ -146,10 +155,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :inbox, only: [:index, :show, :destroy, :new, :create] do
-    collection do
-      get :read
-    end
-  end
+  resources :inbox, only: [:index, :show, :destroy, :new, :create]
 
 end

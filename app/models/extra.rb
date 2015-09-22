@@ -8,7 +8,7 @@ class Extra < ActiveRecord::Base
 
   belongs_to :customer
 
-  has_many :messages, -> { where(tipo: 2)}, :foreign_key => :item
+  has_many :message, :foreign_key => :item
 
 
   validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address],message: 'No puede estar vacio'
