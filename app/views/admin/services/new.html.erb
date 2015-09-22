@@ -61,7 +61,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <%= f.label :horario, 'Horario' %>
-              <%= f.text_field :horario, :class =>'form-control'  %>
+              <%= f.collection_select :horario, @horas,:first,:first,{},{class: 'form-control text_field'} %>
             </div>
           </div>
 
