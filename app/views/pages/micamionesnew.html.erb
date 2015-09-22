@@ -52,7 +52,7 @@
                             <div class="form-group">
 
                                 <%= f.label :sub_truck_id, 'Sub tipo' %>
-                                <%= f.collection_select :sub_truck_id, SubTruck.where(:type_truck_id => params[:v]).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                                <%= f.collection_select :sub_truck_id, SubTruck.where(:type_truck_id => @truck.type_truck_id).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
 
                             </div>
 
@@ -86,7 +86,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <%= f.label :referencia_id, 'Referencia' %>
-                                <%= f.collection_select :referencia_id, Referencia.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                                <%= f.collection_select :referencia_id, Referencia.getByTypeTruckId(@truck.type_truck_id).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <%= f.label :pesobruto, 'Peso bruto' %>
+                                <%= f.label :pesobruto, 'Peso bruto (Tons)' %>
                                 <%= f.number_field :pesobruto, :class =>'form-control text_field',min: 0, :step => 'any'  %>
                             </div>
                         </div>
@@ -197,7 +197,7 @@
                         <script>
                             $(function(){
                             $('#sa').click(function(){
-                                $($('.nav-tabs li')[0]).removeClass('active')
+                                $($('.nav-tabs li')[0]).removeClass('active');
                                 $($('.nav-tabs li')[1]).addClass('active')
                             })
                         })
@@ -211,10 +211,7 @@
 
 
 <!-- 1 tractomula-->
-			<% if params[:v] == '1' %>
-
-
-
+			<% if params[:v] == '1'|| @truck.type_truck_id==1 %>
 
 				<div class="row">
 				  <div class="col-md-6">
@@ -252,15 +249,6 @@
 
 
 				</div>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -343,7 +331,16 @@
 					  <%= f.text_field :numeroejestrailer, :class =>'form-control'  %>
 					</div>
 				  </div>
+                  <div class="col-md-3 extras ">
+                    <div class="form-gorup">
+                      <label for="">numero de ejes retractiles </label><br/>
 
+                      <%= f.radio_button :ejesretractiles, 1, :checked => true %> 1
+
+                      <%= f.radio_button :ejesretractiles, 2, :checked => false %> 2
+
+                    </div>
+                  </div>
 
 				</div>
 
@@ -694,18 +691,6 @@
 				  </div>
 				</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
 				<div class="row">
 				  <div class="col-md-3">
 					<div class="form-group">
@@ -747,12 +732,6 @@
 					  </label>
 					  <br/>
 
-
-
-
-
-
-
 					</div>
 
 
@@ -791,8 +770,6 @@
 					</label>
 					<br/>
 
-
-
 					<label>
 					  <%= f.check_box :unicodueno  %> Unico Dueño
 					</label>
@@ -800,17 +777,7 @@
 
 				  </div>
 
-
-
-
-
 				</div>
-
-
-
-
-
-
 
 			<% end %>
 
@@ -824,15 +791,15 @@
 				<div class="row">
 				  <div class="col-md-4">
 					<div class="form-group">
-					  <%= f.label :motors_truck_id, 'Tipo Carroceria' %>
-					  <%= f.collection_select :motors_truck_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+					  <%= f.label :tipo_carroceria_id, 'Tipo Carroceria' %>
+					  <%= f.collection_select :tipo_carroceria_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
 					</div>
 				  </div>
 
 				  <div class="col-md-4">
 					<div class="form-group">
-					  <%= f.label :boxes_truck_id, 'Marca Carroceria' %>
-					  <%= f.collection_select :boxes_truck_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+					  <%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
+					  <%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
 					</div>
 				  </div>
 
@@ -845,9 +812,6 @@
 
 
 				</div>
-
-
-
 
 
 				<div class="row">
@@ -911,30 +875,36 @@
 
 				</div>
 
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="">numero de ejes retractiles </label><br/>
 
+                    <%= f.radio_button :ejesretractiles, '1', :checked => true %> 1
 
+                    <%= f.radio_button :ejesretractiles, '2', :checked => false %> 2
 
-
-
-
-
+                  </div>
+                </div>
 
 				<div class="row">
-				  <div class="col-md-3">
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label>
+                            <%= f.check_box :negociable  %> Negociable
+                        </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
 					<div class="form-group">
-
-
-					  <label>
-						<%= f.check_box :negociable  %> Negociable
-					  </label>
-
 
 					  <label>
 						<%= f.check_box :unicodueno  %> Unico dueño
 					  </label>
 
-
 					</div>
+
+
 				  </div>
 
 
@@ -1003,21 +973,28 @@
 				  </div>
 				</div>
 
-				<div class="row">
-				  <div class="col-md-12">
+                <div class="row">
 
-					<label>
-					  <%= f.check_box :unicodueno  %> Unico dueño
-					</label>
+                    <div class="col-md-3">
+                          <div class="form-group">
+                            <label>
+                              <%= f.check_box :negociable  %> Negociable
+                            </label>
+                          </div>
+                        </div>
+                    <div class="col-md-3">
+                          <div class="form-group">
 
-					<br/><br/>
-				  </div>
-				</div>
+                            <label>
+                              <%= f.check_box :unicodueno  %> Unico dueño
+                            </label>
+
+                          </div>
 
 
+                        </div>
 
-
-
+                </div>
 
 		  <% end %>
 
@@ -1094,18 +1071,14 @@
 
 		$('#truck_state_id').on('change', function() {
 
-			$('#truck_city_id option').html('')
+			$('#truck_city_id option').html('');
 			function loader(data){
 				$('#truck_city_id option').html('Cargando...')
-			};
-
-			function error(data){
+            }
+            function error(data){
 				alert("Error enviados los datos");
-			};
-
-
-
-			$.ajax({
+            }
+            $.ajax({
 				async: true,
 				type: "GET",
 				dataType: 'json',
@@ -1114,7 +1087,7 @@
 				success: function (msg) {
 
 
-					$('#truck_city_id').html('')
+					$('#truck_city_id').html('');
 
 
 					$.each(msg, function(index, value) {
@@ -1139,18 +1112,14 @@
 
 		$('#truck_placa_state_id').on('change', function() {
 
-			$('#truck_placa_city_id option').html('')
+			$('#truck_placa_city_id option').html('');
 			function loader(data){
 				$('#truck_placa_city_id option').html('Cargando...')
-			};
-
-			function error(data){
+            }
+            function error(data){
 				alert("Error enviados los datos");
-			};
-
-
-
-			$.ajax({
+            }
+            $.ajax({
 				async: true,
 				type: "GET",
 				dataType: 'json',
@@ -1159,7 +1128,7 @@
 				success: function (msg) {
 
 
-					$('#truck_placa_city_id').html('')
+					$('#truck_placa_city_id').html('');
 
 
 					$.each(msg, function(index, value) {
