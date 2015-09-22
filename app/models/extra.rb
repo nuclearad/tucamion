@@ -84,7 +84,7 @@ class Extra < ActiveRecord::Base
       :phone => 'Telefono',
       :address => 'Direccion',
       :description => 'Description',
-      :price       => 'precio'
+      :price       => 'Precio'
 
   }
     def self.human_attribute_name(attr, options = {})

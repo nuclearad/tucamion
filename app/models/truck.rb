@@ -116,7 +116,7 @@ class Truck < ActiveRecord::Base
       :tipocombustible => 'Tipo combustible',
       :placa_city_id => 'Ciudad Matricula',
       :placa_state_id => 'Departamento Matricula',
-      :price       => 'precio'
+      :price       => 'Precio'
 
   }
 
