@@ -26,9 +26,13 @@ class Admin::CustomersController < ApplicationController
   def create
 
     @customer = Customer.new(allowed_params)
+    @customer.token_active = Digest::MD5.hexdigest("md5tucamion2#{Time.now.strftime('%d%m%Y%H%M%S')}")
+    @customer.estado       = Environment::STATUS[:clientes][:inactivo]
+    url                    = "#{request.protocol}#{request.host_with_port}/activar-cuenta/#{@customer.token_active}"
     if @customer.save
       plan = Offer.find_by(typeoffer: Environment::TYPE[:planes][:generico])
       Offercustomer.create(customer_id: @customer.id, offer_id: plan.id)
+      Customer::CustomerMailer.create_by_admin(@customer, url).deliver
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_customers_path
     else

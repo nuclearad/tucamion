@@ -135,8 +135,18 @@ Rails.application.routes.draw do
   
   get "/inbox-cliente" => "sessions#inbox"
 
+  
+
   #sessiones
+  
+  get "/activar-cuenta/:token" => 'sessions#active_account'
+
   resources :sessions, only: [:index] do
+    
+    member do
+      post :process_account
+    end
+    
     collection do
       post :login
       get  :logout
