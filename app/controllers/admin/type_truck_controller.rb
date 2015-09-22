@@ -32,7 +32,6 @@ class Admin::TypeTruckController < ApplicationController
 
   def update
 
-
     @type = TypeTruck.find(params[:id])
 
     if @type.update_attributes(allowed_params)
