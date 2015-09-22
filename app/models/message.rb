@@ -9,7 +9,7 @@ class Message < ActiveRecord::Base
   validates_presence_of       :nombre,     message: "El nombre es un campo obligatorio"
   validates_presence_of       :telefono, message: "El telefono es un campo obligatorio"
   validates_presence_of       :mensaje,    message: "El mensaje es un campo obligatorio"
-  validates_format_of         :name, :with => /\A([a-zA-Z_áéíóúñ\s]*$)/i ,message: "Deben ser solo letras"
+  validates_format_of         :nombre, :with => /\A([a-zA-Z_áéíóúñ\s]*$)/i ,message: "Deben ser solo letras"
   validates :nombre, length:     { minimum: 5,  maximum: 50 ,   message: "El nombre debe tener minimo 5 y maximo 50 caracteres" }
   validates :telefono, length: { minimum: 13,  maximum: 14 ,   message: "El formato indicado del telefono (xxx)-xxx-xxxx" }
  
