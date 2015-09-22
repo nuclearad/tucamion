@@ -3,7 +3,7 @@
 <html lang="es">
  
 <head>
-<title>Bienvenido</title>
+<title>Titulo de la web</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" href="style.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
@@ -50,21 +50,19 @@ a{
   <tr>
     <td>
     
-    <div style="float:left;width:100%;text-align: center;"><%= image_tag "logo.png" %></div>
+    <div style="float:left;width:100%;text-align: center;"><img src="logo-mail.png"></div>
     <div style="float:left;background-color:#FFF;width:100%;margin-top-5px;border-radius: 10px;padding: 20px;">
       <h2>Gracias por Registrarte!!!</h2>
-      <% offer    = @user.offer.first
-         quantity = @user.quantities.first
-       %>
-      <p>Recuerda que has adquirido un <b><%= offer.nombre %></b> el cual se compone de:
+
+      <p>Recuerda que has adquirido un <b>PLAN (FULL)</b> el cual se compone de:
         <br><br>
-      <b><%= "(#{quantity.total_trucks})" %></b> Anuncios para Vehículo.
+      <b>(5)</b> Anuncios para Vehículo. Estos con una vigencia de 2 meses
       <br>
-      <b><%= "(#{quantity.total_extras})" %></b> Anuncios para Repuestos.
+      <b>(2)</b> Anuncios para Repuestos. Estos con una vigencia de 6 meses
       <br>
-      <b><%= "(#{quantity.total_services})" %></b> Anuncios para Servicios.
+      <b>(3)</b> Anuncios para Servicios. Estos con una vigencia de 6 meses
       <br><br>
-      Ya puedes activar tu cuenta <a href= <%= @url %>>AQUÍ</a> y poder iniciar con la administración de tus anuncios.
+      Ya puedes ingresar a tu cuenta <a href="">AQUÍ</a> y poder iniciar con la administración de tus anuncios.
     </p>
 
 <p class="bor"> 
