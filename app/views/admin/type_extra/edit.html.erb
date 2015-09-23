@@ -36,9 +36,7 @@
           <%= f.label :name, 'Nombre de tipo' %>
           <%= f.text_field :name, :class =>'form-control'  %>
         </div>
-
-        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-        <%=  link_to 'Cancelar', admin_type_extra_index_path, :class=>'btn btn-warning' %>
+        <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_type_extra_index_path } %>
     <% end %>
 
 

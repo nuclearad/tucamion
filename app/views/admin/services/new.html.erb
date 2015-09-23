@@ -107,16 +107,7 @@
             </div>
           </div>
 
-
-
         </div>
-
-
-
-
-
-
-
 
         <div class="row">
           <div class="col-md-12">
@@ -168,12 +159,8 @@
           </div>
         </div>
 
+        <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_services_path } %>
 
-
-
-
-        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-        <%=  link_to 'Cancelar', admin_services_path, :class=>'btn btn-warning' %>
     <% end %>
 
   </div>
