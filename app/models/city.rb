@@ -40,6 +40,8 @@ class City < ActiveRecord::Base
     end
 
   end
-
+  scope :getByState, ->(state_id){
+    select(:name,:id).where(state_id: state_id)
+  }
 
 end

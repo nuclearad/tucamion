@@ -10,7 +10,9 @@ class Customer::CustomerMailer < ActionMailer::Base
   end
 
   def edit_by_admin(user)
-  	
+    @greeting = "Hi"
+
+    mail to: "mariogalvez17@gmail.com"
   end
 
 end

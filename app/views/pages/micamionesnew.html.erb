@@ -12,13 +12,9 @@
     <div class="col-md-12">
       <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
         <%= form_for @truck, :url => micamionesnew_path do |f|  %>
-
 		    <div class="row">
 		        <div class="col-md-12">
 			        <h3><small>Usted esta agregando</small>
-
-
-
 
 			  <%= if params[:v] == '1' then 'Tractomula' end %>
 			  <%= if params[:v] == '2' then 'Volqueta' end %>
@@ -26,11 +22,6 @@
 			  <%= if params[:v] == '4' then 'Buses' end %>
 			  <%= if params[:v] == '5' then 'Trailers' end %>
 			  <%= if params[:v] == '6' then 'Vans' end %>
-
-
-
-
-
 			</h3>
 		        </div>
 		    </div>
@@ -117,7 +108,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                               <%= f.label :city_id, 'Ciudad' %>
-                              <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                                <% if @truck.city_id.nil? %>
+                                    <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                                 <% else %>
+                                     <%= f.collection_select(:city_id, City.getByState(@truck.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
+                                <% end %>
                             </div>
                         </div>
 
@@ -134,7 +129,11 @@
                         <div class="col-md-6">
                     <div class="form-group">
                       <%= f.label :placa_city_id, 'Ciudad placa' %>
-                      <%= f.select(:placa_city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                      <% if @truck.placa_city_id.nil? %>
+                        <%= f.select(:placa_city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+                        <% else %>
+                            <%= f.collection_select(:placa_city_id, City.getByState(@truck.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
+                        <% end %>
                     </div>
                   </div>
 
@@ -999,18 +998,14 @@
 		  <% end %>
 
 
-			<div class="row">
+			    <div class="row">
 			  <div class="col-md-12">
 				<%= f.label :descripccion, 'Descripccion' %>
 				<%= f.text_area :descripccion, :class =>'form-control'  %> <br/> <br/> <br/> <br/>
 			  </div>
 			</div>
 
-
-
-
-
-			<div class="row">
+			    <div class="row">
 			  <div class="col-md-2">
 				<div class="form-group">
 				  <%= f.label :picture1, 'Imagen 1' %>
@@ -1050,25 +1045,20 @@
 			  </div>
 			</div>
 
-
-
-			<%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-			<%=  link_to 'Cancelar', micamiones_path, :class=>'btn btn-warning' %>
-
-		  </div>
+                <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: micamiones_path } %>
 		    </div>
-
+            </div>
 	    <% end %>
-
     </div>
+
 </div>
 
 
 
 <script>
+
 	var ready;
 	ready = function() {
-
 		$('#truck_state_id').on('change', function() {
 
 			$('#truck_city_id option').html('');

@@ -117,7 +117,11 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :city_id, 'Ciudad' %>
-          <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+          <% if @extra.city_id.nil? %>
+              <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+          <% else %>
+              <%= f.collection_select(:city_id, City.getByState(@truck.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
+          <% end %>
         </div>
       </div>
 

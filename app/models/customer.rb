@@ -15,6 +15,7 @@ class Customer < ActiveRecord::Base
   validates_presence_of       :name,     message: "El nombre es un campo obligatorio"
   validates_presence_of       :telefono, message: "El telefono es un campo obligatorio"
   validates_presence_of       :email,    message: "El correo es un campo obligatorio"
+  validates_format_of         :email,    with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: [:create,:update], message:'El formato de correo electronico es invalido'
   validates_confirmation_of   :clave,    message: "Las contraseñas no son iguales", on: :create
   
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i ,    message: "El formato del correo no es permitido"

@@ -173,10 +173,10 @@ class PagesController < ApplicationController
               flash[:notice] = 'Información agregada correctamente'
               redirect_to micamiones_path
             else
-              render layout: 'layouts/cliente'
+              render layout: 'layouts/cliente', :v=>@truck.type_truck_id
             end
           else
-            render layout: 'layouts/cliente'
+            render layout: 'layouts/cliente', :v=>@truck.type_truck_id
           end
         else
           redirect_to micamiones_path, flash: {warning: 'No posee planes para realizar la operacion'}

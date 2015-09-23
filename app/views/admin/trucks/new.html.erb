@@ -31,7 +31,7 @@
 
 
     <%= form_for @truck, :url => admin_trucks_path, :method=>'post' do |f|  %>
-
+        <%= f.hidden_field :type_truck_id, :value=>params['v']  %>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
