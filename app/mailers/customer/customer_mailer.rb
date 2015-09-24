@@ -1,5 +1,5 @@
 class Customer::CustomerMailer < ActionMailer::Base
-  default from: "tucamionsoporte@gmail.com"
+  default from:  Rails.env.production? ? "info@camion365.com" : "tucamionsoporte@gmail.com"
 
   def create_by_admin(user, url)
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")

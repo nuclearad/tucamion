@@ -25,11 +25,11 @@ class Environment
 
 
   if Rails.env.production?
-    MAILSETTING = {:address              =>  'smtp.gmail.com',
+    MAILSETTING = {:address              =>  'smtp.zoho.com',
                    :port                 =>  587,
-                   :domain               =>  'gmail.com',
-                   :user_name            =>  'tucamionsoporte@gmail.com',
-                   :password             =>  'tucamionsoporte2',
+                   :domain               =>  'camion365.com',
+                   :user_name            =>  'info@camion365.com',
+                   :password             =>  'infoinfo123',
                    :authentication       =>  'plain',
                    :enable_starttls_auto =>  true}
   else
