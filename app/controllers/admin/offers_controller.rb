@@ -53,6 +53,14 @@ class Admin::OffersController < ApplicationController
   end
 
   def destroy
+    @plan = Offer.find(params[:id])
+    if @plan.destroy
+      flash[:notice] = 'Información fue eliminada correctamente'
+      redirect_to admin_offers_path
+    else
+      flash[:error] = 'Error al eliminar la informacion'
+      redirect_to admin_offers_path
+    end    
   end
 
 

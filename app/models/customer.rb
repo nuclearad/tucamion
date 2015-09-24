@@ -23,13 +23,16 @@ class Customer < ActiveRecord::Base
   
   validates :clave_confirmation, presence: true, on: :create
   validates :name, length:     { minimum: 5,  maximum: 50 ,   message: "El nombre debe tener minimo 5 y maximo 50 caracteres" }
-  validates :telefono, length: { minimum: 13,  maximum: 14 ,   message: "El formato indicado del telefono (xxx)-xxx-xxxx" }
+  
   validates :cedula, length:   { maximum: 13 ,  message: "El documento de identidad debe tener minimo maximo 13 caracteres" }
   validates :clave, length:    { in: 6..10 ,   message: "La contraseña debe tener minimo 6 y maximo 10 caracteres" }, on: :create
 
   validates_uniqueness_of     :email,    message: "El correo electronico ya esta registrado"
   validates_uniqueness_of     :cedula,   message: "El documento de identidad  ya esta registrado"
   
+  validates :telefono, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
+  validates_numericality_of :telefono,  message: "Debe ser solo numeros"
+
   accepts_nested_attributes_for :quantities , allow_destroy: true
   accepts_nested_attributes_for :offer
   

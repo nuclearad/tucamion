@@ -1,3 +1,4 @@
+User.destroy_all
 State.destroy_all
 departamentos = ['Amazonas',
 'Antioquía',
@@ -1315,6 +1316,13 @@ ciudades = [
 ["Puerto Carreño - Vichada"],
 ["Santa Rosalía - Vichada"]]
 
+hash_city = {first_name: "Medellin", 
+	         last_name:  "Medellin",
+             email:      "medellinn@medellin.com",     
+             password:   "Medellin",
+             status:    2
+            }
+
 ciudades.each do |ciudad|
 	begin
 	  temp_array = ciudad.first.split(" - ")
@@ -1322,7 +1330,7 @@ ciudades.each do |ciudad|
 	  City.create( name: temp_array[0], state_id: tmp_state.id, link_rewrite: temp_array[0].downcase, created_at: Time.now, updated_at: Time.now)
 	rescue Exception => e
 	  puts e.to_s
-	  puts "****************************"
+	  puts "************ciudades****************"
 	  puts 	temp_array[1]
 	  puts  temp_array[0]
 	  puts  "***************************"
@@ -1330,21 +1338,138 @@ ciudades.each do |ciudad|
 
 end
 
+params_use = hash_city
+
+Offer.destroy_all
+
+offers = [['Plan generico', Environment::TYPE[:planes][:generico], 0,0,0,0,0],
+          ['Plan promocional', Environment::TYPE[:planes][:promocional], 0,0,10,10,10]]
+
+
+offers.each do |name, type, precio1, precio2, trucks, extra, service|
+	begin
+	  Offer.create!( nombre: name, typeoffer: type, precio1: precio1, precio2: precio2, trucks: trucks, extra: extra, service: service)
+	rescue Exception => e
+	  puts "*************offers***************"
+	  puts e.to_s
+	  puts  "***************************"
+	end
+end
+
 Customer.destroy_all
-User.destroy_all
-
-params_user = {first_name:   "Super", 
-	           last_name:    "Admin",
-               email:        "admin@admin.com",     
-               password:     "camion.2.015",
-              }
-
-User.create!(params_user)
 
 params_user = {first_name:   "daniel", 
 	           last_name:    "punk4",
                email:        "danielpunk4@gmail.com",     
                password:     "danielpunk4@gmail.com",
+               status:       1
               }
 
 User.create!(params_user)
+User.create!(params_use)
+
+params_user = {first_name:   "admin", 
+	           last_name:    "admin",
+               email:        "admin@admin.com",     
+               password:     "Admin_Camion",
+               status:       1
+              }
+
+User.create!(params_user)
+
+
+
+BrandTruck.destroy_all
+
+marcas = ["AGRALE",
+"AMPLE",
+"ASIA",
+"AUTOCAR",
+"BAIC",
+"BAW",
+"CHANA",
+"CHANGHE",
+"CHERY",
+"CHEVROLET",
+"CITROEN",
+"DAEWOO",
+"DAIHATSU",
+"DFAC",
+"DFSK/DFM",
+"DINA",
+"DODGE",
+"EUROSTAR D`LONG",
+"FAW AMI",
+"FIAT",
+"FORD",
+"FOTON",
+"FREIGHTLINER",
+"GAZ",
+"GOLDEN DRAGON",
+"GONOW",
+"GREAT WALL MOTOR",
+"HAFEI",
+"HIGER",
+"HINO",
+"HYUNDAI",
+"IFA",
+"INTERNATIONAL",
+"ISUZU",
+"IVECO",
+"JAC",
+"JINBEI",
+"JMC",
+"JOYLONG",
+"KAMAZ",
+"KENWORTH",
+"KIA",
+"KRAZ",
+"LAND ROVER",
+"MACK",
+"MAHINDRA",
+"MARMON",
+"MAXUS",
+"MAZDA",
+"MERCEDES BENZ",
+"MITSUBISHI",
+"MUDAN",
+"NISSAN",
+"NON PLUS ULTRA",
+"OLTCIT",
+"PAZ",
+"PEGASSO",
+"PETERBILT",
+"PEUGEOT",
+"RENAULT",
+"RENNO",
+"SAICWULING",
+"SCANIA",
+"SINOTRUK",
+"SISU",
+"SSANGYONG",
+"STEYR",
+"SUZUKI",
+"T-KING",
+"TATA",
+"TMD",
+"TOYOTA",
+"VOLKSWAGEN",
+"VOLVO",
+"WESTERN STAR",
+"XINKAI",
+"YAXING",
+"YUEJIN",
+"YUTONG",
+"ZHONGXING",
+"ZNA"]
+
+
+marcas.each do |name|
+	begin
+	  BrandTruck.create!(name: name, link_rewrite: name)
+	rescue Exception => e
+	  puts "************marcas****************"
+      puts e.to_s
+	  puts  "***************************"
+	end
+end
