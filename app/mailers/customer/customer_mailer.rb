@@ -5,8 +5,8 @@ class Customer::CustomerMailer < ActionMailer::Base
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
   	@user    = user
   	@url     = url
-  	@subject = 'Registro en Tucamion'
-    mail to: [@user.email], subject: @subject
+  	@subject = 'Bienvenido a tucamion365'
+    mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject
   end
 
   def edit_by_admin(user)
