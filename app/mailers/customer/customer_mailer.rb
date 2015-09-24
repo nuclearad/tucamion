@@ -6,7 +6,6 @@ class Customer::CustomerMailer < ActionMailer::Base
     @user                          = user
     @url                           = url
     @subject                       = 'Bienvenido a tucamion365'
-    headers['Message-ID']          = "<#{Digest::SHA2.hexdigest(Time.now.to_i.to_s)}@gmail.com>"
     mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject
   end
 
@@ -19,7 +18,6 @@ class Customer::CustomerMailer < ActionMailer::Base
     @user                          = user
     @url                           = url
     @subject                       = 'NOTIFICACION Tucamion365'
-    headers['Message-ID']          = "<#{Digest::SHA2.hexdigest(Time.now.to_i.to_s)}@gmail.com>"
     mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject    
   end
 
