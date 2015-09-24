@@ -27,7 +27,7 @@ class Environment
   if Rails.env.production?
     MAILSETTING = {:address              =>  'smtp.zoho.com',
                    :port                 =>  587,
-                   :domain               =>  'camion365.com',
+                   :domain               =>  'zoho.com',
                    :user_name            =>  'info@camion365.com',
                    :password             =>  'infoinfo123',
                    :authentication       =>  'plain',
