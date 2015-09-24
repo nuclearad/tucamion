@@ -80,7 +80,6 @@ class Extra < ActiveRecord::Base
       :brand_extra => 'Marca',
       :state => 'Departamento',
       :type_truck_id => 'Tipo',
-      :price => 'Precio',
       :phone => 'Telefono',
       :address => 'Direccion',
       :description => 'Description',

@@ -1322,12 +1322,29 @@ ciudades.each do |ciudad|
 	  City.create( name: temp_array[0], state_id: tmp_state.id, link_rewrite: temp_array[0].downcase, created_at: Time.now, updated_at: Time.now)
 	rescue Exception => e
 	  puts e.to_s
-	  puts "****************************"
+	  puts "************ciudades****************"
 	  puts 	temp_array[1]
 	  puts  temp_array[0]
 	  puts  "***************************"
 	end
 
+end
+
+
+Offer.destroy_all
+
+offers = [['Plan generico', Environment::TYPE[:planes][:generico], 0,0,0,0,0],
+          ['Plan promocional', Environment::TYPE[:planes][:promocional], 0,0,10,10,10]]
+
+
+offers.each do |name, type, precio1, precio2, trucks, extra, service|
+	begin
+	  Offer.create!( nombre: name, typeoffer: type, precio1: precio1, precio2: precio2, trucks: trucks, extra: extra, service: service)
+	rescue Exception => e
+	  puts "*************offers***************"
+	  puts e.to_s
+	  puts  "***************************"
+	end
 end
 
 Customer.destroy_all
