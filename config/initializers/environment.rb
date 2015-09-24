@@ -27,7 +27,7 @@ class Environment
   if Rails.env.production?
     MAILSETTING = {:address              =>  'smtp.gmail.com',
                    :port                 =>  587,
-                   :domain               =>  '104.236.210.18',
+                   :domain               =>  'gmail.com',
                    :user_name            =>  'tucamionsoporte@gmail.com',
                    :password             =>  'tucamionsoporte2',
                    :authentication       =>  'plain',
