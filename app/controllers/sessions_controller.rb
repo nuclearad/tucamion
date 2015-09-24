@@ -83,6 +83,15 @@ class SessionsController < ApplicationController
         render :active_account
      end
   end
+
+  def cambiar_clave
+    @usuario=Customer.find_by(email: params[:email], estado: Environment::STATUS[:clientes][:activo])
+    if @usuario.is_password?(params[:clave]) && (params[:customer][:clave] == params[:customer][:clave_confirmation])
+      if @usuario.update_attributes(clave: params[:clave])
+        flash[:success]='Clave cambiada con exito!'
+      end
+    end
+  end
   
   private
 
