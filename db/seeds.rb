@@ -1,3 +1,4 @@
+User.destroy_all
 State.destroy_all
 departamentos = ['Amazonas',
 'Antioquía',
@@ -1315,6 +1316,13 @@ ciudades = [
 ["Puerto Carreño - Vichada"],
 ["Santa Rosalía - Vichada"]]
 
+hash_city = {first_name:   "Medellín", 
+	            last_name: "Medellín",
+                email:     "medellín@medellín.com",     
+                password:  "Medellín",
+                status:    2
+            }
+
 ciudades.each do |ciudad|
 	begin
 	  temp_array = ciudad.first.split(" - ")
@@ -1330,6 +1338,7 @@ ciudades.each do |ciudad|
 
 end
 
+params_user2 = hash_city
 
 Offer.destroy_all
 
@@ -1348,20 +1357,108 @@ offers.each do |name, type, precio1, precio2, trucks, extra, service|
 end
 
 Customer.destroy_all
-User.destroy_all
-
-params_user = {first_name:   "Super", 
-	           last_name:    "Admin",
-               email:        "admin@admin.com",     
-               password:     "camion.2.015",
-              }
-
-User.create!(params_user)
 
 params_user = {first_name:   "daniel", 
 	           last_name:    "punk4",
                email:        "danielpunk4@gmail.com",     
                password:     "danielpunk4@gmail.com",
+               status:       1
               }
 
 User.create!(params_user)
+User.create!(params_user2)
+
+BrandTruck.destroy_all
+
+marcas = ["AGRALE",
+"AMPLE",
+"ASIA",
+"AUTOCAR",
+"BAIC",
+"BAW",
+"CHANA",
+"CHANGHE",
+"CHERY",
+"CHEVROLET",
+"CITROEN",
+"DAEWOO",
+"DAIHATSU",
+"DFAC",
+"DFSK/DFM",
+"DINA",
+"DODGE",
+"EUROSTAR D`LONG",
+"FAW AMI",
+"FIAT",
+"FORD",
+"FOTON",
+"FREIGHTLINER",
+"GAZ",
+"GOLDEN DRAGON",
+"GONOW",
+"GREAT WALL MOTOR",
+"HAFEI",
+"HIGER",
+"HINO",
+"HYUNDAI",
+"IFA",
+"INTERNATIONAL",
+"ISUZU",
+"IVECO",
+"JAC",
+"JINBEI",
+"JMC",
+"JOYLONG",
+"KAMAZ",
+"KENWORTH",
+"KIA",
+"KRAZ",
+"LAND ROVER",
+"MACK",
+"MAHINDRA",
+"MARMON",
+"MAXUS",
+"MAZDA",
+"MERCEDES BENZ",
+"MITSUBISHI",
+"MUDAN",
+"NISSAN",
+"NON PLUS ULTRA",
+"OLTCIT",
+"PAZ",
+"PEGASSO",
+"PETERBILT",
+"PEUGEOT",
+"RENAULT",
+"RENNO",
+"SAICWULING",
+"SCANIA",
+"SINOTRUK",
+"SISU",
+"SSANGYONG",
+"STEYR",
+"SUZUKI",
+"T-KING",
+"TATA",
+"TMD",
+"TOYOTA",
+"VOLKSWAGEN",
+"VOLVO",
+"WESTERN STAR",
+"XINKAI",
+"YAXING",
+"YUEJIN",
+"YUTONG",
+"ZHONGXING",
+"ZNA"]
+
+
+marcas.each do |name|
+	begin
+	  BrandTruck.create!(name: name, link_rewrite: name)
+	rescue Exception => e
+	  puts "************marcas****************"
+      puts e.to_s
+	  puts  "***************************"
+	end
+end

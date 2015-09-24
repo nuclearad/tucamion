@@ -37,7 +37,8 @@ class Extra < ActiveRecord::Base
   has_attached_file :picture5, :styles => {:home => '548x300>', :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/missing.png"
   validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/
 
-
+  validates :phone, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
+  validates_numericality_of :phone,  message: "Debe ser solo numeros"
 
   before_create do
 
