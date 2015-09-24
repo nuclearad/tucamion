@@ -75,11 +75,11 @@ class SessionsController < ApplicationController
        else
          @cliente.token_active = token
          @cliente.estado       = Environment::STATUS[:clientes][:inactivo]
-         flash[:notice] = "La cuenta no se pudo activar intente de nuevo"
+         flash[:error] = "La cuenta no se pudo activar intente de nuevo"
          render :active_account
        end
      else
-        flash[:notice] = "Las contraseñas no son iguales"
+        flash[:error] = "Las contraseñas no son iguales"
         render :active_account
      end
   end
@@ -91,6 +91,7 @@ class SessionsController < ApplicationController
          @cliente.token_pass = Digest::MD5.hexdigest("md5tucamion2pass#{Time.now.strftime('%d%m%Y%H%M%S')}")
          url                  = "#{request.protocol}#{request.host_with_port}/cambiar-clave/#{@cliente.token_pass}"
          if @cliente.save
+           Customer::CustomerMailer.forgot_pass(@cliente, url).deliver
            flash[:success] = "Se envio un correo a la direccion suministrada siga los pasos para cambiar su contraseña!!!"
            @cliente = Customer.new
          else
@@ -107,17 +108,41 @@ class SessionsController < ApplicationController
   end
 
   def cambiar_clave
-    
+    token = params[:token]
+    @cliente = Customer.find_by(token_pass: token)
+    if @cliente
+      render :cambiar_clave
+    else
+      @message = true
+      flash[:error] = 'La cuenta el token suministrado no es permitido'
+      redirect_to micuenta_path     
+    end
   end
 
   def process_change
-    
+     token    = params[:customer][:token_pass]
+     id       = params[:id]
+     @cliente = Customer.find_by(id: id, token_pass: token)
+     if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
+       params[:customer][:token_pass] = ''
+       if @cliente.update customer_params
+         session[:user] = @cliente.id
+         redirect_to micuenta_path
+       else
+         @cliente.token_pass = token
+         flash[:notice]      = "La cuenta no se pudo cambiar la clave intente de nuevo"
+         render :cambiar_clave
+       end
+     else
+        flash[:error] = "Las contraseñas no son iguales"
+        render :cambiar_clave
+     end
   end
   
   private
 
     def customer_params
-      params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation, :token_active, :estado)
+      params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation, :token_active, :estado, :token_pass)
     end
 
 end

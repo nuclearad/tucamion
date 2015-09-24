@@ -146,6 +146,7 @@ Rails.application.routes.draw do
     
     member do
       post :process_account
+      post   :process_change
     end
     
     collection do
@@ -154,7 +155,6 @@ Rails.application.routes.draw do
       get    :registrar_usuario
       post   :crear_usuario
       match  :olvido_clave, via: [:get, :post]
-      post   :process_change
     end
 
   end
