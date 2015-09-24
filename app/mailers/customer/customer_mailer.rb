@@ -13,4 +13,12 @@ class Customer::CustomerMailer < ActionMailer::Base
   	
   end
 
+  def forgot_pass(user, url)
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
+    @user    = user
+    @url     = url
+    @subject = 'NOTIFICACION Tucamion365'
+    mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject    
+  end
+
 end
