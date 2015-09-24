@@ -12,6 +12,8 @@ class Message < ActiveRecord::Base
   validates_format_of         [:nombre, :mensaje], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "No debe tener caracteres especiales"
   validates :mensaje, length: { minimum: 10,  maximum: 500 ,   message: "El mensaje debe tener un minimo de 10 y un maximo de 500 caracteres" }
   validates :nombre, length:     { minimum: 5,  maximum: 50 ,   message: "El nombre debe tener minimo 5 y maximo 50 caracteres" }
-  validates :telefono, length: { minimum: 13,  maximum: 14 ,   message: "El formato indicado del telefono (xxx)-xxx-xxxx" }
- 
+  
+  validates :telefono, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
+  validates_numericality_of :telefono,  message: "Debe ser solo numeros"
+
 end

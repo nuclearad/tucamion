@@ -170,7 +170,7 @@ class PagesController < ApplicationController
             params[:truck][:customer_id] = session[:user]
             @truck = Truck.new(allowed_params)
             if @truck.save
-              flash[:notice] = 'Información agregada correctamente'
+              flash[:success] = 'Información agregada correctamente'
               redirect_to micamiones_path
             else
               render layout: 'layouts/cliente'
@@ -223,7 +223,7 @@ class PagesController < ApplicationController
     else
       @truck = Truck.find(params[:id])
       if @truck.destroy
-        flash[:notice] = 'Información eliminada correctamente'
+        flash[:success] = 'Información eliminada correctamente'
       else
         flash[:danger] = 'Error eliminando informacion'
       end
@@ -322,7 +322,7 @@ class PagesController < ApplicationController
             salved =@extra.update_attributes(allowed_paramsextra)
           end
           if salved
-            flash[:notice] = 'Información actualizada correctamente'
+            flash[:success] = 'Información actualizada correctamente'
             redirect_to mirepuestos_path and return
           else
             flash[:error] = 'La Información no se pudo Actualizar'
@@ -338,9 +338,9 @@ class PagesController < ApplicationController
     else
       @extra = Extra.find(params[:id])
       if @extra.destroy
-        flash[:notice] = 'Información eliminada correctamente'
+        flash[:success] = 'Información eliminada correctamente'
       else
-        flash[:notice] = 'Error eliminando informacion'
+        flash[:error] = 'Error eliminando informacion'
       end
     redirect_to mirepuestos_path
     end
@@ -379,7 +379,7 @@ class PagesController < ApplicationController
           salved=@service.update_attributes(allowed_paramsservice)
         end
         if salved
-          flash[:notice] = 'Información editada correctamente'
+          flash[:success] = 'Información editada correctamente'
           redirect_to miservicios_path and return
         else
           render :layout => 'layouts/cliente'
@@ -405,7 +405,7 @@ class PagesController < ApplicationController
             params[:service][:customer_id] = session[:user]
             @service = Service.new(allowed_paramsservice)
             if @service.save
-              flash[:notice] = 'Información agregada correctamente'
+              flash[:success] = 'Información agregada correctamente'
               redirect_to miservicios_path
             else
               render layout: 'layouts/cliente'
@@ -429,9 +429,9 @@ class PagesController < ApplicationController
     else
       @service = Service.find(params[:id])
       if @service.destroy
-        flash[:notice] = 'Información eliminada correctamente'
+        flash[:success] = 'Información eliminada correctamente'
       else
-        flash[:notice] = 'Error eliminando informacion'
+        flash[:error] = 'Error eliminando informacion'
       end
     redirect_to miservicios_path
     end
@@ -449,7 +449,7 @@ class PagesController < ApplicationController
 
           if @usuario.count == 0
             @message = true
-            flash[:notice] = ' Email o Clave invalida'
+            flash[:success] = ' Email o Clave invalida'
            else
             session[:user] = @usuario[0].id
           end
