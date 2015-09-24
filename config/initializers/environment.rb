@@ -23,4 +23,12 @@ class Environment
            }
 HORARIOS = {'8:00 am - 5:00 pm' => 1,'8:00 am - 12:00 m' => 2,'2:00 pm - 6:00 pm' => 3,'24 horas' => 4,'otro' => 5}
 
+MAILSETTING = {:address              => 'smtp.gmail.com',
+               :port                 =>  587,
+               :domain               => 'localhost',
+               :user_name            =>  'tucamionsoporte@gmail.com',
+               :password             =>  'tucamionsoporte2',
+               :authentication       =>  'plain',
+               :enable_starttls_auto =>  true}
+
 end
