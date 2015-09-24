@@ -1316,11 +1316,11 @@ ciudades = [
 ["Puerto Carreño - Vichada"],
 ["Santa Rosalía - Vichada"]]
 
-hash_city = {first_name:   "Medellín", 
-	            last_name: "Medellín",
-                email:     "medellín@medellín.com",     
-                password:  "Medellín",
-                status:    2
+hash_city = {first_name: "Medellin", 
+	         last_name:  "Medellin",
+             email:      "medellinn@medellin.com",     
+             password:   "Medellin",
+             status:    2
             }
 
 ciudades.each do |ciudad|
@@ -1338,7 +1338,7 @@ ciudades.each do |ciudad|
 
 end
 
-params_user2 = hash_city
+params_use = hash_city
 
 Offer.destroy_all
 
@@ -1366,7 +1366,18 @@ params_user = {first_name:   "daniel",
               }
 
 User.create!(params_user)
-User.create!(params_user2)
+User.create!(params_use)
+
+params_user = {first_name:   "admin", 
+	           last_name:    "admin",
+               email:        "admin@admin.com",     
+               password:     "Admin_Camion",
+               status:       1
+              }
+
+User.create!(params_user)
+
+
 
 BrandTruck.destroy_all
 
