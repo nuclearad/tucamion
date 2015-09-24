@@ -1,0 +1,20 @@
+.body-content.outer-top-bd
+  .container
+    = render partial: 'includes/messages_errors', locals: {object: @cliente}
+    %h1
+      ¿Olvido su contraseña?
+    %br
+    .track-order-page.inner-bottom-sm
+      .row
+        .col-md-12
+          = form_for @cliente, url:  olvido_clave_sessions_path, method: :post, class: "register-form outer-top-xs"   do |f|
+            .form-group.col-md-4
+              = f.label "Ingresar su correo", class: "info-title"
+              = f.email_field :email, class: "form-control unicase-form-control text-input", required: true, maxlength: 50
+            .col-md-4.col-sm-12.cart-shopping-total
+              %table.table
+                %thead
+                  %tr
+                    %td
+                      .cart-checkout-btn
+                        = f.submit "Registrarse", class: "btn btn-primary"

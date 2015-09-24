@@ -65,7 +65,7 @@ class SessionsController < ApplicationController
   def process_account
      token    = params[:customer][:token_active]
      id       = params[:id]
-     @cliente = Customer.find_by(id: id, token_active: token)
+     @cliente = Customer.find_by(id: id, token_active: token, estado: 0)
      if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
        params[:customer][:estado]       = Environment::STATUS[:clientes][:activo]
        params[:customer][:token_active] = ''
@@ -82,6 +82,36 @@ class SessionsController < ApplicationController
         flash[:notice] = "Las contraseñas no son iguales"
         render :active_account
      end
+  end
+
+  def olvido_clave
+    if request.post?
+      @cliente = Customer.find_by(email: params[:customer][:email])
+      if @cliente
+         @cliente.token_pass = Digest::MD5.hexdigest("md5tucamion2pass#{Time.now.strftime('%d%m%Y%H%M%S')}")
+         url                  = "#{request.protocol}#{request.host_with_port}/cambiar-clave/#{@cliente.token_pass}"
+         if @cliente.save
+           flash[:success] = "Se envio un correo a la direccion suministrada siga los pasos para cambiar su contraseña!!!"
+           @cliente = Customer.new
+         else
+           flash[:error] = "Se produjo un error al generar la transaccion"
+           @cliente = Customer.new
+         end
+      else
+        flash[:warning] = "Los datos suministrados son incorrectos"
+        @cliente = Customer.new
+      end
+    else
+      @cliente = Customer.new
+    end
+  end
+
+  def cambiar_clave
+    
+  end
+
+  def process_change
+    
   end
   
   private

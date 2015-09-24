@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921171958) do
+ActiveRecord::Schema.define(version: 20150921171959) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150921171958) do
     t.datetime "updated_at"
     t.integer  "estado",       default: 1
     t.string   "token_active", default: ""
+    t.string   "token_pass",   default: ""
   end
 
   create_table "extras", force: true do |t|
