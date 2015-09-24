@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
          render :registrar_usuario
        end
      else
-       flash[:error] = "No hay planes gratuitos por favor comunicarse con el administrador del sistema"
+       flash[:warning] = "No hay planes gratuitos por favor comunicarse con el administrador del sistema"
        render :registrar_usuario
      end
   end
@@ -75,7 +75,7 @@ class SessionsController < ApplicationController
        else
          @cliente.token_active = token
          @cliente.estado       = Environment::STATUS[:clientes][:inactivo]
-         flash[:error] = "La cuenta no se pudo activar intente de nuevo"
+         flash[:warning] = "La cuenta no se pudo activar intente de nuevo"
          render :active_account
        end
      else
@@ -95,7 +95,7 @@ class SessionsController < ApplicationController
            flash[:success] = "Se envio un correo a la direccion suministrada siga los pasos para cambiar su contraseña!!!"
            @cliente = Customer.new
          else
-           flash[:error] = "Se produjo un error al generar la transaccion"
+           flash[:warning] = "Se produjo un error al generar la transaccion"
            @cliente = Customer.new
          end
       else
@@ -114,7 +114,7 @@ class SessionsController < ApplicationController
       render :cambiar_clave
     else
       @message = true
-      flash[:error] = 'La cuenta el token suministrado no es permitido'
+      flash[:warning]= 'La cuenta el token suministrado no es permitido'
       redirect_to micuenta_path     
     end
   end
@@ -130,11 +130,11 @@ class SessionsController < ApplicationController
          redirect_to micuenta_path
        else
          @cliente.token_pass = token
-         flash[:notice]      = "La cuenta no se pudo cambiar la clave intente de nuevo"
+         flash[:warning]      = "La cuenta no se pudo cambiar la clave intente de nuevo"
          render :cambiar_clave
        end
      else
-        flash[:error] = "Las contraseñas no son iguales"
+        flash[:warning] = "Las contraseñas no son iguales"
         render :cambiar_clave
      end
   end
