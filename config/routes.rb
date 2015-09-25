@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   get  'mi-cuenta' => 'pages#micuenta', :as=> 'micuenta'
   post 'mi-cuenta' => 'pages#micuenta'
 
-
+  get 'mi-cuenta/perfil/:id' => 'sessions#ver_perfil', as: 'customer_show'
+  get 'mi-cuenta/editar-perfil/:id' =>'sessions#editar_perfil', as: 'edit_profile'
+  post 'mi-cuenta/actualizar-perfil/:id' =>'sessions#actualizar_perfil', as: 'update_profile'
+  get 'mi-cuenta/cambiar-clave/:id' => 'sessions#cambiar_clave', as: 'edit_password'
+  post 'mi-cuenta/actualizar-clave/:id' => 'sessions#update_clave', as: 'update_password'
 
 
   get 'mi-cuenta/camiones' => 'pages#micamiones', :as=> 'micamiones'

@@ -85,15 +85,52 @@ class SessionsController < ApplicationController
   end
 
   def cambiar_clave
-    @usuario=Customer.find_by(email: params[:email], estado: Environment::STATUS[:clientes][:activo])
-    if @usuario.is_password?(params[:clave]) && (params[:customer][:clave] == params[:customer][:clave_confirmation])
-      if @usuario.update_attributes(clave: params[:clave])
+    @user= Customer.find(params[:id])
+    render layout: 'layouts/cliente'
+  end
+
+  def update_clave
+    @user=Customer.find(params[:id])
+    if @user.is_password?(params[:clave_actual]) && (params[:customer][:clave] == params[:customer][:clave_confirmation])
+      if @user.update_attributes(clave: params[:clave])
         flash[:success]='Clave cambiada con exito!'
+        redirect_to 'ver perfil'
       end
     end
   end
   
+  def ver_perfil
+    @user=Customer.find(params[:id])
+    render layout: 'layouts/cliente'
+  end
+
+  def editar_perfil
+    @user=Customer.find(params[:id])
+    render layout: 'layouts/cliente'
+  end
+
+
+  def actualizar_perfil
+    @user= Customer.find(params[:id])
+    logger.info 'la cedula es:' + @user.cedula+ 'parametro viene:' + params[:customer][:cedula]
+=begin
+    if @user.update_attributes(basic_params)
+      flash[:notice] = 'Información actualizada correctamente'
+      redirect_to customer_show_path
+    else
+      render 'editar_perfil'
+    end
+=end
+    redirect_to customer_show_path
+  end
+
+
   private
+
+    def basic_params
+      params.require(:customer).permit(:cedula, :name, :telefono, :email)
+    end
+
 
     def customer_params
       params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation, :token_active, :estado)
