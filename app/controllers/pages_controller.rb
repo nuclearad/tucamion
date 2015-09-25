@@ -85,7 +85,7 @@ class PagesController < ApplicationController
   end
 
   def guardarMensaje
-    
+
 
     o = Message.new(
         :nombre       => params[:nombre],
@@ -722,7 +722,7 @@ class PagesController < ApplicationController
     @ciudad  = City.find_by_id(@truck.placa_city_id)
   end
 
-  
+
   def servicio
     @message = Message.new
     @service = Service.find_by_id(params[:id])

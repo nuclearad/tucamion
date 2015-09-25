@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
+  get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
+
   get  'tarifas' => 'pages#tarifas'
   get  'comprar' => 'pages#comprar'
   match 'busqueda' => 'pages#busqueda', via: [:get, :post]
