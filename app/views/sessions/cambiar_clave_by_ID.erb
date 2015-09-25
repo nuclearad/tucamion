@@ -11,10 +11,6 @@
           <%= form_for @user,  url: update_password_path, method: :post, class: "register-form outer-top-xs"   do |f| %>
 
               <div class="form-group col-md-4">
-                <%= f.label 'clave_actual','Clave Actual' ,class: "info-title" %>
-                <%= password_field_tag 'clave_actual',nil , class: "form-control unicase-form-control text-input", required: true %>
-              </div>
-              <div class="form-group col-md-4">
                 <%= f.label 'Clave Nueva', class: "info-title" %>
                 <%= f.password_field :clave, class: "form-control unicase-form-control text-input", required: true %>
               </div>

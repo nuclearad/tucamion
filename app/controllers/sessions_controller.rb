@@ -92,12 +92,14 @@ class SessionsController < ApplicationController
 
   def update_clave
     @user=Customer.find(params[:id])
-    if @user.is_password?(params[:clave_actual]) && (params[:customer][:clave] == params[:customer][:clave_confirmation])
-      if @user.update_attributes(clave: params[:clave])
+    if (params[:customer][:clave] == params[:customer][:clave_confirmation])
+      if @user.change_attributes(clave: params[:clave])
         flash[:success]='Clave cambiada con exito!'
-        redirect_to 'ver perfil'
+      else
+        flash[:warning]='Error Cambiando Clave'
       end
     end
+    redirect_to customer_show_path(id: @user.id)
   end
 
   def olvido_clave
