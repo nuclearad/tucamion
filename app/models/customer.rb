@@ -58,6 +58,7 @@ class Customer < ActiveRecord::Base
   end
 
   def is_password?(password)
+    logger.info 'en model' +password
     BCrypt::Password.new(self.clave) == password
   end
 
