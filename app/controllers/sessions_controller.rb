@@ -69,7 +69,7 @@ class SessionsController < ApplicationController
      if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
        params[:customer][:estado]       = Environment::STATUS[:clientes][:activo]
        params[:customer][:token_active] = ''
-       if @cliente.update customer_params
+       if @cliente.change customer_params
          session[:user] = @cliente.id
          redirect_to micuenta_path
        else
@@ -125,7 +125,7 @@ class SessionsController < ApplicationController
      @cliente = Customer.find_by(id: id, token_pass: token)
      if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
        params[:customer][:token_pass] = ''
-       if @cliente.update customer_params
+       if @cliente.change customer_params
          session[:user] = @cliente.id
          redirect_to micuenta_path
        else
