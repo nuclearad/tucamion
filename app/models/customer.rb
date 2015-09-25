@@ -37,10 +37,18 @@ class Customer < ActiveRecord::Base
   accepts_nested_attributes_for :offer
   
   before_create :password_digest
-  before_update :password_digest
+
   #jonathanse compara para ver si el usuario tiene un plan activo gratis o no 
 
+  def change customer_params
+     self.update customer_params
+     self.clave = self.password_digest
+     self.save
+  end
+
   def password_digest
+    puts "se ejecuto"
+    puts "***************************"
     self.clave = BCrypt::Password.create(self.clave)
   end
 
