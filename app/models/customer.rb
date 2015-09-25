@@ -41,14 +41,18 @@ class Customer < ActiveRecord::Base
   #jonathanse compara para ver si el usuario tiene un plan activo gratis o no 
 
   def change customer_params
-     self.update customer_params
-     self.clave = self.password_digest
-     self.save
+    self.update customer_params
+    self.clave = self.password_digest
+    self.save
+  end
+
+  def change_attributes customer_params
+    self.update_attributes customer_params
+    self.clave = self.password_digest
+    self.save
   end
 
   def password_digest
-    puts "se ejecuto"
-    puts "***************************"
     self.clave = BCrypt::Password.create(self.clave)
   end
 
