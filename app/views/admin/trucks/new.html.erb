@@ -31,7 +31,7 @@
 
 
     <%= form_for @truck, :url => admin_trucks_path, :method=>'post' do |f|  %>
-
+        <%= f.hidden_field :type_truck_id, :value=>params['v']  %>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -460,9 +460,8 @@
         </div>
       </div>
 
+        <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_trucks_path } %>
 
-      <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-        <%=  link_to 'Cancelar', admin_trucks_path, :class=>'btn btn-warning' %>
     <% end %>
 
   </div>

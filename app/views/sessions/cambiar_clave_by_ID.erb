@@ -1,0 +1,20 @@
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <%= render partial: 'includes/messages_errors', locals: {object: @user} %>
+    <h1>
+      Cambiar Clave de Acceso
+    </h1>
+    <br/>
+    <div class="track-order-page inner-bottom-sm">
+      <div class="row">
+        <div class="col-md-12">
+          <%= form_for @user,  url: update_password_path, method: :post, class: "register-form outer-top-xs"   do |f| %>
+            
+            <%= render partial: "form_clave", locals:{f: f} %>
+            
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

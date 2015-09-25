@@ -36,9 +36,8 @@
           <%= f.label :name, 'Nombre del subtipo' %>
           <%= f.text_field :name, :class =>'form-control'  %>
         </div>
+        <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_type_truck_sub_trucks_path } %>
 
-        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-        <%=  link_to 'Cancelar', admin_type_truck_sub_trucks_path, :class=>'btn btn-warning' %>
     <% end %>
 
 

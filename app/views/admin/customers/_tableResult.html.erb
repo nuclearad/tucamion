@@ -33,6 +33,7 @@
         </td>
         <td><%= if customer.typeuser == 0 then 'Normal' else 'Revendedor' end %></td>
         <td>
+          <%= link_to 'Ver',admin_customer_path(customer.id),:class =>  'btn btn-success' %>
           <%= link_to 'Editar', edit_admin_customer_path(customer.id), :class=>'btn btn-info' %>
           <%= link_to 'Eliminar', {:controller => 'admin/customers', :action => 'destroy', :id => customer.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
 

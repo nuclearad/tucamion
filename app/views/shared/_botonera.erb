@@ -1,0 +1,10 @@
+<div id="botonera">
+  <%= object.submit 'Guardar', :class=> 'btn btn-info' ,:onclick=>"$('#botonera').hide();$('#loader').removeClass('hide');" %>
+  <%=  link_to 'Cancelar', cancel_route, :class=>'btn btn-warning' %>
+</div>
+<div id="loader" class="hide">
+  <div class="col-md-12" style="align-items: center">
+    <%= image_tag "loading.gif"  %>
+    <p>PROCESANDO....</p>
+  </div>
+</div>

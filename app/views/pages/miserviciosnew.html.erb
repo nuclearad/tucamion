@@ -63,23 +63,18 @@
             </div>
           </div>
 
-
           <div class="col-md-6">
             <div class="form-group">
               <%= f.label :city_id, 'Ciudad' %>
-              <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+              <% if @service.city_id.nil? %>
+                  <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+              <% else %>
+                  <%= f.collection_select(:city_id, City.getByState(@service.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
+              <% end %>
             </div>
           </div>
 
-
-
         </div>
-
-
-
-
-
-
 
 
         <div class="row">
@@ -131,13 +126,8 @@
             </div>
           </div>
         </div>
+        <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: miservicios_path } %>
 
-
-
-
-
-        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-        <%=  link_to 'Cancelar', miservicios_path, :class=>'btn btn-warning' %>
     <% end %>
 
   </div>
@@ -151,14 +141,14 @@
 
         $('#service_state_id').on('change', function() {
 
-            $('#truck_city_id option').html('')
+            $('#truck_city_id option').html('');
             function loader(data){
-                $('#truck_city_id option').html('Cargando...')
+                $('#truck_city_id option').html('Cargando...');
             };
 
             function error(data){
                 alert("Error enviados los datos");
-            };
+            }
 
 
 
@@ -171,7 +161,7 @@
                 success: function (msg) {
 
 
-                    $('#service_city_id').html('')
+                    $('#service_city_id').html('');
 
 
                     $.each(msg, function(index, value) {

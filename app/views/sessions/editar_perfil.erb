@@ -1,0 +1,38 @@
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <%= render partial: 'includes/messages_errors', locals: {object: @user} %>
+    <h1>
+      Editar Perfil
+    </h1>
+    <br/>
+    <div class="track-order-page inner-bottom-sm">
+      <div class="row">
+        <div class="col-md-12">
+          <%= form_for @user, url: update_profile_path, method: :post, class: "register-form outer-top-xs"   do |f| %>
+              <div class="form-group col-md-5">
+                <%= f.label "Documento De Identidad", class: "info-title" %>
+                <%= f.text_field :cedula, class: "form-control unicase-form-control text-input", required: true, maxlength: 13, autofocus: true %>
+              </div>
+              <div class="form-group col-md-5">
+                <%= f.label "nombre_y_apellido".capitalize %>
+                <%= f.text_field :name, class: "form-control unicase-form-control text-input", required: true, maxlength: 50 %>
+              </div>
+              <div class="form-group col-md-5">
+                <%= f.label "correo", class: "info-title" %>
+                <%= f.email_field :email, class: "form-control unicase-form-control text-input", required: true, maxlength: 50 %>
+              </div>
+              <div class="form-group col-md-5">
+                <%= f.label :telefono, class: "info-title" %>
+                <%= f.text_field :telefono, class: "form-control unicase-form-control text-input", required: true, maxlength: 14             %>
+              </div>
+              <div class="row col-md-5">
+                <div class="container">
+                    <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: customer_show_path } %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

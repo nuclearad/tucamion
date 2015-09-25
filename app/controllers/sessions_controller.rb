@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-	
+
   #hecho por jonathan rojas 09-09-2015 para cerrar session
   def login
      @message = false
@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
     redirect_to "/"
   end
 
-  def registrar_usuario	
+  def registrar_usuario
     @cliente = Customer.new
   end
 
@@ -69,7 +69,7 @@ class SessionsController < ApplicationController
      if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
        params[:customer][:estado]       = Environment::STATUS[:clientes][:activo]
        params[:customer][:token_active] = ''
-       if @cliente.update customer_params
+       if @cliente.change customer_params
          session[:user] = @cliente.id
          redirect_to micuenta_path
        else
@@ -81,6 +81,29 @@ class SessionsController < ApplicationController
      else
         flash[:error] = "Las contraseñas no son iguales"
         render :active_account
+     end
+  end
+
+
+  def cambiar_clave_by_ID
+    @user= Customer.find(params[:id])
+    render layout: 'layouts/cliente'
+  end
+
+  def update_clave
+     @user=Customer.find(params[:id])
+     if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
+       params[:customer][:token_pass] = ''
+       if @user.change customer_params
+        flash[:success]='Clave cambiada con exito!'
+         redirect_to customer_show_path(id: @user.id)
+       else
+        flash[:warning]='Error Cambiando Clave'
+        render :cambiar_clave_by_ID, layout: 'layouts/cliente'
+       end
+     else
+        flash[:warning] = "Las contraseñas no son iguales"
+        render :cambiar_clave_by_ID, layout: 'layouts/cliente'
      end
   end
 
@@ -115,7 +138,7 @@ class SessionsController < ApplicationController
     else
       @message = true
       flash[:warning]= 'La cuenta el token suministrado no es permitido'
-      redirect_to micuenta_path     
+      redirect_to micuenta_path
     end
   end
 
@@ -125,7 +148,7 @@ class SessionsController < ApplicationController
      @cliente = Customer.find_by(id: id, token_pass: token)
      if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
        params[:customer][:token_pass] = ''
-       if @cliente.update customer_params
+       if @cliente.change customer_params
          session[:user] = @cliente.id
          redirect_to micuenta_path
        else
@@ -138,8 +161,37 @@ class SessionsController < ApplicationController
         render :cambiar_clave
      end
   end
-  
+
+  def ver_perfil
+    @user=Customer.find(params[:id])
+    render layout: 'layouts/cliente'
+  end
+
+  def editar_perfil
+    @user=Customer.find(params[:id])
+    render layout: 'layouts/cliente'
+  end
+
+
+  def actualizar_perfil
+    @user= Customer.find(params[:id])
+    logger.info 'la cedula es:' + @user.cedula+ 'parametro viene:' + params[:customer][:cedula]
+    if @user.update_attributes(basic_params)
+      flash[:notice] = 'Informacion actualizada correctamente'
+    redirect_to customer_show_path and return
+    else
+      redirect_to :editar_perfil
+    end
+
+  end
+
+
   private
+
+    def basic_params
+      params.require(:customer).permit(:cedula, :name, :telefono, :email)
+    end
+
 
     def customer_params
       params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation, :token_active, :estado, :token_pass)
