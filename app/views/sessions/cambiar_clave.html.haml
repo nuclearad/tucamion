@@ -9,14 +9,4 @@
         .col-md-12
           = form_for @cliente, url:  process_change_session_path(@cliente), method: :post, class: "register-form outer-top-xs"   do |f|
             = f.hidden_field :token_pass, value: @cliente.token_pass
-            .row  
-              .form-group.col-md-4
-                = f.label "Nuevo clave", class: "info-title"
-                = f.password_field :clave, class: "form-control unicase-form-control text-input", required: true, value: ""
-            .row
-              .form-group.col-md-4
-                = f.label "Confirmar password", class: "info-title"
-                = f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true, value: ""
-            .row
-              .form-group.col-md-4
-                = f.submit "Enviar", class: "btn btn-primary"
+            = render partial: "form_clave", locals:{f: f}

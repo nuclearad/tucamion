@@ -1,0 +1,11 @@
+.row  
+  .form-group.col-md-4
+    = f.label "Nuevo clave", class: "info-title"
+    = f.password_field :clave, class: "form-control unicase-form-control text-input", required: true, value: ""
+.row
+  .form-group.col-md-4
+    = f.label "Confirmar password", class: "info-title"
+    = f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true, value: ""
+.row
+  .form-group.col-md-4
+    = f.submit "Enviar", class: "btn btn-primary"
