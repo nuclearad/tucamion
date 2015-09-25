@@ -140,12 +140,8 @@
           </div>
         </div>
 
-
-
-
-
-        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-        <%=  link_to 'Cancelar', miservicios_path, :class=>'btn btn-warning' %>
+        <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: miservicios_path } %>
+        
     <% end %>
 
   </div>

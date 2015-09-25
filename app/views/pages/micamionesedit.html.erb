@@ -230,8 +230,8 @@
                       <script>
                       $(function(){
                           $('#sa').click(function(){
-                              $($('.nav-tabs li')[0]).removeClass('active')
-                              $($('.nav-tabs li')[1]).addClass('active')
+                              $($('.nav-tabs li')[0]).removeClass('active');
+                              $($('.nav-tabs li')[1]).addClass('active');
                           })
                       })
                       </script>
@@ -1122,11 +1122,7 @@
                 </div>
               </div>
             </div>
-
-
-
-            <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-            <%=  link_to 'Cancelar', micamiones_path, :class=>'btn btn-warning' %>
+            <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: micamiones_path } %>
 
           </div>
                 <% end %>
@@ -1166,8 +1162,7 @@
                 success: function (msg) {
 
 
-                    $('#truck_city_id').html('')
-
+                    $('#truck_city_id').html('');
 
                     $.each(msg, function(index, value) {
                         console.log('<option value="'+value.id+'">'+value.name+'</option>');
@@ -1198,7 +1193,7 @@
 
             function error(data){
                 alert("Error enviados los datos");
-            };
+            }
 
 
 

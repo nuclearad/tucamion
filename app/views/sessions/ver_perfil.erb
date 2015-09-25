@@ -1,0 +1,43 @@
+# encoding: UTF-8
+<div class="container">
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Detalles de Perfil
+    </h1>
+  </div>
+</div>
+</div>
+<div class='container'>
+  <div class='col-sm-6 col-md-5 product-info-block'>
+    <div class="product-info">
+      <div class="stock-container info-container m-t-10">
+  <div class="row footer color-bg">
+
+    <div class="col-sm-12 contact-timing">
+
+      <div class="module-body outer-top-xs">
+        <div id="info" class="table-responsive">
+          <table class="table"><tbody>
+            <tr class="nymou"><td class="cell-label">Nombre:</td><td><b><%= @user.name ? @user.name.capitalize : 'No registrado' %></b></td></tr>
+            <tr class="nymou"><td class="cell-label">Cedula:</td><td><b><%= @user.cedula ? @user.cedula : 'No registrado' %></b></td></tr>
+            <tr class="nymou"><td class="cell-label">Telefono:</td><td><b><%= @user.telefono ? @user.telefono : 'No registrado' %></b></td></tr>
+            <tr class="nymou"><td class="cell-label">Email:</td><td><b><%= @user.email ? @user.email : 'No registrado' %></b></td></tr>
+                   </tbody></table>
+        </div><!-- /.table-responsive -->
+      </div><!-- /.module-body -->
+    </div>
+  </div>
+</div>
+    </div>
+    <div class="row">
+      <div>
+        <%= link_to 'Editar', edit_profile_path(@user.id) ,:class=>'btn btn-info' %>
+
+        <%= link_to 'Cambiar Clave', edit_password_path(@user.id),:class=>'btn btn-warning' %>
+
+      </div>
+    </div>
+  </div>
+
+</div>

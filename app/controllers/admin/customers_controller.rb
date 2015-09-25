@@ -14,13 +14,9 @@ class Admin::CustomersController < ApplicationController
   end
 
   def new
-
-
     @customer = Customer.new
     @customer.quantities.build
     add_breadcrumb 'Agregar'
-
-
   end
 
   def create
@@ -72,7 +68,10 @@ class Admin::CustomersController < ApplicationController
 
   end
 
-
+  def show
+    logger.info "********* #{__method__}*********"
+    @customer=Customer.find(params[:id])
+  end
 
   private
   def allowed_params

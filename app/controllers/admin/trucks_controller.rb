@@ -23,21 +23,21 @@ class Admin::TrucksController < ApplicationController
   end
 
   def new
-
+    logger.info "********#{__method__}**********"
+    logger.info "*****#{params}****"
     @truck = Truck.new
     @truck.type_truck_id= params['v']
     add_breadcrumb 'Agregar'
   end
 
   def create
-
     @truck = Truck.new(allowed_params)
     @truck.user_id = current_user.id
     if @truck.save
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_trucks_path
     else
-      render 'new'
+      render 'new' , :v=>@truck.type_truck_id
     end
 
 
