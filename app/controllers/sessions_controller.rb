@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-	
+
   #hecho por jonathan rojas 09-09-2015 para cerrar session
   def login
      @message = false
@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
     redirect_to "/"
   end
 
-  def registrar_usuario	
+  def registrar_usuario
     @cliente = Customer.new
   end
 
@@ -131,7 +131,7 @@ class SessionsController < ApplicationController
     else
       @message = true
       flash[:warning]= 'La cuenta el token suministrado no es permitido'
-      redirect_to micuenta_path     
+      redirect_to micuenta_path
     end
   end
 
@@ -154,7 +154,7 @@ class SessionsController < ApplicationController
         render :cambiar_clave
      end
   end
-  
+
   def ver_perfil
     @user=Customer.find(params[:id])
     render layout: 'layouts/cliente'
@@ -171,7 +171,7 @@ class SessionsController < ApplicationController
     logger.info 'la cedula es:' + @user.cedula+ 'parametro viene:' + params[:customer][:cedula]
 =begin
     if @user.update_attributes(basic_params)
-      flash[:notice] = 'Informaci�n actualizada correctamente'
+      flash[:notice] = 'Informacion actualizada correctamente'
       redirect_to customer_show_path
     else
       render 'editar_perfil'

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'mi-cuenta/perfil/:id' => 'sessions#ver_perfil', as: 'customer_show'
   get 'mi-cuenta/editar-perfil/:id' =>'sessions#editar_perfil', as: 'edit_profile'
   post 'mi-cuenta/actualizar-perfil/:id' =>'sessions#actualizar_perfil', as: 'update_profile'
-  get 'mi-cuenta/cambiar-clave/:id' => 'sessions#cambiar_clave', as: 'edit_password'
+  get 'mi-cuenta/cambiar-clave/:id' => 'sessions#cambiar_clave_by_ID', as: 'edit_password'
   post 'mi-cuenta/actualizar-clave/:id' => 'sessions#update_clave', as: 'update_password'
 
 
@@ -121,7 +121,7 @@ Rails.application.routes.draw do
       resources :sub_trucks,
                 :referencias
     end
-    
+
     resources :inbox, only: [:index, :show, :destroy]
 
   end
@@ -136,23 +136,23 @@ Rails.application.routes.draw do
 
   get 'vender-camion/:id' => 'pages#sell_truck'
   get "/estatus-camion/:id" => 'pages#status_truck'
-  
+
   get "/inbox-cliente" => "sessions#inbox"
 
-  
+
 
   #sessiones
-  
+
   get "/activar-cuenta/:token" => 'sessions#active_account'
   get "/cambiar-clave/:token" => 'sessions#cambiar_clave'
 
   resources :sessions, only: [:index] do
-    
+
     member do
       post :process_account
       post   :process_change
     end
-    
+
     collection do
       post   :login
       get    :logout
