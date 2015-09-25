@@ -144,19 +144,23 @@ Rails.application.routes.draw do
   #sessiones
   
   get "/activar-cuenta/:token" => 'sessions#active_account'
+  get "/cambiar-clave/:token" => 'sessions#cambiar_clave'
 
   resources :sessions, only: [:index] do
     
     member do
       post :process_account
+      post   :process_change
     end
     
     collection do
-      post :login
-      get  :logout
-      get  :registrar_usuario
-      post :crear_usuario
+      post   :login
+      get    :logout
+      get    :registrar_usuario
+      post   :crear_usuario
+      match  :olvido_clave, via: [:get, :post]
     end
+
   end
 
   resources :inbox, only: [:index, :show, :destroy, :new, :create]

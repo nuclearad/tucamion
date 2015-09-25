@@ -33,25 +33,38 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <%= f.label :address, 'Dirección' %>
-                <%= f.text_field :address, :class =>'form-control'  %>
-            </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :address, 'Dirección' %>
+          <%= f.text_field :address, :class =>'form-control'  %>
         </div>
+      </div>
 
-        <div class="col-md-3">
-            <div class="form-group">
-                <%= f.label :phone, 'Teléfono' %>
-                <%= f.text_field :phone, :class =>'form-control'  %>
-            </div>
-        </div>
+      <div class="col-md-6">
 
-        <div class="col-md-3">
+          <div class="col-md-3">
             <%= f.label :horario, 'Horario de atencion' %>
             <%= f.collection_select :horario, @horas,:last,:first,{},{class: 'form-control text_field'} %>
-        </div>
+          </div>
+
+
+      </div>
+
     </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :phone, 'Teléfono' %>
+          <%= f.text_field :phone, :class =>'form-control', maxlength: 11  %>
+        </div>
+      </div>
+
+    </div>
+
+
+
 
 
     <div class="row">
@@ -90,11 +103,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :city_id, 'Ciudad' %>
-          <% if @extra.city_id.nil? %>
-              <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
-          <% else %>
-              <%= f.collection_select(:city_id, City.getByState(@extra.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
-          <% end %>
+          <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
         </div>
       </div>
 
@@ -147,6 +156,10 @@
     </div>
 
 
+
+
+
+
     <div class="row">
       <div class="col-md-12">
         <%= f.label :description, 'Descripccion' %>
@@ -154,8 +167,11 @@
       </div>
     </div>
 
-    <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: mirepuestos_path } %>
 
+
+
+    <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+    <%=  link_to 'Cancelar', mirepuestos_path, :class=>'btn btn-warning' %>
 <% end %>
 
 

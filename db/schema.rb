@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921171957) do
+ActiveRecord::Schema.define(version: 20150921171959) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150921171957) do
     t.datetime "updated_at"
     t.integer  "estado",       default: 1
     t.string   "token_active", default: ""
+    t.string   "token_pass",   default: ""
   end
 
   create_table "extras", force: true do |t|
@@ -490,6 +491,7 @@ ActiveRecord::Schema.define(version: 20150921171957) do
     t.datetime "updated_at"
     t.string   "first_name",             limit: 20,              null: false
     t.string   "last_name",              limit: 20,              null: false
+    t.integer  "status",                            default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,19 +1,26 @@
 class Customer::CustomerMailer < ActionMailer::Base
-  default from: "tucamionsoporte@gmail.com"
-  default "Message-ID"=>"<#{Digest::SHA2.hexdigest(Time.now.to_i.to_s)}@gmail.com>"
-  default headers "Reply-to" => "tucamionsoporte@gmail.com"
+  default from:  Rails.env.production? ? "info@camion365.com" : "tucamionsoporte@gmail.com"
+
   def create_by_admin(user, url)
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
-  	@user    = user
-  	@url     = url
-  	@subject = 'Registro en Tucamion'
-    mail to: [@user.email], subject: @subject
+    @user                          = user
+    @url                           = url
+    @subject                       = 'Bienvenido a tucamion365'
+    mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject
   end
 
   def edit_by_admin(user)
-    @greeting = "Hi"
+  	
+  end
 
-    mail to: "mariogalvez17@gmail.com"
+  def forgot_pass(user, url)
+    puts Environment::MAILSETTING
+    puts "*************************************************************************************************"
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
+    @user                          = user
+    @url                           = url
+    @subject                       = 'NOTIFICACION Tucamion365'
+    mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject    
   end
 
 end
