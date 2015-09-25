@@ -9,20 +9,9 @@
       <div class="row">
         <div class="col-md-12">
           <%= form_for @user,  url: update_password_path, method: :post, class: "register-form outer-top-xs"   do |f| %>
-
-              <div class="form-group col-md-4">
-                <%= f.label 'Clave Nueva', class: "info-title" %>
-                <%= f.password_field :clave, class: "form-control unicase-form-control text-input", required: true %>
-              </div>
-              <div class="form-group col-md-4">
-                <%= f.label "Confirmar Clave Nueva", class: "info-title" %>
-                <%= f.password_field :clave_confirmation, class: "form-control unicase-form-control text-input", required: true %>
-              </div>
-              <div class="row col-md-5">
-                <div class="container">
-                  <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: customer_show_path } %>
-                </div>
-              </div>
+            
+            <%= render partial: "form_clave", locals:{f: f} %>
+            
           <% end %>
         </div>
       </div>
