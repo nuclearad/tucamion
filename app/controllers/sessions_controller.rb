@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
   #hecho por jonathan rojas 09-09-2015 para cerrar session
+  before_filter :same_user_id, only:[:ver_perfil,:cambiar_clave_by_ID,:update_clave,:cambiar_clave, :actualizar_perfil, :editar_perfil]
+
   def login
      @message = false
      @usuario = Customer.find_by(email: params[:email], estado: Environment::STATUS[:clientes][:activo])
@@ -177,10 +179,11 @@ class SessionsController < ApplicationController
     @user= Customer.find(params[:id])
     logger.info 'la cedula es:' + @user.cedula+ 'parametro viene:' + params[:customer][:cedula]
     if @user.update_attributes(basic_params)
-      flash[:notice] = 'Informacion actualizada correctamente'
+      flash[:succes] = 'Informacion actualizada correctamente'
     redirect_to customer_show_path and return
     else
-      redirect_to :editar_perfil
+      flash[:warning] = 'Por favor Verifique la nueva Informacion'
+      redirect_to edit_profile_path
     end
 
   end
