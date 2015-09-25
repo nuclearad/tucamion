@@ -169,15 +169,13 @@ class SessionsController < ApplicationController
   def actualizar_perfil
     @user= Customer.find(params[:id])
     logger.info 'la cedula es:' + @user.cedula+ 'parametro viene:' + params[:customer][:cedula]
-=begin
     if @user.update_attributes(basic_params)
       flash[:notice] = 'Informacion actualizada correctamente'
-      redirect_to customer_show_path
+    redirect_to customer_show_path and return
     else
-      render 'editar_perfil'
+      redirect_to :editar_perfil
     end
-=end
-    redirect_to customer_show_path
+
   end
 
 
