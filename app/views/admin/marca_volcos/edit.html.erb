@@ -31,8 +31,6 @@
 <div class="row">
   <div class="col-md-12">
 
-
-
     <%= form_for @marca, :url => admin_marca_volco_path, :method=>'put' do |f|  %>
 
         <div class="row">
@@ -42,13 +40,7 @@
               <%= f.text_field :name, :class =>'form-control'  %>
             </div>
           </div>
-
-
-
         </div>
-
-
-
 
         <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
         <%=  link_to 'Cancelar', admin_marcas_equipos_humedos_path, :class=>'btn btn-warning' %>

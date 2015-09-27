@@ -31,7 +31,7 @@ class Admin::MarcaVolcosController < ApplicationController
 
   def edit
     @marca = MarcaVolco.find(params[:id])
-    add_bredcrumb 'Editar'
+    add_breadcrumb 'Editar'
   end
 
   def update

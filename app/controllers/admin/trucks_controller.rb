@@ -62,7 +62,7 @@ class Admin::TrucksController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_trucks_path
     else
-      render 'new'
+      render :edit
     end
 
 

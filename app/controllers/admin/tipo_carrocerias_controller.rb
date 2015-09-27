@@ -48,6 +48,7 @@ class Admin::TipoCarroceriasController < ApplicationController
       redirect_to admin_tipo_carrocerias_path
     else
       flash[:danger] = 'La Información no ha sido actualizada correctamente'
+      render :edit
     end
 
   end

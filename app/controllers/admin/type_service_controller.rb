@@ -45,7 +45,7 @@ class Admin::TypeServiceController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_service_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

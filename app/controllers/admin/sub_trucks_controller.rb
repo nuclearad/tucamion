@@ -45,6 +45,8 @@ class Admin::SubTrucksController < ApplicationController
     if @sub.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_truck_sub_trucks_path
+    else
+      render :edit
     end
 
   end

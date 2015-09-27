@@ -45,7 +45,7 @@ class Admin::TypeExtraController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_extra_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

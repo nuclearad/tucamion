@@ -43,7 +43,7 @@ class Admin::ScrapsTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_scraps_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

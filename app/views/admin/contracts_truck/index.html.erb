@@ -17,14 +17,15 @@
 
     <!-- /.row -->
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-3">
         <p>
           <%= link_to 'Nueva Poliza', new_admin_contracts_truck_path, :method=>'get', :class=>'btn  btn-primary' %>
         </p>
-        <div class="col-md-3 col-md-offset-6">
+    </div>
+      <div class="col-md-3 col-md-offset-6">
           <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
         </div>
-    </div>
+
       <div class="row">
         <div class="col-lg-12">
           <%= render partial: 'shared/tableResult', locals:{objects:@contracts_filter, object_controller_name: controller_name} %>

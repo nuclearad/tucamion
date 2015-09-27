@@ -47,7 +47,7 @@ class Admin::OffersController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_offers_path
     else
-      render 'new'
+      render 'edit'
     end
 
 

@@ -6,7 +6,7 @@ class Admin::BrandsTruckController < ApplicationController
   def index
     @brands = BrandTruck.all
     @search = @brands.search(params[:q])
-    @brands_filter = @search.result.page(params[:page]).per(5)
+    @brands_filter = @search.result.page(params[:page]).per(10)
   end
 
 

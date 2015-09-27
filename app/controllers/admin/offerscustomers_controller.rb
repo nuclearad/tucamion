@@ -6,15 +6,14 @@ class Admin::OfferscustomersController < ApplicationController
   add_breadcrumb 'Clientes', :admin_customers_path, :options => { :title =>'Inicio' }
 
   def index
-
     @offers = Offercustomer.where(:customer_id => params[:customer_id])
     @user = Customer.find_by_id(params[:customer_id])
+    add_breadcrumb 'Planes'
   end
 
   def new
-
     @offer = Offercustomer.new
-
+    add_breadcrumb 'Planes'
   end
 
   def create
@@ -31,6 +30,7 @@ class Admin::OfferscustomersController < ApplicationController
   end
 
   def edit
+  add_breadcrumb 'Editar'
   end
 
   def update

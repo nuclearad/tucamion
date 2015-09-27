@@ -30,6 +30,7 @@ class Admin::MarcasEquiposHumedosController < ApplicationController
 
   def edit
     @marca = MarcaEquipoHumedo.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
