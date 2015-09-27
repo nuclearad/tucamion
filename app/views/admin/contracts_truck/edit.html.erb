@@ -14,7 +14,7 @@
 <%  if @contract.errors.any? %>
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <%= pluralize@contract.errors.count, "Errores") %> tratando de guardar:
+        <%= pluralize @contract.errors.count, "Errores" %> tratando de guardar:
       </div>
       <p>
       <ul>
@@ -42,22 +42,11 @@
               <%= f.text_field :name, :class =>'form-control'  %>
             </div>
           </div>
-
-
-
         </div>
 
 
-
-
-
-
-
-
-
-
         <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
-        <%=  link_to 'Cancelar', admin_contracts_truck_path, :class=>'btn btn-warning' %>
+        <%=  link_to 'Cancelar', admin_contracts_truck_index_path, :class=>'btn btn-warning' %>
     <% end %>
 
   </div>

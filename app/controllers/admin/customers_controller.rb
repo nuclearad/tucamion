@@ -4,8 +4,6 @@ class Admin::CustomersController < ApplicationController
   layout  'admin/layouts/application'
   add_breadcrumb 'Clientes', :admin_customers_path, :options => { :title =>'Inicio' }
 
-
-
   def index
     @customers = Customer.all
     @search = @customers.search(params[:q])
@@ -40,6 +38,7 @@ class Admin::CustomersController < ApplicationController
   def edit
     
     @customer = Customer.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update

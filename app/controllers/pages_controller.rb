@@ -74,7 +74,7 @@ class PagesController < ApplicationController
     else
 
       @plan = Offer.find_by_id(params[:plan])
-      if !session[:user].nil?
+      unless session[:user].nil?
         @user = Customer.find_by_id(session[:user])
       end
       if @plan.blank?
@@ -306,7 +306,7 @@ class PagesController < ApplicationController
   end
 
   def mirepuestosedit
-    salved=false
+    salved = false
     if session[:user].nil?
       redirect_to micuenta_path
     else
@@ -722,7 +722,6 @@ class PagesController < ApplicationController
     @ciudad  = City.find_by_id(@truck.placa_city_id)
   end
 
-
   def servicio
     @message = Message.new
     @service = Service.find_by_id(params[:id])
@@ -763,7 +762,6 @@ class PagesController < ApplicationController
     def allowed_paramsextra
       params.require(:extra).permit!
     end
-
 
     def allowed_paramsservice
       params.require(:service).permit!

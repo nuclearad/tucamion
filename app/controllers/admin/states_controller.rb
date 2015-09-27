@@ -30,32 +30,26 @@ class Admin::StatesController < ApplicationController
 
   def edit
     @state = State.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
-
-
     @state = State.find(params[:id])
     if @state.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_states_path
     else
-      render 'new'
+      render :edit
     end
-
-
-
   end
 
   def destroy
-
-
     @state = State.find(params[:id])
     if @state.destroy
       flash[:notice] = 'Información eliminada correctamente'
       redirect_to admin_states_path
     else
-      render 'new'
+      render :index
     end
 
 

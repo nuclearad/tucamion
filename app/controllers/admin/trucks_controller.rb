@@ -15,9 +15,8 @@ class Admin::TrucksController < ApplicationController
       format.json { render json: @trucks_filter, :include =>[:state, :type_truck, :brand_truck, :customer] }
       format.js{ }
     end
-
-
   end
+
   def show
 
   end
@@ -44,7 +43,7 @@ class Admin::TrucksController < ApplicationController
   end
 
   def checkTimes
-    truck = Truck.find(params[:id])
+      truck = Truck.find(params[:id])
       @bandera= (truck.created_at >= Date.today - 10) #false indica que solo  puede editar telefono, precio y estado
   end
 
@@ -52,6 +51,7 @@ class Admin::TrucksController < ApplicationController
     @truck = Truck.find(params[:id])
     @cities= City.where('state_id = ?', @truck.state_id)
     @placaCities= City.where('state_id =?', @truck.placa_state_id)
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -62,7 +62,7 @@ class Admin::TrucksController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_trucks_path
     else
-      render 'new'
+      render :edit
     end
 
 
@@ -93,11 +93,7 @@ class Admin::TrucksController < ApplicationController
       respuesta = [:respuesta=>false ]
     end
 
-
     render json: respuesta
-
-
-
 
   end
 

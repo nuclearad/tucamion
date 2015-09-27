@@ -6,7 +6,6 @@ class Admin::TypeExtraController < ApplicationController
 
 
   def index
-
     @types = TypeExtra.all
     @search = @types.search(params[:q])
     @types_filter = @search.result.page(params[:page]).per(5)
@@ -16,7 +15,6 @@ class Admin::TypeExtraController < ApplicationController
 
     @type = TypeExtra.new
     add_breadcrumb 'Agregar'
-
 
   end
 
@@ -35,6 +33,7 @@ class Admin::TypeExtraController < ApplicationController
 
   def edit
     @type = TypeExtra.find(params[:id])
+    add_breeadcrumnb 'Editar'
   end
 
   def update
@@ -46,7 +45,7 @@ class Admin::TypeExtraController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_extra_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

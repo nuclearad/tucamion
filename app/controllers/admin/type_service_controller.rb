@@ -29,13 +29,11 @@ class Admin::TypeServiceController < ApplicationController
       render 'new'
     end
 
-
-
   end
 
   def edit
-
     @type = TypeService.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -47,7 +45,7 @@ class Admin::TypeServiceController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_service_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

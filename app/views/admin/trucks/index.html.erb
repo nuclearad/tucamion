@@ -39,92 +39,6 @@
   </div>
 </div>
 
-
-
-
-<!--
-<div ng-controller="ctrlRead">
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover table-striped">
-    <thead>
-
-    <tr>
-
-      <th class="name" custom-sort order="'nombre'" sort="sort">
-          Nombre
-
-      </th>
-      <th class="description" custom-sort order="'price'" sort="sort">Precio</th>
-      <th class="description" custom-sort order="'nombre'" sort="sort">Usuario</th>
-      <th class="field4" custom-sort order="'brand_truck.name'" sort="sort">Marca</th>
-      <th class="field5" custom-sort order="'type_truck.name'" sort="sort">Tipo</th>
-      <th class="field3" custom-sort order="'state.name'" sort="sort">Departamento    </th>
-      <th>Acciones</th>
-      <th>Estado</th>
-    </tr>
-    </thead>
-    <tfoot>
-    <td colspan="7">
-      <nav>
-        <ul class="pagination pull-right">
-          <li ng-class="{disabled: currentPage == 0}">
-            <a href ng-click="prevPage()">« Anterior</a>
-          </li>
-
-          <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
-              ng-class="{active: n == currentPage}"
-              ng-click="setPage()">
-            <a href ng-bind="n + 1">1</a>
-          </li>
-
-          <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
-            <a href ng-click="nextPage()">Siguiente »</a>
-          </li>
-        </ul>
-      </nav>
-    </td>
-    </tfoot>
-
-    <tbody>
-    <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse " >
-
-      <td>{{item.nombre}}</td>
-      <td>{{item.price}}</td>
-      <td>{{item.customer.name}}</td>
-      <td>{{item.brand_truck.name}}</td>
-      <td>{{item.type_truck.name}}</td>
-      <td>{{item.state.name}}</td>
-      <td>
-
-        <a class="btn btn-info" ng-href="<%= request.original_url  %>/{{item.id}}/edit">Editar</a>
-        <a class="btn btn-danger" href="<%= request.original_url  %>/{{item.id}}" data-confirm="Estas seguro de eliminar este elemento?" data-method="DELETE">Eliminar</a>
-      </td>
-      <td>
-
-
-      <div ng-switch="item.active">
-        <div ng-switch-when="1">
-          <a href="<%= request.original_url  %>/updateState/{{item.id}}/1/truck" class="btn btn-success"  data-method="GET"> <i class="fa fa-check"></i></a>
-          </div>
-        <div ng-switch-when="0">
-          <a href="<%= request.original_url  %>/updateState/{{item.id}}/0/truck" class="btn btn-danger"  data-method="GET"> <i class="fa fa-times"></i></a>
-        </div>
-      </div>
-
-
-
-
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-</div>
-!-->
-
-<!-- Button trigger modal -->
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -140,10 +54,6 @@
     </div>
   </div>
 </div>
-
-
-
-
 
 
 <script>

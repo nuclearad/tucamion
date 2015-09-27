@@ -1,10 +1,7 @@
 class Admin::MarcaCarroceriasController < ApplicationController
-
-
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Marca Equipos Humedos', :admin_marca_carrocerias_path, :options => {:title => 'Inicio'}
-
+  add_breadcrumb 'Marca Carroceria', :admin_marca_carrocerias_path, :options => {:title => 'Inicio'}
 
   def index
     @marcas = MarcaCarroceria.all
@@ -32,6 +29,7 @@ class Admin::MarcaCarroceriasController < ApplicationController
 
   def edit
     @marca = MarcaCarroceria.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -42,9 +40,8 @@ class Admin::MarcaCarroceriasController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_marca_carrocerias_path
     else
-      render 'new'
+      render :edit
     end
-
 
   end
 
@@ -64,8 +61,6 @@ class Admin::MarcaCarroceriasController < ApplicationController
   def allowed_params
     params.require(:marca_carroceria).permit!
   end
-
-
 
 
 end
