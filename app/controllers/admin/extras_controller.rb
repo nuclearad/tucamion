@@ -37,6 +37,7 @@ class Admin::ExtrasController < ApplicationController
 
     @extra = Extra.find(params[:id])
     @horas = Environment::HORARIOS
+    add_breadcrumb 'Editar'
   end
 
   def update

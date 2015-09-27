@@ -32,6 +32,7 @@ class Admin::WheelsTruckController < ApplicationController
 
   def edit
     @wheel = WheelsTruck.find(params[:id])
+    add_bradcrumb 'Editar'
   end
 
   def update

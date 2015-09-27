@@ -31,6 +31,7 @@ class Admin::TransmissionsTruckController < ApplicationController
 
   def edit
     @transmission = TransmissionsTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update

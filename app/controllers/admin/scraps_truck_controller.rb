@@ -2,7 +2,7 @@ class Admin::ScrapsTruckController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Chatarrización', :admin_scraps_truck_index_path, :options => {:title => 'Inicio'}
+  add_breadcrumb 'Chatarrización', :admin_scraps_truck_index_path, :options => {:title => 'Inicio'}
 
 
   def index
@@ -31,8 +31,8 @@ class Admin::ScrapsTruckController < ApplicationController
   end
 
   def edit
-
     @scrap = ScrapsTruck.find(params[:id])
+    add_breadcrum 'Editar'
   end
 
   def update
@@ -54,12 +54,11 @@ class Admin::ScrapsTruckController < ApplicationController
     @scrap = ScrapsTruck.find(params[:id])
     if @scrap.destroy
       flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_scraps_truck_index_path
     else
-      render 'new'
+      flash[:notice] = 'No se eliminado el elemento'
     end
 
-
+    redirect_to admin_scraps_truck_index_path
   end
 
 

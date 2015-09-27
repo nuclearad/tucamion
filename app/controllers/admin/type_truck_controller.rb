@@ -28,6 +28,7 @@ class Admin::TypeTruckController < ApplicationController
 
   def edit
     @type = TypeTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update

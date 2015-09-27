@@ -11,9 +11,6 @@ class Admin::BrandsTruckController < ApplicationController
 
 
   def new
-
-
-
     @type = TypeTruck.find_by_id(params[:type_truck_id])
     @brand = BrandTruck.new
     add_breadcrumb 'Agregar'
@@ -46,7 +43,7 @@ class Admin::BrandsTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_brands_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
 
@@ -57,11 +54,11 @@ class Admin::BrandsTruckController < ApplicationController
     @brand = BrandTruck.find(params[:id])
     if @brand.destroy
       flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_brands_truck_index_path
-    else
-      render 'new'
-    end
 
+    else
+      flash[:notice] = 'La Información no ha sido Eliminada'
+    end
+    redirect_to admin_brands_truck_index_path
 
   end
 

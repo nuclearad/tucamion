@@ -29,13 +29,11 @@ class Admin::TypeServiceController < ApplicationController
       render 'new'
     end
 
-
-
   end
 
   def edit
-
     @type = TypeService.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update

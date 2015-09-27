@@ -6,25 +6,23 @@ class Admin::CitiesController < ApplicationController
 
 
   def index
-    @cities = City.where(state_id: params[:state_id]).order(:name).all
-    @state = State.find_by_id(params[:state_id])
-    add_breadcrumb @state.name
-    respond_to do |format|
-      format.html
-      format.json  { render :json => @cities }
-    end
-
-
+      @cities = City.where(state_id: params[:state_id]).order(:name).all
+      @state = State.find_by_id(params[:state_id])
+      @search = @cities.search(params[:q])
+      @cities_filter = @search.result.page(params[:page]).per(10)
+      add_breadcrumb @state.name
+      respond_to do |format|
+        format.html
+        format.json  { render :json => @cities }
+        format.js{}
+      end
   end
 
   def new
-
-
-
-    @state = State.find_by_id(params[:state_id])
-    @city = City.new(:state_id => @state)
-    add_breadcrumb @state.name, :admin_state_cities_path, :options => { :title =>'Inicio' }
-
+      @state = State.find_by_id(params[:state_id])
+      @city = City.new(:state_id => @state)
+      add_breadcrumb @state.name, :admin_state_cities_path, :options => { :title =>'Inicio' }
+      add_breadcrumb 'Agregar'
   end
 
   def create
@@ -50,20 +48,18 @@ class Admin::CitiesController < ApplicationController
 
   def update
 
-
     @city = City.find(params[:id])
     if @city.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_state_cities_path
     else
-      render 'new'
+      render :edit
     end
-
-
 
   end
 
   def destroy
+
   end
 
 

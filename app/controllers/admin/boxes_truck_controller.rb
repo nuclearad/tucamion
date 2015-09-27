@@ -1,9 +1,7 @@
 class Admin::BoxesTruckController < ApplicationController
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Marca Caja', :admin_boxes_truck_index_path, :options => {:title => 'Inicio'}
-
-
+  add_breadcrumb 'Marca Caja', :admin_boxes_truck_index_path, :options => {:title => 'Inicio'}
 
   def index
     @boxes = BoxesTruck.all
@@ -32,6 +30,7 @@ class Admin::BoxesTruckController < ApplicationController
 
   def edit
     @box = BoxesTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -42,7 +41,7 @@ class Admin::BoxesTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_boxes_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
 
@@ -53,11 +52,10 @@ class Admin::BoxesTruckController < ApplicationController
     @box = BoxesTruck.find(params[:id])
     if @box.destroy
       flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_boxes_truck_index_path
     else
-      render 'new'
+      flash[:notice] = 'La Información No ha sido Eliminada'
     end
-
+    redirect_to admin_boxes_truck_index_path
   end
 
 

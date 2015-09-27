@@ -2,7 +2,7 @@ class Admin::ColorsTruckController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Colores', :admin_colors_truck_index_path, :options => {:title => 'Inicio'}
+  add_breadcrumb 'Colores', :admin_colors_truck_index_path, :options => {:title => 'Inicio'}
 
 
 
@@ -32,6 +32,7 @@ class Admin::ColorsTruckController < ApplicationController
 
   def edit
     @color = ColorsTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -42,7 +43,7 @@ class Admin::ColorsTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_colors_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

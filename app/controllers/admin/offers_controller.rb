@@ -2,7 +2,7 @@ class Admin::OffersController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb 'Clientes', :admin_offers_path, :options => { :title =>'Inicio' }
+  add_breadcrumb 'Planes', :admin_offers_path, :options => { :title =>'Inicio' }
 
 
   def index
@@ -37,6 +37,7 @@ class Admin::OffersController < ApplicationController
 
   def edit
     @plan = Offer.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -62,8 +63,6 @@ class Admin::OffersController < ApplicationController
       redirect_to admin_offers_path
     end    
   end
-
-
 
   private
   def allowed_params

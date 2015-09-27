@@ -1,0 +1,29 @@
+<div id='tabla' class="table-responsive">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @states_filter.each do |state| %>
+        <tr>
+          <td>
+            <%= state.name %>
+          </td>
+          <td>
+            <%= link_to 'Agregar ciudades', admin_state_cities_path(state.id), :class=>'btn btn-success' %>
+            <%= link_to 'Editar', edit_admin_state_path(state.id), :class=>'btn btn-info' %>
+            <%= link_to 'Eliminar', {:controller => 'admin/states', :action => 'destroy', :id => state.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+          </td>
+        </tr>
+    <% end %>
+
+
+    </tbody>
+
+
+
+  </table>
+</div>

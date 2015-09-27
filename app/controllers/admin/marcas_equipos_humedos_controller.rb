@@ -1,11 +1,8 @@
 class Admin::MarcasEquiposHumedosController < ApplicationController
 
-
-
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Marca Equipos Humedos', :admin_marcas_equipos_humedos_path, :options => {:title => 'Inicio'}
-
+  add_breadcrumb 'Marca Equipos Humedos', :admin_marcas_equipos_humedos_path, :options => {:title => 'Inicio'}
 
   def index
     @marcas = MarcaEquipoHumedo.all

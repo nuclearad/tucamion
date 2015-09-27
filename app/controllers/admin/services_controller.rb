@@ -3,8 +3,6 @@ class Admin::ServicesController < ApplicationController
   layout  'admin/layouts/application'
   add_breadcrumb 'Servicios', :admin_services_path, :options => { :title =>'Inicio' }
 
-
-
   def index
     @search  = Service.all.includes(:type_service, :state).search(params[:q])
     @services  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
@@ -30,17 +28,15 @@ class Admin::ServicesController < ApplicationController
       render 'new'
     end
 
-
-
   end
 
   def edit
     @service = Service.find(params[:id])
     @horas = Environment::HORARIOS
+    add_breadcrumb 'Editar'
   end
 
   def update
-
 
     @service = Service.find(params[:id])
 
@@ -52,8 +48,6 @@ class Admin::ServicesController < ApplicationController
       render 'edit'
     end
 
-
-
   end
 
   def destroy
@@ -62,9 +56,8 @@ class Admin::ServicesController < ApplicationController
     if @service.destroy
       flash[:notice] = 'Información eliminada correctamente'
     else
-      flash[:notice] = 'No se eliminada el elemento'
+      flash[:notice] = 'No se eliminado el elemento'
     end
-
     redirect_to admin_services_path
    
   end

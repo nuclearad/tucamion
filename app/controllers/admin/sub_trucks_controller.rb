@@ -6,25 +6,21 @@ class Admin::SubTrucksController < ApplicationController
 
   def index
     @subs = SubTruck.where(type_truck_id: params[:type_truck_id]).order(:name).all
+    @search= @subs.search(params[:q])
+    @subs_filter= @search.result.page(params[:page]).per(10)
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
+    add_breadcrumb @truck.name
   end
 
   def new
 
-
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
     @sub = SubTruck.new(:type_truck_id => @truck)
-    add_breadcrumb @sub.name, :admin_type_truck_sub_trucks_path, :options => { :title =>'Inicio' }
-
-
-
-
-
+    add_breadcrumb @truck.name, :admin_type_truck_sub_trucks_path, :options => { :title =>'Inicio' }
+    add_breadcrumb 'Agregar Sub Tipo'
   end
 
   def create
-
-
 
     @sub = SubTruck.new(allowed_params)
     @sub.type_truck_id = params[:type_truck_id]
@@ -35,33 +31,21 @@ class Admin::SubTrucksController < ApplicationController
       render 'new'
     end
 
-
-
   end
 
   def edit
-
-
     @sub = SubTruck.find(params[:id])
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
     add_breadcrumb @truck.name, :admin_type_truck_sub_trucks_path, :options => { :title =>'Inicio' }
-    add_breadcrumb 'Editar'
-
-
+    add_breadcrumb 'Editar Sub Tipo'
   end
 
   def update
-
-
     @sub = SubTruck.find(params[:id])
     if @sub.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_truck_sub_trucks_path
-    else
-      render 'new'
     end
-
-
 
   end
 

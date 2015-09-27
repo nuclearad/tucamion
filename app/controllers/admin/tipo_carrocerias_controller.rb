@@ -2,13 +2,18 @@ class Admin::TipoCarroceriasController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Tipo Carroceria', :admin_tipo_carrocerias_path, :options => {:title => 'Inicio'}
+  add_breadcrumb 'Tipo Carroceria', :admin_tipo_carrocerias_path, :options => {:title => 'Inicio'}
 
 
   def index
     @tipos = TipoCarroceria.all
     @search = @tipos.search(params[:q])
     @tipos_filter = @search.result.page(params[:page]).per(5)
+    logger.info 'Vengo al index'
+    respond_to do |format|
+      format.js {logger.info 'Respondo por js'; render layout: nil}
+      format.html {}
+    end
   end
 
   def new
@@ -31,6 +36,7 @@ class Admin::TipoCarroceriasController < ApplicationController
 
   def edit
     @tipo = TipoCarroceria.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -41,9 +47,8 @@ class Admin::TipoCarroceriasController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_tipo_carrocerias_path
     else
-      render 'new'
+      flash[:danger] = 'La Información no ha sido actualizada correctamente'
     end
-
 
   end
 
@@ -52,10 +57,10 @@ class Admin::TipoCarroceriasController < ApplicationController
     @tipo = TipoCarroceria.find(params[:id])
     if @tipo.destroy
       flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_tipo_carrocerias_path
     else
-      render 'new'
+      flash[:danger] = 'La información  no se ha eliminado'
     end
+    redirect_to admin_tipo_carrocerias_path
   end
 
 

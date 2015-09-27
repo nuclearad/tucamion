@@ -30,12 +30,11 @@ class Admin::BannersController < ApplicationController
   end
 
   def edit
-
     @banner = Banner.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
-
 
     @banner = Banner.find(params[:id])
 
@@ -43,23 +42,20 @@ class Admin::BannersController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_banners_path
     else
-      render 'new'
+      render :edit
     end
 
 
   end
 
   def destroy
-
     @banner = Banner.find(params[:id])
     if @banner.destroy
       flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_banners_path
     else
-      render 'new'
+      flash[:notice] = 'La Informacion No ha sido Eliminada'
     end
-
-
+    redirect_to admin_banners_path
   end
 
   private
