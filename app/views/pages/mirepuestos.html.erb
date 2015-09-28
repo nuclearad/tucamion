@@ -43,8 +43,6 @@
           <th>Precio</th>
           <th>Tipo</th>
           <th>Marca</th>
-
-          <th>Contactos</th>
           <th>Acciones</th>
           <th style="display:none">Estado</th>
         </tr>
@@ -52,8 +50,6 @@
         <tbody>
         <% @extras.each do |extra| %>
             <tr>
-
-
               <td>
                 <%= extra.name %>
               </td>
@@ -68,18 +64,6 @@
               <td>
                 <%=  extra.brand_extra.name if extra.brand_extra_id %>
               </td>
-
-              <td>
-                <% if  !extra.messages.blank? %>
-                    <% extra.messages.each do |message|  %>
-                        <%= message.nombre %>, <%= message.telefono %> <br/>
-                        <%= message.mensaje %>
-                        <hr/>
-
-                    <% end %>
-                <% end %>
-              </td>
-
 
               <td>
                 <%= link_to 'Editar', mirepuestosedit_path(extra.id), :class=>'btn btn-info' %>
