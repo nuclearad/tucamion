@@ -90,6 +90,7 @@ class Service < ActiveRecord::Base
                     count(services.state_id) as total,
                     states.name as state_name').
             joins(:state).group('states.name').
+            where("services.active = 1").
             order('states.name DESC')
 
   }

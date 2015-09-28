@@ -107,6 +107,7 @@ class Extra < ActiveRecord::Base
                     count(extras.state_id) as total,
                     states.name as state_name').
             joins(:state).group('states.name').
+            where("extras.active = 1").
             order('states.name DESC')
 
   }
@@ -115,7 +116,9 @@ class Extra < ActiveRecord::Base
      self.select('extras.id, extras.name, extras.brand_extra_id,
               count(extras.brand_extra_id) as total,
               brand_extras.name as brand_name').
-      joins(:brand_extra).group('brand_extras.name').
+      joins(:brand_extra).
+      where("extras.active = 1").
+      group('brand_extras.name').
       order('brand_extras.name DESC')
   }
 
