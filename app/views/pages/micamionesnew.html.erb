@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-lg-12">
 	<h1 class="page-header">
@@ -12,16 +13,17 @@
     <div class="col-md-12">
       <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
         <%= form_for @truck, :url => micamionesnew_path do |f|  %>
+        <%= f.hidden_field :type_truck_id, :value=> params['v'] ?  params['v'] : @truck.type_truck_id  %>
 		    <div class="row">
 		        <div class="col-md-12">
 			        <h3><small>Usted esta agregando</small>
 
-			  <%= if params[:v] == '1' then 'Tractomula' end %>
-			  <%= if params[:v] == '2' then 'Volqueta' end %>
-			  <%= if params[:v] == '3' then 'Camion' end %>
-			  <%= if params[:v] == '4' then 'Buses' end %>
-			  <%= if params[:v] == '5' then 'Trailers' end %>
-			  <%= if params[:v] == '6' then 'Vans' end %>
+			  <%= if params[:v] == '1' || @truck.type_truck_id ==1 then 'Tractomula' end %>
+			  <%= if params[:v] == '2' || @truck.type_truck_id ==2 then 'Volqueta' end %>
+			  <%= if params[:v] == '3' || @truck.type_truck_id ==3 then 'Camion' end %>
+			  <%= if params[:v] == '4' || @truck.type_truck_id ==4 then 'Buses' end %>
+			  <%= if params[:v] == '5' || @truck.type_truck_id ==5 then 'Trailers' end %>
+			  <%= if params[:v] == '6' || @truck.type_truck_id ==6 then 'Vans' end %>
 			</h3>
 		        </div>
 		    </div>
@@ -55,7 +57,6 @@
 
                                   <%= f.label :nombre, 'Nombre de Vehiculo' %>
                                   <%= f.text_field :nombre, :class =>'form-control'  %>
-                                  <%= f.hidden_field :type_truck_id, :value=>params['v']  %>
                             </div>
 
                         </div>

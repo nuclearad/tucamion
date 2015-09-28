@@ -1,5 +1,3 @@
-<% params[:v]  = @truck.type_truck.id.to_s %>
-
 
 <div class="row">
   <div class="col-lg-12">
@@ -13,7 +11,7 @@
     <div class="col-md-12">
       <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
         <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
-
+          <%= f.hidden_field :type_truck_id, :value=> params['v'] ?  params['v'] : @truck.type_truck_id  %>
 
             <div class="tab-content">
                 <% if @lateUpdate %>
@@ -243,7 +241,7 @@
 
 
             <!-- 1 tractomula-->
-            <% if params[:v] == '1' %>
+            <% if params[:v] == '1' || @truck.type_truck_id == 1%>
 
 
 
@@ -431,7 +429,7 @@
             <% end %>
 
             <!--volquetas 2-->
-            <% if params[:v] == '2' %>
+            <% if params[:v] == '2' || @truck.type_truck_id == 2 %>
 
 
 
@@ -569,7 +567,7 @@
             <% end %>
 
             <!--Caminion 3-->
-            <% if params[:v] == '3' %>
+            <% if params[:v] == '3' || @truck.type_truck_id == 3 %>
 
 
 
@@ -678,7 +676,7 @@
             <% end %>
 
             <!--buses 4-->
-            <% if params[:v] == '4' %>
+            <% if params[:v] == '4'  || @truck.type_truck_id == 4  %>
 
 
                 <div class="row">
@@ -870,15 +868,10 @@
                 </div>
 
 
-
-
-
-
-
             <% end %>
 
             <!-- trailers-->
-            <% if params[:v] == '5' %>
+            <% if params[:v] == '5' || @truck.type_truck_id == 5  %>
 
 
 
@@ -1008,7 +1001,7 @@
             <% end %>
 
             <!--VANS-->
-            <% if params[:v] == '6' %>
+            <% if params[:v] == '6' || @truck.type_truck_id == 6  %>
 
                 <div class="row">
                     <div class="col-md-6">
