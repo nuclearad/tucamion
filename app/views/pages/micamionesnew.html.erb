@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-lg-12">
 	<h1 class="page-header">
@@ -12,6 +13,7 @@
     <div class="col-md-12">
       <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
         <%= form_for @truck, :url => micamionesnew_path do |f|  %>
+        <%= f.hidden_field :type_truck_id, :value=> params['v'] ?  params['v'] : @truck.type_truck_id  %>
 		    <div class="row">
 		        <div class="col-md-12">
 			        <h3><small>Usted esta agregando</small>
@@ -55,7 +57,6 @@
 
                                   <%= f.label :nombre, 'Nombre de Vehiculo' %>
                                   <%= f.text_field :nombre, :class =>'form-control'  %>
-                                  <%= f.hidden_field :type_truck_id, :value=>params['v']  %>
                             </div>
 
                         </div>

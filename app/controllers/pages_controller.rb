@@ -162,7 +162,6 @@ class PagesController < ApplicationController
       @quantity = @user.quantities.first
       @truck    = Truck.new
       @truck.type_truck_id = params['v']
-
       if @quantity.total_trucks - @quantity.current_trucks > 0
 
         if @user.cargar_planes > 0
@@ -173,10 +172,10 @@ class PagesController < ApplicationController
               flash[:success] = 'Información agregada correctamente'
               redirect_to micamiones_path
             else
-              render layout: 'layouts/cliente', :v=>@truck.type_truck_id
+              render :micamionesnew, layout: 'layouts/cliente', :v=> @truck.type_truck_id
             end
           else
-            render layout: 'layouts/cliente', :v=>@truck.type_truck_id
+            render layout: 'layouts/cliente', :v=> @truck.type_truck_id
           end
         else
           redirect_to micamiones_path, flash: {warning: 'No posee planes para realizar la operacion'}
@@ -210,6 +209,8 @@ class PagesController < ApplicationController
             redirect_to micamiones_path and return
           else
             @truck.errors.full_messages.each {|e| logger.error e}
+            @cities= City.where('state_id = ?', @truck.state_id)
+            @placaCities= City.where('state_id =?', @truck.placa_state_id)
           end
         end
           render layout: 'layouts/cliente'

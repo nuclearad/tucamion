@@ -1,5 +1,3 @@
-<% params[:v]  = @truck.type_truck.id.to_s %>
-
 
 <div class="row">
   <div class="col-lg-12">
@@ -13,7 +11,7 @@
     <div class="col-md-12">
       <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
         <%= form_for @truck, :url => micamioneseditpost_path, :method=>'post' do |f|  %>
-
+          <%= f.hidden_field :type_truck_id, :value=> params['v'] ?  params['v'] : @truck.type_truck_id  %>
 
             <div class="tab-content">
                 <% if @lateUpdate %>

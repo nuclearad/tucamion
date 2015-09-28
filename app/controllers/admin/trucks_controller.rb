@@ -62,7 +62,9 @@ class Admin::TrucksController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_trucks_path
     else
-      render :edit
+      @cities= City.where('state_id = ?', @truck.state_id)
+      @placaCities= City.where('state_id =?', @truck.placa_state_id)
+      render :edit, :v=>@truck.type_truck_id
     end
 
 
