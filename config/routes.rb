@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :users
+  end
+
   root 'pages#index'
 
   get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
