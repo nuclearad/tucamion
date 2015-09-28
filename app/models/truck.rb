@@ -177,6 +177,7 @@ class Truck < ActiveRecord::Base
                     count(trucks.state_id) as total,
                     states.name as state_name').
             joins(:state).group('states.name').
+            where("trucks.active = 1").
             order('states.name DESC')
 
   }
@@ -186,6 +187,7 @@ class Truck < ActiveRecord::Base
                     count(trucks.brand_truck_id) as total,
                     brand_trucks.name as brand_name').
             joins(:brand_truck).group('brand_trucks.name').
+            where("trucks.active = 1").
             order('brand_trucks.name DESC')
 
   }
@@ -194,6 +196,7 @@ class Truck < ActiveRecord::Base
        self.select('trucks.id, trucks.modelo,
                     count(trucks.modelo) as total').
             group('trucks.modelo').
+            where("trucks.active = 1").
             order('trucks.modelo DESC')
 
   }
@@ -203,6 +206,7 @@ class Truck < ActiveRecord::Base
        self.select('trucks.id, trucks.kilometraje,
                     count(trucks.kilometraje) as total').
             group('trucks.kilometraje').
+            where("trucks.active = 1").
             order('trucks.kilometraje DESC')
 
   }
