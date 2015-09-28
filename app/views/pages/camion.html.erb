@@ -246,11 +246,11 @@
                           </td>
                           <td class="cell-label">
                             <b>Tipo de Carrroceria</b><br>
-                            <%=  @truck.tipo_carroceria_id.nil? ?  'Sin Información' : TipoCarroceria.find(@truck.tipocarroceria).name %>
+                            <%=  @truck.tipo_carroceria_id.nil? ?  'Sin Información' : TipoCarroceria.find(@truck.tipo_carroceria_id).name %>
                           </td>
                           <td class="cell-label">
                             <b>Marca Carroceria</b><br>
-                            <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marcacarroceria_id) %>
+                            <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marca_carroceria_id).name %>
                           </td>
                           <td class="cell-label">
                             <b>Marca Carpa</b><br>
