@@ -5,7 +5,7 @@ class Admin::TypeTruckController < ApplicationController
   def index
     @types = TypeTruck.all
     @search = @types.search(params[:q])
-    @types_filter = @search.result.page(params[:page]).per(5)
+    @types_filter = @search.result.page(params[:page]).per(10)
   end
 
   def new
@@ -28,6 +28,7 @@ class Admin::TypeTruckController < ApplicationController
 
   def edit
     @type = TypeTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -38,7 +39,7 @@ class Admin::TypeTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

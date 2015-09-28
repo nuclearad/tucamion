@@ -2,7 +2,7 @@ class Admin::MotorsTruckController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Tipo Cupo', :admin_motors_truck_index_path, :options => {:title => 'Inicio'}
+  add_breadcrumb 'Marca Motores', :admin_motors_truck_index_path, :options => {:title => 'Inicio'}
 
 
   def index
@@ -29,6 +29,7 @@ class Admin::MotorsTruckController < ApplicationController
 
   def edit
     @motor = MotorsTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -38,7 +39,8 @@ class Admin::MotorsTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_motors_truck_index_path
     else
-      render 'new'
+      flash[:notice] = 'La Información  no ha sido actualizada'
+      render :edit
     end
 
 

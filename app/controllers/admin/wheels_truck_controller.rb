@@ -32,6 +32,7 @@ class Admin::WheelsTruckController < ApplicationController
 
   def edit
     @wheel = WheelsTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -42,7 +43,7 @@ class Admin::WheelsTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_wheels_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

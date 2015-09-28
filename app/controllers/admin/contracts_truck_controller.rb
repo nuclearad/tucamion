@@ -2,7 +2,7 @@ class Admin::ContractsTruckController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Colores', :admin_contracts_truck_index_path, :options => {:title => 'Inicio'}
+  add_breadcrumb = add_breadcrumb 'Polizas', :admin_contracts_truck_index_path, :options => {:title => 'Inicio'}
   add_breadcrumb
 
 
@@ -29,6 +29,7 @@ class Admin::ContractsTruckController < ApplicationController
 
   def edit
     @contract = ContractsTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -39,7 +40,7 @@ class Admin::ContractsTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_contracts_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
 

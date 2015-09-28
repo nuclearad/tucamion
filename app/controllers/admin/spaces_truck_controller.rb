@@ -3,7 +3,7 @@ class Admin::SpacesTruckController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Tipo Cupo', :admin_spaces_truck_index_path, :options => {:title => 'Inicio'}
+  add_breadcrumb 'Tipo Cupo', :admin_spaces_truck_index_path, :options => {:title => 'Inicio'}
 
 
   def index
@@ -32,18 +32,16 @@ class Admin::SpacesTruckController < ApplicationController
 
   def edit
     @space = SpacesTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
-
-
     @space = SpacesTruck.find(params[:id])
-
     if @space.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
-      redirect_to admin_spaces_truck_index_path
+      redirect_to admin_spaces_truck_index_path and return
     else
-      render 'new'
+      render :edit
     end
 
   end
@@ -53,8 +51,6 @@ class Admin::SpacesTruckController < ApplicationController
     if @space.destroy
       flash[:notice] = 'Información eliminada correctamente'
       redirect_to admin_spaces_truck_index_path
-    else
-      render 'new'
     end
 
   end
