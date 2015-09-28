@@ -8,17 +8,17 @@ class Extra < ActiveRecord::Base
 
   belongs_to :customer
 
-  has_many :message, :foreign_key => :item
+  has_many :messages, :foreign_key => :item
 
 
   validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address],message: 'No puede estar vacio'
-  
+
   validates :type_truck_id, presence: true
-  
+
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
   validates_format_of [:name, :address, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
-  
+
   validates_numericality_of :price,  message: "Debe ser solo numeros"
 
   has_attached_file :picture1, :styles => {:home => '548x300>', :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/missing.png"

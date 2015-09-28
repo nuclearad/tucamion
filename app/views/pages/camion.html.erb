@@ -246,11 +246,11 @@
                           </td>
                           <td class="cell-label">
                             <b>Tipo de Carrroceria</b><br>
-                            <%=  @truck.tipocarroceria_id.nil? ?  'Sin Información' : TipoCarroceria.find(@truck.tipocarroceria).name %>
+                            <%=  @truck.tipo_carroceria_id.nil? ?  'Sin Información' : TipoCarroceria.find(@truck.tipocarroceria).name %>
                           </td>
                           <td class="cell-label">
                             <b>Marca Carroceria</b><br>
-                            <%=  @truck.marcacarroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marcacarroceria_id) %>
+                            <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marcacarroceria_id) %>
                           </td>
                           <td class="cell-label">
                             <b>Marca Carpa</b><br>
@@ -292,7 +292,7 @@
 
                             <td class="cell-label">
                                 <b>Marca Carroceria</b><br>
-                                <%=  @truck.marcacarroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marcacarroceria_id) %>
+                                <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marcacarroceria_id) %>
                             </td>
                             <td class="cell-label">
                                 <b>Poliza</b><br>
