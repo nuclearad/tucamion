@@ -31,6 +31,7 @@ class Admin::TransmissionsTruckController < ApplicationController
 
   def edit
     @transmission = TransmissionsTruck.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -42,7 +43,7 @@ class Admin::TransmissionsTruckController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_transmissions_truck_index_path
     else
-      render 'new'
+      render :edit
     end
 
   end

@@ -11,11 +11,8 @@ class Admin::BrandExtraController < ApplicationController
   end
 
   def new
-
     @brand = BrandExtra.new
     add_breadcrumb 'Agregar'
-
-
   end
 
   def create
@@ -33,15 +30,11 @@ class Admin::BrandExtraController < ApplicationController
   end
 
   def edit
-
     @brand = BrandExtra.find(params[:id])
     add_breadcrumb 'Editar'
-
-
   end
 
   def update
-
 
     @brand = BrandExtra.find(params[:id])
 
@@ -49,24 +42,20 @@ class Admin::BrandExtraController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_brand_extra_index_path
     else
-      render 'new'
+      render :edit
     end
-
 
   end
 
   def destroy
 
-
     @brand = BrandExtra.find(params[:id])
     if @brand.destroy
       flash[:notice] = 'Información eliminada correctamente'
-      redirect_to admin_brand_extra_index_path
     else
-      render 'new'
+      flash[:notice] = 'Información no ha sido eliminada'
     end
-
-
+    redirect_to admin_brand_extra_index_path
   end
 
 

@@ -6,17 +6,11 @@ class Admin::ReferenciasController < ApplicationController
 
 
   def index
-
-
     @referencias = Referencia.where(type_truck_id: params[:type_truck_id]).order(:name).all
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
-
-
-
   end
 
   def new
-
 
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
     @referencia= Referencia.new(:type_truck_id => @truck)
@@ -40,7 +34,6 @@ class Admin::ReferenciasController < ApplicationController
 
   def edit
 
-
     @referencia = Referencia.find(params[:id])
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
     add_breadcrumb @truck.name, :admin_type_truck_referencias_path, :options => { :title =>'Inicio' }
@@ -48,25 +41,16 @@ class Admin::ReferenciasController < ApplicationController
 
   end
 
-
-
   def update
-
-
     @referencia = Referencia.find(params[:id])
     if @referencia.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_type_truck_referencias_path
     else
-      render 'new'
+      render :edit
     end
 
-
-
   end
-
-
-
 
   private
   def allowed_params

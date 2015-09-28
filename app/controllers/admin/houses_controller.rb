@@ -29,8 +29,8 @@ class Admin::HousesController < ApplicationController
   end
 
   def edit
-
     @banner = House.find(params[:id])
+    add_breadcrumb 'Editar'
   end
 
   def update
@@ -42,7 +42,7 @@ class Admin::HousesController < ApplicationController
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_houses_path
     else
-      render 'new'
+      render :edit
     end
 
 

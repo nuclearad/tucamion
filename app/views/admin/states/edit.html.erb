@@ -28,8 +28,6 @@
 <div class="row">
   <div class="col-md-12">
 
-
-
     <%= form_for @state, :url => admin_state_path, :method=>'put' do |f|  %>
 
         <div class="form-group">
@@ -40,7 +38,6 @@
         <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
         <%=  link_to 'Cancelar', admin_states_path, :class=>'btn btn-warning' %>
     <% end %>
-
 
 
   </div>

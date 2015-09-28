@@ -1,45 +1,38 @@
-<div class="row">
-  <div class="col-lg-12">
-    <h1 class="page-header">
-      Usuarios <small></small>
-    </h1>
-    <%= render 'admin/includes/top' %>
-  </div>
-</div>
-
-<!-- /.row -->
-<% if flash[:notice] %>
-
-    <%= render partial: 'shared/flashNoticeMessage' %>
-
-
-<% end %>
-
-<!-- /.row -->
-
-<div class="row">
-  <div class="col-md-3">
-    <p>
-      <%= link_to 'Nuevo Usuario', new_admin_customer_path,:method=>'get', :class=>'btn  btn-primary' %>
-    </p>
-  </div>
-  <div class="col-md-3 col-md-offset-6">
-    <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
-  </div>
-</div>
-
-<!--Tabla normal-->
-
-<div class="row">
-  <div class="col-lg-12">
-
-
-
-    <div  id="tabla" class="table-responsive">
-        <%= render partial: 'tableResult' %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Usuarios <small></small>
+            </h1>
+            <%= render 'admin/includes/top' %>
+        </div>
     </div>
 
+    <!-- /.row -->
+    <% if flash[:notice] %>
+        <%= render partial: 'shared/flashNoticeMessage' %>
+    <% end %>
 
+    <!-- /.row -->
 
-  </div>
+    <div class="row">
+        <div class="col-md-3">
+            <p>
+                <%= link_to 'Nuevo Usuario', new_admin_customer_path,:method=>'get', :class=>'btn  btn-primary' %>
+            </p>
+        </div>
+        <div class="col-md-3 col-md-offset-6">
+            <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
+        </div>
+    </div>
+
+    <!--Tabla normal-->
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div  id="tabla" class="table-responsive">
+                <%= render partial: 'tableResult' %>
+            </div>
+        </div>
+    </div>
 </div>
