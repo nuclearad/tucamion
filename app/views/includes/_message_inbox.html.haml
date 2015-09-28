@@ -18,7 +18,7 @@
               .form-group
                 = f.label :telefono
                 %span.astk *
-                = f.text_field :telefono, class: 'form-control txt e'
+                = f.text_field :telefono, maxlength: 11, class: 'form-control txt e'
             .col-md-6
               .form-group
                 = f.label :mensaje
