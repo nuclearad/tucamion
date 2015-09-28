@@ -49,13 +49,10 @@ class PagesController < ApplicationController
   end
 
   def tarifas
-    @planes = Offer.all
-
+    @planes = Offer.where(typeoffer: Environment::TYPE[:planes][:pago])
     if !session[:user].nil?
-
       @user = Customer.find_by_id(session[:user])
     end
-
   end
 
   def departamentos

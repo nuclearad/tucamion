@@ -6,110 +6,35 @@
         <table class="table table-bordered compare-table inner-top-vs">
           <tr>
             <th>PLANES</th>
-            <td>
-              <div class="product">
-                <div class="product-image">
-                  <h3 style="font-size:50px;"><%= @planes[0].nombre %></h3></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="product">
-                <div class="product-image">
-                  <h3 style="font-size:50px;"><%= @planes[1].nombre %></h3></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="product">
-                <div class="product-image">
-                  <h3 style="font-size:50px;"><%= @planes[2].nombre %></h3></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="product">
-                <div class="product-image">
-                  <h3 style="font-size:50px;"><%= @planes[3].nombre %></h3></div>
-              </div>
-            </td>
-
+            <% @planes.each do |plan| %>
+             <td>
+               <div class="product">
+                 <div class="product-image">
+                     <h3 style="font-size:50px;"><%= plan.nombre %></h3></div>
+               </div>
+             </td>
+            <% end %>
           </tr>
-
-          <%
-
-          def calculuarPrecio index
-
-            if session[:user].nil?
-              number_to_currency @planes[index].precio1, precision: 0
-            else
-              if @user.typeuser == 0
-                number_to_currency @planes[index].precio1, precision: 0
-              else
-                number_to_currency @planes[index].precio2, precision: 0
-              end
-
-          end
-
-
-          end
-
-          %>
 
           <tr>
             <th>PRECIO</th>
-            <td>
-              <div class="product-price">
-                <span class="price" style="font-size:30px;">
-                  <%= calculuarPrecio 0 %>
-                </span>
-              </div>
-            </td>
-
-            <td>
-              <div class="product-price">
-                <span class="price" style="font-size:30px;"> <%= calculuarPrecio 1 %> </span>
-              </div>
-            </td>
-
-            <td>
-              <div class="product-price">
-                <span class="price" style="font-size:30px;">  <%= calculuarPrecio 2 %></span>
-              </div>
-            </td>
-
-            <td>
-              <div class="product-price">
-                <span class="price" style="font-size:30px;">  <%= calculuarPrecio 3 %> </span>
-              </div>
-            </td>
+            <% @planes.each_with_index  do |plan, index| %>
+              <td>
+                <div class="product-price">
+                  <span class="price" style="font-size:30px;">
+                    <%= calculuarPrecio index %>
+                  </span>
+                </div>
+              </td>
+            <% end %>
           </tr>
 
           <tr>
             <th>DESCRIPCIÓN</th>
-            <td><p class="text"><%= @planes[0].descripcion %></p></td>
-            <td><p class="text"><%= @planes[1].descripcion %></p></td>
-            <td><p class="text"><%= @planes[2].descripcion %></p></td>
-            <td><p class="text"><%= @planes[3].descripcion %></p></td>
-
+            <% @planes.each  do |plan| %>
+              <td><p class="text"><%= plan.descripcion %></p></td>
+            <% end %>
           </tr>
-<!-- 
-          <tr >
-            <th></th>
-            <td class='text-center'><div class="action">
-              <a class="lnk btn btn-primary" href="comprar.html?plan=<%= @planes[0].id %>">COMPRAR AHORA</a>
-            </div></td>
-            <td class='text-center'><div class="action">
-              <a class="lnk btn btn-primary" href="comprar.html?plan=<%= @planes[1].id %>">COMPRAR AHORA</a>
-            </div></td>
-            <td class='text-center'><div class="action">
-              <a class="lnk btn btn-primary" href="comprar.html?plan=<%= @planes[2].id %>">COMPRAR AHORA</a>
-            </div></td>
-            <td class='text-center'><div class="action">
-              <a class="lnk btn btn-primary" href="comprar.html?plan=<%= @planes[3].id %>">COMPRAR AHORA</a>
-            </div></td>
-          </tr>
-/.row -->
         </table>
       </div>
     </div>
