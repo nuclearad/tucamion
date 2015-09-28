@@ -27,8 +27,8 @@ def same_user_id
   if (session[:user].to_s == params[:id])
     return true
   else
-    logger.info "*********** Original: #{session[:user].to_s} params: #{params[:id]} '************"
-    redirect_to micuenta_path and retur
+    logger.info "*********** Original: #{session[:user].to_s} params: #{params[:id]} ************"
+    redirect_to micuenta_path and return
   end
 end
 
