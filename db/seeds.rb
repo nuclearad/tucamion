@@ -1342,7 +1342,11 @@ params_use = hash_city
 
 Offer.destroy_all
 
-offers = [['Plan generico', Environment::TYPE[:planes][:generico], 0,0,0,0,0],
+offers = [['Plan 1', Environment::TYPE[:planes][:pago], 250000,250000,10,10,10],
+          ['Plan 2', Environment::TYPE[:planes][:pago], 200000,200000,8,8,8],
+          ['Plan 3', Environment::TYPE[:planes][:pago], 150000,150000,5,5,5],
+          ['Plan 4', Environment::TYPE[:planes][:pago], 100000,100000,3,3,3],
+	      ['Plan generico', Environment::TYPE[:planes][:generico], 0,0,0,0,0],
           ['Plan promocional', Environment::TYPE[:planes][:promocional], 0,0,10,10,10]]
 
 
