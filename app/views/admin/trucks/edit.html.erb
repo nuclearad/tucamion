@@ -224,7 +224,7 @@
 
 
           <!-- 1 tractomula-->
-          <% if params[:v] == '1' %>
+          <% if params[:v] == '1' || @truck.type_truck_id == 1 %>
 
 
 
@@ -405,7 +405,7 @@
 
 
           <!--volquetas 2-->
-          <% if params[:v] == '2' %>
+          <% if params[:v] == '2' || @truck.type_truck_id == 2 %>
 
 
 
@@ -547,7 +547,7 @@
 
 
           <!--Caminion 3-->
-          <% if params[:v] == '3' %>
+          <% if params[:v] == '3'  || @truck.type_truck_id == 2 %>
 
 
 
@@ -685,7 +685,7 @@
 
 
           <!--buses 4-->
-          <% if params[:v] == '4' %>
+          <% if params[:v] == '4' || @truck.type_truck_id == 4 %>
 
 
 
@@ -900,7 +900,7 @@
 
 
           <!-- trailers-->
-          <% if params[:v] == '5' %>
+          <% if params[:v] == '5' || @truck.type_truck_id == 5 %>
 
 
 
@@ -1032,7 +1032,7 @@
 
           <!--VANS-->
 
-          <% if params[:v] == '6' %>
+          <% if params[:v] == '6' || @truck.type_truck_id == 6 %>
 
 
               <div class="row">
