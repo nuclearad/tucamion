@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   #hecho por jonathan rojas 09-09-2015 para cerrar session
-  before_filter :same_user_id, only:[:ver_perfil,:cambiar_clave_by_ID,:update_clave, :actualizar_perfil, :editar_perfil]
+ # before_filter :same_user_id, only:[:ver_perfil,:cambiar_clave_by_ID,:update_clave, :actualizar_perfil, :editar_perfil]
 
   def login
      @message = false
