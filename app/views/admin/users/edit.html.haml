@@ -1,7 +1,37 @@
-%h1 Editing admin_user
+.row
+  .col-lg-12
+    %h1.page-header
+      Usuarios
+      %small / Editar
+    = render 'admin/includes/top'
 
-= render 'form'
+/ /.row
+- if @admin_user.errors.any?
+  .panel.panel-danger
+    .panel-heading
+      = pluralize(@admin_user.errors.count, "Errores")
+      tratando de guardar:
+    %p
+    %ul
+      - @admin_user.errors.full_messages.each do |msg|
+        %li= msg
+/ /.row
+.row
+  .col-md-12
+    = form_for @admin_user, url: admin_user_path, method: :patch do |f|
 
-= link_to 'Show', @admin_user
-\|
+      .form-inputs
+
+        .col-md-6
+          = f.label 'Email' 
+          = f.email_field :email, class: 'form-control'
+
+        = f.text_field :first_name
+
+        = f.text_field :last_name
+
+        = f.text_field :status
+      .form-actions
+        = f.button :submit
+
 = link_to 'Back', admin_users_path

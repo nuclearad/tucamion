@@ -6,7 +6,10 @@ class Admin::UsersController < ApplicationController
   add_breadcrumb 'Administradores', :admin_users_path, :options => { :title =>'Inicio' }
 
   def index
-    @admin_users = Admin::User.all
+    @admin_users = User.all
+    @search = @admin_users.search(params[:q])
+    @query_search_field= 'first_name_or_last_name_or_email_cont'
+    @admin_users_filter = @search.result.page(params[:page]).per(10)
     respond_with(@admin_users)
   end
 
@@ -15,22 +18,35 @@ class Admin::UsersController < ApplicationController
   end
 
   def new
-    @admin_user = Admin::User.new
+    @admin_user = User.new
+    add_breadcrumb 'Agregar'
     respond_with(@admin_user)
   end
 
   def edit
+    add_breadcrumb 'Editar'
   end
 
   def create
-    @admin_user = Admin::User.new(user_params)
-    @admin_user.save
-    respond_with(@admin_user)
+    @admin_user = User.new(admin_user_params)
+    @admin_user.password= 'aleatorio'
+    if @admin_user.save
+      flash[:notice]= 'Informacion Actualizada correctamente'
+      
+    else
+      flash[:danger]= 'No se agrego el registro'
+    end
+    redirect_to admin_users_path
   end
 
   def update
-    @admin_user.update(user_params)
-    respond_with(@admin_user)
+    
+    if @admin_user.update_attributes(admin_user_params)
+      flash[:notice]= 'Informacion Actualizada correctamente'
+      redirect_to admin_users_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -40,10 +56,10 @@ class Admin::UsersController < ApplicationController
 
   private
     def set_admin_user
-      @admin_user = Admin::User.find(params[:id])
+      @admin_user = User.find(params[:id])
     end
 
     def admin_user_params
-      params.require(:admin_user).permit(:email, :firstName, :lastName, :status)
+      params.require(:user).permit(:email, :first_name, :last_name, :status)
     end
 end
