@@ -30,7 +30,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <%= render partial: 'shared/tableResult' %>
+        <%= render partial: 'shared/tableResult' , locals:{objects:@referencias_filter, object_controller_name: controller_name} %>
     </div>
 </div>
 <!-- /.row -->
