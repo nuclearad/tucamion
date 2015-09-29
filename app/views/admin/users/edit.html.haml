@@ -35,6 +35,5 @@
           = f.label 'Status'
           = f.number_field :status,class: 'form-control form-el'
       .row
-        %br
-        .form-actions.success
+        #botonera.form-actions.success
           = render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_users_path }
