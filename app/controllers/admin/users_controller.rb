@@ -10,7 +10,12 @@ class Admin::UsersController < ApplicationController
     @search = @admin_users.search(params[:q])
     @query_search_field= 'first_name_or_last_name_or_email_cont'
     @admin_users_filter = @search.result.page(params[:page]).per(10)
-    respond_with(@admin_users)
+    
+    logger.info 'Vengo al index'
+    respond_to do |format|
+        format.js {logger.info 'Respondo por js'; render layout: nil}
+        format.html {respond_with(@admin_users)}
+      end
   end
 
   def show
