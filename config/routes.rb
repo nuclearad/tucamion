@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-
-  namespace :admin do
-    resources :users
-  end
-
+  
   root 'pages#index'
 
   get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
@@ -129,7 +125,7 @@ Rails.application.routes.draw do
     end
 
     resources :inbox, only: [:index, :show, :destroy]
-
+    resources :users
   end
 
   get  'servicio-opciones/:q' => 'pages#service_toggle'
@@ -170,5 +166,5 @@ Rails.application.routes.draw do
   end
 
   resources :inbox, only: [:index, :show, :destroy, :new, :create]
-
+  
 end
