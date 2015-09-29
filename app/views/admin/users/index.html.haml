@@ -1,2 +1,23 @@
-%h1 Admin::Users#index
-%p Find me in app/views/admin/users/index.html.haml
+.row
+  .col-lg-12
+    %h1.page-header
+      Administradores
+      %small Indice
+    = render 'admin/includes/top'
+/ /.row
+- if flash[:notice]
+  = render partial: 'shared/flashNoticeMessage'
+- if flash[:danger]
+  = render partial: 'shared/flashDangerMessage'  
+/ /.row
+.row
+  .col-md-3
+    %p
+      = link_to 'Nuevo Administrador', new_admin_user_path,:method=>'get', :class=>'btn  btn-primary'
+  .col-md-3.col-md-offset-6
+    = render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field}
+.row
+  .col-lg-12
+    #tabla.table-responsive
+      = render partial: 'tableResult', locals:{ objects: @admin_users_filter}
+    / /.row
