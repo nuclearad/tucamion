@@ -1,0 +1,19 @@
+%table.table.table-bordered.table-hover.table-striped
+	%thead
+		%tr
+			%th Nombre
+			%th Apellido  
+			%th Email
+			%th Acciones
+		%tbody
+			- objects.each do |object|
+				%tr
+					%td
+						= object.first_name
+					%td
+						= object.last_name
+					%td
+						= object.email    
+					%td
+						= link_to 'Editar', edit_admin_user_path(object.id), :class=>'btn btn-info'
+						= link_to 'Eliminar',{controller: 'admin/users',action: :destroy , id: object.id}, data: {:confirm => 'Estas seguro de eliminar este elemento?'}, method: :DELETE, :class=>'btn btn-danger'

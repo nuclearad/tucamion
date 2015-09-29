@@ -31,8 +31,7 @@ class Admin::UsersController < ApplicationController
     @admin_user = User.new(admin_user_params)
     @admin_user.password= 'aleatorio'
     if @admin_user.save
-      flash[:notice]= 'Informacion Actualizada correctamente'
-      
+      flash[:notice]= 'Administrador Agregado Correctamente'      
     else
       flash[:danger]= 'No se agrego el registro'
     end
@@ -50,8 +49,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @admin_user.destroy
-    respond_with(@admin_user)
+    if @admin_user.destroy
+      redirect_to admin_users_path
+    end
   end
 
   private
