@@ -34,8 +34,10 @@ class Admin::UsersController < ApplicationController
 
   def create
     @admin_user = User.new(admin_user_params)
-    @admin_user.password= 'aleatorio'
+    url= request.protocol+request.host+':'+request.port.to_s
+    gendpassword=setNewPassword
     if @admin_user.save
+      Customer::CustomerMailer.new_password(@admin_user,gendpassword,url).deliver
       flash[:notice]= 'Administrador Agregado Correctamente'      
     else
       flash[:danger]= 'No se agrego el registro'
@@ -60,6 +62,17 @@ class Admin::UsersController < ApplicationController
   end
 
   private
+
+    def setNewPassword
+      generated_password = Devise.friendly_token.first(8)
+      pepper= nil
+      @admin_user.encrypted_password = ::BCrypt::Password.create("#{generated_password}#{pepper}", :cost => 10).to_s
+      @raw_token, token = Devise.token_generator.generate(Admin::User, :reset_password_token)
+      @admin_user.reset_password_token= token
+      @admin_user.reset_password_sent_at = Time.now.utc
+      generated_password
+    end
+
     def set_admin_user
       @admin_user = User.find(params[:id])
     end

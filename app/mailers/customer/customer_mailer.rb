@@ -23,4 +23,13 @@ class Customer::CustomerMailer < ActionMailer::Base
     mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject    
   end
 
+  def new_password(admin_user,contra,url)
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
+    @admin_user                    = admin_user
+    @url                           = url
+    @contra                        = contra
+    @subject                       = 'NOTIFICACION Tucamion365'
+    mail to: ["#{@admin_user.fist_name} <#{@admin_user.email}>"], subject: @subject    
+  end
+
 end
