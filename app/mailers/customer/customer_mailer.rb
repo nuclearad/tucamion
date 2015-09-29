@@ -10,7 +10,7 @@ class Customer::CustomerMailer < ActionMailer::Base
   end
 
   def edit_by_admin(user)
-  	
+
   end
 
   def forgot_pass(user, url)
@@ -20,7 +20,7 @@ class Customer::CustomerMailer < ActionMailer::Base
     @user                          = user
     @url                           = url
     @subject                       = 'NOTIFICACION Tucamion365'
-    mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject    
+    mail to: ["#{@user.name} <#{@user.email}>"], subject: @subject
   end
 
   def new_password(admin_user,contra,url)
@@ -29,7 +29,7 @@ class Customer::CustomerMailer < ActionMailer::Base
     @url                           = url
     @contra                        = contra
     @subject                       = 'NOTIFICACION Tucamion365'
-    mail to: ["#{@admin_user.fist_name} <#{@admin_user.email}>"], subject: @subject    
+    mail to: ["#{@admin_user.first_name} <#{@admin_user.email}>"], subject: @subject
   end
 
 end

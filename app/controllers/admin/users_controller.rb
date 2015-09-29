@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
     @search = @admin_users.search(params[:q])
     @query_search_field= 'first_name_or_last_name_or_email_cont'
     @admin_users_filter = @search.result.page(params[:page]).per(10)
-    
+
     logger.info 'Vengo al index'
     respond_to do |format|
         format.js {logger.info 'Respondo por js'; render layout: nil}
@@ -36,9 +36,11 @@ class Admin::UsersController < ApplicationController
     @admin_user = User.new(admin_user_params)
     url= request.protocol+request.host+':'+request.port.to_s
     gendpassword=setNewPassword
+    @admin_user.password = gendpassword
+    logger.info 'el password es:' + @admin_user.password
     if @admin_user.save
-      Customer::CustomerMailer.new_password(@admin_user,gendpassword,url).deliver
-      flash[:notice]= 'Administrador Agregado Correctamente'      
+      Customer::CustomerMailer.new_password(@admin_user, @admin_user.password,url).deliver
+      flash[:notice]= 'Administrador Agregado Correctamente'
     else
       flash[:danger]= 'No se agrego el registro'
     end
@@ -46,7 +48,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    
+
     if @admin_user.update_attributes(admin_user_params)
       flash[:notice]= 'Informacion Actualizada correctamente'
       redirect_to admin_users_path
@@ -67,7 +69,7 @@ class Admin::UsersController < ApplicationController
       generated_password = Devise.friendly_token.first(8)
       pepper= nil
       @admin_user.encrypted_password = ::BCrypt::Password.create("#{generated_password}#{pepper}", :cost => 10).to_s
-      @raw_token, token = Devise.token_generator.generate(Admin::User, :reset_password_token)
+      @raw_token, token = Devise.token_generator.generate(User, :reset_password_token)
       @admin_user.reset_password_token= token
       @admin_user.reset_password_sent_at = Time.now.utc
       generated_password

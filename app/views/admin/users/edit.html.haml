@@ -22,16 +22,19 @@
 
       .form-inputs
 
-        .col-md-6
-          = f.label 'Email' 
+        .col-md-3
+          = f.label 'Email'
           = f.email_field :email, class: 'form-control'
-
-        = f.text_field :first_name
-
-        = f.text_field :last_name
-
-        = f.text_field :status
-      .form-actions
-        = f.button :submit
-
-= link_to 'Back', admin_users_path
+        .col-md-3
+          = f.label 'Nombre'
+          = f.text_field :first_name,class: 'form-control'
+        .col-md-3
+          = f.label 'Apellido'
+          = f.text_field :last_name,class: 'form-control'
+        .col-md-3
+          = f.label 'Status'
+          = f.number_field :status,class: 'form-control form-el'
+      .row
+        %br
+        .form-actions.success
+          = render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_users_path }
