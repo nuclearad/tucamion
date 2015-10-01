@@ -46,7 +46,13 @@ module ToggleSearches
         array_searches << search
       end
       
-
+      unless query["referencia_id_eq"].blank?
+        search                      = Array.new
+        search[0]                   = Referencia.select("id,name").find(query["referencia_id_eq"]).name
+        query["referencia_id_eq"] = ""
+        search[1]                   = "referencia_id_eq"
+        array_searches << search
+      end
       #search for extras
       
       unless query["type_truck_id_eq"].blank?
