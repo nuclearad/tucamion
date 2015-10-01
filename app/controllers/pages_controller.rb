@@ -2,6 +2,14 @@ class PagesController < ApplicationController
   layout 'index', :only => [ :index ]
   before_action :load_banners
 
+  def terminos
+    
+  end
+
+  def politicas
+    
+  end
+
   def index
     self.init_toggle #inicia el despliegue de la busqueda anidada
     @search_serv = Service.search(params[:q])

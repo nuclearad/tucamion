@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
 
-  attr_accessor :clave_confirmation
+  attr_accessor :clave_confirmation, :terms
 
 
   has_many :offercustomers, dependent: :destroy
@@ -33,6 +33,8 @@ class Customer < ActiveRecord::Base
 
   validates :telefono, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
   validates_numericality_of :telefono,  message: "Debe ser solo numeros"
+
+  validates_acceptance_of :terms, :on => :create, :allow_nil => false, :message => "Debes aceptar los terminos" 
 
   accepts_nested_attributes_for :quantities , allow_destroy: true
   accepts_nested_attributes_for :offer

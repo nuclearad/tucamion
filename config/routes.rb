@@ -73,7 +73,8 @@ Rails.application.routes.draw do
   get 'repuesto/:id-:link' => 'pages#repuesto', :as =>'repuesto'
   match 'repuestos' => 'pages#repuestos', via: [:get, :post]
 
-
+  get '/terminos'  => 'pages#terminos'
+  get '/politicas'  => 'pages#politicas'
 
   devise_for :users, skip: [:registrations, :confirmations]
 
