@@ -39,6 +39,14 @@ module ToggleSearches
         array_searches << search
       end
 
+      unless query["capacidadcarga_eq"].blank?
+        search     = Array.new
+        search[0]  = "Capacidad de carga: #{query['capacidadcarga_eq']}"
+        search[1]  = "capacidadcarga_eq"
+        array_searches << search
+      end
+      
+
       #search for extras
       
       unless query["type_truck_id_eq"].blank?
