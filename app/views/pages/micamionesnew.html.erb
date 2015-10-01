@@ -63,7 +63,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <%= f.label :brand_truck_id, 'Marca de camion' %>
+                                <%= f.label :brand_truck_id, 'Marcas' %>
                                 <%= f.collection_select :brand_truck_id, BrandTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <%= f.label :pesobruto, 'Peso bruto (Tons)' %>
-                                <%= f.number_field :pesobruto, :class =>'form-control text_field',min: 0, :step => 'any'  %>
+                                <%= f.text_field :pesobruto, :class =>'form-control text_field',min: 0, :step => 'any'  %>
                             </div>
                         </div>
 
