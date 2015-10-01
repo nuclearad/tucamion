@@ -25,6 +25,13 @@
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
+          %p
+            CAPACIDAD DE CARGA
+        .attribute_list
+          = f.select(:capacidadcarga_eq, Environment::CAPACIDAD_CARGA, {prompt: 'Selecciona la capacidad'}, { class:  'form-control', id: 'camion_brand'})
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
           %p UBICACIÓN
         .attribute_list
           = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
