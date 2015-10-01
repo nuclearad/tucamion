@@ -32,4 +32,16 @@ class Customer::CustomerMailer < ActionMailer::Base
     mail to: ["#{@admin_user.first_name} <#{@admin_user.email}>"], subject: @subject
   end
 
+  def inbox_message(message, object)
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
+    @message = message
+    if @message.tipo == 1
+        @name_flyer = object.nombre
+    else
+        @name_flyer = object.name
+    end 
+    @subject = 'Nuevo mensaje Tucamion365'
+    mail to: [object.email], subject: @subject
+  end
+
 end
