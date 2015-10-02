@@ -91,8 +91,8 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <%= f.label :pesobruto, 'Peso bruto (Tons)' %>
-                                <%= f.text_field :pesobruto, :class =>'form-control text_field',min: 0, :step => 'any'  %>
+                                <%= f.label :pesobruto, 'Peso bruto' %>
+                                <%= f.text_field :pesobruto, :class =>'form-control text_field'%>
                             </div>
                         </div>
 
@@ -386,8 +386,6 @@
 
 		  <% end %>
 
-
-
 <!--volquetas 2-->
 			<% if params[:v] == '2' %>
 
@@ -495,7 +493,6 @@
 				</div>
 
 			<% end %>
-
 
 <!--Camion 3-->
 			<% if params[:v] == '3' %>
@@ -781,8 +778,6 @@
 
 			<% end %>
 
-
-
 <!-- trailers 5-->
 			<% if params[:v] == '5' %>
 
@@ -1011,9 +1006,6 @@
 				<div class="form-group">
 				  <%= f.label :picture1, 'Imagen 1' %>
 				  <%= f.file_field :picture1, :class =>'form-control'  %>
-
-
-
 				</div>
 			  </div>
 

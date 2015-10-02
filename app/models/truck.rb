@@ -21,7 +21,7 @@ class Truck < ActiveRecord::Base
   validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state,:city,
                          :placa_state_id,:placa_city_id, :kilometraje,:state_id,:brand_truck_id,
                          :colors_truck_id,:city_id,:tipocombustible,:estado,:pesobruto,:scraps_truck_id], message: 'No puede estar en blanco'
-  has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -36,7 +36,7 @@ class Truck < ActiveRecord::Base
   
   validates_numericality_of [:price],  message: "Debe ser solo numeros"
 
-  has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -46,7 +46,7 @@ class Truck < ActiveRecord::Base
   validates_attachment_content_type :picture2, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
 
 
-  has_attached_file :picture3, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture3, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -56,7 +56,7 @@ class Truck < ActiveRecord::Base
   validates_attachment_content_type :picture3, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
 
 
-  has_attached_file :picture4, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture4, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -66,7 +66,7 @@ class Truck < ActiveRecord::Base
   validates_attachment_content_type :picture4, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
 
 
-  has_attached_file :picture5, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture5, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
