@@ -496,6 +496,18 @@ class PagesController < ApplicationController
 
   end
 
+  def getreferencias
+ 
+    if params[:id] == '0'
+
+      @referencia = Referencia.all
+      render json: @referencia
+
+    else
+      @referencia = Truck.where(type_truck_id: params[:id]).group(:referencia_id).includes(:referencia)
+      render json: @referencia, :include =>[:referencia]
+    end 
+  end
 
   def getbrandsextra
 

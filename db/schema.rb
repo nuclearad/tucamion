@@ -384,7 +384,11 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.integer  "marcavolco_id"
     t.string   "capacidadmetrica"
     t.string   "cuantosmetroscubicos"
+<<<<<<< HEAD
     t.string   "Autocarpado"
+=======
+    t.string   "autocarpado"
+>>>>>>> 26a7b763638c63fb665e8321ea0d203335dbd826
     t.integer  "ejesretractiles",                   default: 0
     t.integer  "user_id",                           default: 0
   end
