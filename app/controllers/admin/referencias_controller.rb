@@ -7,7 +7,10 @@ class Admin::ReferenciasController < ApplicationController
 
   def index
     @referencias = Referencia.where(type_truck_id: params[:type_truck_id]).order(:name).all
+    @search= @referencias.search(params[:q])
+    @referencias_filter= @search.result.page(params[:page]).per(10)
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
+    add_breadcrumb @truck.name
   end
 
   def new
@@ -15,7 +18,7 @@ class Admin::ReferenciasController < ApplicationController
     @truck = TypeTruck.find_by_id(params[:type_truck_id])
     @referencia= Referencia.new(:type_truck_id => @truck)
     add_breadcrumb @referencia.name, :admin_type_truck_referencias_path, :options => { :title =>'Inicio' }
-
+    add_breadcrumb 'Agregar Referencia'
   end
 
 

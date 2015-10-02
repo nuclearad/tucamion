@@ -120,7 +120,9 @@
                 id = $(this).find(':selected').data('id');
 
                 function loader(data){
-                    $('#camion_brand').html('<option>Cargando...</option>')
+                    $('#camion_brand').html('<option>Cargando...</option>');
+                    $('#camion_ref').html('<option>Cargando...</option>')
+                    
                 };
 
                 function error(data){
@@ -172,7 +174,35 @@
                 });
 
 
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function (msg) {
+                        $('#camion_ref').html('')
 
+                        if(id == '0'){
+                            $('#camion_ref').append('<option value="">Referencias</option>')
+
+
+                            $.each(msg, function(index, value) {
+                                $('#camion_ref').append('<option value="'+value.id+'">'+value.name+'</option>')
+                            });
+
+
+                        } else{
+
+
+                            $('#camion_ref').append('<option value="">Referencias</option>')
+                            $.each(msg, function(index, value) {
+                                $('#camion_ref').append('<option value="'+value.referencia.id+'">'+value.referencia.name+'</option>')
+                            });
+
+
+                        }
+                    },
+                    url:"/referencias/"+id
+                });
 
 
             });

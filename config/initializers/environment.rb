@@ -22,7 +22,8 @@ class Environment
               planes:   {pago: 0, promocional: 1, generico: 2}
              }
   HORARIOS = {'8:00 am - 5:00 pm' => 1,'8:00 am - 12:00 m' => 2,'2:00 pm - 6:00 pm' => 3,'24 horas' => 4,'otro' => 5}
-
+ 
+  CAPACIDAD_CARGA = {'0-5' => '0-5', '5-10' => '5-10',  '10-15' => '10-15',  '15-25' => '15-25', '25- 35' => '25- 35'}
 
   if Rails.env.production?
     MAILSETTING = {:address              =>  'smtp.zoho.com',
