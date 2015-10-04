@@ -11,7 +11,7 @@ class Extra < ActiveRecord::Base
   has_many :messages, :foreign_key => :item
 
 
-  validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address],message: 'No puede estar vacio'
+  validates_presence_of [:name, :state_id, :city_id, :brand_extra_id,:price, :phone, :address,:email],message: 'No puede estar vacio'
 
   validates :type_truck_id, presence: true
 
