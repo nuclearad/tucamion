@@ -197,7 +197,7 @@ class SessionsController < ApplicationController
 
 
     def customer_params
-      params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation, :token_active, :estado, :token_pass)
+      params.require(:customer).permit(:cedula, :name, :telefono, :email, :clave, :clave_confirmation, :token_active, :estado, :token_pass, :terms)
     end
 
 end

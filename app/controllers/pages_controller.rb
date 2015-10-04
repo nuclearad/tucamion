@@ -2,6 +2,14 @@ class PagesController < ApplicationController
   layout 'index', :only => [ :index ]
   before_action :load_banners
 
+  def terminos
+    
+  end
+
+  def politicas
+    
+  end
+
   def index
     self.init_toggle #inicia el despliegue de la busqueda anidada
     @search_serv = Service.search(params[:q])
@@ -496,6 +504,18 @@ class PagesController < ApplicationController
 
   end
 
+  def getreferencias
+ 
+    if params[:id] == '0'
+
+      @referencia = Referencia.all
+      render json: @referencia
+
+    else
+      @referencia = Truck.where(type_truck_id: params[:id]).group(:referencia_id).includes(:referencia)
+      render json: @referencia, :include =>[:referencia]
+    end 
+  end
 
   def getbrandsextra
 
