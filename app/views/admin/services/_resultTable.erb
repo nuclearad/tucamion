@@ -26,28 +26,29 @@
         </td>
 
         <td>
-          <%= link_to 'Editar', edit_admin_service_path(type.id), :class=>'btn btn-info' %>
-          <%= link_to 'Eliminar', {:controller => 'admin/services', :action => 'destroy', :id => type.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+          <% if type.active == 1 %>
+           <%= link_to 'Editar', edit_admin_service_path(type.id), :class=>'btn btn-info' %>
+           <%= link_to 'Eliminar', {:controller => 'admin/services', :action => 'destroy', :id => type.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+          <% end %>
         </td>
+
 
         <td>
           <% if type.active == 1 %>
-
-
-              <%= link_to admin_updateState_path(type.id,1,'service'), :class=>'btn btn-success' do %>
-                  <i class="fa fa-check"></i>
+            <%= link_to admin_updateState_path(type.id,1,'service'), :class=>'btn btn-danger' do %>
+                <i class="fa fa-times"></i>
+            <% end %>
+          <% elsif type.active == 0 %>
+             Inactivo por cliente   
+          <% elsif type.active == 2 %>
+              Vendido
+          <% elsif type.active == 3 %>
+              <%= link_to admin_updateState_path(type.id,3,'service'), :class=>'btn btn-success' do %>
+                <i class="fa fa-check"></i>
               <% end %>
-
-
-          <% else %>
-
-              <%= link_to admin_updateState_path(type.id,0,'service'), :class=>'btn btn-danger' do %>
-                  <i class="fa fa-times"></i>
-              <% end %>
-
-
           <% end %>
         </td>
+
 
       </tr>
   <% end %>
