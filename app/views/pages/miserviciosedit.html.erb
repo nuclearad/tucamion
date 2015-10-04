@@ -19,22 +19,24 @@
                                 <%= f.number_field :price, :class =>'form-control text_field'  %>
                             </div>
                         </div>
-                        <%= f.fields_for :customer  do |ff| %>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <%= ff.label :telefono, 'Telefono' %>
-                                    <%= ff.text_field :telefono, :class =>'form-control'  %>
-                                </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <%= f.label :telefono, 'Telefono' %>
+                                <%= f.number_field :telefono, :class =>'form-control'  %>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <%= ff.label :email, 'Email' %>
-                                    <%= ff.text_field :email, :class =>'form-control', :autocorrect=>'off' %>
-                                </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <%= f.label :email, 'Email' %>
+                                <%= f.text_field :email, :class =>'form-control', :autocorrect=>'off' %>
                             </div>
-                        <% end %>
+                        </div>
+                        
                     </div>
+                
                 <% else %>
+                    <!--Nombre y Tipo -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -42,33 +44,15 @@
                                 <%= f.text_field :name, :class =>'form-control'  %>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="form-group">
-                                <%= f.label :phone, 'Teléfono' %>
-                                <%= f.text_field :phone, :class =>'form-control' , maxlength: 11 %>
+                                <%= f.label :type_service_id, 'Tipo de servicio' %>
+                                <%= f.collection_select :type_service_id, TypeService.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
                             </div>
-                        </div>
+                        </div>    
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :address, 'Dirección' %>
-                                <%= f.text_field :address, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <%= f.label :horario, 'Horario de atencion' %>
-                                    <%= f.collection_select :horario, @horas,:first,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <!--Departamento y Ciudad -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -83,52 +67,52 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!--Direccion y Horario -->    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <%= f.label :address, 'Dirección' %>
+                                <%= f.text_field :address, :class =>'form-control'  %>
+                            </div>
+                        </div>
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <%= f.label :horario, 'Horario de atencion' %>
+                                <%= f.collection_select :horario, @horas,:first,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Telefono y Email -->
+                    <div class="row">
+                        <div class='col-md-6'>
+                            <div class="form-group">
+                                <%= f.label :phone, 'Teléfono' %>
+                                <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <%= f.label :email, 'Email' %>
+                                <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
+                            </div>
+                        </div>
+                    </div>                    
+                    
+                    <!-- Descripcion -->
                     <div class="row">
                         <div class="col-md-12">
                             <%= f.label :description, 'Descripccion' %>
                             <%= f.text_area :description, :class =>'form-control'  %> <br/> <br/>
                         </div>
                     </div>
-
-                    <div class="row">
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <%= f.label :picture1, 'Imagen principal' %>
-                                <%= f.file_field :picture1, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <%= f.label :picture2, 'Imagen 2' %>
-                                <%= f.file_field :picture2, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <%= f.label :picture3, 'Imagen 3' %>
-                                <%= f.file_field :picture3, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <%= f.label :picture4, 'Imagen 4' %>
-                                <%= f.file_field :picture4, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <%= f.label :picture5, 'Imagen 5' %>
-                                <%= f.file_field :picture5, :class =>'form-control'  %>
-                            </div>
-                        </div>
-                    </div>
-                <% end %>
+                    
+                    <!--Imagenes-->    
+                    <%= render partial: 'shared/imagenes', locals:{ object: f } %>
+                
+                <%end%>
                 <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: miservicios_path } %>
             <% end %>
         </div>

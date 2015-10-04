@@ -46,27 +46,33 @@
                         </div>
                     </div>
                 </div>
-                <!--Telefono y Horario-->
+                <!--Telefono y Email-->
                 <div class="row">
-                    <div class='col-md-5 col-md-offset-1'>
-                        <div class="form-group">
-                            <%= f.label :phone, 'Teléfono' %>
-                            <%= f.text_field :phone, :class =>'form-control', maxlength: 11  %>
-                        </div>
+                  <div class='col-md-5 col-md-offset-1'>
+                    <div class="form-group">
+                      <%= f.label :phone, 'Teléfono' %>
+                      <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
                     </div>
-                    <div class="col-md-5">
-                        <div class="col-md-3">
-                            <%= f.label :horario, 'Horario de atencion' %>
-                            <%= f.collection_select :horario, @horas,:first,:first,{},{class: 'form-control text_field'} %>
-                        </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <%= f.label :email, 'Email' %>
+                      <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
                     </div>
-                </div>
-                <!--Direccion-->
+                  </div>
+                </div>                
+                <!--Direccion y horario-->
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
                         <div class="form-group">
                             <%= f.label :address, 'Dirección' %>
                             <%= f.text_field :address, :class =>'form-control'  %>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <%= f.label :horario, 'Horario de atencion' %>
+                            <%= f.collection_select :horario, @horas,:first,:first,{},{class: 'form-control text_field'} %>
                         </div>
                     </div>
                 </div>
@@ -87,42 +93,7 @@
                     </div>
                 </div>
                 <!-- Imagenes -->
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-1">
-                        <div class="form-group">
-                            <%= f.label :picture1, 'Imagen 1' %>
-                            <%= f.file_field :picture1, :class =>'form-control'  %>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <%= f.label :picture2, 'Imagen 2' %>
-                            <%= f.file_field :picture2, :class =>'form-control'  %>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <%= f.label :picture3, 'Imagen 3' %>
-                            <%= f.file_field :picture3, :class =>'form-control'  %>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <%= f.label :picture4, 'Imagen 4' %>
-                            <%= f.file_field :picture4, :class =>'form-control'  %>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <%= f.label :picture5, 'Imagen 5' %>
-                            <%= f.file_field :picture5, :class =>'form-control'  %>
-                        </div>
-                    </div>
-                </div>
+                <%= render partial: 'shared/imagenes', locals:{ object: f } %>
 
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
@@ -138,22 +109,21 @@
                             <%= f.number_field :price, :class =>'form-control text_field'  %>
                         </div>
                     </div>
-                    <%= f.fields_for :customer  do |ff| %>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <%= ff.label :telefono, 'Telefono' %>
-                                <%= ff.text_field :telefono, :class =>'form-control'  %>
-                            </div>
+                    <!--Telefono y Email-->                
+                    <div class='col-md-4'>
+                        <div class="form-group">
+                            <%= f.label :phone, 'Teléfono' %>
+                            <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <%= ff.label :email, 'Email' %>
-                                <%= ff.text_field :email, :class =>'form-control', :autocorrect=>'off' %>
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <%= f.label :email, 'Email' %>
+                            <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
                         </div>
-                    <% end %>
+                    </div>
                 </div>
-            <% end%>
+            <% end %>
 
             <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: mirepuestos_path } %>
         <% end %>

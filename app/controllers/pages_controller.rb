@@ -167,6 +167,7 @@ class PagesController < ApplicationController
       @quantity = @user.quantities.first
       @truck    = Truck.new
       @truck.type_truck_id = params['v']
+      @capacidadcarga = Environment::CAPACIDAD_CARGA 
       if @quantity.total_trucks - @quantity.current_trucks > 0
 
         if @user.cargar_planes > 0
@@ -201,6 +202,7 @@ class PagesController < ApplicationController
       @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
+      @capacidadcarga = Environment::CAPACIDAD_CARGA 
       if @truck.blank?
         redirect_to micamiones_path
       else
@@ -776,15 +778,15 @@ class PagesController < ApplicationController
     end
 
     def allowed_lateUpdate_params
-      params.require(:truck).permit(:id,:active,:price, customer_attributes:[:id,:telefono,:email])
+      params.require(:truck).permit(:id,:active,:price, :phone, :email, customer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_lateUpdate_paramsExtra
-      params.require(:extra).permit(:id, :active, :price, customer_attributes:[:id,:telefono,:email])
+      params.require(:extra).permit(:id, :active, :price, :phone, :email, customer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_lateUpdate_paramsservice
-      params.require(:service).permit(:id,:active, custmoer_attributes:[:id,:telefono,:email])
+      params.require(:service).permit(:id,:active, :phone, :email, custmoer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_params

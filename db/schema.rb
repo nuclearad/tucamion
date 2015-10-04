@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921171959) do
+ActiveRecord::Schema.define(version: 20151002022902) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.integer  "active",                           default: 1
     t.integer  "customer_id"
     t.integer  "user_id",                          default: 0
+    t.string   "email"
   end
 
   create_table "houses", force: true do |t|
@@ -253,6 +254,7 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.datetime "picture5_updated_at"
     t.integer  "customer_id"
     t.integer  "user_id",               default: 0
+    t.string   "email"
   end
 
   create_table "spaces_trucks", force: true do |t|
@@ -387,6 +389,8 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.string   "autocarpado"
     t.integer  "ejesretractiles",                   default: 0
     t.integer  "user_id",                           default: 0
+    t.string   "phone"
+    t.string   "email"
   end
 
   create_table "type_extras", force: true do |t|
