@@ -36,82 +36,9 @@
                     </div>
                 
                 <% else %>
-                    <!--Nombre y Tipo -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :name, 'Nombre de servicio' %>
-                                <%= f.text_field :name, :class =>'form-control'  %>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :type_service_id, 'Tipo de servicio' %>
-                                <%= f.collection_select :type_service_id, TypeService.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                        </div>    
-                    </div>
 
-                    <!--Departamento y Ciudad -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :state_id, 'Departamento' %>
-                                <%= f.collection_select :state_id, State.order(:id),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :city_id, 'Ciudad' %>
-                                <%= f.collection_select :city_id, @cities.order(:name),:id,:name, {}, { class: 'form-control'} %>
-                            </div>
-                        </div>
-                    </div>
+                    <%= render partial: 'shared/form_service', locals:{ f: f} %>
                     
-                    <!--Direccion y Horario -->    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :address, 'Dirección' %>
-                                <%= f.text_field :address, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :horario, 'Horario de atencion' %>
-                                <%= f.collection_select :horario, @horas,:first,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Telefono y Email -->
-                    <div class="row">
-                        <div class='col-md-6'>
-                            <div class="form-group">
-                                <%= f.label :phone, 'Teléfono' %>
-                                <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :email, 'Email' %>
-                                <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
-                            </div>
-                        </div>
-                    </div>                    
-                    
-                    <!-- Descripcion -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <%= f.label :description, 'Descripccion' %>
-                            <%= f.text_area :description, :class =>'form-control'  %> <br/> <br/>
-                        </div>
-                    </div>
-                    
-                    <!--Imagenes-->    
-                    <%= render partial: 'shared/imagenes', locals:{ object: f } %>
-                
                 <%end%>
                 <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: miservicios_path } %>
             <% end %>

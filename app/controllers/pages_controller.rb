@@ -365,7 +365,7 @@ class PagesController < ApplicationController
       @service = Service.find(params[:id])
       @serviceLateUpdate = @service.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @horas = Environment::HORARIOS
-      @cities= City.where('state_id = ?', @extra.state_id)
+      @cities= City.where('state_id = ?', @service.state_id)
       if request.post?
         params[:service][:customer_id] = session[:user]
         if @serviceLateUpdate

@@ -40,6 +40,13 @@ class Extra < ActiveRecord::Base
   validates :phone, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
   validates_numericality_of :phone,  message: "Debe ser solo numeros"
 
+  after_rollback :print_error
+
+  def print_error
+    puts self.errors.full_messages
+    puts "*****************"
+  end
+
   before_create do
 
     self.link_rewrite = self.name.downcase
