@@ -10,7 +10,10 @@ class Service < ActiveRecord::Base
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
   validates_presence_of [:nit, :name, :phone, :type_service_id,:state_id,:address,:email], message: 'No puede estar vacio'
  
-  validates_format_of [:nit, :name, :address, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+  validates_format_of [:nit, :name, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+
+  validates_format_of [:address], :with => /\A([a-zA-Z_áéíóúñ0-9#()-.\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales solo se permite eluso de: #.()-"
+
 
   has_attached_file :picture1, :styles => {:home => '548x300>', :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/missing.png"
   validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/

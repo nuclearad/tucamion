@@ -17,7 +17,8 @@ class Extra < ActiveRecord::Base
 
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
-  validates_format_of [:name, :address, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+  validates_format_of [:name, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+  validates_format_of [:address], :with => /\A([a-zA-Z_áéíóúñ0-9#()-.\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales solo se permite eluso de: #.()-"
 
   validates_numericality_of :price,  message: "Debe ser solo numeros"
 
