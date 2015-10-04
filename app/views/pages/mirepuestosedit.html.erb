@@ -51,13 +51,13 @@
                   <div class='col-md-5 col-md-offset-1'>
                     <div class="form-group">
                       <%= f.label :phone, 'Teléfono' %>
-                      <%= f.text_field :phone, :class =>'form-control', maxlength: 11  %>
+                      <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
                     </div>
                   </div>
                   <div class="col-md-5">
                     <div class="form-group">
                       <%= f.label :email, 'Email' %>
-                      <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+                      <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
                     </div>
                   </div>
                 </div>                
@@ -113,13 +113,13 @@
                     <div class='col-md-4'>
                         <div class="form-group">
                             <%= f.label :phone, 'Teléfono' %>
-                            <%= f.text_field :phone, :class =>'form-control', maxlength: 11  %>
+                            <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <%= f.label :email, 'Email' %>
-                            <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+                            <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
                         </div>
                     </div>
                 </div>

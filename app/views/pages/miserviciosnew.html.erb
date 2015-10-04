@@ -37,13 +37,19 @@
             <%= f.collection_select :state_id, State.order(:id),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
           </div>
         </div>
+
+
         <div class="col-md-6">
           <div class="form-group">
             <%= f.label :city_id, 'Ciudad' %>
-            <%= f.collection_select :city_id, @cities.order(:name),:id,:name, {}, { class: 'form-control'} %>
+            <% if @service.city_id.nil? %>
+              <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+            <% else %>
+              <%= f.collection_select(:city_id, City.getByState(@service.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
+            <% end %>
           </div>
         </div>
-      </div>
+      </div>      
 
       <!--Direccion y Horario -->    
       <div class="row">
@@ -67,13 +73,13 @@
         <div class='col-md-6'>
           <div class="form-group">
             <%= f.label :phone, 'Teléfono' %>
-            <%= f.text_field :phone, :class =>'form-control', maxlength: 11  %>
+            <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <%= f.label :email, 'Email' %>
-            <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+            <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
           </div>
         </div>
       </div>                    

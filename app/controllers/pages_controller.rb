@@ -765,15 +765,15 @@ class PagesController < ApplicationController
     end
 
     def allowed_lateUpdate_params
-      params.require(:truck).permit(:id,:active,:price, customer_attributes:[:id,:telefono,:email])
+      params.require(:truck).permit(:id,:active,:price, :phone, :email, customer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_lateUpdate_paramsExtra
-      params.require(:extra).permit(:id, :active, :price, customer_attributes:[:id,:telefono,:email])
+      params.require(:extra).permit(:id, :active, :price, :phone, :email, customer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_lateUpdate_paramsservice
-      params.require(:service).permit(:id,:active, custmoer_attributes:[:id,:telefono,:email])
+      params.require(:service).permit(:id,:active, :phone, :email, custmoer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_params

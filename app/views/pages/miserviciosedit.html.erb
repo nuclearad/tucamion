@@ -23,7 +23,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <%= f.label :telefono, 'Telefono' %>
-                                <%= f.text_field :telefono, :class =>'form-control'  %>
+                                <%= f.number_field :telefono, :class =>'form-control'  %>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -90,13 +90,13 @@
                         <div class='col-md-6'>
                             <div class="form-group">
                                 <%= f.label :phone, 'Teléfono' %>
-                                <%= f.text_field :phone, :class =>'form-control', maxlength: 11  %>
+                                <%= f.number_field :phone, :class =>'form-control', maxlength: 11  %>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <%= f.label :email, 'Email' %>
-                                <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+                                <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
                             </div>
                         </div>
                     </div>                    

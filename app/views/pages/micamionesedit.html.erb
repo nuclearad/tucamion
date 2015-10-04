@@ -41,16 +41,16 @@
                     </div>
                     <div class="row">                
                       <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.label :phone, 'Teléfono' %>
-                            <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
-                          </div>
+                        <div class="form-group">
+                          <%= f.label :phone, 'Teléfono' %>
+                          <%= f.text_field :phone, :class =>'form-control', minlength: 7, maxlength: 11 %>
                         </div>
+                      </div>
                         
                         <div class="col-md-6">
                           <div class="form-group">
                             <%= f.label :email, 'Email' %>
-                            <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+                            <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
                           </div>
                         </div>
                     </div>
@@ -76,22 +76,24 @@
                             </label>
                             <br/><br/>
                       </div>
-                      
-                      <div class="col-md-4">
+                    
+                    </div>  
+
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <%= f.label :phone, 'Teléfono' %>
                           <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
                         </div>
                       </div>
                     
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <%= f.label :email, 'Email' %>
-                          <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+                          <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
                         </div>
                       </div>
-                    
-                    </div>                      
+                    </div>                    
 
                     <div class="row">
 

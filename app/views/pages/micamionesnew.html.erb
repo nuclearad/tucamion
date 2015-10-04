@@ -51,23 +51,25 @@
                             </div>
 
                         </div>
+                    </div>
 
-				        <div class="row">				         
+                    <div class="row">				         
 
-				          <div class="col-md-6">
-				            <div class="form-group">
-				              <%= f.label :phone, 'Teléfono' %>
-				              <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
-				            </div>
-				          </div>
-				          
-				          <div class="col-md-6">
-				            <div class="form-group">
-				              <%= f.label :email, 'Email' %>
-				              <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
-				            </div>
-				          </div>
-				        </div>
+						<div class="col-md-6">
+							<div class="form-group">
+						  		<%= f.label :phone, 'Teléfono' %>
+						  		<%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+						  		<%= f.label :email, 'Email' %>
+						  		<%= f.email_field :email, :class =>'form-control', minlength: 1 %>
+							</div>
+						</div>
+				    </div>
+					<div class="row">											        
 
                         <div class="col-md-6">
 
@@ -275,10 +277,6 @@
 							  })
 							</script>
 
-
-
-
-
 							<br/><br/>
 						  </div>
 
@@ -374,7 +372,6 @@
 						</div>
 
 						</div>
-
 					<% end %>
 
 					<!--Camion 3-->
@@ -431,9 +428,7 @@
 									<%= f.text_field :tipocupo, :class =>'form-control'  %>
 								</div>
 							</div>
-						</div>
-
-						
+						</div>						
 					<% end %>
 
 					<!--buses 4-->
@@ -747,7 +742,7 @@
 					<!-- Imagenes -->
 					<%= render partial: 'shared/imagenes', locals:{ object: f } %>
 		            
-		            <%= render partial: 'shared/camposGeneralesII', locals:{ object: f } %>
+		            <%= render partial: 'shared/camposGeneralesII', locals:{ f: f } %>
 
 		            <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: micamiones_path } %>
 				
