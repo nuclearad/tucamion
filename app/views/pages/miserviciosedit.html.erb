@@ -1,50 +1,46 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-            Servicios <small>/ editar</small>
-            </h1>
-        </div>
-    </div>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Servicios <small>/ editar</small>
+    </h1>
+  </div>
+</div>
+<%= render partial: 'includes/messages_errors', locals: {object: @service} %>
+<div class="row">
+  <div class="col-md-12">
 
-    <div class="row">
-        <div class="col-md-12">
-            <%= render partial: 'includes/messages_errors', locals: {object: @service} %>
-            <%= form_for @service, :url => miserviciosedit_path, method: :post do |f|  %>
-                <% if @serviceLateUpdate %>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <%= f.label :price, 'Precio' %>
-                                <%= f.number_field :price, :class =>'form-control text_field'  %>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <%= f.label :telefono, 'Telefono' %>
-                                <%= f.number_field :telefono, :class =>'form-control'  %>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <%= f.label :email, 'Email' %>
-                                <%= f.text_field :email, :class =>'form-control', :autocorrect=>'off' %>
-                            </div>
-                        </div>
-                        
+    <%= form_for @service, :url => miserviciosedit_path, method: :post do |f|  %>
+        <% if @serviceLateUpdate %>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <%= f.label :price, 'Precio' %>
+                        <%= f.number_field :price, :class =>'form-control text_field'  %>
                     </div>
+                </div>
                 
-                <% else %>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <%= f.label :telefono, 'Telefono' %>
+                        <%= f.number_field :telefono, :class =>'form-control'  %>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <%= f.label :email, 'Email' %>
+                        <%= f.text_field :email, :class =>'form-control', :autocorrect=>'off' %>
+                    </div>
+                </div>
+                
+            </div>
+        
+        <% else %>
+          <%= render partial: 'shared/form_service', locals:{ f: f} %>
+       <%end%>
+       <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: miservicios_path } %>
+    <% end %>
 
-                    <%= render partial: 'shared/form_service', locals:{ f: f} %>
-                    
-                <%end%>
-                <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: miservicios_path } %>
-            <% end %>
-        </div>
-    </div>
-
+  </div>
 </div>
 
 <script>
