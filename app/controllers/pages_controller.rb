@@ -248,20 +248,6 @@ class PagesController < ApplicationController
     redirect_to '/mi-cuenta/camiones'
   end
 
-  def status_truck
-    id_truck = params[:id]
-    truck = Truck.find_by(id: id_truck, customer_id: session[:user])
-    if truck
-      if truck.active == 1
-        truck.update_attributes(active: Environment::STATUS[:camiones][:inactivo])
-      else
-        truck.update_attributes(active: Environment::STATUS[:camiones][:activo])
-      end
-    end
-    redirect_to '/mi-cuenta/camiones'
-  end
-
-
 #repuestos
   def mirepuestos
 
@@ -745,6 +731,33 @@ class PagesController < ApplicationController
     @message = Message.new
     @service = Service.find_by_id(params[:id])
   end
+
+  def update_status
+    id   = params[:id]
+    type = params[:type]
+    
+    case type
+    when 'truck'
+      item = Truck.find_by(id: id, customer_id: session[:user])
+      path = '/mi-cuenta/camiones'
+    when 'service'
+      item = Service.find_by(id: id, customer_id: session[:user])
+      path = '/mi-cuenta/servicios'
+    when 'extra'
+      item = Extra.find_by(id: id, customer_id: session[:user])
+      path = '/mi-cuenta/repuestos'
+    end
+
+    if item && item.active == 1
+      item.update_attributes(active: Environment::STATUS[:camiones][:inactivo])
+    else
+      item.update_attributes(active: Environment::STATUS[:camiones][:activo])
+    end
+    
+    redirect_to path
+
+  end
+
 
 #private
   private

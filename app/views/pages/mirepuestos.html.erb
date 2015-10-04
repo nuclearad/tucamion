@@ -44,7 +44,7 @@
           <th>Tipo</th>
           <th>Marca</th>
           <th>Acciones</th>
-          <th style="display:none">Estado</th>
+          <th>Estado</th>
         </tr>
         </thead>
         <tbody>
@@ -66,29 +66,26 @@
               </td>
 
               <td>
-                <%= link_to 'Editar', mirepuestosedit_path(extra.id), :class=>'btn btn-info' %>
-              </td>
-
-
-              <td style="display: none">
                 <% if extra.active == 1 %>
-
-
-                    <%= link_to admin_updateState_path(extra.id,1,'extra'), :class=>'btn btn-success' do %>
-                        <i class="fa fa-check"></i>
-                    <% end %>
-
-
-                <% else %>
-
-                    <%= link_to admin_updateState_path(extra.id,0,'extra'), :class=>'btn btn-danger' do %>
-                        <i class="fa fa-times"></i>
-                    <% end %>
-
-
+                  <%= link_to 'Editar', mirepuestosedit_path(extra.id), :class=>'btn btn-info' %>
                 <% end %>
               </td>
 
+              <td>
+
+                <% if extra.active == 1 %>
+                   <%= link_to  "/estatus-update/extra/#{extra.id}", :class=>'btn btn-danger' do %>
+                     <i class="fa fa-times"></i>
+                   <% end %>
+                <% elsif extra.active == 0 %>
+                   <%= link_to  "/estatus-update/extra/#{extra.id}", :class=>'btn btn-success' do %>
+                     <i class="fa fa-check"></i>
+                   <% end %>
+                <% elsif extra.active == 3 %>
+                   Inactivo por el admin
+                <% end %>
+
+              </td>
 
             </tr>
         <% end %>

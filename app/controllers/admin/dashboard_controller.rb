@@ -28,51 +28,27 @@ class Admin::DashboardController < ApplicationController
 
 
   def updatestate
-
-
-
-    if(params[:type] == 'service')
-      @item = Service.find(params[:iditem])
-      if(params[:idstate] == '0')
-        @item.active = 1
-      else
-        @item.active = 0
-      end
-      if @item.save
-        redirect_to admin_services_path
-      end
-    end
-
-
-
-    if(params[:type] == 'truck')
+    
+    case params[:type]
+    when 'service'
+      item = Service.find(params[:iditem])
+      path = admin_services_path
+    when 'truck'
       item = Truck.find(params[:iditem])
-      puts item
-      if(params[:idstate] == '0')
-        item.update_attribute(:active, 1)
-      else
-        item.update_attribute(:active, 0)
-      end
-      if item.save
-
-      end
-      redirect_to admin_trucks_path
+      path = admin_trucks_path
+    when 'extra'
+      item = Extra.find(params[:iditem])
+      path = admin_extras_path
     end
-
-
-
-    if(params[:type] == 'extra')
-      @item = Extra.find(params[:iditem])
-      if(params[:idstate] == '0')
-        @item.active = 1
-      else
-        @item.active = 0
-      end
-      if @item.save
-        redirect_to admin_extras_path
-      end
+    
+    if(params[:idstate] == '1')
+      item.update_attribute(:active, Environment::STATUS[:generico][:inactivo_admin])
+    elsif(params[:idstate] == '3')
+      item.update_attribute(:active, Environment::STATUS[:generico][:activo])
     end
-
-
+  
+    redirect_to path
+  
   end
+
 end
