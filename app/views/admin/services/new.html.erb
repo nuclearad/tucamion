@@ -33,21 +33,26 @@
     <%= form_for @service, :url => admin_services_path, :method=>'post' do |f|  %>
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <%= f.label :name, 'Nombre de servicio' %>
               <%= f.text_field :name, :class =>'form-control'  %>
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <%= f.label :phone, 'Teléfono' %>
-              <%= f.text_field :phone, :class =>'form-control', maxlength: 11  %>
+              <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
             </div>
           </div>
-
-
+          
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :email, 'Email' %>
+              <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+            </div>
+          </div>
         </div>
 
         <div class="row">
@@ -67,10 +72,6 @@
 
         </div>
 
-
-
-
-
         <div class="row">
 
           <div class="col-md-6">
@@ -80,12 +81,7 @@
             </div>
           </div>
 
-
-
         </div>
-
-
-
 
         <div class="row">
           <div class="col-md-6">
@@ -116,17 +112,11 @@
           </div>
         </div>
 
-
-
-
         <div class="row">
           <div class="col-md-2">
             <div class="form-group">
               <%= f.label :picture1, 'Imagen principal' %>
               <%= f.file_field :picture1, :class =>'form-control'  %>
-
-
-
             </div>
           </div>
 

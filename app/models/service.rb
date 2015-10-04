@@ -8,7 +8,7 @@ class Service < ActiveRecord::Base
 
   has_many :messages, :foreign_key => :item
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
-  validates_presence_of [:name, :phone, :type_service_id,:state_id,:address], message: 'No puede estar vacio'
+  validates_presence_of [:name, :phone, :type_service_id,:state_id,:address,:email], message: 'No puede estar vacio'
  
   validates_format_of [:name, :address, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
 

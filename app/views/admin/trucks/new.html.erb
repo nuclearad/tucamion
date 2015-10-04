@@ -28,10 +28,25 @@
 <div class="row">
   <div class="col-md-12">
 
-
-
     <%= form_for @truck, :url => admin_trucks_path, :method=>'post' do |f|  %>
-        <%= f.hidden_field :type_truck_id, :value=> params['v'] ?  params['v'] : @truck.type_truck_id  %>
+      
+      <%= f.hidden_field :type_truck_id, :value=> params['v'] ?  params['v'] : @truck.type_truck_id  %>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :phone, 'Teléfono' %>
+            <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :email, 'Email' %>
+            <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+          </div>
+        </div>
+      </div>
+      
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -39,6 +54,7 @@
             <%= f.collection_select :sub_truck_id, SubTruck.getByTypeTruckId(@truck.type_truck_id).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
           </div>
         </div>
+        
         <div class="col-md-6">
             <div class="form-group">
                 <%= f.label :price, 'Precio' %>
@@ -46,6 +62,7 @@
             </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -84,10 +101,7 @@
             <%= f.text_field :pesobruto, :class =>'form-control'  %>
           </div>
         </div>
-
-
       </div>
-
 
 
         <div class="row">
@@ -101,7 +115,11 @@
           <div class="col-md-6">
             <div class="form-group">
               <%= f.label :city_id, 'Ciudad' %>
-              <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+              <% if @truck.city_id.nil? %>
+                  <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+               <% else %>
+                   <%= f.collection_select(:city_id, City.getByState(@truck.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
+              <% end %>
             </div>
           </div>
 
@@ -125,11 +143,6 @@
         </div>
 
 
-
-
-
-
-
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -149,8 +162,6 @@
         </div>
 
 
-
-
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -159,17 +170,12 @@
             </div>
           </div>
 
-
-
           <div class="col-md-6">
             <div class="form-group">
               <%= f.label :scraps_truck_id, 'Chatarrización' %>
               <%= f.collection_select :scraps_truck_id, ScrapsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
             </div>
           </div>
-
-
-
         </div>
 
 
@@ -207,11 +213,7 @@
             </div>
           </div>
 
-
         </div>
-
-
-
 
 
         <div class="row">
@@ -405,9 +407,6 @@
           </div>
         </div>
 
-        <div class="col-md-6">
-
-        </div>
       </div>
 
 

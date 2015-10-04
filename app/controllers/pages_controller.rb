@@ -159,6 +159,7 @@ class PagesController < ApplicationController
       @quantity = @user.quantities.first
       @truck    = Truck.new
       @truck.type_truck_id = params['v']
+      @capacidadcarga = Environment::CAPACIDAD_CARGA 
       if @quantity.total_trucks - @quantity.current_trucks > 0
 
         if @user.cargar_planes > 0
@@ -193,6 +194,7 @@ class PagesController < ApplicationController
       @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
+      @capacidadcarga = Environment::CAPACIDAD_CARGA 
       if @truck.blank?
         redirect_to micamiones_path
       else

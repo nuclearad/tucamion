@@ -33,21 +33,26 @@
     <%= form_for @service, :url => admin_service_path, :method=>'put' do |f|  %>
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <%= f.label :name, 'Nombre de servicio' %>
               <%= f.text_field :name, :class =>'form-control'  %>
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <%= f.label :phone, 'Teléfono' %>
-              <%= f.text_field :phone, :class =>'form-control' , maxlength: 11 %>
+              <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
             </div>
           </div>
-
-
+          
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :email, 'Email' %>
+              <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+            </div>
+          </div>
         </div>
 
         <div class="row">

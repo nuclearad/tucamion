@@ -43,6 +43,21 @@
         <div role="tabpanel" class="tab-pane active" id="home">
 
             <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :phone, 'Teléfono' %>
+                  <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :email, 'Email' %>
+                  <%= f.email_field :email, :class =>'form-control' minlength: 1 %>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
 
                 <div class="col-md-12">
                     <div class="form-group">
@@ -69,7 +84,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-md-6">
                     <div class="form-group">
                         <%= f.label :modelo, 'Modelo' %>
@@ -84,23 +98,21 @@
                     </div>
                 </div>
 
-
                 <div class="col-md-6">
                     <div class="form-group">
                         <%= f.label :price, 'Precio' %>
                         <%= f.text_field :price, :class =>'form-control'  %>
                     </div>
                 </div>
-              <div class="col-md-6">
+                
+                <div class="col-md-6">
                 <div class="form-group">
                   <%= f.label :pesobruto, 'Peso bruto' %>
                   <%= f.text_field :pesobruto, :class =>'form-control'  %>
                 </div>
-              </div>
+                </div>
+            
             </div>
-
-
-
 
           <div class="row">
             <div class="col-md-6">

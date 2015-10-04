@@ -21,6 +21,8 @@ class Truck < ActiveRecord::Base
   validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state,:city,
                          :placa_state_id,:placa_city_id, :kilometraje,:state_id,:brand_truck_id,
                          :colors_truck_id,:city_id,:tipocombustible,:estado,:pesobruto,:scraps_truck_id], message: 'No puede estar en blanco'
+  validates_presence_of       :phone, message: "El telefono es un campo obligatorio"
+  validates_presence_of       :email,    message: "El correo es un campo obligatorio"
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
