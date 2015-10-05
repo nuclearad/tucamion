@@ -85,20 +85,18 @@
 
               <td>
 
-               <% if truck.active == 1 %>
-
-                 <%= link_to  "/estatus-camion/#{truck.id}", :class=>'btn btn-danger' do %>
-                          <i class="fa fa-times"></i>
+              <% if truck.active == 1 %>
+                 <%= link_to  "/estatus-update/truck/#{truck.id}", :class=>'btn btn-danger' do %>
+                   <i class="fa fa-times"></i>
                  <% end %>
-
               <% elsif truck.active == 0 %>
-
-                 <%= link_to  "/estatus-camion/#{truck.id}", :class=>'btn btn-success' do %>
-                       <i class="fa fa-check"></i>
+                 <%= link_to  "/estatus-update/truck/#{truck.id}", :class=>'btn btn-success' do %>
+                   <i class="fa fa-check"></i>
                  <% end %>
-
               <% elsif truck.active == 2 %>
-                  Vendido
+                 Vendido
+              <% elsif truck.active == 3 %>              
+                 Inactivo por el admin
               <% end %>
 
               </td>
