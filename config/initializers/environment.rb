@@ -11,9 +11,10 @@ class Environment
     EXTRA_AVAILABLES_DAYS=180
 
     STATUS = {clientes:  {activo: 1, inactivo: 0, eliminado: -1},
-              camiones:  {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
-              repuestos: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
-              servicios: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1},
+              camiones:  {activo: 1, vendido: 2, inactivo: 0, eliminado: -1, inactivo_admin: 3},
+              repuestos: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1, inactivo_admin: 3},
+              servicios: {activo: 1, vendido: 2, inactivo: 0, eliminado: -1, inactivo_admin: 3},
+              generico:  {activo: 1, vendido: 2, inactivo: 0, eliminado: -1, inactivo_admin: 3},
               mensajes:  {activo: 1, inactivo: 0, eliminado: -1}
              }
 

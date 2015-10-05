@@ -124,6 +124,12 @@ class Truck < ActiveRecord::Base
   end
 
 
+  after_rollback :print_error
+
+  def print_error
+    puts self.errors.full_messages
+    puts "*****************"
+  end
 
   before_create do
 

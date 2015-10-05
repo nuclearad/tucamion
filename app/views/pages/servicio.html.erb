@@ -40,6 +40,9 @@
                   <tr class="nymou"><td>Email:</td><td class="pull-right"><%= @service.email %></td></tr>
                   <tr class="nymou"><td>Horario:</td><td class="pull-right"><%= @service.horario %></td></tr>
                   <tr class="nymou"><td>Dirección:</td><td class="pull-right"><%= @service.address %></td></tr>
+                  <% unless @service.url_map.blank? %>
+                    <tr class="nymou"><td>Google map:</td><td class="pull-right"><%= link_to 'Aqui ', @service.url_map %></td></tr>
+                  <% end %>
                   </tbody></table>
                 </div><!-- /.table-responsive -->
               </div><!-- /.module-body -->
