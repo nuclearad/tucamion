@@ -8,7 +8,7 @@
 
   <div class="col-md-6">
     <div class="form-group">
-      <%= f.label :name, 'Precio' %>
+      <%= f.label :name, 'Nombre almacen de repuestos' %>
       <%= f.text_field :name, :class =>'form-control'  %>
     </div>
   </div>
@@ -67,14 +67,14 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="form-group">
       <%= f.label :state_id, 'Departamento' %>
       <%= f.collection_select :state_id, State.order(:id),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="form-group">
       <%= f.label :city_id, 'Ciudad' %>
       <% if @extra.city_id.nil? %>
@@ -82,6 +82,13 @@
       <% else %>
           <%= f.collection_select(:city_id, City.getByState(@extra.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
       <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :url_map, 'Link mapa' %>
+      <%= f.url_field :url_map, :class =>'form-control'  %>
     </div>
   </div>
 
