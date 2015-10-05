@@ -91,7 +91,7 @@ class Extra < ActiveRecord::Base
       :type_truck_id => 'Tipo',
       :phone => 'Telefono',
       :address => 'Direccion',
-      :description => 'Description'
+      :description => 'Descripcion'
   }
     def self.human_attribute_name(attr, options = {})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
