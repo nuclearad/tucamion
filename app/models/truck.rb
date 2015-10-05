@@ -19,8 +19,8 @@ class Truck < ActiveRecord::Base
   accepts_nested_attributes_for :customer
   validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
   validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state,:city,
-                         :placa_state_id,:placa_city_id, :kilometraje,:state_id,:brand_truck_id,
-                         :colors_truck_id,:city_id,:tipocombustible,:estado,:pesobruto,:scraps_truck_id], message: 'No puede estar en blanco'
+                         :placa_state_id,:placa_city_id,:state_id,:brand_truck_id,
+                         :colors_truck_id,:city_id,:estado,:pesobruto], message: 'No puede estar en blanco'
   validates_presence_of       :phone, message: "El telefono es un campo obligatorio"
   validates_presence_of       :email,    message: "Es un campo obligatorio"
 
@@ -34,7 +34,7 @@ class Truck < ActiveRecord::Base
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
   validates_format_of [:nombre, :modelo, :placa, :marcacarpa, :empresaafiliada, :descripcion], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
 
@@ -49,7 +49,7 @@ class Truck < ActiveRecord::Base
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture2, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture2, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
 
   has_attached_file :picture3, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
@@ -59,7 +59,7 @@ class Truck < ActiveRecord::Base
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture3, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture3, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
 
   has_attached_file :picture4, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
@@ -69,7 +69,7 @@ class Truck < ActiveRecord::Base
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture4, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture4, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
 
   has_attached_file :picture5, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
@@ -79,7 +79,7 @@ class Truck < ActiveRecord::Base
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
 =begin
   validates :nombre, presence: true

@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-12">
       <%= render partial: 'includes/messages_errors', locals: {object: @truck} %>
-        <%= form_for @truck, :url => micamionesnew_path do |f|  %>
+        <%= form_for @truck, :url => micamionesnew_path, html:{ name: 'formulario', multipart: true } do |f|  %>
         <%= f.hidden_field :type_truck_id, :value=> params['v'] ?  params['v'] : @truck.type_truck_id  %>
 		    <div class="row">
 		        <div class="col-md-12">
@@ -39,191 +39,7 @@
 		    	<!--Paso 1-->
 		        <div role="tabpanel" class="tab-pane active" id="home">
 
-                    <div class="row">
-
-                        <div class="col-md-12">
-
-                            <div class="form-group">
-
-                                <%= f.label :sub_truck_id, 'Sub tipo' %>
-                                <%= f.collection_select :sub_truck_id, SubTruck.where(:type_truck_id => @truck.type_truck_id).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row">				         
-
-						<div class="col-md-6">
-							<div class="form-group">
-						  		<%= f.label :phone, 'Teléfono' %>
-						  		<%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-						  		<%= f.label :email, 'Email' %>
-						  		<%= f.email_field :email, :class =>'form-control', minlength: 1 %>
-							</div>
-						</div>
-				    </div>
-					<div class="row">											        
-
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-
-                                  <%= f.label :nombre, 'Nombre de Vehiculo' %>
-                                  <%= f.text_field :nombre, :class =>'form-control'  %>
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :brand_truck_id, 'Marcas' %>
-                                <%= f.collection_select :brand_truck_id, BrandTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :modelo, 'Modelo' %>
-                                <%= f.text_field :modelo, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :referencia_id, 'Referencia' %>
-                                <%= f.collection_select :referencia_id, Referencia.getByTypeTruckId(@truck.type_truck_id).order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :price, 'Precio' %>
-                                <%= f.number_field :price, :class =>'form-control text_field',min:0 ,:step => 'any' %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :pesobruto, 'Peso bruto' %>
-                                <%= f.text_field :pesobruto, :class =>'form-control text_field'%>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                              <%= f.label :state_id, 'Departamento' %>
-                              <%= f.collection_select :state_id, State.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                          </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                              <%= f.label :city_id, 'Ciudad' %>
-                                <% if @truck.city_id.nil? %>
-                                    <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
-                                 <% else %>
-                                     <%= f.collection_select(:city_id, City.getByState(@truck.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
-                                <% end %>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :placa_state_id, 'Departamento placa' %>
-                                <%= f.collection_select :placa_state_id, State.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                    		<div class="form-group">
-                      			<%= f.label :placa_city_id, 'Ciudad placa' %>
-                      			<% if @truck.placa_city_id.nil? %>
-                        			<%= f.select(:placa_city_id, [['','' ]], {}, { :class => 'form-control' }) %>
-                        		<% else %>
-                            		<%= f.collection_select(:placa_city_id, City.getByState(@truck.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
-                        		<% end %>
-                    		</div>
-                  		</div>
-                    
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :kilometraje, 'Kilometraje' %>
-                                <%= f.number_field :kilometraje, :class =>'form-control text_field',  min:0 %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :estado, 'Estado' %>
-
-                                <%= f.select(:estado, [['Nuevo', 0], ['Usado', 1]], {include_blank: 'Selecccione'}, { :class => 'form-control' }) %>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :placa, 'Placa' %>
-                                <%= f.text_field :placa, :class =>'form-control'  %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :scraps_truck_id, 'Chatarrización' %>
-                                <%= f.collection_select :scraps_truck_id, ScrapsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :colors_truck_id, 'Color' %>
-                                <%= f.collection_select :colors_truck_id, ColorsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <%= f.label :tipocombustible, 'Tipo combustible' %>
-                                <%= f.select(:tipocombustible, [['Gasolina', 0], ['Gas', 1], ['ACPM', 2]], {include_blank: 'Selecccione'}, { :class => 'form-control' }) %>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <a  class="btn btn-info" id="sa"  href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Siguiente</a>
-                        </div>
-
-                        <script>
-                            $(function(){
-                            $('#sa').click(function(){
-                                $($('.nav-tabs li')[0]).removeClass('active');
-                                $($('.nav-tabs li')[1]).addClass('active')
-                            })
-                        })
-                        </script>
-                    
-                    </div>
+                    <%= render partial: 'shared/paso1' , locals: { f:f , type: @truck.type_truck_id} %>
 
 		        </div>
 		        <!--Paso 2 -->	
@@ -235,93 +51,15 @@
 					<% if params[:v] == '1'|| @truck.type_truck_id==1 %>
 
 						<div class="row">
-						  		<div class="col-md-6">
-									<div class="form-group">
-							  			<%= f.label :wheels_truck_id, 'Quinta Rueda' %>
-							  			<%= f.collection_select :wheels_truck_id, WheelsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-									</div>
-						  		</div>
-						
-						</div>
-
-						<div class="row">
-
-						  	<div class="col-md-6">
+					  		<div class="col-md-6">
 								<div class="form-group">
-							  		<%= f.label :spaces_truck_id, 'Tipo Cupo' %>
-							  		<%= f.collection_select :spaces_truck_id, SpacesTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+						  			<%= f.label :wheels_truck_id, 'Quinta Rueda' %>
+						  			<%= f.collection_select :wheels_truck_id, WheelsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
 								</div>
-						  	</div>
-						
+					  		</div>						
 						</div>
 
-
-						<div class="row">
-						  <div class="col-md-12">
-							<label for="">   Se vende con trailer? </label><br/>
-
-							<%= f.radio_button :sevendecontrailer, 'Si', :checked => true %> Si
-
-
-
-							<%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
-
-
-							<script >
-							  $('input[type=radio]').click(function(){
-								  if($('#truck_sevendecontrailer_si').is(':checked')) {
-									  $('.extras').show();
-								   }else{
-									  $('.extras').hide();
-								  }
-							  })
-							</script>
-
-							<br/><br/>
-						  </div>
-
-
-						  <div class="col-md-3 extras">
-							<div class="form-group">
-							  <%= f.label :tipotrailer, 'Tipo Trailer' %>
-							  <%= f.text_field :tipotrailer, :class =>'form-control'  %>
-							</div>
-						  </div>
-
-						  <div class="col-md-3 extras">
-							<div class="form-group">
-							  <%= f.label :marcatrailer, 'Marca Trailer' %>
-							  <%= f.text_field :marcatrailer, :class =>'form-control'  %>
-							</div>
-						  </div>
-
-
-						  <div class="col-md-3 extras">
-							<div class="form-group">
-							  <%= f.label :modelotrailer, 'Modelo Trailer' %>
-							  <%= f.text_field :modelotrailer, :class =>'form-control'  %>
-							</div>
-						  </div>
-
-						  <div class="col-md-3 extras">
-							<div class="form-group">
-							  <%= f.label :numeroejestrailer, 'Numero de ejes' %>
-							  <%= f.text_field :numeroejestrailer, :class =>'form-control'  %>
-							</div>
-						  </div>
-		                  <div class="col-md-3 extras ">
-		                    <div class="form-gorup">
-		                      <label for="">numero de ejes retractiles </label><br/>
-
-		                      <%= f.radio_button :ejesretractiles, 1, :checked => true %> 1
-
-		                      <%= f.radio_button :ejesretractiles, 2, :checked => false %> 2
-
-		                    </div>
-		                  </div>
-
-						</div>
-
+						<%= render partial: 'shared/contrailer', locals: {f:f } %>
 
 			  		<% end %>
 
@@ -347,18 +85,18 @@
 
 						<div class="row">
 							<div class="col-md-6">
-								<div class="form-group">
-									<%= f.label :capacidadmetrica, 'Capacidad Metrica' %>
-									<%= f.text_field :capacidadmetrica, :class =>'form-control'  %>
+    							<div class="form-group">
+									<%= f.label :capacidadcarga, 'Capacidad Carga Matricula' %>
+									<%= f.collection_select :capacidadcarga, @capacidadcarga,:first,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
 								</div>
-							</div>
+  							</div>
 
 							<div class="col-md-6">
 								<div class="form-group">
 									<%= f.label :cuantosmetroscubicos, 'Cuantos Metros cubicos' %>
 									<%= f.text_field :cuantosmetroscubicos, :class =>'form-control'  %>
 								</div>
-							</div>
+							</div>	
 
 						</div>
 
@@ -370,8 +108,6 @@
 									<br/><br/>
 							</div>
 						</div>
-
-						</div>
 					<% end %>
 
 					<!--Camion 3-->
@@ -379,7 +115,13 @@
 						
 						<div class="row">
 
-						</div>
+							<div class="col-md-6">
+								<div class="form-group">
+						  			<%= f.label :wheels_truck_id, 'Quinta Rueda' %>
+						  			<%= f.collection_select :wheels_truck_id, WheelsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+								</div>
+					  		</div>	
+								
 							<div class="col-md-6">
 								<div class="form-group">
 									<%= f.label :capacidadcarga, 'Capacidad Carga' %>
@@ -387,157 +129,25 @@
 								</div>
 							</div>
 
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<%= f.label :tipo_carroceria_id, 'Tipo carroceria' %>
-									<%= f.collection_select :tipo_carroceria_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-								</div>
-							</div>
+						</div>
 
-							<div class="col-md-6">
-								<div class="form-group">
-									<%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
-									<%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+						<div>
+							<div class='col-md-6'>
+								<div class="form-gorup">
+							  		<label for="">numero de ejes retractiles </label><br/>
+							  			<%= f.radio_button :ejesretractiles, 1, :checked => true %> 1
+							  			<%= f.radio_button :ejesretractiles, 2, :checked => false %> 2
 								</div>
 							</div>
 						</div>
-
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<%= f.label :marcacarpa, 'Marca Carga' %>
-									<%= f.text_field :marcacarpa, :class =>'form-control'  %>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<%= f.label :contracts_truck_id, 'Poliza' %>
-									<%= f.collection_select :contracts_truck_id, ContractsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-								</div>
-							</div>
-
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<%= f.label :tipocupo, 'Tipo de Cupo' %>
-									<%= f.text_field :tipocupo, :class =>'form-control'  %>
-								</div>
-							</div>
-						</div>						
+					
 					<% end %>
 
 					<!--buses 4-->
 					<% if params[:v] == '4' %>
 
-						<div class="row">
+						<%= render partial: 'shared/busyvan', locals:{ f:f} %>
 
-						  <div class="col-md-6">
-							<div class="form-group">
-							  <%= f.label :contracts_truck_id, 'Poliza' %>
-							  <%= f.collection_select :contracts_truck_id, ContractsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-							</div>
-						  </div>
-
-						  <div class="col-md-6">
-							<div class="form-group">
-							  <%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
-							  <%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-							</div>
-						  </div>
-						</div>
-
-						<div class="row">
-						  <div class="col-md-6">
-							<div class="form-group">
-							  <%= f.label :capacidadcarga, 'Capacidad Carga' %>
-							  <%= f.collection_select :capacidadcarga, @capacidadcarga,:first,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
-							</div>
-						  </div>
-
-
-						  <div class="col-md-6">
-							<div class="form-group">
-							  <%= f.label :capacidadpasajeros, 'Capacidad Pasajeros' %>
-							  <%= f.text_field :capacidadpasajeros, :class =>'form-control'  %>
-							</div>
-						  </div>
-						</div>
-
-						<div class="row">
-						  <div class="col-md-3">
-							<div class="form-group">
-
-
-							  <label>
-								<%= f.check_box :negociable  %> Negociable
-							  </label>
-							  <br/>
-
-
-							  <label>
-								<%= f.check_box :cupo  %> Cupo
-							  </label>
-							  <br/>
-							  <label>
-								<%= f.check_box :sillareclinable  %> Silla reclinable
-							  </label>
-							  <br/>
-
-							  <label>
-								<%= f.check_box :bano  %> Baño
-							  </label>
-							  <br/>
-
-							</div>
-
-
-						  </div>
-
-						  <div class="col-md-3">
-
-							<label>
-							  <%= f.check_box :descansapies  %> Descansa pies
-							</label>
-							<br/>
-
-
-							<label>
-							  <%= f.check_box :tv  %> tv
-							</label>
-							<br/>
-
-
-
-							<label>
-							  <%= f.check_box :pantallaindividual  %> Pantalla individual
-							</label>
-							<br/>
-
-
-
-							<label>
-							  <%= f.check_box :wifi  %> Wifi
-							</label>
-							<br/>
-
-
-							<label>
-							  <%= f.check_box :audio  %> Audio
-							</label>
-							<br/>
-
-							<label>
-							  <%= f.check_box :unicodueno  %> Unico Dueño
-							</label>
-							<br/>
-
-						  </div>
-						</div>
 					<% end %>
 
 					<!-- trailers 5-->
@@ -545,54 +155,37 @@
 
 
 						<div class="row">
-						  <div class="col-md-4">
-							<div class="form-group">
-							  <%= f.label :tipo_carroceria_id, 'Tipo Carroceria' %>
-							  <%= f.collection_select :tipo_carroceria_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-							</div>
-						  </div>
 
-						  <div class="col-md-4">
-							<div class="form-group">
-							  <%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
-							  <%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
-							</div>
-						  </div>
+							<div class="col-md-6">
+								<div class="form-group">
+						  			<%= f.label :wheels_truck_id, 'Quinta Rueda' %>
+						  			<%= f.collection_select :wheels_truck_id, WheelsTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+								</div>
+					  		</div>		
+						  	<div class="col-md-6">
+								<div class="form-group">
+							  		<%= f.label :tipo_carroceria_id, 'Tipo Carroceria' %>
+							  		<%= f.collection_select :tipo_carroceria_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+								</div>
+						  	</div>
 
-						  <div class="col-md-4">
-							<div class="form-group">
-							  <%= f.label :marcacarpa, 'Marca Carpa' %>
-							  <%= f.text_field :marcacarpa, :class =>'form-control'  %>
-							</div>
-						  </div>
+						  	<div class="col-md-6">
+								<div class="form-group">
+							  		<%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
+							  		<%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+								</div>
+						  	</div>
+
+						  	<div class="col-md-6">
+								<div class="form-group">
+							  		<%= f.label :marcacarpa, 'Marca Carpa' %>
+							  		<%= f.text_field :marcacarpa, :class =>'form-control'  %>
+								</div>
+						  	</div>
 
 						</div>
 
-						<div class="row">
-						  <div class="col-md-12">
-							<label for="">   Se vende con trailer? </label><br/>
-
-							<%= f.radio_button :sevendecontrailer, 'Si', :checked => true %> Si
-
-
-
-							<%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
-
-
-							<script >
-								$('input[type=radio]').click(function(){
-									if($('#truck_sevendecontrailer_si').is(':checked')) {
-										$('.extras').show();
-									}else{
-										$('.extras').hide();
-									}
-								})
-							</script>
-
-
-							<br/><br/>
-						  </div>
-
+						<div class="row">						 
 
 						  <div class="col-md-3 extras">
 							<div class="form-group">
@@ -637,28 +230,6 @@
 		                
 		                </div>
 
-						<div class="row">
-
-		                  <div class="col-md-3">
-		                    <div class="form-group">
-		                        <label>
-		                            <%= f.check_box :negociable  %> Negociable
-		                        </label>
-		                    </div>
-		                  </div>
-		                  <div class="col-md-3">
-							<div class="form-group">
-
-							  <label>
-								<%= f.check_box :unicodueno  %> Unico dueño
-							  </label>
-
-							</div>
-
-
-						  </div>
-
-						</div>
 					<% end %>
 
 					<!--VANS 6-->
@@ -666,83 +237,37 @@
 
 						<div class="row">
 
-						  <div class="col-md-6">
-							<div class="form-group">
-							  <%= f.label :cilindrajecc, 'Cilindraje CC' %>
-							  <%= f.text_field :cilindrajecc, :class =>'form-control'  %>
-							</div>
-						  </div>
-
-
+						  	<div class="col-md-6">
+								<div class="form-group">
+							  		<%= f.label :cilindrajecc, 'Cilindraje CC' %>
+							  		<%= f.text_field :cilindrajecc, :class =>'form-control'  %>
+								</div>
+						  	</div>
+						
+						  	<div class="col-md-6">
+								<label for=""> Dirección </label><br/>
+									<%= f.radio_button :direccion, 'Si', :checked => false %> Hidraulica
+									<%= f.radio_button :direccion, 'No', :checked => false %> Mecanica
+									<br/><br/>
+						  	</div>
 						</div>
 
-
-						<div class="row">
-						  <div class="col-md-6">
-							<div class="form-group">
-							  <%= f.label :capacidadcarga, 'Capacidad Carga' %>
-							  <%= f.collection_select :capacidadcarga, @capacidadcarga,:first,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
-							</div>
-						  </div>
-
-						  <div class="col-md-6">
-							<div class="form-group">
-							  <%= f.label :capacidadpasajeros, 'Capacidad pasajeros' %>
-							  <%= f.text_field :capacidadpasajeros, :class =>'form-control'  %>
-							</div>
-						  </div>
-						</div>
-
-
-						<div class="row">
-						  <div class="col-md-12">
-							<label for=""> Dirección </label><br/>
-
-							<%= f.radio_button :direccion, 'Si', :checked => false %> Hidraulica
-
-
-
-							<%= f.radio_button :direccion, 'No', :checked => false %> Mecanica
-							<br/><br/>
-						  </div>
-						</div>
-
-		                <div class="row">
-
-		                    <div class="col-md-3">
-		                          <div class="form-group">
-		                            <label>
-		                              <%= f.check_box :negociable  %> Negociable
-		                            </label>
-		                          </div>
-		                        </div>
-		                    <div class="col-md-3">
-		                          <div class="form-group">
-
-		                            <label>
-		                              <%= f.check_box :unicodueno  %> Unico dueño
-		                            </label>
-
-		                          </div>
-
-
-		                        </div>
-
-		                </div>
+						<%= render partial: 'shared/busyvan', locals: {f: f} %>
+		                
 				  	<% end %>
 
 				  	<!-- Descripcion -->
 					<div class="row">
 						<div class="col-md-12">
-							<%= f.label :descripccion, 'Descripccion' %>
+							<%= f.label :descripccion, 'Descripcion' %>
 							<%= f.text_area :descripccion, :class =>'form-control'  %> <br/> <br/> <br/> <br/>
 					  	</div>
 					</div>
 
 					<!-- Imagenes -->
-					<%= render partial: 'shared/imagenes', locals:{ object: f } %>
+					<%= render partial: 'shared/imagenes', locals:{ object: f } %> <br/> <br/> <br/> <br/>
 		            
-		            <%= render partial: 'shared/camposGeneralesII', locals:{ f: f } %>
+		            <%= render partial: 'shared/camposGeneralesII', locals:{ f: f } %> <br/> <br/> <br/> <br/>
 
 		            <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: micamiones_path } %>
 				

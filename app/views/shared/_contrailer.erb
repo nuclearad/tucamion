@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-md-12">
+		<label for="">   Se vende con trailer? </label><br/>
+
+			<%= f.radio_button :sevendecontrailer, 'Si', :checked => true %> Si
+			<%= f.radio_button :sevendecontrailer, 'No', :checked => false %> No
+
+		<script >
+	  		$('input[type=radio]').click(function(){
+		  		if($('#truck_sevendecontrailer_si').is(':checked')) {
+			  		$('.extras').show();
+		   		}else{
+			  		$('.extras').hide();
+		  		}
+	  		})
+		</script>
+
+		<br/><br/>
+	</div>
+
+
+	<div class="col-md-3 extras">
+		<div class="form-group">
+	  		<%= f.label :tipotrailer, 'Tipo Trailer' %>
+	  		<%= f.text_field :tipotrailer, :class =>'form-control'  %>
+		</div>
+	</div>
+
+	<div class="col-md-3 extras">
+		<div class="form-group">
+	  		<%= f.label :marcatrailer, 'Marca Trailer' %>
+	  		<%= f.text_field :marcatrailer, :class =>'form-control'  %>
+		</div>
+	</div>
+
+
+	<div class="col-md-3 extras">
+		<div class="form-group">
+	  		<%= f.label :modelotrailer, 'Modelo Trailer' %>
+	  		<%= f.text_field :modelotrailer, :class =>'form-control'  %>
+		</div>
+	</div>
+
+	<div class="col-md-3 extras">
+		<div class="form-group">
+	  		<%= f.label :numeroejestrailer, 'Numero de ejes' %>
+	  		<%= f.text_field :numeroejestrailer, :class =>'form-control'  %>
+		</div>
+	</div>
+	<div class="col-md-3 extras ">
+		<div class="form-gorup">
+	  		<label for="">numero de ejes retractiles </label><br/>
+	  			<%= f.radio_button :ejesretractiles, 1, :checked => true %> 1
+	  			<%= f.radio_button :ejesretractiles, 2, :checked => false %> 2
+		</div>
+	</div>
+</div>

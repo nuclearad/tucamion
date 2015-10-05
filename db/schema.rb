@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002022902) do
+ActiveRecord::Schema.define(version: 20151004212907) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -457,6 +457,7 @@ ActiveRecord::Schema.define(version: 20151002022902) do
     t.integer  "user_id",                           default: 0
     t.string   "phone"
     t.string   "email"
+    t.boolean  "aireAcondicionado",                 default: false
   end
 
   create_table "type_extras", force: true do |t|

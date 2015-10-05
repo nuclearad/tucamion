@@ -1,37 +1,45 @@
-<div class="row">
-  	<div class="col-md-2">
-		<div class="form-group">
-	  		<%= object.label :picture1, 'Imagen 1' %>
-	  		<%= object.file_field :picture1, :class =>'form-control'  %>
-		</div>
-  	</div>
 
-  	<div class="col-md-2">
-		<div class="form-group">
-	  		<%= object.label :picture2, 'Imagen 2' %>
-	  		<%= object.file_field :picture2, :class =>'form-control'  %>
-		</div>
-  	</div>
+	<div class="row">
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture1, 'Imagen 1' %>
+		  		<%= image_tag @truck.picture1(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture1  %>
+			</div>
+	  	</div>
 
-  	<div class="col-md-2">
-		<div class="form-group">
-	  		<%= object.label :picture3, 'Imagen 3' %>
-	  		<%= object.file_field :picture3, :class =>'form-control'  %>
-		</div>
-  	</div>
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture2, 'Imagen 2' %>
+		  		<%= image_tag @truck.picture2(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture2  %>
+			</div>
+	  	</div>
 
-  	<div class="col-md-2">
-		<div class="form-group">
-	  		<%= object.label :picture4, 'Imagen 4' %>
-	  		<%= object.file_field :picture4, :class =>'form-control'  %>
-		</div>
-  	</div>
-  	
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture3, 'Imagen 3' %>
+		  		<%= image_tag @truck.picture3(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture3  %>
+			</div>
+	  	</div>
+	</div>
+	<div class='row'>
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture4, 'Imagen 4' %>
+		  		<%= image_tag @truck.picture4(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture4 %>
+			</div>
+	  	</div>
+	  	
 
-  	<div class="col-md-2">
-		<div class="form-group">
-	  		<%= object.label :picture5, 'Imagen 5' %>
-	  		<%= object.file_field :picture5, :class =>'form-control'  %>
-		</div>
-  	</div>
-</div>
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture5, 'Imagen 5' %>
+		  		<%= image_tag @truck.picture5(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture5  %>
+			</div>
+	  	</div>
+	</div>
+	
