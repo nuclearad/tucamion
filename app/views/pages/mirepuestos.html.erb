@@ -39,8 +39,8 @@
       <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
+          <th>NIT</th>
           <th>Nombre</th>
-          <th>Precio</th>
           <th>Tipo</th>
           <th>Marca</th>
           <th>Acciones</th>
@@ -51,10 +51,10 @@
         <% @extras.each do |extra| %>
             <tr>
               <td>
-                <%= extra.name %>
+                <%= extra.nit %>
               </td>
               <td>
-                <%= number_to_currency( extra.price) %>
+                <%= extra.name %>
               </td>
 
               <td>

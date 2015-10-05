@@ -1,8 +1,8 @@
 <table class="table table-bordered table-hover table-striped">
   <thead>
   <tr>
+    <th>NIT</th>
     <th>Nombre</th>
-    <th>Precio</th>
     <th>Tipo</th>
     <th>Marca</th>
     <th>Departamento</th>
@@ -14,12 +14,12 @@
   <% @extras.each do |extra| %>
       <tr>
 
+        <td>
+          <%= extra.nit %>
+        </td>
 
         <td>
           <%= extra.name %>
-        </td>
-        <td>
-          <%= number_to_currency( extra.price) %>
         </td>
 
         <td>
