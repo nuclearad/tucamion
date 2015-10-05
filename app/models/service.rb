@@ -14,6 +14,7 @@ class Service < ActiveRecord::Base
 
   validates_format_of [:address], :with => /\A([a-zA-Z_áéíóúñ0-9#()-.\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales solo se permite eluso de: #.()-"
 
+  validates :nit, length: {maximum: 15 ,   message: "El NIT tiene un maximo de 15 caracteres" }
 
   has_attached_file :picture1, :styles => {:home => '548x300>', :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/missing.png"
   validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/
