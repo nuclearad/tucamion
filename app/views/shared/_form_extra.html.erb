@@ -60,7 +60,7 @@
   <div class="col-md-6">
 
     <div class="form-group">
-      <%= f.label :brand_extra_id, 'Marcas' %>
+      <%= f.label :brand_extra_id, 'Tipo de repuesto' %>
       <%= f.collection_select :brand_extra_id, BrandExtra.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
     </div>
   </div>
