@@ -29,8 +29,8 @@ class TypeService < ActiveRecord::Base
   scope :group_by_services, ->(){
     self.select('type_services.id,
                  type_services.name, 
-                 COUNT(services.type_service_id) as total').
-         joins(:services).
+                 COUNT(services_type_services.service_id) as total').
+         joins(:services_type_services).
          group('type_services.id')
   }
 
