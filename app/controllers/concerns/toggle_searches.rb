@@ -81,11 +81,11 @@ module ToggleSearches
       end
       
       #search for services
-      unless query["type_service_id_eq"].blank?
+      unless query["type_services_id_eq"].blank?
         search                      = Array.new
-        search[0]                   = TypeService.select("id,name").find(query["type_service_id_eq"]).name
-        query["type_service_id_eq"] = ""
-        search[1]                   = "type_service_id_eq"
+        search[0]                   = TypeService.select("id,name").find(query["type_services_id_eq"]).name
+        query["type_services_id_eq"] = ""
+        search[1]                   = "type_services_id_eq"
         array_searches << search
       end
 

@@ -48,18 +48,16 @@
   </div>
 
 </div>
-
+<hr>
 <div class="row">
-
   <div class="col-md-12">
     <div class="form-group">
-      <%= f.label :type_truck_id, 'Tipo de servicio' %>
-      <%= f.collection_select :type_service_id, TypeService.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+      <%= f.label :type_services, 'Tipos de servicios' %>
+      <%= f.association :type_services, as: :check_boxes, item_wrapper_tag: :div, item_wrapper_class: "col-md-4", label: false %>
     </div>
   </div>
-
 </div>
-
+<hr>
 <div class="row">
   <div class="col-md-4">
     <div class="form-group">

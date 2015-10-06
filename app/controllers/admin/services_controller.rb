@@ -4,7 +4,7 @@ class Admin::ServicesController < ApplicationController
   add_breadcrumb 'Servicios', :admin_services_path, :options => { :title =>'Inicio' }
 
   def index
-    @search  = Service.all.includes(:type_service, :state).search(params[:q])
+    @search  = Service.all.includes(:type_services, :state).search(params[:q])
     @services  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
   end
 
