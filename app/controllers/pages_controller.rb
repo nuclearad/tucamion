@@ -677,7 +677,7 @@ class PagesController < ApplicationController
     @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states        = State.all.order(:name)
-    @type_services = TypeService.group_by_services
+    @type_services = {}#TypeService.group_by_services
     @states_group  = Service.state_group
     @toggle_search = self.nested_search(params[:q])
     respond_to do |format|
