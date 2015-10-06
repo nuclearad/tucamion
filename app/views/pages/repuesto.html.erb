@@ -33,10 +33,14 @@
                 <div class="table-responsive">
                   <table class="table"><tbody>
                   <tr class="nymou"><td>Ubicación:</td><td class="pull-right"><%= @extra.state.name if @extra.state %> - <%= @extra.city.name  if  @extra.city %></td></tr>
-                  <tr class="nymou"><td>Precio:</td><td class="pull-right"> <%= number_to_currency( @extra.price,  precision: 0, delimiter: '.') %></td></tr>
+                  <tr class="nymou"><td>NIT:</td><td class="pull-right"> <%= @extra.nit %></td></tr>
                   <tr class="nymou"><td>Teléfono:</td><td class="pull-right"><%= @extra.phone %></td></tr>
+                  <tr class="nymou"><td>Email:</td><td class="pull-right"><%= @extra.email %></td></tr>
                   <tr class="nymou"><td>Horario:</td><td class="pull-right"><%= @extra.horario %></td></tr>
                   <tr class="nymou"><td>Dirección:</td><td class="pull-right"><%= @extra.address %></td></tr>
+                  <% unless @extra.url_map.blank? %>
+                    <tr class="nymou"><td>Google map:</td><td class="pull-right"><%= link_to 'Aqui ', @extra.url_map %></td></tr>
+                  <% end %>
                   </tbody></table>
                 </div><!-- /.table-responsive -->
               </div><!-- /.module-body -->

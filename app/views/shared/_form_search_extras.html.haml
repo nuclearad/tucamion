@@ -29,18 +29,6 @@
           %p UBICACIÓN
         .attribute_list
           = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
-    %p
-      %fieldset.attribute_fieldset
-        %label.attribute_label.attribute-key{:for => "group_1"}
-          %p PRECIO MAYOR IGUAL
-        .attribute_list
-          = f.select(:price_gteq, options_for_select(Extra.order('price ASC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_gteq'})
-    %p
-      %fieldset.attribute_fieldset
-        %label.attribute_label.attribute-key{:for => "group_1"}
-          %p PRECIO MENOR IGUAL
-        .attribute_list
-          = f.select(:price_lteq, options_for_select(Extra.order('price DESC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_lteq'})
     %fieldset.attribute_fieldset
       %label.attribute_label.attribute-key{:for => "group_1"}  
       .attribute_list.pull-right{:style => "width:100%"}

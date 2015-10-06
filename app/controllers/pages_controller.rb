@@ -167,6 +167,7 @@ class PagesController < ApplicationController
       @quantity = @user.quantities.first
       @truck    = Truck.new
       @truck.type_truck_id = params['v']
+      @capacidadcarga = Environment::CAPACIDAD_CARGA 
       if @quantity.total_trucks - @quantity.current_trucks > 0
 
         if @user.cargar_planes > 0
@@ -201,6 +202,7 @@ class PagesController < ApplicationController
       @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
+      @capacidadcarga = Environment::CAPACIDAD_CARGA 
       if @truck.blank?
         redirect_to micamiones_path
       else
@@ -247,20 +249,6 @@ class PagesController < ApplicationController
     end
     redirect_to '/mi-cuenta/camiones'
   end
-
-  def status_truck
-    id_truck = params[:id]
-    truck = Truck.find_by(id: id_truck, customer_id: session[:user])
-    if truck
-      if truck.active == 1
-        truck.update_attributes(active: Environment::STATUS[:camiones][:inactivo])
-      else
-        truck.update_attributes(active: Environment::STATUS[:camiones][:activo])
-      end
-    end
-    redirect_to '/mi-cuenta/camiones'
-  end
-
 
 #repuestos
   def mirepuestos
@@ -377,7 +365,7 @@ class PagesController < ApplicationController
       @service = Service.find(params[:id])
       @serviceLateUpdate = @service.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @horas = Environment::HORARIOS
-      @cities= City.where('state_id = ?', @extra.state_id)
+      @cities= City.where('state_id = ?', @service.state_id)
       if request.post?
         params[:service][:customer_id] = session[:user]
         if @serviceLateUpdate
@@ -746,6 +734,33 @@ class PagesController < ApplicationController
     @service = Service.find_by_id(params[:id])
   end
 
+  def update_status
+    id   = params[:id]
+    type = params[:type]
+    
+    case type
+    when 'truck'
+      item = Truck.find_by(id: id, customer_id: session[:user])
+      path = '/mi-cuenta/camiones'
+    when 'service'
+      item = Service.find_by(id: id, customer_id: session[:user])
+      path = '/mi-cuenta/servicios'
+    when 'extra'
+      item = Extra.find_by(id: id, customer_id: session[:user])
+      path = '/mi-cuenta/repuestos'
+    end
+
+    if item && item.active == 1
+      item.update_attributes(active: Environment::STATUS[:camiones][:inactivo])
+    else
+      item.update_attributes(active: Environment::STATUS[:camiones][:activo])
+    end
+    
+    redirect_to path
+
+  end
+
+
 #private
   private
 
@@ -763,15 +778,15 @@ class PagesController < ApplicationController
     end
 
     def allowed_lateUpdate_params
-      params.require(:truck).permit(:id,:active,:price, customer_attributes:[:id,:telefono,:email])
+      params.require(:truck).permit(:id,:active,:price, :phone, :email, customer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_lateUpdate_paramsExtra
-      params.require(:extra).permit(:id, :active, :price, customer_attributes:[:id,:telefono,:email])
+      params.require(:extra).permit(:id, :active, :nit, :phone, :email, customer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_lateUpdate_paramsservice
-      params.require(:service).permit(:id,:active, custmoer_attributes:[:id,:telefono,:email])
+      params.require(:service).permit(:id,:active, :nit, :phone, :email, custmoer_attributes:[:id,:telefono,:email])
     end
 
     def allowed_params

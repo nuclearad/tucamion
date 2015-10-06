@@ -138,12 +138,12 @@ Rails.application.routes.draw do
   get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
 
   get 'vender-camion/:id' => 'pages#sell_truck'
-  get "/estatus-camion/:id" => 'pages#status_truck'
 
   get "/inbox-cliente" => "sessions#inbox"
 
 
-
+  get '/estatus-update/:type/:id' => 'pages#update_status'
+  
   #sessiones
 
   get "/activar-cuenta/:token" => 'sessions#active_account'

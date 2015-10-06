@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921171959) do
+ActiveRecord::Schema.define(version: 20151002022904) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -101,7 +101,6 @@ ActiveRecord::Schema.define(version: 20150921171959) do
 
   create_table "extras", force: true do |t|
     t.string   "name"
-    t.float    "price",                 limit: 24
     t.string   "address"
     t.integer  "state_id"
     t.integer  "city_id"
@@ -136,6 +135,9 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.integer  "active",                           default: 1
     t.integer  "customer_id"
     t.integer  "user_id",                          default: 0
+    t.string   "email"
+    t.string   "nit",                   limit: 15, default: "S/N", null: false
+    t.string   "url_map",                          default: ""
   end
 
   create_table "houses", force: true do |t|
@@ -292,7 +294,7 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.integer  "type_service_id"
     t.string   "horario"
     t.string   "address"
-    t.integer  "active",                default: 1
+    t.integer  "active",                           default: 1
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -318,7 +320,10 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.integer  "picture5_file_size"
     t.datetime "picture5_updated_at"
     t.integer  "customer_id"
-    t.integer  "user_id",               default: 0
+    t.integer  "user_id",                          default: 0
+    t.string   "email"
+    t.string   "nit",                   limit: 15, default: "S/N", null: false
+    t.string   "url_map",                          default: ""
   end
 
   create_table "spaces_trucks", force: true do |t|
@@ -451,8 +456,10 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.string   "capacidadmetrica"
     t.string   "cuantosmetroscubicos"
     t.string   "autocarpado"
-    t.integer  "ejesretractiles",                   default: 0
     t.integer  "user_id",                           default: 0
+    t.integer  "ejesretractiles",                   default: 0
+    t.string   "phone"
+    t.string   "email"
   end
 
   create_table "type_extras", force: true do |t|

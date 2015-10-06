@@ -21,7 +21,13 @@ class Truck < ActiveRecord::Base
   validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state,:city,
                          :placa_state_id,:placa_city_id, :kilometraje,:state_id,:brand_truck_id,
                          :colors_truck_id,:city_id,:tipocombustible,:estado,:pesobruto,:scraps_truck_id], message: 'No puede estar en blanco'
-  has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  validates_presence_of       :phone, message: "El telefono es un campo obligatorio"
+  validates_presence_of       :email,    message: "Es un campo obligatorio"
+
+  validates :phone, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
+  validates_numericality_of :phone,  message: "Debe ser solo numeros"
+  
+  has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -36,7 +42,7 @@ class Truck < ActiveRecord::Base
   
   validates_numericality_of [:price],  message: "Debe ser solo numeros"
 
-  has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -46,7 +52,7 @@ class Truck < ActiveRecord::Base
   validates_attachment_content_type :picture2, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
 
 
-  has_attached_file :picture3, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture3, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -56,7 +62,7 @@ class Truck < ActiveRecord::Base
   validates_attachment_content_type :picture3, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
 
 
-  has_attached_file :picture4, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture4, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -66,7 +72,7 @@ class Truck < ActiveRecord::Base
   validates_attachment_content_type :picture4, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
 
 
-  has_attached_file :picture5, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture5, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
@@ -74,14 +80,6 @@ class Truck < ActiveRecord::Base
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
   validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
-
-
-
-
-
-
-
-
 
 =begin
   validates :nombre, presence: true
@@ -116,8 +114,9 @@ class Truck < ActiveRecord::Base
       :tipocombustible => 'Tipo combustible',
       :placa_city_id => 'Ciudad Matricula',
       :placa_state_id => 'Departamento Matricula',
-      :price       => 'Precio'
-
+      :price       => 'Precio',
+      :phone => 'Telefono',
+      :email => 'Correo Electronico'      
   }
 
   def self.human_attribute_name(attr, options = {})
@@ -125,6 +124,12 @@ class Truck < ActiveRecord::Base
   end
 
 
+  after_rollback :print_error
+
+  def print_error
+    puts self.errors.full_messages
+    puts "*****************"
+  end
 
   before_create do
 
