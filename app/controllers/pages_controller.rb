@@ -347,8 +347,8 @@ class PagesController < ApplicationController
       redirect_to micuenta_path
     else
       @user       = Customer.find_by_id(session[:user])
-      @quantity   =  @user.quantities.first
-      @search     = Service.where(:customer_id => session[:user]).includes(:type_service, :messages).search(params[:q])
+      @quantity   = @user.quantities.first
+      @search     = Service.where(:customer_id => session[:user]).includes(:type_services, :messages).search(params[:q])
       @servicios  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
 
       render :layout => 'layouts/cliente'

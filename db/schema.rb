@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002022904) do
+ActiveRecord::Schema.define(version: 20151005224333) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -291,7 +291,6 @@ ActiveRecord::Schema.define(version: 20151002022904) do
     t.string   "link_rewrite"
     t.integer  "state_id"
     t.integer  "city_id"
-    t.integer  "type_service_id"
     t.string   "horario"
     t.string   "address"
     t.integer  "active",                           default: 1
@@ -325,6 +324,16 @@ ActiveRecord::Schema.define(version: 20151002022904) do
     t.string   "nit",                   limit: 15, default: "S/N", null: false
     t.string   "url_map",                          default: ""
   end
+
+  create_table "services_type_services", force: true do |t|
+    t.integer  "service_id",      null: false
+    t.integer  "type_service_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "services_type_services", ["service_id"], name: "index_services_type_services_on_service_id", using: :btree
+  add_index "services_type_services", ["type_service_id"], name: "index_services_type_services_on_type_service_id", using: :btree
 
   create_table "spaces_trucks", force: true do |t|
     t.string   "name"

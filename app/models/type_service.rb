@@ -1,6 +1,7 @@
 class TypeService < ActiveRecord::Base
-
-  has_many :services, dependent: :destroy
+  
+  has_many :services_type_services
+  has_many :services, through: :services_type_services
 
   before_create do
 

@@ -88,7 +88,7 @@
                     TIPO DE
                     %b SERVICIO
                 .attribute_list
-                  = f.select(:type_service_id_eq, options_from_collection_for_select(TypeService.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'state_service'})
+                  =# f.select(:type_service_id_eq, options_from_collection_for_select(TypeService.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'state_service'})
             .col-xs-4.col-sm-4.col-md-4
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
