@@ -635,15 +635,14 @@ class PagesController < ApplicationController
   def repuestotipo
     id_brand          = params[:id_brand]
     id_truck          = params[:id_truck]
-    @search           = Extra.where(brand_extra_id: id_brand, type_truck_id: id_truck, active: 1).includes(:state, :city).search(params[:q])
-    @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @states           = State.all.order(:name)
-    @type_trucks      = TypeTruck.group_by_brand
-    @brand_group      = Extra.brand_group
-    @states_group     = Extra.state_group
-    @toggle_search    = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
+    @extras           = Extra.joins(:brand_extras).where(extras: {type_truck_id: id_truck, active: 1}, brand_extras: {id: id_brand}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    #@states           = State.all.order(:name)
+    #@type_trucks      = TypeTruck.group_by_brand
+    #@brand_group      = Extra.brand_group
+    #@states_group     = Extra.state_group
+    #@toggle_search    = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
     respond_to do |format|
-      format.html { render :repuestos }
+      #format.html { render :repuestos }
       format.js   { render :repuestos }
     end
   end

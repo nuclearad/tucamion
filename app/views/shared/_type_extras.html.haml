@@ -22,4 +22,4 @@
                     %ul.links.list-unstyled
                       - type.brand_extras.each do |brand|
                         %li
-                          = link_to brand.name , "/repuesto-tipo/#{type.id}/#{brand.id}"
+                          = link_to brand.name , "/repuesto-tipo/#{type.id}/#{brand.id}", remote: true
