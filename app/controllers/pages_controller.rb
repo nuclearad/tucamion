@@ -621,9 +621,9 @@ class PagesController < ApplicationController
     self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search        = Extra.where(active: 1).includes(:state, :city).search(params[:q])
     @extras        = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_trucks   = TypeTruck.group_by_brand
+    @type_trucks   = {}#TypeTruck.group_by_brand
     @states        = State.all.order(:name)
-    @brand_group   = Extra.brand_group
+    @brand_group   = {}#Extra.brand_group
     @states_group  = Extra.state_group
     @toggle_search = self.nested_search(params[:q])
     respond_to do |format|
@@ -638,8 +638,8 @@ class PagesController < ApplicationController
     @search           = Extra.where(brand_extra_id: id_brand, type_truck_id: id_truck, active: 1).includes(:state, :city).search(params[:q])
     @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states           = State.all.order(:name)
-    @type_trucks      = TypeTruck.group_by_brand
-    @brand_group      = Extra.brand_group
+    @type_trucks      = {}#TypeTruck.group_by_brand
+    @brand_group      = {}#Extra.brand_group
     @states_group     = Extra.state_group
     @toggle_search    = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
     respond_to do |format|
@@ -652,9 +652,9 @@ class PagesController < ApplicationController
     self.read_toggle(params['q']) #leemos el parametro para limpiar la busqueda
     @search        = Extra.where(active: 1).includes(:state, :city).search(self.get_toggle)
     @extras        = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_trucks   = TypeTruck.group_by_brand
+    @type_trucks   = {}#TypeTruck.group_by_brand
     @states        = State.all.order(:name)
-    @brand_group   = Extra.brand_group
+    @brand_group   = {}#Extra.brand_group
     @states_group  = Extra.state_group
     @toggle_search = self.nested_search(self.get_toggle)
     respond_to do |format|

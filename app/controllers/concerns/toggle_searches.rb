@@ -61,10 +61,10 @@ module ToggleSearches
         search[1]  = "type_truck_id_eq"
         array_searches << search
       end
-      unless query["brand_extra_id_eq"].blank?
+      unless query["brand_extras_id_eq"].blank?
         search     = Array.new
-        search[0]  = BrandExtra.select("id,name").find(query["brand_extra_id_eq"]).name
-        search[1]  = "brand_extra_id_eq"
+        search[0]  = BrandExtra.select("id,name").find(query["brand_extras_id_eq"]).name
+        search[1]  = "brand_extras_id_eq"
         array_searches << search
       end
       unless query["price_gteq"].blank?
