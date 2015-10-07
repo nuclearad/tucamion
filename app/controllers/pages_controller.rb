@@ -691,14 +691,8 @@ class PagesController < ApplicationController
 
   def serviciotipo
     id             = params[:id]
-    @search        = Service.joins(:services_type_services).where(services_type_services: {type_service_id: id}).includes(:state, :city).search(params[:q])
-    @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_services = TypeService.group_by_services
-    @states        = State.all.order(:name)
-    @states_group  = Service.state_group
-    @toggle_search = Hash.new
+    @services      = Service.joins(:services_type_services).where(services_type_services: {type_service_id: id}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
-      format.html { render :servicios }
       format.js { render :servicios }
     end
   end
