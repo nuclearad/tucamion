@@ -23,7 +23,7 @@
               %ul
                 - @brand_group.each do |brand|
                   %li
-                    = link_to brand.brand_name, "/repuestos-opciones/brand_extra_id/#{brand.brand_extra_id}", remote: true
+                    = link_to brand.brand_name, "/repuestos-opciones/brand_extra_id/#{brand.brand_id}", remote: true
                     %small
                       (#{brand.total})
         .accordion-group

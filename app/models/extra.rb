@@ -122,10 +122,10 @@ class Extra < ActiveRecord::Base
   }
 
   scope :brand_group, ->{
-     self.select('extras.id, extras.name, extras.brand_extra_id,
-              count(extras.brand_extra_id) as total,
+     self.select('extras.id, extras.name, brand_extras.id as brand_id,
+              count(brand_extras.id) as total,
               brand_extras.name as brand_name').
-      joins(:brand_extra).
+      joins(:brand_extras).
       where("extras.active = 1").
       group('brand_extras.name').
       order('brand_extras.name DESC')

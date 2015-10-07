@@ -46,7 +46,7 @@ class TypeTruck < ActiveRecord::Base
                    type_trucks.name,
                    COUNT(extras.type_truck_id) as total').
        joins(:extras).
-       group('type_trucks.id').includes(:brand_extra)
+       group('type_trucks.id').includes(:brand_extras)
   }
 
 end
