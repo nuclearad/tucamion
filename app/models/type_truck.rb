@@ -2,7 +2,7 @@ class TypeTruck < ActiveRecord::Base
   has_many :trucks, dependent: :destroy
   has_many :sub_trucks, dependent: :destroy
   has_many :extras, dependent: :destroy
-  has_many :brand_extra,->{self.uniq}, through: :extras
+  has_many :brand_extras,->{self.uniq}, through: :extras
   has_many :brand_trucks, through: :trucks
 
   HUMANIZED_ATTRIBUTES = {
@@ -46,7 +46,7 @@ class TypeTruck < ActiveRecord::Base
                    type_trucks.name,
                    COUNT(extras.type_truck_id) as total').
        joins(:extras).
-       group('type_trucks.id').includes(:brand_extra)
+       group('type_trucks.id').includes(:brand_extras)
   }
 
 end

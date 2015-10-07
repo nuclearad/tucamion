@@ -10,7 +10,7 @@
     <%= render partial: 'includes/messages_errors', locals: {object: @extra} %>
     <div class="row">
 
-        <%= form_for @extra, :url => mirepuestosedit_path , method: :post do |f|  %>
+        <%= simple_form_for @extra, :url => mirepuestosedit_path , method: :post do |f|  %>
 
             <% if !@extraLateUpdate %>
                 <!--nombre repuesto y tipo de camion-->
