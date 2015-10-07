@@ -22,4 +22,4 @@
                     %ul.links.list-unstyled
                       - tipo.sub_trucks.each do |subtipo|
                         %li
-                          %a{:href => "/camion-tipo/#{tipo.id}/#{subtipo.id}"}= subtipo.name
+                          = link_to subtipo.name, "/camion-tipo/#{tipo.id}/#{subtipo.id}", remote: true

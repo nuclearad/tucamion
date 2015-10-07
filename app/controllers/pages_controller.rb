@@ -558,15 +558,7 @@ class PagesController < ApplicationController
   def camiontipo
     id_sub           = params[:id_sub]
     id_truck         = params[:id_truck]
-    @search          = Truck.where(sub_truck_id: id_sub, type_truck_id: id_truck, active: 1).includes(:state).search(params[:q])
-    @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @tiposCaminiones = TypeTruck.includes(:sub_trucks)
-    @states          = State.all.order(:name)
-    @states_group    = Truck.state_group
-    @modelos_group  = Truck.modelo_group
-    @km_group        = Truck.km_group
-    @brand_group     = Truck.marcas_group
-    @toggle_search   = self.nested_search(self.get_toggle)
+    @trucks          = Truck.where(sub_truck_id: id_sub, type_truck_id: id_truck, active: 1).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.html { render :camiones }
       format.js   { render :camiones }
