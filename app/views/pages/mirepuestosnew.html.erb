@@ -12,7 +12,7 @@
   <div class="col-md-12">
 
     <%= render partial: 'includes/messages_errors', locals: {object: @extra} %>
-    <%= form_for @extra, :url => mirepuestosnew_path  do |f|  %>
+    <%= simple_form_for @extra, :url => mirepuestosnew_path  do |f|  %>
       <%= render partial: 'shared/form_extra', locals:{ f: f} %>
       <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: mirepuestos_path } %>
     <% end %>

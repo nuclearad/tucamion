@@ -258,7 +258,7 @@ class PagesController < ApplicationController
     else
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
-      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
+      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extras, :messages).search(params[:q])
       @extras   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
 
       render layout: 'layouts/cliente'
@@ -515,8 +515,8 @@ class PagesController < ApplicationController
       render json: @brands
 
     else
-      @brands = Extra.where(type_truck_id: params[:id]).group(:brand_extra_id).includes(:brand_extra)
-      render json: @brands, :include =>[:brand_extra]
+      @truck = TypeTruck.where(id: params[:id]).includes(:brand_extras)
+      render json: @truck, :include =>[:brand_extras]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
     end
 

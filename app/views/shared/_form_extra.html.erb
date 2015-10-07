@@ -50,18 +50,19 @@
 
 <div class="row">
 
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="form-group">
       <%= f.label :type_truck_id, 'Tipo de camion' %>
       <%= f.collection_select :type_truck_id, TypeTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
     </div>
   </div>
+</div>
 
-  <div class="col-md-6">
-
+<div class="row">
+  <div class="col-md-12">
     <div class="form-group">
-      <%= f.label :brand_extra_id, 'Tipo de repuesto' %>
-      <%= f.collection_select :brand_extra_id, BrandExtra.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+      <%= f.label :brand_extras, 'Tipos de repuestos' %>
+      <%= f.association :brand_extras, as: :check_boxes, item_wrapper_tag: :div, item_wrapper_class: "col-md-4", label: false %>
     </div>
   </div>
 </div>

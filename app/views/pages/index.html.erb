@@ -258,10 +258,10 @@
 
                             $('#servicio_brand').append('<option value="">Todas las marcas</option>')
                             $.each(msg, function(index, value) {
-                                $('#servicio_brand').append('<option value="'+value.brand_extra.id+'">'+value.brand_extra.name+'</option>')
+                                $.each(value.brand_extras, function(index, brand) {
+                                  $('#servicio_brand').append('<option value="'+brand.id+'">'+brand.name+'</option>')
+                                });
                             });
-
-
                         }
 
                     },

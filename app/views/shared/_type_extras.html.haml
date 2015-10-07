@@ -12,7 +12,7 @@
   %nav.yamm.megamenu-horizontal{:role => "navigation"}
     %ul.nav
       - @type_trucks.each do |type|
-        - if type.brand_extra.size > 0
+        - if type.brand_extras.size > 0
           %li.dropdown.menu-item
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}= "#{type.name} <b>(#{type.total})</b>".html_safe
             %ul.dropdown-menu.mega-menu
@@ -20,6 +20,6 @@
                 .row
                   .col-sm-12.col-md-12
                     %ul.links.list-unstyled
-                      - type.brand_extra.each do |brand|
+                      - type.brand_extras.each do |brand|
                         %li
                           = link_to brand.name , "/repuesto-tipo/#{type.id}/#{brand.id}"

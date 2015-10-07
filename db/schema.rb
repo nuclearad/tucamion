@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005224333) do
+ActiveRecord::Schema.define(version: 20151005224335) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 20151005224333) do
     t.string   "phone"
     t.string   "horario"
     t.text     "description"
-    t.integer  "brand_extra_id"
     t.string   "link_rewrite"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -139,6 +138,16 @@ ActiveRecord::Schema.define(version: 20151005224333) do
     t.string   "nit",                   limit: 15,  default: "S/N", null: false
     t.string   "url_map",               limit: 500, default: ""
   end
+
+  create_table "extras_brands_extras", force: true do |t|
+    t.integer  "extra_id",       null: false
+    t.integer  "brand_extra_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "extras_brands_extras", ["brand_extra_id"], name: "index_extras_brands_extras_on_brand_extra_id", using: :btree
+  add_index "extras_brands_extras", ["extra_id"], name: "index_extras_brands_extras_on_extra_id", using: :btree
 
   create_table "houses", force: true do |t|
     t.string   "name"
