@@ -639,7 +639,7 @@ class PagesController < ApplicationController
     @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @states           = State.all.order(:name)
     @type_trucks      = TypeTruck.group_by_brand
-    @brand_group      = {}#Extra.brand_group
+    @brand_group      = Extra.brand_group
     @states_group     = Extra.state_group
     @toggle_search    = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
     respond_to do |format|
@@ -654,7 +654,7 @@ class PagesController < ApplicationController
     @extras        = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @type_trucks   = TypeTruck.group_by_brand
     @states        = State.all.order(:name)
-    @brand_group   = {}#Extra.brand_group
+    @brand_group   = Extra.brand_group
     @states_group  = Extra.state_group
     @toggle_search = self.nested_search(self.get_toggle)
     respond_to do |format|
