@@ -666,7 +666,11 @@ class PagesController < ApplicationController
   def repuestos_ajax
     field = params[:field]
     value = params[:value]
-    @extras = Extra.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    if field == 'brand_extra_id'
+      @extras =   Extra.joins(:brand_extras).where(extras: {active: 1}, brand_extras: {id:  value}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    else
+      @extras =   Extra.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    end
     respond_to do |format|
       format.js { render :repuestos }
     end
@@ -717,6 +721,7 @@ class PagesController < ApplicationController
   def servicios_ajax
     field = params[:field]
     value = params[:value]
+
     @services = Service.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.js { render :servicios }
