@@ -6,12 +6,16 @@ class Extra < ActiveRecord::Base
   belongs_to :city
   belongs_to :state
 
+  has_many :extras_brands_extras
+  has_many :brand_extras, through: :extras_brands_extras
+
   belongs_to :customer
 
   has_many :messages, :foreign_key => :item
 
-
-  validates_presence_of [:nit, :name, :state_id, :city_id, :brand_extra_id, :phone, :address,:email],message: 'No puede estar vacio'
+  accepts_nested_attributes_for :brand_extras
+  
+  validates_presence_of [:nit, :name, :state_id, :city_id, :phone, :address,:email],message: 'No puede estar vacio'
 
   validates :type_truck_id, presence: true
 
