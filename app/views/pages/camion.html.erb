@@ -56,8 +56,6 @@
                         Usado
                   <% end %>
                  </td></tr>
-
-
                 <tr class="nymou"><td class="cell-label">Placa:</td><td class="pull-right"><%= @truck.placa.upcase %></td></tr>
                 <tr class="nymou"><td class="cell-label">Ubicación Placa:</td><td class="pull-right"><%=  @ciudad.name  if @ciudad %></td></tr>
                 <% if  @truck.colors_truck %>
@@ -66,7 +64,6 @@
                 <tr class="nymou"><td class="cell-label">Tipo Combustible</td>
                   <td class="pull-right">
 
-
                     <% if  @truck.tipocombustible == '0' %>
                         Gasolina
                     <% else if  @truck.tipocombustible == '1' %>
@@ -74,10 +71,8 @@
                     <% end %>
                             ACPM
                     <% end %>
-
-
-                </td>
-                        </tr>
+                  </td>
+                </tr>
                 </tbody></table>
               </div><!-- /.table-responsive -->
             </div><!-- /.module-body -->
@@ -119,32 +114,32 @@
             <table class="table table-bordered">
               <tbody>
               <!--NUEVA TABLA-->
-                    <tr class="nymou"> <!----PRIMER ROW--->
-                        <% if @truck.type_truck_id != 5 %>
-                            <td class="cell-label">
-                                <b>Marca Motor</b><br>
-                                <%= @truck.motors_truck ? @truck.motors_truck.name : 'Sin información' %>
-                            </td>
-                            <% if @truck.type_truck_id !=6 %>
-                                <td class="cell-label">
-                                    <b>Marca de la Caja</b><br>
-                                    <%=@truck.boxes_truck ? @truck.boxes_truck.name : 'Sin Información' %>
-                                </td>
-                                <td class="cell-label">
-                                    <b>Marca de Transmisión</b><br>
-                                    <%= @truck.transmissions_truck ? @truck.transmissions_truck.name : 'Sin Información' %>
-                                </td>
-                                <td class="cell-label">
-                                    <b>Empresa Afiliada</b><br>
-                                    <%= @truck.empresaafiliada? ? @truck.empresaafiliada : 'Sin información' %>
-                                </td>
-                            <% end %>
-                              <td class="cell-label">
-                                <b>Unico Dueño</b><br>
-                                <%= @truck.unicodueno!= nil ? (@truck.unicodueno? ? 'Si': 'No') : 'Sin Información' %>
-                              </td>
-                        <% end %>
-                    </tr>
+                <tr class="nymou"> <!-- PRIMER ROW -->
+                  <% if @truck.type_truck_id != 5 %>
+                    <td class="cell-label">
+                      <b>Marca Motor</b><br>
+                      <%= @truck.motors_truck ? @truck.motors_truck.name : 'Sin información' %>
+                    </td>
+                      
+                    <td class="cell-label">
+                      <b>Marca de la Caja</b><br>
+                      <%=@truck.boxes_truck ? @truck.boxes_truck.name : 'Sin Información' %>
+                    </td>
+                    <td class="cell-label">
+                      <b>Marca de Transmisión</b><br>
+                      <%= @truck.transmissions_truck ? @truck.transmissions_truck.name : 'Sin Información' %>
+                    </td>
+                    <td class="cell-label">
+                      <b>Empresa Afiliada</b><br>
+                      <%= @truck.empresaafiliada? ? @truck.empresaafiliada : 'Sin información' %>
+                    </td>
+                      
+                    <td class="cell-label">
+                      <b>Unico Dueño</b><br>
+                      <%= @truck.unicodueno!= nil ? (@truck.unicodueno? ? 'Si': 'No') : 'Sin Información' %>
+                    </td>
+                  <% end %>
+                </tr>
                 <!--TRACTOMULA-->
                     <% if @truck.type_truck_id ==1 %>
                         <tr class="nymou">

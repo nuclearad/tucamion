@@ -1,28 +1,27 @@
 <div id="tabla" class="table-responsive">
-<table class="table table-bordered table-hover table-striped">
-  <thead>
-  <tr>
-    <th>Nombre</th>
-    <th>Acciones</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% objects.each do |object| %>
-      <tr>
-        <td>
-          <%= object.name %>
-        </td>
-        <td>
-          <%= link_to 'Editar', {controller: object_controller_name,action: :edit, id:object.id }, :class=>'btn btn-info' %>
-          <%= link_to 'Eliminar',{controller: object_controller_name,action: :destroy , id: object.id}, data: {:confirm => 'Estas seguro de eliminar este elemento?'}, method: :DELETE, :class=>'btn btn-danger' %>
-        </td>
-      </tr>
-  <% end %>
-
-
-  </tbody>
-
-
-
-</table>
-    </div>
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% objects.each do |object| %>
+        <tr>
+          <td>
+            <%= object.name %>
+          </td>
+          <td>
+            <%= link_to 'Editar', {controller: object_controller_name,action: :edit, id:object.id }, :class=>'btn btn-info' %>
+            <%= link_to 'Eliminar',{controller: object_controller_name,action: :destroy , id: object.id}, data: {:confirm => 'Estas seguro de eliminar este elemento?'}, method: :DELETE, :class=>'btn btn-danger' %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<!-- <%= render partial: "includes/paginator_admin" , locals: {object: objects}%> -->
+<div id='paginator' class= 'row'>
+  <%= paginate @object %>
+</div>
