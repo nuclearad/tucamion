@@ -258,7 +258,7 @@ class PagesController < ApplicationController
     else
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
-      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
+      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extras, :messages).search(params[:q])
       @extras   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
 
       render layout: 'layouts/cliente'

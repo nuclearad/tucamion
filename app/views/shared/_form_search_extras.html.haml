@@ -22,7 +22,7 @@
             TIPO DE
             %b REPUESTOS
         .attribute_list
-          = f.select(:brand_extra_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
+          =# f.select(:brand_extra_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
