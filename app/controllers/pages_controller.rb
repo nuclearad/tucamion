@@ -515,8 +515,8 @@ class PagesController < ApplicationController
       render json: @brands
 
     else
-      @brands = Extra.where(type_truck_id: params[:id]).group(:brand_extra_id).includes(:brand_extra)
-      render json: @brands, :include =>[:brand_extra]
+      @truck = TypeTruck.where(id: params[:id]).includes(:brand_extras)
+      render json: @truck, :include =>[:brand_extras]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
     end
 
