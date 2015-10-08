@@ -42,7 +42,7 @@
           <th>NIT</th>
           <th>Nombre</th>
           <th>Tipo</th>
-          <th>Marca</th>
+          <th>Repuestos</th>
           <th>Acciones</th>
           <th>Estado</th>
         </tr>
@@ -58,11 +58,15 @@
               </td>
 
               <td>
-                <%=   extra.type_truck.name if extra.type_truck_id %>
+                <%=  extra.type_truck.name if extra.type_truck_id %>
               </td>
 
               <td>
-                <%=  extra.brand_extra.name if extra.brand_extra_id %>
+                <% if extra.brand_extras %>
+                  <% extra.brand_extras.each do |brand| %>
+                    <%= brand.name %>
+                  <% end %>
+                <% end %>
               </td>
 
               <td>

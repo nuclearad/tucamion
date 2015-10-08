@@ -30,7 +30,7 @@
 
 
 
-    <%= form_for @service, :url => admin_service_path, :method=>'put' do |f|  %>
+    <%= simple_form_for @service, :url => admin_service_path, :method=>'put' do |f|  %>
 
         <%= render partial: 'shared/form_service', locals:{ f: f} %>
         <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_services_path } %>

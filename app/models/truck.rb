@@ -169,10 +169,10 @@ class Truck < ActiveRecord::Base
     self.joins("LEFT JOIN brand_trucks ON brand_trucks.id = trucks.brand_truck_id
                 LEFT JOIN type_trucks  ON type_trucks.id =  trucks.type_truck_id
                 LEFT JOIN sub_trucks ON sub_trucks.id = trucks.sub_truck_id").
-         where("trucks.nombre LIKE '%#{str}%' OR
+         where("(trucks.nombre LIKE '%#{str}%' OR
                 brand_trucks.name LIKE '%#{str}%' OR
                 type_trucks.name LIKE '%#{str}%' OR
-                sub_trucks.name LIKE '%#{str}%' AND
+                sub_trucks.name LIKE '%#{str}%') AND
                 trucks.active = 1").uniq
   }
 

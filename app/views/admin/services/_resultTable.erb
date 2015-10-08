@@ -18,7 +18,11 @@
         </td>
 
         <td>
-          <%= type.type_service.name if type.type_service %>
+          <% if type.type_services %>
+            <% type.type_services.each do |type_ser| %>
+              <%= type_ser.name %>
+            <% end %>
+          <% end %>
         </td>
 
         <td>

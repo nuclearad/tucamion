@@ -4,7 +4,7 @@
     <th>NIT</th>
     <th>Nombre</th>
     <th>Tipo</th>
-    <th>Marca</th>
+    <th>Repuestos</th>
     <th>Departamento</th>
     <th>Acciones</th>
     <th>Estado</th>
@@ -28,7 +28,11 @@
         </td>
 
         <td>
-          <%= extra.brand_extra.name if extra.brand_extra %>
+          <% if extra.brand_extras %>
+            <% extra.brand_extras.each do |brand| %>
+              <%= brand.name %>
+            <% end %>
+          <% end %>
         </td>
 
         <td>

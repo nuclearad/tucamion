@@ -258,7 +258,7 @@ class PagesController < ApplicationController
     else
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
-      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extra, :messages).search(params[:q])
+      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extras, :messages).search(params[:q])
       @extras   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
 
       render layout: 'layouts/cliente'
@@ -347,8 +347,8 @@ class PagesController < ApplicationController
       redirect_to micuenta_path
     else
       @user       = Customer.find_by_id(session[:user])
-      @quantity   =  @user.quantities.first
-      @search     = Service.where(:customer_id => session[:user]).includes(:type_service, :messages).search(params[:q])
+      @quantity   = @user.quantities.first
+      @search     = Service.where(:customer_id => session[:user]).includes(:type_services, :messages).search(params[:q])
       @servicios  = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
 
       render :layout => 'layouts/cliente'
@@ -515,8 +515,8 @@ class PagesController < ApplicationController
       render json: @brands
 
     else
-      @brands = Extra.where(type_truck_id: params[:id]).group(:brand_extra_id).includes(:brand_extra)
-      render json: @brands, :include =>[:brand_extra]
+      @truck = TypeTruck.where(id: params[:id]).includes(:brand_extras)
+      render json: @truck, :include =>[:brand_extras]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
     end
 
@@ -558,15 +558,7 @@ class PagesController < ApplicationController
   def camiontipo
     id_sub           = params[:id_sub]
     id_truck         = params[:id_truck]
-    @search          = Truck.where(sub_truck_id: id_sub, type_truck_id: id_truck, active: 1).includes(:state).search(params[:q])
-    @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @tiposCaminiones = TypeTruck.includes(:sub_trucks)
-    @states          = State.all.order(:name)
-    @states_group    = Truck.state_group
-    @modelos_group  = Truck.modelo_group
-    @km_group        = Truck.km_group
-    @brand_group     = Truck.marcas_group
-    @toggle_search   = self.nested_search(self.get_toggle)
+    @trucks          = Truck.where(sub_truck_id: id_sub, type_truck_id: id_truck, active: 1).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.html { render :camiones }
       format.js   { render :camiones }
@@ -635,15 +627,14 @@ class PagesController < ApplicationController
   def repuestotipo
     id_brand          = params[:id_brand]
     id_truck          = params[:id_truck]
-    @search           = Extra.where(brand_extra_id: id_brand, type_truck_id: id_truck, active: 1).includes(:state, :city).search(params[:q])
-    @extras           = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @states           = State.all.order(:name)
-    @type_trucks      = TypeTruck.group_by_brand
-    @brand_group      = Extra.brand_group
-    @states_group     = Extra.state_group
-    @toggle_search    = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
+    @extras           = Extra.joins(:brand_extras).where(extras: {type_truck_id: id_truck, active: 1}, brand_extras: {id: id_brand}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    #@states           = State.all.order(:name)
+    #@type_trucks      = TypeTruck.group_by_brand
+    #@brand_group      = Extra.brand_group
+    #@states_group     = Extra.state_group
+    #@toggle_search    = self.nested_search(self.get_toggle) #le enviamos el hash de busqueda
     respond_to do |format|
-      format.html { render :repuestos }
+      #format.html { render :repuestos }
       format.js   { render :repuestos }
     end
   end
@@ -666,7 +657,11 @@ class PagesController < ApplicationController
   def repuestos_ajax
     field = params[:field]
     value = params[:value]
-    @extras = Extra.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    if field == 'brand_extra_id'
+      @extras =   Extra.joins(:brand_extras).where(extras: {active: 1}, brand_extras: {id:  value}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    else
+      @extras =   Extra.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    end
     respond_to do |format|
       format.js { render :repuestos }
     end
@@ -688,14 +683,8 @@ class PagesController < ApplicationController
 
   def serviciotipo
     id             = params[:id]
-    @search        = Service.where(type_service_id: id).includes(:state, :city).search(params[:q])
-    @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
-    @type_services = TypeService.group_by_services
-    @states        = State.all.order(:name)
-    @states_group  = Service.state_group
-    @toggle_search = Hash.new
+    @services      = Service.joins(:services_type_services).where(services_type_services: {type_service_id: id}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
-      format.html { render :servicios }
       format.js { render :servicios }
     end
   end
@@ -717,6 +706,7 @@ class PagesController < ApplicationController
   def servicios_ajax
     field = params[:field]
     value = params[:value]
+
     @services = Service.where(active: 1, field.to_sym => value).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.js { render :servicios }
