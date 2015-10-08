@@ -2,7 +2,7 @@ class Admin::TransmissionsTruckController < ApplicationController
 
   before_action :authenticate_user!
   layout  'admin/layouts/application'
-  add_breadcrumb = add_breadcrumb 'Tipo Cupo', :admin_transmissions_truck_index_path, :options => {:title => 'Inicio'}
+  add_breadcrumb = add_breadcrumb 'Marcas Trasmisiones', :admin_transmissions_truck_index_path, :options => {:title => 'Inicio'}
 
 
   def index

@@ -20,8 +20,6 @@
     <% end %>
     </tbody>
   </table>
+<%= render partial: "includes/paginator_admin" , locals: {object: objects} %> 
 </div>
-<!-- <%= render partial: "includes/paginator_admin" , locals: {object: objects}%> -->
-<div id='paginator' class= 'row'>
-  <%= paginate @object %>
-</div>
+
