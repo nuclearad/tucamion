@@ -32,6 +32,7 @@ gem 'tzinfo-data'
 gem 'devise'
 gem 'breadcrumbs_on_rails'
 gem 'paperclip', github: 'thoughtbot/paperclip'
+gem "mini_magick"
 gem 'quiet_assets', group: :development
 gem 'coffee-script-source', '1.8.0', group: :development
 # Use ActiveModel has_secure_password

@@ -10,8 +10,7 @@
 <!-- /.row -->
 <% if flash[:notice] %>
 
-<%= render partial: 'shared/flashNoticeMessage' %>
-
+  <%= render partial: 'shared/flashNoticeMessage' %>
 
 <% end %>
 
@@ -32,9 +31,9 @@
   <div class="col-lg-12">
 
     <div id="tabla" class="table-responsive">
-        <%= render partial: 'resultTable' %>
+      <%= render partial: 'resultTable' %>
     </div>
-    <%= render partial: "includes/paginator_admin" , locals: {object: @extras}%>
+
   </div>
 </div>
 <!-- /.row -->
