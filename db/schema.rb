@@ -393,7 +393,7 @@ ActiveRecord::Schema.define(version: 20151005224335) do
     t.string   "tipocupo"
     t.string   "empresaafiliada"
     t.string   "marcacarpa"
-    t.string   "capacidadcarga",                    default: "0-5"
+    t.string   "capacidadcarga"
     t.string   "capacidadpasajeros"
     t.string   "cilindrajecc"
     t.string   "numeroejes"
@@ -474,10 +474,11 @@ ActiveRecord::Schema.define(version: 20151005224335) do
     t.string   "capacidadmetrica"
     t.string   "cuantosmetroscubicos"
     t.string   "autocarpado"
-    t.integer  "user_id",                           default: 0
     t.integer  "ejesretractiles",                   default: 0
+    t.integer  "user_id",                           default: 0
     t.string   "phone"
     t.string   "email"
+    t.boolean  "aireAcondicionado",                 default: false
   end
 
   create_table "type_extras", force: true do |t|
