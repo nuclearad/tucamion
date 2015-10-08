@@ -20,13 +20,7 @@
           <%= link_to 'Eliminar', {:controller => 'admin/offers', :action => 'destroy', :id => offer.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
         </td>
       </tr>
-
-
-
-
   <% end %>
   </tbody>
-
-
-
 </table>
+<%= render partial: "includes/paginator_admin" , locals: {object: @planes_filter}%>

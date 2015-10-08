@@ -26,6 +26,7 @@ class Admin::TrucksController < ApplicationController
     logger.info "*****#{params}****"
     @truck = Truck.new
     @truck.type_truck_id= params['v']
+    @capacidadcarga = Environment::CAPACIDAD_CARGA 
     add_breadcrumb 'Agregar'
   end
 
@@ -51,6 +52,8 @@ class Admin::TrucksController < ApplicationController
     @truck = Truck.find(params[:id])
     @cities= City.where('state_id = ?', @truck.state_id)
     @placaCities= City.where('state_id =?', @truck.placa_state_id)
+    @capacidadcarga = Environment::CAPACIDAD_CARGA 
+    
     add_breadcrumb 'Editar'
   end
 
