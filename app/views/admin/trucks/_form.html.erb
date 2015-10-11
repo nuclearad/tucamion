@@ -247,7 +247,7 @@
               </div>
             </div>
 
-            <%= render partial: 'shared/busyvan', locals: {f: f} %>
+            <%= render partial: 'shared/busyvan', locals: {f: f, anuncio: @truck} %>
 
           <% end %>
 
@@ -260,7 +260,7 @@
           </div>
 
           <!-- Imagenes -->
-          <%= render partial: 'shared/imagenes', locals:{ object: f } %> <br/> <br/> <br/> <br/>
+          <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @truck } %> <br/> <br/> <br/> <br/>
 
           <%= render partial: 'shared/camposGeneralesII', locals:{ f: f } %> <br/> <br/> <br/> <br/>
 
