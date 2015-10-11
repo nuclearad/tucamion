@@ -22,12 +22,12 @@
 			</div>
 		</div>
 
-		<div class="col-md-6">
-			<div class="form-group">
-		  		<%= f.label :email, 'Email' %>
-		  		<%= f.email_field :email, :class =>'form-control', required: true, title: 'Incluya su direccion de correo electronico con el caracter @' %>
-			</div>
-		</div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :email, 'Email' %>
+          <%= f.text_field :email, :class =>'form-control', required: true, title: 'Incluya su direccion de correo electronico con el caracter @',placeholder: 'ejemplo@tucorreo.com',autofocus: true %>
+        </div>
+      </div>
     </div>
 	<!-- Nombre y Marca -->
 	<div class="row">

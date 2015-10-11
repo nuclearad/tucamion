@@ -81,6 +81,8 @@ class Truck < ActiveRecord::Base
                     }
   validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
+  validates_format_of :email, :with => /\A*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]\Z/i , message: "Debe poseer un formato valido"
+  
 =begin
   validates :nombre, presence: true
   validates :modelo, presence: true
