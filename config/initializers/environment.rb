@@ -26,6 +26,8 @@ class Environment
  
   CAPACIDAD_CARGA = {'0-5' => '0-5', '5-10' => '5-10',  '10-15' => '10-15',  '15-25' => '15-25', '25- 35' => '25- 35'}
 
+  ESTADO_LLANTAS = { '0' => 'Excelente', '1' => 'Bueno', '2' => 'Regular', '3' => 'Malo'}
+
   if Rails.env.production?
     MAILSETTING = {:address              =>  'smtp.zoho.com',
                    :port                 =>  587,

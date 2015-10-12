@@ -5,16 +5,7 @@
     </td>
     <td class="cell-label">
       <b>Estado de llantas</b><br>
-      <%= object.estadollantas.nil? ? 'Sin Información' : case object.estadollantas
-      when 0
-        'Excelente'
-      when 1
-        'Bueno'
-      when 2
-        'Regular'
-      when 3
-        'Malo'                  
-      end  %>
+      <%= object.estadollantas.nil? ? 'Sin Información' : Environment::ESTADO_LLANTAS[object.estadollantas] %>
     </td>
     <td class="cell-label">
       <b>Aire Acondicionado</b><br>
