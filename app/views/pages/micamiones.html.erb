@@ -79,7 +79,7 @@
               <td>
               <% if truck.active == 1 %>
                   <%= link_to 'Editar', micamionesedit_path(truck.id), :class=>'btn btn-info' %>
-                  <%= link_to 'Vender', "/vender-camion/#{truck.id}", :class=>'btn btn-warning' %>
+                  <%= link_to 'Vendido', "/vender-camion/#{truck.id}", :class=>'btn btn-warning', :data => {:confirm => '¿Usted está seguro que desea dar por vendido su vehículo?'} %>
               <% end %>
               </td>
 
