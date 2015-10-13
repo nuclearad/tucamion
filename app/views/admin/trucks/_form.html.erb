@@ -260,9 +260,10 @@
           </div>
 
           <!-- Imagenes -->
-          <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @truck } %> <br/> <br/> <br/> <br/>
 
           <%= render partial: 'shared/camposGeneralesII', locals:{ f: f } %> <br/> <br/> <br/> <br/>
+
+          <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @truck } %> <br/> <br/> <br/> <br/>
 
           <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: micamiones_path } %>
         </div>
