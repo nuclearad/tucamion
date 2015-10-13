@@ -65,9 +65,9 @@
 
                       <% if  @truck.tipocombustible == '0' %>
                           Gasolina
-                      <% else if  @truck.tipocombustible == '1' %>
+                      <%elsif  @truck.tipocombustible == '1' %>
                               Gas
-                      <% end %>
+                      <% else %>
                               ACPM
                       <% end %>
                     </td>
@@ -219,15 +219,15 @@
                                   <b>Quinta Rueda</b><br>
                                   <%= @truck.wheels_truck_id? ? @truck.wheels_truck.name: 'Sin Información' %>
                               </td>
-                              
+
                               <td class="cell-label"></td>
                           </tr>
-                          
+
                           <%= render partial: 'shared/showSeVendeTrailler' ,locals: { object: @truck} %>
                       <% end %>
                   <!--VAN-->
                       <% if @truck.type_truck_id == 6 %>
-                        <tr class="nymou">                       
+                        <tr class="nymou">
                           <td class="cell-label">
                             <b>Cilindraje</b><br>
                             <%= @truck.cilindrajecc.nil? ? 'Sin Información' : @truck.cilindrajecc %>
@@ -237,8 +237,8 @@
                             <%= @truck.direccion.nil? ? 'Sin Información' : @truck.direccion == 'Si' ? 'Hidraulica': 'Mecanica' %>
                           </td>
                           <td class="cell-label"></td>
-                          <td class="cell-label"></td>  
-                          <td class="cell-label"></td>                          
+                          <td class="cell-label"></td>
+                          <td class="cell-label"></td>
                         </tr>
                         <%= render partial: 'shared/showBusyVan', locals: { object: @truck} %>
                       <% end %>
