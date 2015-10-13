@@ -43,6 +43,7 @@
                   <% unless @service.url_map.blank? %>
                     <tr class="nymou"><td>Google map:</td><td class="pull-right"><%= link_to 'Aqui ', @service.url_map %></td></tr>
                   <% end %>
+                  <tr class ="nymou"><td>Ofrecemos:</td><td class="pull-right"><%= @service.type_services.map {|x| x.name }.join(',') %></td></tr>
                   </tbody></table>
                 </div><!-- /.table-responsive -->
               </div><!-- /.module-body -->
