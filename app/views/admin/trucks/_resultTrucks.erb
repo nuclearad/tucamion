@@ -47,7 +47,7 @@
 
             <td>
               <% if truck.active == 1 %>
-                <%= link_to admin_updateState_path(truck.id,1,'truck'), :class=>'btn btn-danger' do %>
+                <%= link_to admin_updateState_path(truck.id,1,'truck'), :class=>'btn btn-success' do %>
                     <i class="fa fa-times"></i>
                 <% end %>
               <% elsif truck.active == 0 %>
@@ -55,7 +55,7 @@
               <% elsif truck.active == 2 %>
                   Vendido
               <% elsif truck.active == 3 %>
-                  <%= link_to admin_updateState_path(truck.id,3,'truck'), :class=>'btn btn-success' do %>
+                  <%= link_to admin_updateState_path(truck.id,3,'truck'), :class=>'btn btn-danger' do %>
                     <i class="fa fa-check"></i>
                   <% end %>
               <% end %>

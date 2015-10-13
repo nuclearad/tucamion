@@ -86,11 +86,11 @@
               <td>
 
               <% if truck.active == 1 %>
-                 <%= link_to  "/estatus-update/truck/#{truck.id}", :class=>'btn btn-danger' do %>
+                 <%= link_to  "/estatus-update/truck/#{truck.id}", :class=>'btn btn-success' do %>
                    <i class="fa fa-times"></i>
                  <% end %>
               <% elsif truck.active == 0 %>
-                 <%= link_to  "/estatus-update/truck/#{truck.id}", :class=>'btn btn-success' do %>
+                 <%= link_to  "/estatus-update/truck/#{truck.id}", :class=>'btn btn-danger' do %>
                    <i class="fa fa-check"></i>
                  <% end %>
               <% elsif truck.active == 2 %>
