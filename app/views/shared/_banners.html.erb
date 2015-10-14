@@ -1,36 +1,12 @@
   <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
-    <%
-        cuenta  = @banners.count
 
+    <% @banners.each do |banner| %>
+      
+      <div class="item bg-color">
+        <a href="<%= banner.url %>"><%= image_tag banner.picture(:medium), :style=>'max-width:100%; width:100%',  size: '250x250'  %></a>
+        <br/><br/>
+      </div><!-- /.item -->
 
-        b1 = Random.rand(1...cuenta)
-
-        b2 =  Random.rand(1...cuenta)
-       new = b2
-
-       if b1 == b2
-
-          new = b2-1
-            if new == 0
-               new = b2+1
-            end
-
-
-       end
-
-
-    %>
-
-
-    <div class="item bg-color">
-      <a href="<%= @banners[b1].url %>"><%= image_tag @banners[b1].picture(:medium), :style=>'max-width:100%; width:100%',  size: '250x250'  %></a>
-      <br/><br/>
-    </div><!-- /.item -->
-
-
-    <div class="item bg-color">
-      <a href="<%= @banners[new].url %>"><%= image_tag @banners[new].picture(:medium ), :style=>'max-width:100%; width:100%',  size: '250x250' %></a>
-      <br/><br/>
-    </div><!-- /.item -->
+    <% end %>
 
   </div>

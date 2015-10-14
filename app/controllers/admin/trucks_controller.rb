@@ -26,7 +26,7 @@ class Admin::TrucksController < ApplicationController
     logger.info "*****#{params}****"
     @truck = Truck.new
     @truck.type_truck_id= params['v']
-    @capacidadcarga = Environment::CAPACIDAD_CARGA 
+    @capacidadcarga = Environment::CAPACIDAD_CARGA
     add_breadcrumb 'Agregar'
   end
 
@@ -52,15 +52,18 @@ class Admin::TrucksController < ApplicationController
     @truck = Truck.find(params[:id])
     @cities= City.where('state_id = ?', @truck.state_id)
     @placaCities= City.where('state_id =?', @truck.placa_state_id)
-    @capacidadcarga = Environment::CAPACIDAD_CARGA 
-    
+    @capacidadcarga = Environment::CAPACIDAD_CARGA
+
     add_breadcrumb 'Editar'
   end
 
   def update
-
     @truck = Truck.find(params[:id])
-
+    if params[:picture1]=='1'
+      logger.info 'entro en borrar'
+      @truck.picture1.destroy
+      @truck.picture1.clear
+    end
     if @truck.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_trucks_path
