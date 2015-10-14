@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   layout 'index', :only => [ :index ]
-  before_action :load_banners
 
   def terminos
     
@@ -541,6 +540,7 @@ class PagesController < ApplicationController
   def camiones
     self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
+    @banners         = get_banners(params[:q])
     @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
     @states          = State.all.order(:name)
@@ -613,6 +613,7 @@ class PagesController < ApplicationController
     self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search        = Extra.where(active: 1).includes(:state, :city).search(params[:q])
     @extras        = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @banners       = get_banners(params[:q])
     @type_trucks   = TypeTruck.group_by_brand
     @states        = State.all.order(:name)
     @brand_group   = Extra.brand_group
@@ -671,6 +672,7 @@ class PagesController < ApplicationController
     self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search        = Service.where(active: 1).includes(:state, :city).search(params[:q])
     @services      = @search.result.order(:name).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @banners       = Banner.all.order("RAND()").first(2)
     @states        = State.all.order(:name)
     @type_services = TypeService.group_by_services
     @states_group  = Service.state_group
@@ -754,8 +756,12 @@ class PagesController < ApplicationController
 #private
   private
 
-    def load_banners
-       @banners = Banner.all.order('rand()').limit(3)
+    def get_banners parm
+       if parm[:type_truck_id_eq].blank? || parm[:type_truck_id_eq].nil?
+         Banner.all.order("RAND()").first(2)
+       else 
+         Banner.where(type_truck_id: parm[:type_truck_id_eq]).order("RAND()").first(2)
+       end
     end
 
     def validate_injection(str)
