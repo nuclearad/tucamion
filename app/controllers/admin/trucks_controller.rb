@@ -89,20 +89,40 @@ class Admin::TrucksController < ApplicationController
 
 
   def removePicture
-
+    logger.info "******* #{__method__} ******* #{params} *******"
     imagen =  params[:imagen]
-    id =  params[:idTruck]
-
-    @truck = Truck.find(id)
+    id =  params[:idAnuncio]
+    type = params[:anuncioType]
+    case type
+      when '0'
+        @truck = Truck.find(id)
+      when '1'
+        @truck = Truck.find(id)
+      when '2'
+        @truck = Extra.find(id)
+        logger.info 'en repuesto'
+      else
+        @truck = Service.find(id)
+    end
     @truck.instance_eval('picture'+imagen).destroy
+    @truck.instance_eval('picture'+imagen).clear
     if @truck.save
       respuesta = [:respuesta=>true ]
     else
       respuesta = [:respuesta=>false ]
     end
+    case type
+      when '0'
+       redirect_to micamionesedit_path(:id=> id) and return
+      when '1'
 
-    render json: respuesta
-
+       redirect_to edit_admin_truck_path(:id=> id) and return
+      when '2'
+        logger.info 'voy  para repuesto'
+        redirect_to edit_admin_extra_path(:id=> id) and return
+      else
+        redirect_to edit_admin_service_path(:id=> id) and return
+    end
   end
 
 

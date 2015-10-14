@@ -5,8 +5,8 @@
 		  		<%= object.label :picture1, 'Imagen 1' %>
 		  		<%= image_tag anuncio.picture1(:thumb),size:'150x150' %>
 		  		<%= object.file_field :picture1  %>
-		  		<!--%= link_to 'Eliminar Imagen', remove_image_path, id: object.id , pict: picture1, remote:true %-->
-		  		<%= check_box_tag 'picture1'%>
+		  		<!--%= link_to 'Eliminar Imagen', remove_image_path, id: object.id , pict: picture1, remote:true % -->
+					<%= link_to_unless anuncio.nil? , "Borrar Imagen", admin_removePicture_path(imagen: 1, idAnuncio: anuncio.id, anuncioType: type) %>
 			</div>
 	  	</div>
 
@@ -15,7 +15,8 @@
 		  		<%= object.label :picture2, 'Imagen 2' %>
 		  		<%= image_tag anuncio.picture2(:thumb),size:'150x150' %>
 		  		<%= object.file_field :picture2  %>
-		  		<%= check_box_tag 'picture2'%>
+		  		<!--%= check_box_tag 'picture2'%-->
+		  		<%= link_to "Borrar Imagen", admin_removePicture_path(imagen: 2, idAnuncio: anuncio.id, anuncioType: type) %>
 			</div>
 	  	</div>
 
@@ -24,7 +25,8 @@
 		  		<%= object.label :picture3, 'Imagen 3' %>
 		  		<%= image_tag anuncio.picture3(:thumb),size:'150x150' %>
 		  		<%= object.file_field :picture3  %>
-		  		<%= check_box_tag 'picture3'%>
+		  		<!--%= check_box_tag 'picture3'%-->
+		  		<%= link_to "Borrar Imagen", admin_removePicture_path(imagen: 3, idAnuncio: anuncio.id, anuncioType: type) %>
 			</div>
 	  	</div>
 	</div>
@@ -34,7 +36,8 @@
 		  		<%= object.label :picture4, 'Imagen 4' %>
 		  		<%= image_tag anuncio.picture4(:thumb),size:'150x150' %>
 		  		<%= object.file_field :picture4 %>
-		  		<%= check_box_tag 'picture4'%>
+		  		<!--%= check_box_tag 'picture4'%-->
+		  		<%= link_to "Borrar Imagen", admin_removePicture_path(imagen: 4, idAnuncio: anuncio.id, anuncioType: type) %>
 			</div>
 	  	</div>
 
@@ -44,7 +47,8 @@
 		  		<%= object.label :picture5, 'Imagen 5' %>
 		  		<%= image_tag anuncio.picture5(:thumb),size:'150x150' %>
 		  		<%= object.file_field :picture5  %>
-		  		<%= check_box_tag 'picture5'%>
+		  		<!--%= check_box_tag 'picture5'%-->
+		  		<%= link_to "Borrar Imagen", admin_removePicture_path(imagen: 5, idAnuncio: anuncio.id, anuncioType: type) %>
 			</div>
 	  	</div>
 	</div>

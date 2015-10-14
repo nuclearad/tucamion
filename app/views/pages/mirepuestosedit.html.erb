@@ -17,7 +17,7 @@
                 <%= render partial: 'shared/form_extra', locals:{ f: f} %>
             <% else %>
                 <div class="row">
-                    <!--Telefono y Email-->                
+                    <!--Telefono y Email-->
                     <div class='col-md-4'>
                         <div class="form-group">
                             <%= f.label :phone, 'Teléfono' %>
@@ -33,7 +33,7 @@
                 </div>
             <% end %>
             <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: mirepuestos_path } %>
-       
+
         <% end %>
 
     </div>
