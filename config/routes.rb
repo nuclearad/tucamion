@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   root 'pages#index'
 
   get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
@@ -85,7 +85,7 @@ Rails.application.routes.draw do
    # get '/updateState/:iditem/:idstate/:type', to: 'dashboard#updatestate', as: 'updateState'
     get '/trucks/updateState/:iditem/:idstate/:type', to: 'dashboard#updatestate', as: 'updateState'
     get '/updateStateCustomer/:iditem/:idstate', to: 'dashboard#updatestatecustomer', as: 'updateStateCustomer'
-    get '/removeImagen/:imagen/:idTruck', to: 'trucks#removePicture', as: 'removePicture'
+    get '/removeImagen/:anuncioType/:idAnuncio/:imagen', to: 'trucks#removePicture', as: 'removePicture'
 
     resources  :trucks,
       :brands_truck,
@@ -143,7 +143,7 @@ Rails.application.routes.draw do
 
 
   get '/estatus-update/:type/:id' => 'pages#update_status'
-  
+
   #sessiones
 
   get "/activar-cuenta/:token" => 'sessions#active_account'
@@ -167,5 +167,5 @@ Rails.application.routes.draw do
   end
 
   resources :inbox, only: [:index, :show, :destroy, :new, :create]
-  
+
 end

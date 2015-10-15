@@ -1,0 +1,1 @@
+$('#imagenes').html("<%= escape_javascript(render partial: 'form', locals:{path_form:  admin_truck_path , method_form: 'PATCH'})%>");
