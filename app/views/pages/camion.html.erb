@@ -112,7 +112,9 @@
               <table class="table table-bordered">
                 <tbody>
                 <!--NUEVA TABLA-->
+                <% if @truck.type_truck_id !=5 %>
                   <%= render partial: 'shared/showCamposGeneralesI' , locals: { object: @truck }  %>
+                <% end %>
                   <!--TRACTOMULA-->
                       <% if @truck.type_truck_id ==1 %>
                           <tr class="nymou">
@@ -150,52 +152,44 @@
                                   <b>Marca Volco</b><br>
                                   <%= @truck.marca_volco_id.nil? ? 'Sin Información': MarcaVolco.find(@truck.marca_volco_id).name  %>
                               </td>
+
                               <td class="cell-label">
-                                  <b>Capacidad Metrica</b><br>
-                                  <%= @truck.capacidadmetrica.nil?  ? 'Sin Información' : @truck.capacidadmetrica %>
-                              </td>
-                              <td class="cell-label">
-                                  <b>Metros Cubicos</b><br>
+                                  <b>Cuantos Metros cubicos</b><br>
                                   <%= @truck.cuantosmetroscubicos.nil? ? 'Sin Información' : @truck.cuantosmetroscubicos %>
                               </td>
                               <td class="cell-label">
                                   <b>Auto Carpado</b><br>
                                   <%= @truck.autocarpado.nil? ? 'Sin Información' : @truck.autocarpado %>
                               </td>
+                              <td class="cell-label">
+                              <b>Capacidad de Carga Matricula</b><br>
+                              <%=  @truck.capacidadcarga.nil? ?  'Sin Información' : @truck.capacidadcarga %>
+                            </td>
                           </tr>
                       <% end%>
                   <!--CAMION-->
                       <% if @truck.type_truck_id == 3 %>
                           <tr class="nymou">
                             <td class="cell-label">
+                              <b>Quinta Rueda</b><br>
+                              <%= @truck.wheels_truck_id? ? @truck.wheels_truck.name: 'Sin Información' %>
+                            </td>
+
+                            <td class="cell-label">
                               <b>Capacidad de Carga Matricula</b><br>
                               <%=  @truck.capacidadcarga.nil? ?  'Sin Información' : @truck.capacidadcarga %>
                             </td>
+
                             <td class="cell-label">
-                              <b>Tipo de Carrroceria</b><br>
-                              <%=  @truck.tipo_carroceria_id.nil? ?  'Sin Información' : TipoCarroceria.find(@truck.tipo_carroceria_id).name %>
+                                <b>Número de ejes Retractiles</b><br>
+                                <%= object.ejesretractiles? ?  object.ejesretractiles : 'Sin Información' %>
                             </td>
-                            <td class="cell-label">
-                              <b>Marca Carroceria</b><br>
-                              <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marca_carroceria_id).name %>
-                            </td>
-                            <td class="cell-label">
-                              <b>Marca Carpa</b><br>
-                              <%=  @truck.marcacarpa.nil? ?  'Sin Información' : @truck.marcacarpa %>
-                            </td>
+
                             <td class="cell-label">
                               <b>Tipo Cupo</b><br>
-                              <%=  @truck.tipocupo.nil? ?  'Sin Información' : @truck.tipocupo %>
+                              <%= @truck.spaces_truck_id.nil? ?  'Sin Información' : @truck.spaces_truck.name  %>
                             </td>
-                          </tr>
-                          <tr class="nymou">
-                            <td class="cell-label">
-                              <b>Poliza</b><br>
-                              <%=  @truck.contracts_truck_id.nil? ?  'Sin Información' : @truck.contracts_truck.name %>
-                            </td>
-                            <td class="cell-label"></td>
-                            <td class="cell-label"></td>
-                            <td class="cell-label"></td>
+
                             <td class="cell-label"></td>
                           </tr>
                       <% end %>
@@ -206,6 +200,19 @@
                   <!--TRAILER-->
                       <% if @truck.type_truck_id == 5 %>
                           <tr class="nymou">
+                            <td class="cell-label">
+                              <b>Marca Carpa</b><br>
+                              <%=  @truck.marcacarpa.nil? ?  'Sin Información' : @truck.marcacarpa %>
+                            </td>
+                            <td class="cell-label"></td>
+                            <td class="cell-label"></td>
+                            <td class="cell-label"></td>
+                            <td class="cell-label"></td>
+                            <!--
+                              <td class="cell-label">
+                                  <b>Quinta Rueda</b><br>
+                                  <%= @truck.wheels_truck_id? ? @truck.wheels_truck.name: 'Sin Información' %>
+                              </td>
                               <td class="cell-label">
                                 <b>Tipo de Carrroceria</b><br>
                                 <%=  @truck.tipo_carroceria_id.nil? ?  'Sin Información' : TipoCarroceria.find(@truck.tipo_carroceria_id).name %>
@@ -214,16 +221,9 @@
                                 <b>Marca Carroceria</b><br>
                                 <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marca_carroceria_id) %>
                               </td>
-                              <td class="cell-label">
-                                <b>Marca Carpa</b><br>
-                                <%=  @truck.marcacarpa.nil? ?  'Sin Información' : @truck.marcacarpa %>
-                              </td>
-                             <td class="cell-label">
-                                  <b>Quinta Rueda</b><br>
-                                  <%= @truck.wheels_truck_id? ? @truck.wheels_truck.name: 'Sin Información' %>
-                              </td>
 
                               <td class="cell-label"></td>
+                            -->
                           </tr>
 
                           <%= render partial: 'shared/showSeVendeTrailler' ,locals: { object: @truck} %>
