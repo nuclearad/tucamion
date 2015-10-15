@@ -60,9 +60,8 @@
                   <% if  @truck.colors_truck %>
                   <tr class="nymou"><td class="cell-label">Color:</td><td class="pull-right"><%=  @truck.colors_truck.name  %></td></tr>
                   <% end %>
-                  <tr class="nymou"><td class="cell-label">Tipo Combustible</td>
+                  <tr class="nymou"><td class="cell-label">Tipo Combustible:</td>
                     <td class="pull-right">
-
                       <% if  @truck.tipocombustible == '0' %>
                           Gasolina
                       <%elsif  @truck.tipocombustible == '1' %>
@@ -72,6 +71,7 @@
                       <% end %>
                     </td>
                   </tr>
+                  <tr class ='nymou'><td class='cell-label'>Peso Bruto:</td><td class='pull-right'><%= @truck.pesobruto %> </td></tr>
                   </tbody></table>
                 </div><!-- /.table-responsive -->
               </div><!-- /.module-body -->
@@ -125,12 +125,15 @@
                                   <b>Tipo Cupo</b><br>
                                       <%= @truck.spaces_truck_id.nil? ?  'Sin Información' : @truck.spaces_truck.name  %>
                               </td>
-                              <td class="cell-label"></td>
-                              <td class="cell-label"></td>
+                              <td class="cell-label">
+                                <b>Peso bruto</b><br>
+                                <%= @truck.pesobruto.nil? ?  'Sin Información' : @truck.pesobruto.name  %>
+                              </td>
                               <td class="cell-label">
                                 <b>Se vende con trailer</b><br>
                                 <%=  @truck.sevendecontrailer.nil? ?  'Sin Información' : (@truck.sevendecontrailer=='Si' ? 'Si': 'No') %>
                               </td>
+                              <td class="cell-label"></td>
                           </tr>
                           <%if @truck.sevendecontrailer=='Si' %>
                             <%= render partial: 'shared/showSeVendeTrailler' ,locals: { object: @truck} %>
