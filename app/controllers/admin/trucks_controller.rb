@@ -100,7 +100,8 @@ class Admin::TrucksController < ApplicationController
         @truck = Truck.find(id)
       when '2'
         @truck = Extra.find(id)
-        logger.info 'en repuesto'
+      when '3'
+        @truck = Extra.find(id)
       else
         @truck = Service.find(id)
     end
@@ -115,13 +116,15 @@ class Admin::TrucksController < ApplicationController
       when '0'
        redirect_to micamionesedit_path(:id=> id) and return
       when '1'
-
        redirect_to edit_admin_truck_path(:id=> id) and return
       when '2'
-        logger.info 'voy  para repuesto'
         redirect_to edit_admin_extra_path(:id=> id) and return
+      when '3'
+       redirect_to mirepuestosedit_path(:id=> id) and return
+      when '4'
+        redirect_to edit_admin_service_path(:id=> id) and return  
       else
-        redirect_to edit_admin_service_path(:id=> id) and return
+        redirect_to miserviciosedit_path(:id=> id) and return
     end
   end
 

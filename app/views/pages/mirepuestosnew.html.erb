@@ -13,7 +13,7 @@
 
     <%= render partial: 'includes/messages_errors', locals: {object: @extra} %>
     <%= simple_form_for @extra, :url => mirepuestosnew_path  do |f|  %>
-      <%= render partial: 'shared/form_extra', locals:{ f: f} %>
+      <%= render partial: 'shared/form_extra', locals:{ f: f, bandNew: true} %>
       <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: mirepuestos_path } %>
     <% end %>
   </div>

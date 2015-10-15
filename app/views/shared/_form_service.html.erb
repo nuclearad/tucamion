@@ -93,4 +93,8 @@
   </div>
 </div>
 
-<%= render partial: 'shared/imagenes', locals:{ object: f , anuncio: @service, type: 3} %>
+<% if bandNew==true %>
+  <%= render partial: 'shared/imagenesNew', locals:{ object: f, anuncio:@service} %>
+<% else %>
+  <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @service, type: type } %>
+<% end %>

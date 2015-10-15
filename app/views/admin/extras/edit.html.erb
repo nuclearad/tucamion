@@ -30,7 +30,7 @@
 
     <%= simple_form_for @extra, :url => admin_extra_path, :method=>'put' do |f|  %>
 
-      <%= render partial: 'shared/form_extra', locals:{ f: f} %>
+      <%= render partial: 'shared/form_extra', locals:{ f: f, bandNew: false, type:2} %>
       <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_extras_path } %>
 
     <% end %>

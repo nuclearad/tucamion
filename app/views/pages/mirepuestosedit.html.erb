@@ -14,7 +14,7 @@
 
             <% if !@extraLateUpdate %>
                 <!--nombre repuesto y tipo de camion-->
-                <%= render partial: 'shared/form_extra', locals:{ f: f} %>
+                <%= render partial: 'shared/form_extra', locals:{ f: f, bandNew: false, type: 3} %>
             <% else %>
                 <div class="row">
                     <!--Telefono y Email-->
