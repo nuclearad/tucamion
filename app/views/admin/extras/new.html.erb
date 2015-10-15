@@ -29,7 +29,7 @@
   <div class="col-md-12">
 
     <%= simple_form_for @extra, :url => admin_extras_path, :method=>'post' do |f|  %>
-      <%= render partial: 'shared/form_extra', locals:{ f: f} %>
+      <%= render partial: 'shared/form_extra', locals:{ f: f, bandNew: true,type:2} %>
       <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_extras_path } %>
     <% end %>
 

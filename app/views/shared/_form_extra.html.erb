@@ -101,5 +101,8 @@
     <%= f.text_area :description, :class =>'form-control'  %> <br/> <br/> <br/> <br/>
   </div>
 </div>
-
-<%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @extra } %>
+<% if bandNew==true %>
+  <%= render partial: 'shared/imagenesNew', locals:{ object: f, anuncio: @extra} %>
+<% else %>
+  <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @extra, type: type } %>
+<% end %>

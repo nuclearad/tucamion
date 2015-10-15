@@ -13,7 +13,7 @@
     <%= render partial: 'includes/messages_errors', locals: {object: @service} %>
     <%= simple_form_for @service, :url => miserviciosnew_path, :method=>'post' do |f|  %>
 
-      <%= render partial: 'shared/form_service', locals:{ f: f} %>
+      <%= render partial: 'shared/form_service', locals:{ f: f, bandNew: true,type:5} %>
 
       <!--Imagenes--> 
 
