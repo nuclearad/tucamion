@@ -121,6 +121,9 @@ Rails.application.routes.draw do
     end
 
     resources :type_truck do
+      collection do
+        match :index, via: [:get, :post]
+      end
       resources :sub_trucks,
                 :referencias
     end
