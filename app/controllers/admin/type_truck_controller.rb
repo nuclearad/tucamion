@@ -5,7 +5,6 @@ class Admin::TypeTruckController < ApplicationController
   def index
     @search       = TypeTruck.search(params[:q])
     @types        = @search.result.page(params[:page]).per(10)
-    @types_filter = @types
   end
 
   def new
