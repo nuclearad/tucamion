@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-      Servicio <small>/ Agregar</small>
+      Servicio <small>/ Editar</small>
     </h1>
     <%= render 'admin/includes/top' %>
   </div>
@@ -32,7 +32,7 @@
 
     <%= simple_form_for @service, :url => admin_service_path, :method=>'put' do |f|  %>
 
-        <%= render partial: 'shared/form_service', locals:{ f: f} %>
+        <%= render partial: 'shared/form_service', locals:{ f: f, bandNew: false,type:4} %>
         <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_services_path } %>
 
     <% end %>

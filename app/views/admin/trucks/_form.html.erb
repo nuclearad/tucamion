@@ -262,10 +262,15 @@
           <!-- Imagenes -->
 
           <%= render partial: 'shared/camposGeneralesII', locals:{ f: f } %> <br/> <br/> <br/> <br/>
-
-          <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @truck } %> <br/> <br/> <br/> <br/>
-
-          <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: micamiones_path } %>
+          <div id='imagenes'>
+            <% if bandNew==true %>
+              <%= render partial: 'shared/imagenesNew', locals:{ object: f, anuncio: @truck} %>
+            <% else %>
+              <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @truck, type: 1 } %>
+            <% end %>
+             <br/> <br/> <br/> <br/>
+          </div>
+          <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_trucks_path } %>
         </div>
       </div>
     <% end %>

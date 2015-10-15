@@ -14,10 +14,10 @@
 
             <% if !@extraLateUpdate %>
                 <!--nombre repuesto y tipo de camion-->
-                <%= render partial: 'shared/form_extra', locals:{ f: f} %>
+                <%= render partial: 'shared/form_extra', locals:{ f: f, bandNew: false, type: 3} %>
             <% else %>
                 <div class="row">
-                    <!--Telefono y Email-->                
+                    <!--Telefono y Email-->
                     <div class='col-md-4'>
                         <div class="form-group">
                             <%= f.label :phone, 'Teléfono' %>
@@ -33,7 +33,7 @@
                 </div>
             <% end %>
             <%= render partial: 'shared/botonera', locals:{ object: f, cancel_route: mirepuestos_path } %>
-       
+
         <% end %>
 
     </div>
