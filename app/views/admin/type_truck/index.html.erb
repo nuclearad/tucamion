@@ -24,7 +24,7 @@
   </div>
       <div class="col-md-3 col-md-offset-6">
         <div class="form-group">
-          <%= search_form_for @search, url: admin_type_truck_index_path, id:"searchForm" ,method: "get"  do |f| %>
+          <%= search_form_for @search, url: admin_type_truck_index_path, id:"searchForm" ,method: :post do |f| %>
               <div>
                 <%= label_tag "isr",'Buscar:' %>
                 <%= f.search_field  :name_cont, class: "form-control form-el" %>
