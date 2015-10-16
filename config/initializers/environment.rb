@@ -1,5 +1,7 @@
 class Environment
-    LIMIT_SEARCH  = 4
+    
+    LIMIT_SEARCH  = 20
+
     ARRAYSQL      = {'delete' => 'delete', 'select' => 'select',
     	               'insert' => 'insert', 'from'   =>   'from',
     	               'count'  => 'count',  'max'    =>    'max',
