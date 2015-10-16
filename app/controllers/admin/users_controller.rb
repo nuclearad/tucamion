@@ -9,7 +9,7 @@ class Admin::UsersController < ApplicationController
     @admin_users = User.all
     @search = @admin_users.search(params[:q])
     @query_search_field= 'first_name_or_last_name_or_email_cont'
-    @admin_users_filter = @search.result.page(params[:page]).per(10)
+    @admin_users_filter = @search.result.page(params[:page]).per(5)
 
     logger.info 'Vengo al index'
     respond_to do |format|
