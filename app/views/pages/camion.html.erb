@@ -129,7 +129,7 @@
                               </td>
                               <td class="cell-label">
                                 <b>Peso bruto</b><br>
-                                <%= @truck.pesobruto.nil? ?  'Sin Información' : @truck.pesobruto.name  %>
+                                <%= @truck.pesobruto.nil? ?  'Sin Información' : @truck.pesobruto  %>
                               </td>
                               <td class="cell-label">
                                 <b>Se vende con trailer</b><br>
@@ -182,7 +182,7 @@
 
                             <td class="cell-label">
                                 <b>Número de ejes Retractiles</b><br>
-                                <%= object.ejesretractiles? ?  object.ejesretractiles : 'Sin Información' %>
+                                <%= @truck.ejesretractiles? ?  @truck.ejesretractiles : 'Sin Información' %>
                             </td>
 
                             <td class="cell-label">
@@ -236,7 +236,7 @@
                             <%= @truck.cilindrajecc.nil? ? 'Sin Información' : @truck.cilindrajecc %>
                           </td>
                           <td class="cell-label">
-                            <b>Dirreción</b><br>
+                            <b>Dirección</b><br>
                             <%= @truck.direccion.nil? ? 'Sin Información' : @truck.direccion == 'Si' ? 'Hidraulica': 'Mecanica' %>
                           </td>
                           <td class="cell-label"></td>
