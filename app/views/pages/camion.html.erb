@@ -47,7 +47,9 @@
                   <tr class="nymou"><td class="cell-label">Modelo:</td><td class="pull-right"><%= @truck.modelo %></td></tr>
                   <tr class="nymou"><td class="cell-label">Marca:</td><td class="pull-right"><%= @truck.brand_truck.name if @truck.brand_truck %></td></tr>
                   <tr class="nymou"><td class="cell-label">Ubicación:</td><td class="pull-right"><%= @truck.state.name  if @truck.state %> - <%= @truck.city.name if @truck.city %></td></tr>
-                  <tr class="nymou"><td class="cell-label">Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje!= nil ? @truck.kilometraje+ ' Km' : 'Sin Info' %></td></tr>
+                  <% if @truck.type_truck_id !=5 %>
+                    <tr class="nymou"><td class="cell-label">Kilometraje:</td><td class="pull-right"><%= @truck.kilometraje!= nil ? @truck.kilometraje+ ' Km' : 'Sin Info' %></td></tr>
+                  <% end %>
                   <tr class="nymou"><td class="cell-label">Estado:</td><td class="pull-right">
                     <% if @truck.estado == 0 %>
                           Nuevo
@@ -60,17 +62,19 @@
                   <% if  @truck.colors_truck %>
                   <tr class="nymou"><td class="cell-label">Color:</td><td class="pull-right"><%=  @truck.colors_truck.name  %></td></tr>
                   <% end %>
-                  <tr class="nymou"><td class="cell-label">Tipo Combustible:</td>
-                    <td class="pull-right">
-                      <% if  @truck.tipocombustible == '0' %>
+                  <% if @truck.type_truck_id !=5 %>
+                    <tr class="nymou"><td class="cell-label">Tipo Combustible:</td>
+                      <td class="pull-right">
+                        <% if  @truck.tipocombustible == '0' %>
                           Gasolina
-                      <%elsif  @truck.tipocombustible == '1' %>
+                        <%elsif  @truck.tipocombustible == '1' %>
                               Gas
-                      <% else %>
+                        <% else %>
                               ACPM
-                      <% end %>
-                    </td>
-                  </tr>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
                   <tr class ='nymou'><td class='cell-label'>Peso Bruto:</td><td class='pull-right'><%= @truck.pesobruto %> </td></tr>
                   </tbody></table>
                 </div><!-- /.table-responsive -->
@@ -192,6 +196,22 @@
 
                             <td class="cell-label"></td>
                           </tr>
+                          <tr class="nymou">
+                              <td class="cell-label">
+                                <b>Tipo de Carrroceria</b><br>
+                                <%=  @truck.tipo_carroceria_id.nil? ?  'Sin Información' : TipoCarroceria.find(@truck.tipo_carroceria_id).name %>
+                              </td>
+                              <td class="cell-label">
+                                <b>Marca Carroceria</b><br>
+                                <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marca_carroceria_id) %>
+                              </td>
+                              <td class="cell-label">
+                                <b>Marca Carpa</b><br>
+                                <%=  @truck.marcacarpa.nil? ?  'Sin Información' : @truck.marcacarpa %>
+                              </td>
+                              <td class="cell-label"></td>
+                              <td class="cell-label"></td>
+                          </tr>
                       <% end %>
                   <!--BUS-->
                       <% if @truck.type_truck_id == 4 %>
@@ -221,11 +241,9 @@
                                 <b>Marca Carroceria</b><br>
                                 <%=  @truck.marca_carroceria_id.nil? ?  'Sin Información' : MarcaCarroceria.find(@truck.marca_carroceria_id) %>
                               </td>
-
                               <td class="cell-label"></td>
                             -->
                           </tr>
-
                           <%= render partial: 'shared/showSeVendeTrailler' ,locals: { object: @truck} %>
                       <% end %>
                   <!--VAN-->
