@@ -21,29 +21,32 @@
     </td>
 </tr>
 <tr class="nymou">
-    
+
     <td class="cell-label">
       <b>Vigias</b><br>
       <%=  object.vigia.nil? ?  'Sin Información' : object.vigia? ? 'Si' : 'No' %>
     </td>
-    
-    <td class="cell-label">
-      <b>Tipo De Caja</b><br>
-      <%= object.tipodecaja.nil? ? 'Sin Información' : object.tipodecaja == 0 ? 'Automatica' : 'Manual' %>
-    </td>
+    <% if @truck.type_truck_id !=5 %>
+      <td class="cell-label">
+        <b>Tipo De Caja</b><br>
+        <%= object.tipodecaja.nil? ? 'Sin Información' : object.tipodecaja == 0 ? 'Automatica' : 'Manual' %>
+      </td>
 
-    <td class="cell-label">
-      <b>Motor Reparado</b><br>
-      <%= object.motorreparado.nil? ? 'Sin Información' : object.motorreparado? ? 'Si': 'No' %>
-    </td>
-    
+      <td class="cell-label">
+        <b>Motor Reparado</b><br>
+        <%= object.motorreparado.nil? ? 'Sin Información' : object.motorreparado? ? 'Si': 'No' %>
+      </td>
+    <%  else %>
+      <td class="cell-label"></td>
+      <td class="cell-label"></td>
+    <% end %>
     <td class="cell-label">
       <b>Caja Reparada</b><br>
       <%= object.cajareparada.nil? ? 'Sin Información' : object.cajareparada? ? 'Si': 'No' %>
     </td>
-    
+
     <td class='cell-label'>
       <b>Transmision Reparada</b><br>
       <%= object.transmisionreparada.nil? ? 'Sin Información' : object.transmisionreparada? ? 'Si': 'No' %>
     </td>
-</tr>                   
+</tr>
