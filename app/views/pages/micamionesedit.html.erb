@@ -183,6 +183,31 @@
                     </div>
                   </div>
 
+                  <div class ='row'>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <%= f.label :tipo_carroceria_id, 'Tipo Carroceria' %>
+                          <%= f.collection_select :tipo_carroceria_id, TipoCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <%= f.label :marca_carroceria_id, 'Marca Carroceria' %>
+                          <%= f.collection_select :marca_carroceria_id, MarcaCarroceria.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class = 'row'>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <%= f.label :marcacarpa, 'Marca Carpa' %>
+                          <%= f.text_field :marcacarpa, :class =>'form-control'  %>
+                      </div>
+                    </div>
+                  </div>
+
                 <% end %>
 
                 <!--buses 4-->
