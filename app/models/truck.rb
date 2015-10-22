@@ -36,11 +36,11 @@ class Truck < ActiveRecord::Base
                     }
   validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
-  validates_format_of [:nombre, :modelo, :placa, :marcacarpa, :empresaafiliada, :descripcion], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+  validates_format_of [:nombre, :placa, :marcacarpa, :empresaafiliada, :descripcion], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
 
   validates_format_of [:kilometraje, :capacidadpasajeros, :numeroejes, :cilindrajecc], :with => /\A([0-9]*$)/i ,message: "Debe ser solo numeros"
   
-  validates_numericality_of [:price],  message: "Debe ser solo numeros"
+  validates_numericality_of [:price, :modelo],  message: "Debe ser solo numeros"
 
   has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
