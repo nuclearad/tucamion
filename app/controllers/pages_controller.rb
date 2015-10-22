@@ -2,11 +2,11 @@ class PagesController < ApplicationController
   layout 'index', :only => [ :index ]
 
   def terminos
-    
+
   end
 
   def politicas
-    
+
   end
 
   def index
@@ -166,7 +166,7 @@ class PagesController < ApplicationController
       @quantity = @user.quantities.first
       @truck    = Truck.new
       @truck.type_truck_id = params['v']
-      @capacidadcarga = Environment::CAPACIDAD_CARGA 
+      @capacidadcarga = Environment::CAPACIDAD_CARGA
       if @quantity.total_trucks - @quantity.current_trucks > 0
 
         if @user.cargar_planes > 0
@@ -201,7 +201,7 @@ class PagesController < ApplicationController
       @lateUpdate = @truck.created_at < Date.today - Environment::EXTRA_LATE_UPDATE
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
-      @capacidadcarga = Environment::CAPACIDAD_CARGA 
+      @capacidadcarga = Environment::CAPACIDAD_CARGA
       if @truck.blank?
         redirect_to micamiones_path
       else
@@ -217,6 +217,7 @@ class PagesController < ApplicationController
             @truck.errors.full_messages.each {|e| logger.error e}
             @cities= City.where('state_id = ?', @truck.state_id)
             @placaCities= City.where('state_id =?', @truck.placa_state_id)
+            @capacidadcarga = Environment::CAPACIDAD_CARGA
           end
         end
           render layout: 'layouts/cliente'
@@ -492,7 +493,7 @@ class PagesController < ApplicationController
   end
 
   def getreferencias
- 
+
     if params[:id] == '0'
 
       @referencia = Referencia.all
@@ -501,7 +502,7 @@ class PagesController < ApplicationController
     else
       @referencia = Truck.where(type_truck_id: params[:id]).group(:referencia_id).includes(:referencia)
       render json: @referencia, :include =>[:referencia]
-    end 
+    end
   end
 
   def getbrandsextra
@@ -737,7 +738,7 @@ class PagesController < ApplicationController
   def update_status
     id   = params[:id]
     type = params[:type]
-    
+
     case type
     when 'truck'
       item = Truck.find_by(id: id, customer_id: session[:user])
@@ -755,7 +756,7 @@ class PagesController < ApplicationController
     else
       item.update_attributes(active: Environment::STATUS[:camiones][:activo])
     end
-    
+
     redirect_to path
 
   end
@@ -768,15 +769,15 @@ class PagesController < ApplicationController
        begin
           if parm[:type_truck_id_eq].blank? || parm[:type_truck_id_eq].nil?
            Banner.all.order("RAND()").first(2)
-          else 
+          else
             Banner.where(type_truck_id: parm[:type_truck_id_eq]).order("RAND()").first(2)
-          end      
+          end
        rescue Exception => e
           if parm['type_truck_id_eq'].blank? || parm['type_truck_id_eq'].nil?
            Banner.all.order("RAND()").first(2)
-          else 
+          else
             Banner.where(type_truck_id: parm['type_truck_id_eq']).order("RAND()").first(2)
-          end      
+          end
        end
     end
 
