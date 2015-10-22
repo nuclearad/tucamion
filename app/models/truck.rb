@@ -18,15 +18,18 @@ class Truck < ActiveRecord::Base
   belongs_to :referencia
   accepts_nested_attributes_for :customer
   validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
-  validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state,:city,
-                         :placa_state_id,:placa_city_id,:state_id,:brand_truck_id,
-                         :colors_truck_id,:city_id,:estado,:pesobruto], message: 'No puede estar en blanco'
+  validates_presence_of [:nombre, :price,:modelo, :placa,:state,:city,:state_id,:colors_truck_id,:city_id,:estado,:pesobruto], message: 'No puede estar en blanco'
+
   validates_presence_of       :phone, message: "El telefono es un campo obligatorio"
+
   validates_presence_of       :email,    message: "Es un campo obligatorio"
 
+  validates_presence_of [:brand_truck_id,:placa_state_id,:placa_city_id], message: 'No puede estar en blanco.', unless: 'type_truck_id == 5'
+
   validates :phone, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
+
   validates_numericality_of :phone,  message: "Debe ser solo numeros"
-  
+
   has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
@@ -39,7 +42,7 @@ class Truck < ActiveRecord::Base
   validates_format_of [:nombre, :modelo, :placa, :marcacarpa, :empresaafiliada, :descripcion], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
 
   validates_format_of [:kilometraje, :capacidadpasajeros, :numeroejes, :cilindrajecc], :with => /\A([0-9]*$)/i ,message: "Debe ser solo numeros"
-  
+
   validates_numericality_of [:price],  message: "Debe ser solo numeros"
 
   has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
@@ -82,7 +85,7 @@ class Truck < ActiveRecord::Base
   validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i ,  message: "Debe poseer un formato valido"
-    
+
 =begin
   validates :nombre, presence: true
   validates :modelo, presence: true
@@ -118,7 +121,7 @@ class Truck < ActiveRecord::Base
       :placa_state_id => 'Departamento Matricula',
       :price       => 'Precio',
       :phone => 'Telefono',
-      :email => 'Correo Electronico'      
+      :email => 'Correo Electronico'
   }
 
   def self.human_attribute_name(attr, options = {})
