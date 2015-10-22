@@ -70,6 +70,7 @@ class Admin::TrucksController < ApplicationController
     else
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
+      @capacidadcarga = Environment::CAPACIDAD_CARGA
       render :edit, :v=>@truck.type_truck_id
     end
 
