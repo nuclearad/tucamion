@@ -548,7 +548,7 @@ class PagesController < ApplicationController
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
     @brand_group     = Truck.marcas_group
-    @km_group        = Truck.km_group
+    #@km_group        = Truck.km_group
     @toggle_search   = self.nested_search(params[:q])
     respond_to do |format|
       format.html { render :camiones }
@@ -575,7 +575,7 @@ class PagesController < ApplicationController
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
-    @km_group        = Truck.km_group
+    #@km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search   = Array.new
     respond_to do |format|
@@ -593,7 +593,7 @@ class PagesController < ApplicationController
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
-    @km_group        = Truck.km_group
+    #@km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search = self.nested_search(self.get_toggle)
     respond_to do |format|
@@ -605,7 +605,12 @@ class PagesController < ApplicationController
   def camiones_ajax
     field = params[:field]
     value = params[:value]
-    @trucks = Truck.where(active: 1, field.to_sym => value).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    if params[:field].to_s == 'kilometraje'
+      valores = params[:value] .split('-')
+      @trucks = Truck.where("active = 1 and (kilometraje >= #{valores[0]} and kilometraje <= #{valores[1]})").includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    else
+      @trucks = Truck.where(active: 1, field.to_sym => value).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)   
+    end  
     respond_to do |format|
       format.js { render :camiones }
     end
