@@ -515,7 +515,6 @@ class PagesController < ApplicationController
       render json: @brands
 
     else
-      puts params[:id]
       @truck = TypeTruck.where(id: params[:id]).includes(:brand_extras)
       render json: @truck, :include =>[:brand_extras]
       #@brands = BrandTruck.where(type_truck_id: params[:id]).all
