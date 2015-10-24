@@ -56,10 +56,15 @@
               <td>
                 <%= extra.name %>
               </td>
-
+              
               <td>
-                <%=  extra.type_truck.name if extra.type_truck_id %>
-              </td>
+                <% if extra.type_trucks %>
+                  <% extra.type_trucks.each do |truck| %>
+                    <%= truck.name %>
+                  <% end %>
+                <% end %>
+              </td> 
+
 
               <td>
                 <% if extra.brand_extras %>

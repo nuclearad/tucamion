@@ -1,7 +1,7 @@
 class Extra < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :type_truck
+
   belongs_to :city
   belongs_to :state
 
@@ -11,12 +11,15 @@ class Extra < ActiveRecord::Base
   belongs_to :customer
 
   has_many :messages, :foreign_key => :item
+  
+  has_many :types_truck_extras
+  has_many :type_trucks, through: :types_truck_extras
 
   accepts_nested_attributes_for :brand_extras
   
-  validates_presence_of [:nit, :name, :state_id, :city_id, :phone, :address,:email],message: 'No puede estar vacio'
+  accepts_nested_attributes_for :type_trucks
 
-  validates :type_truck_id, presence: true
+  validates_presence_of [:nit, :name, :state_id, :city_id, :phone, :address,:email],message: 'No puede estar vacio'
 
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
@@ -105,7 +108,8 @@ class Extra < ActiveRecord::Base
   scope :like_join, ->(str){
     self.joins("LEFT JOIN extras_brands_extras ON extras_brands_extras.extra_id = extras.id
                 LEFT JOIN brand_extras ON brand_extras.id = extras_brands_extras.brand_extra_id
-                LEFT JOIN type_trucks  ON type_trucks.id =  extras.type_truck_id").
+                LEFT JOIN types_truck_extras ON types_truck_extras.extra_id = extras.id
+                LEFT JOIN type_trucks  ON type_trucks.id =  types_truck_extras.type_truck_id").
          where("(extras.name LIKE '%#{str}%' OR
                 brand_extras.name LIKE '%#{str}%' OR
                 type_trucks.name LIKE '%#{str}%') AND
