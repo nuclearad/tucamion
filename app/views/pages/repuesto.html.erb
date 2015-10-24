@@ -41,6 +41,7 @@
                   <% unless @extra.url_map.blank? %>
                     <tr class="nymou"><td>Google map:</td><td class="pull-right"><%= link_to 'Aqui ', @extra.url_map, target: "_blank" %></td></tr>
                   <% end %>
+                 <tr class ="nymou"><td>Almacen de:</td><td class="pull-right"><%= @extra.type_trucks.map {|x| x.name }.join(',') %></td></tr>
                   <tr class ="nymou"><td>Ofrecemos:</td><td class="pull-right"><%= @extra.brand_extras.map {|x| x.name }.join(',') %></td></tr>
                   </tbody></table>
                 </div><!-- /.table-responsive -->
