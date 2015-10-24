@@ -1,9 +1,12 @@
 class TypeTruck < ActiveRecord::Base
   has_many :trucks, dependent: :destroy
   has_many :sub_trucks, dependent: :destroy
-  has_many :extras, dependent: :destroy
+  
   has_many :brand_extras,->{self.uniq}, through: :extras
   has_many :brand_trucks, through: :trucks
+  
+  has_many :types_truck_extras
+  has_many :extras, through: :types_truck_extras
 
   HUMANIZED_ATTRIBUTES = {
       :name => 'Nombre'

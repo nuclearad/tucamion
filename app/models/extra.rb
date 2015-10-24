@@ -1,7 +1,7 @@
 class Extra < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :type_truck
+
   belongs_to :city
   belongs_to :state
 
@@ -11,12 +11,15 @@ class Extra < ActiveRecord::Base
   belongs_to :customer
 
   has_many :messages, :foreign_key => :item
+  
+  has_many :types_truck_extras
+  has_many :type_trucks, through: :types_truck_extras
 
   accepts_nested_attributes_for :brand_extras
   
-  validates_presence_of [:nit, :name, :state_id, :city_id, :phone, :address,:email],message: 'No puede estar vacio'
+  accepts_nested_attributes_for :type_trucks
 
-  validates :type_truck_id, presence: true
+  validates_presence_of [:nit, :name, :state_id, :city_id, :phone, :address,:email],message: 'No puede estar vacio'
 
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
 
