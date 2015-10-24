@@ -636,7 +636,8 @@ class PagesController < ApplicationController
   def repuestotipo
     id_brand          = params[:id_brand]
     id_truck          = params[:id_truck]
-    @extras           = Extra.joins(:brand_extras).where(extras: {type_truck_id: id_truck, active: 1}, brand_extras: {id: id_brand}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @extras           = Extra.joins(:type_trucks,:brand_extras).where(extras: {active: 1}, types_truck_extras: {type_truck_id: id_truck} , brand_extras: {id: id_brand}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    
     #@states           = State.all.order(:name)
     #@type_trucks      = TypeTruck.group_by_brand
     #@brand_group      = Extra.brand_group
@@ -768,16 +769,24 @@ class PagesController < ApplicationController
 
     def get_banners parm
        begin
-          if parm[:type_truck_id_eq].blank? || parm[:type_truck_id_eq].nil?
-           Banner.all.order("RAND()").first(2)
+          if parm[:type_trucks_id_eq]
+            Banner.where(type_truck_id: parm[:type_trucks_id_eq]).order("RAND()").first(2)
+          elsif parm[:type_truck_id_eq].blank? || parm[:type_truck_id_eq].nil?
+            Banner.all.order("RAND()").first(2)
           else
             Banner.where(type_truck_id: parm[:type_truck_id_eq]).order("RAND()").first(2)
           end
        rescue Exception => e
-          if parm['type_truck_id_eq'].blank? || parm['type_truck_id_eq'].nil?
-           Banner.all.order("RAND()").first(2)
-          else
-            Banner.where(type_truck_id: parm['type_truck_id_eq']).order("RAND()").first(2)
+          begin
+            if parm["type_trucks_id_eq"]
+               Banner.where(type_truck_id: parm["type_trucks_id_eq"]).order("RAND()").first(2)
+            elsif parm['type_truck_id_eq'].blank? || parm['type_truck_id_eq'].nil?
+              Banner.all.order("RAND()").first(2)
+            else
+              Banner.where(type_truck_id: parm['type_truck_id_eq']).order("RAND()").first(2)
+            end      
+          rescue Exception => e
+             Banner.all.order("RAND()").first(2)
           end
        end
     end
