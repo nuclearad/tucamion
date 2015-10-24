@@ -14,8 +14,8 @@ class Customer::CustomerMailer < ActionMailer::Base
   end
 
   def forgot_pass(user, url)
-    puts Environment::MAILSETTING
-    puts "*************************************************************************************************"
+    #puts Environment::MAILSETTING
+    #puts "*************************************************************************************************"
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
     @user                          = user
     @url                           = url
