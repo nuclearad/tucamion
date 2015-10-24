@@ -47,8 +47,8 @@ class TypeTruck < ActiveRecord::Base
   scope :group_by_brand,->{
       self.select('type_trucks.id,
                    type_trucks.name,
-                   COUNT(extras.type_truck_id) as total').
-       joins(:extras).
+                   COUNT(types_truck_extras.type_truck_id) as total').
+       joins(:extras, :types_truck_extras).
        group('type_trucks.id').includes(:brand_extras)
   }
 
