@@ -1,9 +1,12 @@
 class TypeTruck < ActiveRecord::Base
   has_many :trucks, dependent: :destroy
   has_many :sub_trucks, dependent: :destroy
-  has_many :extras, dependent: :destroy
+  
   has_many :brand_extras,->{self.uniq}, through: :extras
   has_many :brand_trucks, through: :trucks
+  
+  has_many :types_truck_extras
+  has_many :extras, through: :types_truck_extras
 
   HUMANIZED_ATTRIBUTES = {
       :name => 'Nombre'
@@ -44,8 +47,8 @@ class TypeTruck < ActiveRecord::Base
   scope :group_by_brand,->{
       self.select('type_trucks.id,
                    type_trucks.name,
-                   COUNT(extras.type_truck_id) as total').
-       joins(:extras).
+                   COUNT(types_truck_extras.type_truck_id) as total').
+       joins(:types_truck_extras).
        group('type_trucks.id').includes(:brand_extras)
   }
 
