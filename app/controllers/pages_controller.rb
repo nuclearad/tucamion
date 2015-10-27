@@ -258,7 +258,7 @@ class PagesController < ApplicationController
     else
       @user     = Customer.find_by_id(session[:user])
       @quantity = @user.quantities.first
-      @search   = Extra.where(:customer_id => session[:user]).includes(:type_truck, :brand_extras, :messages).search(params[:q])
+      @search   = Extra.where(:customer_id => session[:user]).includes(:type_trucks, :brand_extras, :messages).search(params[:q])
       @extras   = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
 
       render layout: 'layouts/cliente'
@@ -548,7 +548,7 @@ class PagesController < ApplicationController
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
     @brand_group     = Truck.marcas_group
-    @km_group        = Truck.km_group
+    #@km_group        = Truck.km_group
     @toggle_search   = self.nested_search(params[:q])
     respond_to do |format|
       format.html { render :camiones }
@@ -575,7 +575,7 @@ class PagesController < ApplicationController
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
-    @km_group        = Truck.km_group
+    #@km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search   = Array.new
     respond_to do |format|
@@ -593,7 +593,7 @@ class PagesController < ApplicationController
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
-    @km_group        = Truck.km_group
+    #@km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search = self.nested_search(self.get_toggle)
     respond_to do |format|
@@ -605,7 +605,12 @@ class PagesController < ApplicationController
   def camiones_ajax
     field = params[:field]
     value = params[:value]
-    @trucks = Truck.where(active: 1, field.to_sym => value).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    if params[:field].to_s == 'kilometraje'
+      valores = params[:value] .split('-')
+      @trucks = Truck.where("active = 1 and (kilometraje >= #{valores[0]} and kilometraje <= #{valores[1]})").includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    else
+      @trucks = Truck.where(active: 1, field.to_sym => value).includes(:state).page(params[:page]).per(Environment::LIMIT_SEARCH)   
+    end  
     respond_to do |format|
       format.js { render :camiones }
     end
@@ -630,7 +635,8 @@ class PagesController < ApplicationController
   def repuestotipo
     id_brand          = params[:id_brand]
     id_truck          = params[:id_truck]
-    @extras           = Extra.joins(:brand_extras).where(extras: {type_truck_id: id_truck, active: 1}, brand_extras: {id: id_brand}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @extras           = Extra.joins(:type_trucks,:brand_extras).where(extras: {active: 1}, types_truck_extras: {type_truck_id: id_truck} , brand_extras: {id: id_brand}).includes(:state, :city).page(params[:page]).per(Environment::LIMIT_SEARCH)
+    
     #@states           = State.all.order(:name)
     #@type_trucks      = TypeTruck.group_by_brand
     #@brand_group      = Extra.brand_group
@@ -762,16 +768,24 @@ class PagesController < ApplicationController
 
     def get_banners parm
        begin
-          if parm[:type_truck_id_eq].blank? || parm[:type_truck_id_eq].nil?
-           Banner.all.order("RAND()").first(2)
+          if parm[:type_trucks_id_eq]
+            Banner.where(type_truck_id: parm[:type_trucks_id_eq]).order("RAND()").first(2)
+          elsif parm[:type_truck_id_eq].blank? || parm[:type_truck_id_eq].nil?
+            Banner.all.order("RAND()").first(2)
           else
             Banner.where(type_truck_id: parm[:type_truck_id_eq]).order("RAND()").first(2)
           end
        rescue Exception => e
-          if parm['type_truck_id_eq'].blank? || parm['type_truck_id_eq'].nil?
-           Banner.all.order("RAND()").first(2)
-          else
-            Banner.where(type_truck_id: parm['type_truck_id_eq']).order("RAND()").first(2)
+          begin
+            if parm["type_trucks_id_eq"]
+               Banner.where(type_truck_id: parm["type_trucks_id_eq"]).order("RAND()").first(2)
+            elsif parm['type_truck_id_eq'].blank? || parm['type_truck_id_eq'].nil?
+              Banner.all.order("RAND()").first(2)
+            else
+              Banner.where(type_truck_id: parm['type_truck_id_eq']).order("RAND()").first(2)
+            end      
+          rescue Exception => e
+             Banner.all.order("RAND()").first(2)
           end
        end
     end

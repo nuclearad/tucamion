@@ -41,11 +41,13 @@
                   <% unless @extra.url_map.blank? %>
                     <tr class="nymou"><td>Google map:</td><td class="pull-right"><%= link_to 'Aqui ', @extra.url_map, target: "_blank" %></td></tr>
                   <% end %>
-                  <tr class ="nymou"><td>Ofrecemos:</td><td class="pull-right"><%= @extra.brand_extras.map {|x| x.name }.join(',') %></td></tr>
+                  
                   </tbody></table>
                 </div><!-- /.table-responsive -->
               </div><!-- /.module-body -->
             </div>
+            <div class="col-sm-12 box-resalto">Almacen de: <%= @extra.type_trucks.map {|x| x.name }.join(', ') %></div>
+            <div class="col-sm-12 box-resalto">Ofrecemos: <%= @extra.brand_extras.map {|x| x.name }.join(', ') %></div>
           </div>
         </div><!-- /.row -->
       </div><!-- /.stock-container -->

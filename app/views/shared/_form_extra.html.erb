@@ -2,7 +2,11 @@
   <div class="col-md-6">
     <div class="form-group">
       <%= f.label :nit, 'NIT' %>
-      <%= f.text_field :nit, value: '', :class =>'form-control'  %>
+      <% if @extra.id.blank? %>
+        <%= f.text_field :nit, value: '', :class =>'form-control'  %>
+      <% else %>
+        <%= f.text_field :nit, :class =>'form-control'  %>
+      <% end %>
     </div>
   </div>
 
@@ -50,10 +54,11 @@
 
 <div class="row">
 
+<div class="row">
   <div class="col-md-12">
     <div class="form-group">
-      <%= f.label :type_truck_id, 'Tipo de camion' %>
-      <%= f.collection_select :type_truck_id, TypeTruck.order(:name),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+      <%= f.label :type_trucks, 'Tipos de camiones' %>
+      <%= f.association :type_trucks, as: :check_boxes, item_wrapper_tag: :div, item_wrapper_class: "col-md-4", label: false %>
     </div>
   </div>
 </div>

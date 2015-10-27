@@ -58,7 +58,7 @@
                     TIPO DE
                     %b CAMIÓN
                 .attribute_list
-                  = f.select(:type_truck_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'servicio_type'})
+                  = f.select(:type_trucks_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'servicio_type'})
             .col-xs-3.col-sm-3.col-md-3
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
