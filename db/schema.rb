@@ -392,7 +392,7 @@ ActiveRecord::Schema.define(version: 20151005224336) do
     t.string   "tipocupo"
     t.string   "empresaafiliada"
     t.string   "marcacarpa"
-    t.string   "capacidadcarga"
+    t.string   "capacidadcarga",                    default: "0-5"
     t.string   "capacidadpasajeros"
     t.string   "cilindrajecc"
     t.string   "numeroejes"
