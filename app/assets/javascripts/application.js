@@ -16,6 +16,7 @@
 //= require jquery.inputmask.numeric.extensions
 //= require jquery.inputmask.date.extensions
 //= require jquery_ujs
+//= require lightbox
 //= require turbolinks
 
 var ready;
