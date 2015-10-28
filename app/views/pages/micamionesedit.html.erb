@@ -82,7 +82,9 @@
               </div>
 
               <div role="tabpanel" class="tab-pane" id="profile">
-                <%= render partial: "shared/camposGeneralesI", locals:{ f: f } %>
+                <% if params[:v] != '5'&& @truck.type_truck_id != 5 %>
+                  <%= render partial: "shared/camposGeneralesI", locals:{ f: f } %>
+                <% end %>
                 <!-- 1 tractomula-->
                 <% if params[:v] == '1'|| @truck.type_truck_id==1 %>
 
