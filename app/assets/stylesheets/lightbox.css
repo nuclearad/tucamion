@@ -72,6 +72,7 @@ body:after {
   width: 100%;
   text-align: center;
   line-height: 0;
+  display: none !important;
 }
 
 .lb-cancel {
@@ -103,7 +104,7 @@ body:after {
 .lb-prev, .lb-next {
   height: 100%;
   cursor: pointer;
-  display: block !important;
+  display: block;
 }
 
 .lb-nav a.lb-prev {
@@ -117,7 +118,7 @@ body:after {
   -moz-transition: opacity 0.6s;
   -o-transition: opacity 0.6s;
   transition: opacity 0.6s;
- display: block !important;
+ display: block ;
 }
 
 .lb-nav a.lb-prev:hover {
