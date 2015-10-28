@@ -4,7 +4,6 @@ class Admin::TypeExtraController < ApplicationController
   layout  'admin/layouts/application'
   add_breadcrumb 'Marcas de repuesto', :admin_type_extra_index_path, :options => { :title =>'Inicio' }
 
-
   def index
     @types = TypeExtra.all
     @search = @types.search(params[:q])

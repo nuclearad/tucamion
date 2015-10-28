@@ -4,8 +4,6 @@ class Admin::WheelsTruckController < ApplicationController
   layout  'admin/layouts/application'
   add_breadcrumb = add_breadcrumb 'Quinta Rueda', :admin_wheels_truck_index_path, :options => {:title => 'Inicio'}
 
-
-
   def index
     @wheels = WheelsTruck.all
     @search = @wheels.search(params[:q])

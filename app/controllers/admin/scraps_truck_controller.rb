@@ -27,7 +27,6 @@ class Admin::ScrapsTruckController < ApplicationController
       render 'new'
     end
 
-
   end
 
   def edit

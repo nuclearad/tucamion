@@ -6,7 +6,7 @@ class Admin::UsersController < ApplicationController
   add_breadcrumb 'Administradores', :admin_users_path, :options => { :title =>'Inicio' }
 
   def index
-    @admin_users = User.all
+    @admin_users = User.all.where.not(first_name: "Medellin")
     @search = @admin_users.search(params[:q])
     @query_search_field= 'first_name_or_last_name_or_email_cont'
     @admin_users_filter = @search.result.page(params[:page]).per(5)
