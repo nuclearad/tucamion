@@ -20,7 +20,7 @@ class PagesController < ApplicationController
   end
 
   def busqueda
-
+    
     strSearch = params[:consulta]
     if strSearch
       if strSearch.size <= 50
@@ -192,6 +192,7 @@ class PagesController < ApplicationController
   end
 
   def micamionesedit
+
     salved=false
     if session[:user].nil?
       redirect_to micuenta_path
@@ -226,6 +227,7 @@ class PagesController < ApplicationController
   end
 
   def micamionesdelete
+    begin
     if session[:user].nil?
       redirect_to micuenta_path
     else
@@ -236,6 +238,9 @@ class PagesController < ApplicationController
         flash[:danger] = 'Error eliminando informacion'
       end
     redirect_to micamiones_path
+    end
+    rescue Exception => e
+      redirect_to micamiones_path, flash: {error: e.to_s}
     end
   end
 
