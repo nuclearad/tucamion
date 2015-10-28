@@ -11,11 +11,13 @@
 // about supported directives.
 //
 //= require jquery
+//= require fancybox
 //= require jquery.inputmask
 //= require jquery.inputmask.extensions
 //= require jquery.inputmask.numeric.extensions
 //= require jquery.inputmask.date.extensions
 //= require jquery_ujs
+//= require lightbox
 //= require turbolinks
 
 var ready;
@@ -26,6 +28,7 @@ ready = function() {
     //$('#extra_phone').inputmask('(9999)-9999999');
     //$('#service_phone').inputmask('(9999)-9999999');
     //$('#message_telefono').inputmask('(9999)-9999999');
+    $("a.fancybox").fancybox();
 
 };
 $(document).ready(ready);
