@@ -580,6 +580,7 @@ class PagesController < ApplicationController
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
+    @banners         = get_banners params[:q]
     #@km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group
     @toggle_search   = Array.new
