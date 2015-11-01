@@ -163,7 +163,7 @@
                               </td>
                               <td class="cell-label">
                                   <b>Auto Carpado</b><br>
-                                  <%= @truck.autocarpado.nil? ? 'Sin Información' : @truck.autocarpado %>
+                                  <%= @truck.autocarpado.blank? ? 'Sin Información' : Environment::AUTOCARPADO[@truck.autocarpado] %>
                               </td>
                               <td class="cell-label">
                               <b>Capacidad de Carga Matricula</b><br>
