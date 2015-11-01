@@ -19,22 +19,21 @@
 .row
   .col-md-12
     = form_for @admin_user, url: admin_users_path do |f|
-
       .form-inputs
-
-        .col-md-3
-          = f.label 'Email' 
-          = f.email_field :email, class: 'form-control'
-        .col-md-3
-          = f.label 'Nombre' 
-          = f.text_field :first_name,class: 'form-control'
-        .col-md-3
-          = f.label 'Apellido' 
-          = f.text_field :last_name,class: 'form-control'
-        .col-md-3
-          = f.label 'Status' 
-          = f.number_field :status,class: 'form-control form-el'
+        .row
+          .col-md-3
+            = f.label 'Email' 
+            = f.email_field :email, class: 'form-control'
+          .col-md-3
+            = f.label 'Nombre' 
+            = f.text_field :first_name,class: 'form-control'
+          .col-md-3
+            = f.label 'Apellido' 
+            = f.text_field :last_name,class: 'form-control'
+          .col-md-3
+            = f.label 'Status' 
+            = f.number_field :status,class: 'form-control form-el'
       .row
-        %br
-        .form-actions.success
-          = render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_users_path }
+      %br
+      .form-actions.success
+        = render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_users_path }

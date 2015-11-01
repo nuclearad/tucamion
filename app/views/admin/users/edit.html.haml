@@ -19,21 +19,27 @@
 .row
   .col-md-12
     = form_for @admin_user, url: admin_user_path, method: :patch do |f|
-
       .form-inputs
-
-        .col-md-3
-          = f.label 'Email'
-          = f.email_field :email, class: 'form-control'
-        .col-md-3
-          = f.label 'Nombre'
-          = f.text_field :first_name,class: 'form-control'
-        .col-md-3
-          = f.label 'Apellido'
-          = f.text_field :last_name,class: 'form-control'
-        .col-md-3
-          = f.label 'Status'
-          = f.number_field :status,class: 'form-control form-el'
-      .row
-        #botonera.form-actions.success
+        .row
+          .col-md-3
+            = f.label 'Email'
+            = f.email_field :email, class: 'form-control form-el'
+          .col-md-3
+            = f.label 'Nombre'
+            = f.text_field :first_name,class: 'form-control form-el'
+          .col-md-3
+            = f.label 'Apellido'
+            = f.text_field :last_name,class: 'form-control form-el'
+          .col-md-3
+            = f.label 'Status'
+            = f.number_field :status,class: 'form-control form-el'
+        .row
+          .form-group.col-md-3
+            = f.label :password, class: "info-title"
+            = f.password_field :password, class: "form-control unicase-form-control text-input", required: true
+          .form-group.col-md-3
+            = f.label "Confirmar password", class: "info-title"
+            = f.password_field :password_confirmation, class: "form-control unicase-form-control text-input", required: true
+        .row
+          #botonera.form-actions
           = render partial: 'shared/botonera', locals:{ object: f, cancel_route: admin_users_path }
