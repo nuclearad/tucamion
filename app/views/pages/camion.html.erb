@@ -57,11 +57,13 @@
                     <% end %>
                    </td></tr>
                   <tr class="nymou"><td class="cell-label">Placa:</td><td class="pull-right"><%= @truck.placa.upcase %></td></tr>
-                  <tr class="nymou"><td class="cell-label">Ubicación Placa:</td><td class="pull-right"><%=  @ciudad.name  if @ciudad %></td></tr>
+                  
                   <% if  @truck.colors_truck %>
                   <tr class="nymou"><td class="cell-label">Color:</td><td class="pull-right"><%=  @truck.colors_truck.name  %></td></tr>
                   <% end %>
                   <% if @truck.type_truck_id !=5 %>
+                    <tr class="nymou"><td class="cell-label">Ubicación Placa:</td><td class="pull-right"><%=  @ciudad.name  if @ciudad %></td>
+                    </tr>
                     <tr class="nymou"><td class="cell-label">Tipo Combustible:</td>
                       <td class="pull-right">
                         <% if  @truck.tipocombustible == '0' %>
@@ -73,6 +75,7 @@
                         <% end %>
                       </td>
                     </tr>
+
                   <tr class ='nymou'><td class='cell-label'>Referencia</td><td class='pull-right'><%= @truck.referencia.name %> </td></tr>
                   <% end %>
                   <tr class ='nymou'><td class='cell-label'>Peso Bruto:</td><td class='pull-right'><%= @truck.pesobruto %> </td></tr>
