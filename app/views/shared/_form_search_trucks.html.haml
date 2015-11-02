@@ -21,7 +21,14 @@
           %p
             MARCAS
         .attribute_list
-          = f.select(:brand_truck_id_eq, options_from_collection_for_select(BrandTruck.order(:name), :id,:name), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_brand'})
+          = f.select(:brand_truck_id_eq, options_from_collection_for_select(BrandTruck.order(:name), :id,:name), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_brand'})    
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p
+            REFERENCIAS
+        .attribute_list
+          = f.select(:referencia_id_eq, options_from_collection_for_select(Referencia.order(:name), :id,:name), {prompt: 'Todas las referencias'}, { class:  'form-control', id: 'camion_brand'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
