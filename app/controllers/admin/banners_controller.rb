@@ -4,8 +4,6 @@ class Admin::BannersController < ApplicationController
   add_breadcrumb 'Banners', :admin_banners_path, :options => { :title =>'Inicio' }
 
 
-
-
   def index
     @banners = Banner.all
     @search = @banners.search(params[:q])

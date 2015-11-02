@@ -2,6 +2,7 @@ class Admin::TypeTruckController < ApplicationController
   before_action :authenticate_user!
   layout  'admin/layouts/application'
   add_breadcrumb 'Tipo', :admin_type_truck_index_path, :options => { :title =>'Inicio' }
+  
   def index
     @search       = TypeTruck.search(params[:q])
     @types        = @search.result.page(params[:page]).per(10)

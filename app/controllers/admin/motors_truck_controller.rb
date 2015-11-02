@@ -4,7 +4,6 @@ class Admin::MotorsTruckController < ApplicationController
   layout  'admin/layouts/application'
   add_breadcrumb 'Marca Motores', :admin_motors_truck_index_path, :options => {:title => 'Inicio'}
 
-
   def index
     @motors = MotorsTruck.all
     @search = @motors.search(params[:q])

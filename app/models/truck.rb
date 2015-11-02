@@ -182,31 +182,30 @@ class Truck < ActiveRecord::Base
   }
 
 
-  scope :state_group, ->{
+  scope :state_group, ->(q = nil){
        self.select('trucks.id, trucks.nombre, trucks.state_id,
                     count(trucks.state_id) as total,
                     states.name as state_name').
             joins(:state).group('states.name').
-            where("trucks.active = 1").
+            where(condition_type_or_not(q)).
             order('states.name DESC')
 
   }
 
-   scope :marcas_group , ->{
-       self.select('trucks.id, trucks.nombre, trucks.brand_truck_id,
-                    count(trucks.brand_truck_id) as total,
-                    brand_trucks.name as brand_name').
-            joins(:brand_truck).group('brand_trucks.name').
-            where("trucks.active = 1").
-            order('brand_trucks.name DESC')
-
+   scope :marcas_group , ->(q = nil){
+         self.select('trucks.id, trucks.nombre, trucks.brand_truck_id,
+                      count(trucks.brand_truck_id) as total,
+                      brand_trucks.name as brand_name').
+         joins(:brand_truck).group('brand_trucks.name').
+         where(condition_type_or_not(q)).
+         order('brand_trucks.name DESC')
   }
 
-  scope :modelo_group , ->{
+  scope :modelo_group , ->(q = nil){
        self.select('trucks.id, trucks.modelo,
                     count(trucks.modelo) as total').
             group('trucks.modelo').
-            where("trucks.active = 1").
+            where(condition_type_or_not(q)).
             order('trucks.modelo DESC')
 
   }
@@ -218,7 +217,18 @@ class Truck < ActiveRecord::Base
             group('trucks.kilometraje').
             where("trucks.active = 1").
             order('trucks.kilometraje DESC')
-
   }
 
+  private
+    def self.condition_type_or_not parms
+       #puts parms
+       #puts "*************condition_type_or_not*********************"
+       result = 'trucks.active = 1'
+       if parms
+         unless parms[:type_truck_id_eq].blank?
+           result += " AND type_truck_id = #{parms[:type_truck_id_eq]}"
+         end
+       end
+       return result
+    end
 end
