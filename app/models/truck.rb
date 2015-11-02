@@ -226,7 +226,12 @@ class Truck < ActiveRecord::Base
        result = 'trucks.active = 1'
        if parms
          unless parms[:type_truck_id_eq].blank?
-           result += " AND type_truck_id = #{parms[:type_truck_id_eq]}"
+           begin
+            type    = parms[:type_truck_id_eq].to_i
+            result += " AND type_truck_id = #{type}"            
+           rescue Exception => e
+            result = 'trucks.active = 1'
+           end
          end
        end
        return result
