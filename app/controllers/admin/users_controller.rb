@@ -48,11 +48,15 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-
-    if @admin_user.update_attributes(admin_user_params)
-      flash[:notice]= 'Informacion Actualizada correctamente'
-      redirect_to admin_users_path
+    if @admin_user.password == @admin_user.password_confirmation  
+      if @admin_user.update_attributes(admin_user_params)
+        flash[:notice]= 'Informacion Actualizada correctamente'
+        redirect_to admin_users_path
+      else
+        render :edit
+      end
     else
+      flash[:danger]= 'Los campos clave y confirmacion de clave deben coincidir'
       render :edit
     end
   end
@@ -80,6 +84,6 @@ class Admin::UsersController < ApplicationController
     end
 
     def admin_user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :status)
+      params.require(:user).permit(:email, :first_name, :last_name, :status, :password, :password_confirmation)
     end
 end

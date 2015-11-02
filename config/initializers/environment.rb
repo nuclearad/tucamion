@@ -30,6 +30,8 @@ class Environment
 
   ESTADO_LLANTAS = { '0' => 'Excelente', '1' => 'Bueno', '2' => 'Regular', '3' => 'Malo'}
 
+  AUTOCARPADO = { '0' => 'Automatica', '1' =>'Manual', '2' => 'No tiene'}
+  
   if Rails.env.production?
     MAILSETTING = {:address              =>  'smtp.zoho.com',
                    :port                 =>  587,
