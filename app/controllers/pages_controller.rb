@@ -550,8 +550,8 @@ class PagesController < ApplicationController
     @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
     @states          = State.all.order(:name)
-    @states_group    = Truck.state_group
-    @modelos_group   = Truck.modelo_group
+    @states_group    = Truck.state_group(params[:q])
+    @modelos_group   = Truck.modelo_group(params[:q])
     @brand_group     = Truck.marcas_group(params[:q])
     #@km_group        = Truck.km_group
     @toggle_search   = self.nested_search(params[:q])
@@ -578,8 +578,8 @@ class PagesController < ApplicationController
     @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @tiposCaminiones = TypeTruck.includes(:sub_trucks)
     @states          = State.all.order(:name)
-    @states_group    = Truck.state_group
-    @modelos_group   = Truck.modelo_group
+    @states_group    = Truck.state_group(params[:q])
+    @modelos_group   = Truck.modelo_group(params[:q])
     @banners         = get_banners params[:q]
     #@km_group        = Truck.km_group
     @brand_group     = Truck.marcas_group(params[:q])
@@ -597,10 +597,10 @@ class PagesController < ApplicationController
     @tiposCaminiones = TypeTruck.all.includes(:sub_trucks)
     @banners         = get_banners params['q']
     @states          = State.all.order(:name)
-    @states_group    = Truck.state_group
-    @modelos_group   = Truck.modelo_group
+    @states_group    = Truck.state_group(self.get_toggle.deep_symbolize_keys)
+    @modelos_group   = Truck.modelo_group(self.get_toggle.deep_symbolize_keys)
     #@km_group        = Truck.km_group
-    @brand_group     = Truck.marcas_group(self.get_toggle)
+    @brand_group     = Truck.marcas_group(self.get_toggle.deep_symbolize_keys)
     @toggle_search = self.nested_search(self.get_toggle)
     respond_to do |format|
       format.html { render :camiones }
