@@ -552,7 +552,7 @@ class PagesController < ApplicationController
     @states          = State.all.order(:name)
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
-    @brand_group     = Truck.marcas_group
+    @brand_group     = Truck.marcas_group(params[:q])
     #@km_group        = Truck.km_group
     @toggle_search   = self.nested_search(params[:q])
     respond_to do |format|
@@ -582,7 +582,7 @@ class PagesController < ApplicationController
     @modelos_group   = Truck.modelo_group
     @banners         = get_banners params[:q]
     #@km_group        = Truck.km_group
-    @brand_group     = Truck.marcas_group
+    @brand_group     = Truck.marcas_group(params[:q])
     @toggle_search   = Array.new
     respond_to do |format|
       format.html { render :camiones }
@@ -600,7 +600,7 @@ class PagesController < ApplicationController
     @states_group    = Truck.state_group
     @modelos_group   = Truck.modelo_group
     #@km_group        = Truck.km_group
-    @brand_group     = Truck.marcas_group
+    @brand_group     = Truck.marcas_group(self.get_toggle)
     @toggle_search = self.nested_search(self.get_toggle)
     respond_to do |format|
       format.html { render :camiones }
