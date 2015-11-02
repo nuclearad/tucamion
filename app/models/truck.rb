@@ -221,7 +221,7 @@ class Truck < ActiveRecord::Base
 
   private
     def self.condition_type_or_not parms
-       #puts parms
+       #puts parms[:type_truck_id_eq]
        #puts "*************condition_type_or_not*********************"
        result = 'trucks.active = 1'
        if parms

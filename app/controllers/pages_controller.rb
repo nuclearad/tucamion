@@ -578,11 +578,11 @@ class PagesController < ApplicationController
     @trucks          = @search.result.order(:nombre).page(params[:page]).per(Environment::LIMIT_SEARCH)
     @tiposCaminiones = TypeTruck.includes(:sub_trucks)
     @states          = State.all.order(:name)
-    @states_group    = Truck.state_group(params[:q])
-    @modelos_group   = Truck.modelo_group(params[:q])
+    @states_group    = Truck.state_group({type_truck_id_eq: id_truck})
+    @modelos_group   = Truck.modelo_group({type_truck_id_eq: id_truck})
+    @brand_group     = Truck.marcas_group({type_truck_id_eq: id_truck})
     @banners         = get_banners params[:q]
     #@km_group        = Truck.km_group
-    @brand_group     = Truck.marcas_group(params[:q])
     @toggle_search   = Array.new
     respond_to do |format|
       format.html { render :camiones }
