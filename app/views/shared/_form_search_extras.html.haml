@@ -90,37 +90,6 @@
         url:"/marcasrespuestos/"+id
     });
 
-    $.ajax({
-        async: true,
-        type: "GET",
-        dataType: 'json',
-        beforeSend:loader,
-        error:error,
-        success: function (msg) {
-            console.log(msg)
-
-            $('#extra_state').html('')
-
-
-            if(id == '0'){
-                $('#extra_state').append('<option value="">Seleccione</option>')
-
-
-                $.each(msg, function(index, value) {
-                    $('#extra_state').append('<option value="'+value.id+'">'+value.name+'</option>')
-                });
-
-            } else{
-
-                $('#extra_state').append('<option value="">Seleccionar</option>')
-                $.each(msg, function(index, value) {
-                      $('#extra_state').append('<option value="'+value.state.id+'">'+value.state.name+'</option>')
-                });
-            }
-
-        },
-        url:"/statesrepuestos/"+id
-    });
 
   });
 
