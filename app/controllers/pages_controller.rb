@@ -544,6 +544,7 @@ class PagesController < ApplicationController
 #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
 
   def camiones
+    logger.info 'en camiones' 
     self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
     @banners         = get_banners(params[:q])
