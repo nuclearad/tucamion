@@ -520,6 +520,21 @@ class PagesController < ApplicationController
     end
   end
 
+  def getubicacionesextra
+    if params[:id] == '0'
+      #@brands = BrandTruck.all
+      #render json: @brands
+
+      @ubicacion = State.all
+      render json: @brands
+
+    else
+      #@ubicacion = Extra.where(id: params[:id]).includes(:brand_extras)
+      @truck = TypeTruck.where(id: params[:id]).includes(:brand_extras)
+      render json: @truck
+      #@brands = BrandTruck.where(type_truck_id: params[:id]).all
+    end      
+  end
   def getbrandsextra
 
     if params[:id] == '0'

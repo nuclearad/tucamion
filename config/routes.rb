@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   get 'ubicaciones/:id' => 'pages#getubicaciones'
   get 'marcasrespuestos/:id' => 'pages#getbrandsextra'
   get 'marcasrespuestos/' => 'pages#getbrandsextra'
+  get 'statesrepuestos/:id' => 'pages#getubicacionesextra'
 
 
   get 'servicio/:id-:link' => 'pages#servicio', :as =>'servicio'
