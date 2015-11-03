@@ -37,7 +37,10 @@ class Admin::TrucksController < ApplicationController
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_trucks_path
     else
+      flash[:notice] = 'Error Guardando en el registro'
+      @capacidadcarga = Environment::CAPACIDAD_CARGA
       render 'new' , :v=>@truck.type_truck_id
+      #redirect_to new_admin_truck_path(:v=>@truck.type_truck_id)
     end
 
 

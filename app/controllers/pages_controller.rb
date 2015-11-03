@@ -510,6 +510,31 @@ class PagesController < ApplicationController
     end
   end
 
+  def getubicaciones
+    if params[:id] == '0'
+      @ubicacion = State.all
+      render json: @ubicacion
+    else
+      @ubicacion = Truck.where(type_truck_id: params[:id]).group(:state_id).includes(:state)
+      render json: @ubicacion, :include => [:state]
+    end
+  end
+
+  def getubicacionesextra
+    if params[:id] == '0'
+      #@brands = BrandTruck.all
+      #render json: @brands
+
+      @ubicacion = State.all
+      render json: @brands
+
+    else
+      #@ubicacion = Extra.where(id: params[:id]).includes(:brand_extras)
+      @truck = TypeTruck.where(id: params[:id]).includes(:brand_extras)
+      render json: @truck
+      #@brands = BrandTruck.where(type_truck_id: params[:id]).all
+    end      
+  end
   def getbrandsextra
 
     if params[:id] == '0'
@@ -544,6 +569,7 @@ class PagesController < ApplicationController
 #hecho por jonathan rojas 08-09-2015 para mejorar la busqueda del sitio
 
   def camiones
+    logger.info 'en camiones' 
     self.load_toggle({'q' => params[:q]}.to_s) #enviamos los parametros que vamos a aplilar
     @search          = Truck.where(active: 1).includes(:state).search(params[:q])
     @banners         = get_banners(params[:q])

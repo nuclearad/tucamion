@@ -156,18 +156,13 @@
 
                         } else{
 
-
-                            $('#camion_brand').append('<option value="">Todas las marcas</option>')
+                            $('#camion_brand').append('<option value="">Marcas Encontradas</option>')
                             $.each(msg, function(index, value) {
                                 $('#camion_brand').append('<option value="'+value.brand_truck.id+'">'+value.brand_truck.name+'</option>')
                             });
 
 
                         }
-
-
-
-
 
                     },
                     url:"/marcas/"+id
@@ -180,9 +175,10 @@
                     dataType: 'json',
                     success: function (msg) {
                         $('#camion_ref').html('')
+                        
 
                         if(id == '0'){
-                            $('#camion_ref').append('<option value="">Referencias</option>')
+                            $('#camion_ref').append('<option value="">Todas las Referencias</option>')
 
 
                             $.each(msg, function(index, value) {
@@ -193,7 +189,7 @@
                         } else{
 
 
-                            $('#camion_ref').append('<option value="">Referencias</option>')
+                            $('#camion_ref').append('<option value="">Referencias Encontradas</option>')
                             $.each(msg, function(index, value) {
                                 $('#camion_ref').append('<option value="'+value.referencia.id+'">'+value.referencia.name+'</option>')
                             });

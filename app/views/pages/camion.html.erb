@@ -76,7 +76,7 @@
                       </td>
                     </tr>
 
-                  <tr class ='nymou'><td class='cell-label'>Referencia</td><td class='pull-right'><%= @truck.referencia.name %> </td></tr>
+                  <tr class ='nymou'><td class='cell-label'>Referencia</td><td class='pull-right'><%= @truck.referencia.blank? ? 'Sin Informacion' : @truck.referencia.name %> </td></tr>
                   <% end %>
                   <tr class ='nymou'><td class='cell-label'>Peso Bruto:</td><td class='pull-right'><%= @truck.pesobruto %> </td></tr>
                   </tbody></table>
