@@ -37,7 +37,8 @@ class Admin::TrucksController < ApplicationController
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_trucks_path
     else
-      render 'new' , :v=>@truck.type_truck_id
+      #render 'new' , :v=>@truck.type_truck_id
+      redirect_to new_admin_truck_path(:v=>@truck.type_truck_id)
     end
 
 
