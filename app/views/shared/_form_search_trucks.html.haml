@@ -32,16 +32,16 @@
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
+          %p UBICACIÓN
+        .attribute_list
+          = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'camion_state'})
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
           %p
             CAPACIDAD DE CARGA
         .attribute_list
           = f.select(:capacidadcarga_eq, Environment::CAPACIDAD_CARGA, {prompt: 'Selecciona la capacidad'}, { class:  'form-control', id: 'camion_brand'})
-    %p
-      %fieldset.attribute_fieldset
-        %label.attribute_label.attribute-key{:for => "group_1"}
-          %p UBICACIÓN
-        .attribute_list
-          = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
@@ -95,7 +95,8 @@
 
   function loader(data){
       $('#camion_brand').html('<option>Cargando...</option>');
-      $('#camion_ref').html('<option>Cargando...</option>')
+      $('#camion_ref').html('<option>Cargando...</option>');
+      $('#camion_state').html('<option>Cargando...</option>');
       
   };
 
@@ -125,7 +126,7 @@
                   $('#camion_brand').append('<option value="'+value.id+'">'+value.name+'</option>')
               });
           } else{
-              $('#camion_brand').append('<option value="">Todas las marcas</option>')
+              $('#camion_brand').append('<option value="">Marcas Encontradas</option>')
               $.each(msg, function(index, value) {
                   $('#camion_brand').append('<option value="'+value.brand_truck.id+'">'+value.brand_truck.name+'</option>')
               });
@@ -143,7 +144,7 @@
           $('#camion_ref').html('')
 
           if(id == '0'){
-              $('#camion_ref').append('<option value="">Referencias</option>')
+              $('#camion_ref').append('<option value="">Todas las Referencias</option>')
 
 
               $.each(msg, function(index, value) {
@@ -154,7 +155,7 @@
           } else{
 
 
-              $('#camion_ref').append('<option value="">Referencias</option>')
+              $('#camion_ref').append('<option value="">Referencias Encontradas</option>')
               $.each(msg, function(index, value) {
                   $('#camion_ref').append('<option value="'+value.referencia.id+'">'+value.referencia.name+'</option>')
               });
@@ -164,6 +165,36 @@
       },
       url:"/referencias/"+id
       });
+
+  $.ajax({
+      async: true,
+      type: "GET",
+      dataType: 'json',
+      success: function (msg) {
+          $('#camion_state').html('')
+          
+
+          if(id == '0'){
+              $('#camion_state').append('<option value="">Todas las Ubicaciones</option>')
+
+
+              $.each(msg, function(index, value) {
+                  $('#camion_state').append('<option value="'+value.id+'">'+value.name+'</option>')
+              });
+
+
+          } else{
+
+
+              $('#camion_state').append('<option value="">Ubicaciones Encontradas</option>')
+              $.each(msg, function(index, value) {
+                  $('#camion_state').append('<option value="'+value.state.id+'">'+value.state.name+'</option>')
+              });
+
+          }
+      },
+      url:"/ubicaciones/"+id
+  });
 
 
   });
