@@ -5,7 +5,7 @@
     </td>
     <td class="cell-label">
       <b>Estado de llantas</b><br>
-      <%= object.estadollantas.nil? ? 'Sin Información' : Environment::ESTADO_LLANTAS[object.estadollantas] %>
+      <%= object.estadollantas.blank? ? 'Sin Información' : Environment::ESTADO_LLANTAS[object.estadollantas] %>
     </td>
 
     <td class="cell-label">
@@ -33,7 +33,7 @@
     <% if @truck.type_truck_id !=5 %>
       <td class="cell-label">
         <b>Tipo De Caja</b><br>
-        <%= object.tipodecaja.nil? ? 'Sin Información' : object.tipodecaja == 0 ? 'Automatica' : 'Manual' %>
+        <%= object.tipodecaja.blank? ? 'Sin Información' : object.tipodecaja == 0 ? 'Automatica' : 'Manual' %>
       </td>
       <td class="cell-label">
         <b>Motor Reparado</b><br>
