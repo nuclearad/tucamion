@@ -96,42 +96,6 @@ class PagesController < ApplicationController
 
   end
 
-  def guardarCustomer
-
-
-    if Customer.find_by_email(params[:email])
-      data = [:estado => 'si']
-    else
-      data = [:estado => 'no']
-
-      o = Customer.new(
-          :name => params[:name],
-          :cedula => params[:cedula],
-          :telefono => params[:telefono],
-          :clave => params[:clave],
-          :email => params[:email],
-          :typeuser =>  0
-      )
-      if o.save
-
-        plancliente = Offercustomer.new
-
-        plancliente.customer_id = o.id
-        plancliente.offer_id = params[:plan]
-
-        if plancliente.save
-
-          session[:user] = o.id
-          data = [:guardoplan => 'si']
-        end
-
-      end
-
-    end
-
-    render json: data
-  end
-
 # Camiones
   def micamiones
     if session[:user].nil?

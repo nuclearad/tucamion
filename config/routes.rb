@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   delete 'mi-cuenta/servicios/delete/:id' => 'pages#miserviciosdelete', :as=> 'miserviciosdelete'
 
 
-  get 'saveUser' => 'pages#guardarCustomer', :as=> 'saveUser'
+  #get 'saveUser' => 'pages#guardarCustomer', :as=> 'saveUser'
   get 'saveMessage' => 'pages#guardarMensaje', :as=> 'saveMessage'
 
 

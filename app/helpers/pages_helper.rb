@@ -20,4 +20,12 @@ module PagesHelper
        end
    end
 
+   def calcular_precio_pago
+       if @user.typeuser == 0
+         @plan.precio1
+       else
+         @plan.precio2
+       end
+   end
+
 end
