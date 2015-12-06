@@ -69,6 +69,8 @@ class PagesController < ApplicationController
       session[:redirect] = comprar_path(params[:id])
       render '/pages/micuentalogin', :layout => 'layouts/devise'
     else
+      @user = Customer.find(session[:user])
+      @plan = Offer.find(params[:id])
       render :comprar
     end
   end
