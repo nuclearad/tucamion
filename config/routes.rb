@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
 
   get  'tarifas' => 'pages#tarifas'
-  get  'comprar' => 'pages#comprar'
+  get  'comprar/:id' => 'pages#comprar', as: 'comprar'
   match 'busqueda' => 'pages#busqueda', via: [:get, :post]
   get  'camion-tipo/:id_truck/:id_sub'  => 'pages#camiontipo'
   get 'camion-marca/:id_truck/:id_brand'  => 'pages#camionmarca'

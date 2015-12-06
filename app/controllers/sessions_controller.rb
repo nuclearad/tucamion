@@ -8,8 +8,14 @@ class SessionsController < ApplicationController
      @usuario = Customer.find_by(email: params[:email], estado: Environment::STATUS[:clientes][:activo])
      if @usuario
        if @usuario.is_password?(params[:clave])
-         session[:user] = @usuario.id
-         redirect_to micuenta_path
+         session[:user]     = @usuario.id
+         redirect           = session[:redirect]
+         if redirect.nil?
+           redirect_to micuenta_path
+         else
+           session[:redirect] = nil
+           redirect_to redirect
+         end
        else
          @message = true
          flash[:notice] = ' Email o Clave invalida'

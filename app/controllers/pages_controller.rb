@@ -65,6 +65,12 @@ class PagesController < ApplicationController
   end
 
   def comprar
+    if session[:user].nil?
+      session[:redirect] = comprar_path(params[:id])
+      render '/pages/micuentalogin', :layout => 'layouts/devise'
+    else
+      render :comprar
+    end
   end
 
   def guardarMensaje
