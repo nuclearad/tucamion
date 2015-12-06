@@ -67,9 +67,9 @@ class Customer < ActiveRecord::Base
      offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
      if offer
        if self.comparar_fecha(3.months)
-         return 1
+         return 1 #valida que el plan promocional esta vigente
        else
-         return -1
+         return -1 #se acabo el plazo del plan
        end
      else
        return self.offercustomers.size

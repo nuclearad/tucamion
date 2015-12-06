@@ -462,7 +462,12 @@ class PagesController < ApplicationController
         @user = Customer.find_by_id(session[:user])
         # se valida si el plan esta inscrito y esta vigente jonathan
         @user_cargar_planes = @user.cargar_planes
-        @quantity           =  @user.quantities.first
+        
+        unless @user_cargar_planes > 0
+          redirect_to comprar_path; return
+        end
+        
+        @quantity           = @user.quantities.first
         flash[:warning]     = "Su plan gratis ha caducado su valides fue de 3 meses el plan fue inscrito el #{@user.created_at.strftime('%d-%m-%Y')}" if @user_cargar_planes == -1
         @offers             = Offercustomer.where(:customer_id => session[:user])
         @publicaciones      = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
