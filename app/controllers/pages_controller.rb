@@ -463,10 +463,6 @@ class PagesController < ApplicationController
         # se valida si el plan esta inscrito y esta vigente jonathan
         @user_cargar_planes = @user.cargar_planes
         
-        unless @user_cargar_planes > 0
-          redirect_to comprar_path; return
-        end
-        
         @quantity           = @user.quantities.first
         flash[:warning]     = "Su plan gratis ha caducado su valides fue de 3 meses el plan fue inscrito el #{@user.created_at.strftime('%d-%m-%Y')}" if @user_cargar_planes == -1
         @offers             = Offercustomer.where(:customer_id => session[:user])
