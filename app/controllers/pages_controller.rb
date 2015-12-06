@@ -65,20 +65,6 @@ class PagesController < ApplicationController
   end
 
   def comprar
-
-    if params[:plan].nil?
-      redirect_to tarifas_path
-    else
-
-      @plan = Offer.find_by_id(params[:plan])
-      unless session[:user].nil?
-        @user = Customer.find_by_id(session[:user])
-      end
-      if @plan.blank?
-        redirect_to tarifas_path
-      end
-    end
-
   end
 
   def guardarMensaje
