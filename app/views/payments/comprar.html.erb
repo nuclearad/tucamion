@@ -1,0 +1,62 @@
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <div class="track-order-page inner-bottom-sm">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Complete su Pedido, para ser publicado su anuncio</h2>
+          <span class="title-tag inner-top-vs">Porfavor debe ingresar los datos iniciales de cuenta, una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
+          <form method="post" id="payuform" action="https://stg.gateway.payulatam.com/ppp-web-gateway">
+            <input name="merchantId"    type="hidden"  value="500238"   >
+            <input name="ApiKey"     type="hidden"  value="6u39nqhq8ftd0hlvnjfs66eh8c" >
+
+
+            <input name="accountId"     type="hidden"  value="500537" >
+
+            <input name="description"   type="hidden"  value="Test PAYU"  >
+            <input name="referenceCode" type="hidden"  value="TestPayU" >
+                <input name="amount"        type="hidden"  value="<%= calcular_precio_pago() %>"   >
+
+            <input name="tax"           type="hidden"  value="0"  >
+            <input name="taxReturnBase" type="hidden"  value="0" >
+            <input name="currency"      type="hidden"  value="USD" >
+            <input name="signature"     type="hidden"  value="be2f083cb3391c84fdf5fd6176801278"  >
+            <input name="test"          type="hidden"  value="1" >
+            <input name="buyerEmail"    type="hidden"  value="<%= @user.email() %>" >
+            <input name="responseUrl"    type="hidden"  value="http://caminion365.com/response" >
+            <input name="confirmationUrl"    type="hidden"  value="http://caminion365.com/confirmation" >
+
+            <div class="form-group col-md-4">
+              <label class="info-title" for="exampleBillingEmail1">Cantidad de anuncios</label>
+              <input type="text" class="form-control unicase-form-control text-input" id="" readonly value="<%=  @plan.trucks +  @plan.extra +  @plan.service %>">
+            </div>
+
+            <div class="col-md-4 col-sm-12 cart-shopping-total pull-right">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>
+                    <div class="cart-grand-total pull-right">
+                      <h3 style="font-size:30px;">TOTAL: <%= calculuarPrecio2() %></h3>
+                    </div>
+                  </th>
+                </tr>
+                </thead><!-- /thead -->
+                <tbody>
+                <tr>
+                  <td>
+                    <div class="cart-checkout-btn pull-right">
+                      <button type="submit" id='enviar' class="btn btn-primary">PAGAR AHORA</button>
+                    </div>
+                  </td>
+                </tr>
+                </tbody><!-- /tbody -->
+              </table><!-- /table -->
+            </div><!-- /.cart-shopping-total -->
+
+          </form>
+        </div>			</div><!-- /.row -->
+    </div><!-- /.sigin-in-->
+    <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+
+    <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+</div>

@@ -8,8 +8,12 @@ Rails.application.routes.draw do
 
   get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
 
+  get  'comprar/:id'  => 'payments#comprar', as: 'comprar'
+  get  'confirmation' => 'payments#confirmacion', as: 'confirmacion'
+  get  'response'     => 'payments#respuesta', as: 'respuesta'
+
   get  'tarifas' => 'pages#tarifas'
-  get  'comprar/:id' => 'pages#comprar', as: 'comprar'
+  
   match 'busqueda' => 'pages#busqueda', via: [:get, :post]
   get  'camion-tipo/:id_truck/:id_sub'  => 'pages#camiontipo'
   get 'camion-marca/:id_truck/:id_brand'  => 'pages#camionmarca'
@@ -50,7 +54,7 @@ Rails.application.routes.draw do
 
 
   #get 'saveUser' => 'pages#guardarCustomer', :as=> 'saveUser'
-  get 'saveMessage' => 'pages#guardarMensaje', :as=> 'saveMessage'
+  #get 'saveMessage' => 'pages#guardarMensaje', :as=> 'saveMessage'
 
 
   get 'departamentos/:state_id' => 'pages#departamentos', :as=> 'departamentos'

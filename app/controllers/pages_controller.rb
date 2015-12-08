@@ -64,38 +64,6 @@ class PagesController < ApplicationController
 
   end
 
-  def comprar
-    if session[:user].nil?
-      session[:redirect] = comprar_path(params[:id])
-      render '/pages/micuentalogin', :layout => 'layouts/devise'
-    else
-      @user = Customer.find(session[:user])
-      @plan = Offer.find(params[:id])
-      render :comprar
-    end
-  end
-
-  def guardarMensaje
-
-
-    o = Message.new(
-        :nombre       => params[:nombre],
-        :telefono     => params[:telefono],
-        :mensaje      => params[:mensaje],
-        :tipo         => params[:tipo],
-        :item         => params[:item],
-        :user_id      => params[:user],
-        :customer_id  => params[:customer]
-    )
-
-
-    if o.save
-      data = [:estado => 'si']
-      render json: data
-    end
-
-  end
-
 # Camiones
   def micamiones
     if session[:user].nil?
