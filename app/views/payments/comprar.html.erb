@@ -4,7 +4,11 @@
       <div class="row">
         <div class="col-md-12">
           <h2>Complete su Pedido, para ser publicado su anuncio</h2>
-          <span class="title-tag inner-top-vs">Porfavor debe ingresar los datos iniciales de cuenta, una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
+          <h3>Nombre del plan: <b><%= @plan.nombre %></b></h3>
+          <h4>Anucios para camiones:   <b><%= @plan.trucks %></b></h4>
+          <h4>Anuncios para repuestos: <b><%= @plan.extra %></b></h4>
+          <h4>Anuncios para servicios: <b><%= @plan.service %></b></h4>
+          <span class="title-tag inner-top-vs">Una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
           <form method="post" id="payuform" action="https://stg.gateway.payulatam.com/ppp-web-gateway">
             <input name="merchantId"    type="hidden"  value="500238"   >
             <input name="ApiKey"     type="hidden"  value="6u39nqhq8ftd0hlvnjfs66eh8c" >
@@ -26,7 +30,7 @@
             <input name="confirmationUrl"    type="hidden"  value="http://caminion365.com/confirmation" >
 
             <div class="form-group col-md-4">
-              <label class="info-title" for="exampleBillingEmail1">Cantidad de anuncios</label>
+              <label class="info-title" for="exampleBillingEmail1">Total de anuncios</label>
               <input type="text" class="form-control unicase-form-control text-input" id="" readonly value="<%=  @plan.trucks +  @plan.extra +  @plan.service %>">
             </div>
 
@@ -46,6 +50,7 @@
                   <td>
                     <div class="cart-checkout-btn pull-right">
                       <button type="submit" id='enviar' class="btn btn-primary">PAGAR AHORA</button>
+                      <%= link_to 'CANCELAR', :back, class: 'btn btn-default' %>
                     </div>
                   </td>
                 </tr>
