@@ -9,25 +9,22 @@
           <h4>Anuncios para repuestos: <b><%= @plan.extra %></b></h4>
           <h4>Anuncios para servicios: <b><%= @plan.service %></b></h4>
           <span class="title-tag inner-top-vs">Una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
-          <form method="post" id="payuform" action="https://stg.gateway.payulatam.com/ppp-web-gateway">
-            <input name="merchantId"    type="hidden"  value="500238"   >
-            <input name="ApiKey"     type="hidden"  value="6u39nqhq8ftd0hlvnjfs66eh8c" >
+          <%= form_tag('https://stg.gateway.payulatam.com/ppp-web-gateway', {method: :post}) do %>
 
-
-            <input name="accountId"     type="hidden"  value="500537" >
-
-            <input name="description"   type="hidden"  value="Test PAYU"  >
-            <input name="referenceCode" type="hidden"  value="TestPayU" >
-                <input name="amount"        type="hidden"  value="<%= calcular_precio_pago() %>"   >
-
-            <input name="tax"           type="hidden"  value="0"  >
-            <input name="taxReturnBase" type="hidden"  value="0" >
-            <input name="currency"      type="hidden"  value="USD" >
-            <input name="signature"     type="hidden"  value="be2f083cb3391c84fdf5fd6176801278"  >
-            <input name="test"          type="hidden"  value="1" >
-            <input name="buyerEmail"    type="hidden"  value="<%= @user.email() %>" >
-            <input name="responseUrl"    type="hidden"  value="http://caminion365.com/response" >
-            <input name="confirmationUrl"    type="hidden"  value="http://caminion365.com/confirmation" >
+            <%= hidden_field_tag :merchantId, '500238' %> 
+            <%= hidden_field_tag :ApiKey, '6u39nqhq8ftd0hlvnjfs66eh8c' %> 
+            <%= hidden_field_tag :accountId, '500537' %>
+            <%= hidden_field_tag :description, 'Test PAYU' %>
+            <%= hidden_field_tag :referenceCode, 'TestPayU' %>
+            <%= hidden_field_tag :amount, calcular_precio_pago() %>
+            <%= hidden_field_tag :tax, '0' %>
+            <%= hidden_field_tag :taxReturnBase, '0' %>
+            <%= hidden_field_tag :currency, 'USD' %>
+            <%= hidden_field_tag :signature, 'be2f083cb3391c84fdf5fd6176801278' %>
+            <%= hidden_field_tag :test, '1' %>
+            <%= hidden_field_tag :buyerEmail, @user.email %>
+            <%= hidden_field_tag :responseUrl, 'http://localhost:3000/response' %>
+            <%= hidden_field_tag :confirmationUrl, 'http://localhost:3000/confirmation' %>
 
             <div class="form-group col-md-4">
               <label class="info-title" for="exampleBillingEmail1">Total de anuncios</label>
@@ -58,7 +55,8 @@
               </table><!-- /table -->
             </div><!-- /.cart-shopping-total -->
 
-          </form>
+          <% end %>
+
         </div>			</div><!-- /.row -->
     </div><!-- /.sigin-in-->
     <!-- ============================================== BRANDS CAROUSEL ============================================== -->
