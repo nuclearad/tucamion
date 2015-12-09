@@ -9,18 +9,18 @@
           <h4>Anuncios para repuestos: <b><%= @plan.extra %></b></h4>
           <h4>Anuncios para servicios: <b><%= @plan.service %></b></h4>
           <span class="title-tag inner-top-vs">Una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
-          <%= form_tag('https://stg.gateway.payulatam.com/ppp-web-gateway', {method: :post}) do %>
+          <%= form_tag(Environment::URL_GATEWAY, {method: :post}) do %>
 
-            <%= hidden_field_tag :merchantId, '500238' %> 
-            <%= hidden_field_tag :ApiKey, '6u39nqhq8ftd0hlvnjfs66eh8c' %> 
-            <%= hidden_field_tag :accountId, '500537' %>
-            <%= hidden_field_tag :description, 'Test PAYU' %>
-            <%= hidden_field_tag :referenceCode, 'TestPayU' %>
-            <%= hidden_field_tag :amount, calcular_precio_pago() %>
+            <%= hidden_field_tag :merchantId, Environment::MERCHANTID %> 
+            <%= hidden_field_tag :ApiKey, Environment::APIKEY %> 
+            <%= hidden_field_tag :accountId, Environment::ACCOUNTID %>
+            <%= hidden_field_tag :description, @payment.description %>
+            <%= hidden_field_tag :referenceCode, @payment.reference_code %>
+            <%= hidden_field_tag :amount, @payment.amount %>
             <%= hidden_field_tag :tax, '0' %>
             <%= hidden_field_tag :taxReturnBase, '0' %>
-            <%= hidden_field_tag :currency, 'USD' %>
-            <%= hidden_field_tag :signature, 'be2f083cb3391c84fdf5fd6176801278' %>
+            <%= hidden_field_tag :currency, Environment::CURRENCY %>
+            <%= hidden_field_tag :signature, @payment.signature %>
             <%= hidden_field_tag :test, '1' %>
             <%= hidden_field_tag :buyerEmail, @user.email %>
             <%= hidden_field_tag :responseUrl, 'http://localhost:3000/response' %>

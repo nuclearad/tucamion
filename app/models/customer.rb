@@ -11,6 +11,8 @@ class Customer < ActiveRecord::Base
   has_many :quantities, dependent: :destroy
   has_many :messages, dependent: :destroy
 
+  has_many :payments, dependent: :destroy
+
   validates_presence_of       :cedula,   message: "El documento de identidad es un campo obligatorio"
   validates_presence_of       :name,     message: "El nombre es un campo obligatorio"
   validates_presence_of       :telefono, message: "El telefono es un campo obligatorio"

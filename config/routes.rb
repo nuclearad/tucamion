@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
 
   get  'comprar/:id'  => 'payments#comprar', as: 'comprar'
-  get  'confirmation' => 'payments#confirmacion', as: 'confirmacion'
+  post 'confirmation' => 'payments#confirmacion', as: 'confirmacion'
   get  'response'     => 'payments#respuesta', as: 'respuesta'
 
   get  'tarifas' => 'pages#tarifas'
