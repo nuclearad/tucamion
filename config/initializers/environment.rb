@@ -41,11 +41,11 @@ class Environment
                    :authentication       =>  'plain',
                    :enable_starttls_auto =>  true}
 
-    APIKEY      = ''
-    MERCHANTID  = ''
-    CURRENCY    = ''
-    ACCOUNTID   = ''
-    URL_GATEWAY = ''
+    APIKEY      = '2ROTuo8TSnyglaS9Bxn7FJwG19'
+    MERCHANTID  = '534372'
+    CURRENCY    = 'COP'
+    ACCOUNTID   = '536329'
+    URL_GATEWAY = 'https://gateway.payulatam.com/ppp-web-gateway'
   
   else
     MAILSETTING = {:address              =>  'smtp.gmail.com',
