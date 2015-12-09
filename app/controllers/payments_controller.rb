@@ -37,11 +37,11 @@ class PaymentsController < ApplicationController
     end
     
     def generate_reference
-      @referencia = "TestPayU"
+      @referencia = "Ref_#{Time.now.strftime('%y%m%d%H%M%S')}"
     end
 
     def generate_signature
-      signature = Digest::MD5.hexdigest("#{Environment::APIKEY}#{Environment::MERCHANTID}#{@referencia}#{calcular_precio}#{Environment::CURRENCY}")
+      signature = Digest::MD5.hexdigest("#{Environment::APIKEY}#{Environment::MERCHANTID}#{@referencia}10000#{Environment::CURRENCY}")
     end
 
 end
