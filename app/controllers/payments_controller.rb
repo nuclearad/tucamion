@@ -1,4 +1,6 @@
 class PaymentsController < ApplicationController
+  
+  skip_before_filter :verify_authenticity_token, only: [:respuesta, :confirmacion]
 
   def comprar
     if session[:user].nil?
@@ -22,9 +24,78 @@ class PaymentsController < ApplicationController
   end
 
   def confirmacion
+    code    = 403
+    unless session[:user].nil?
+      referenceCode        = params[:reference_sale]
+      response_message_pol = params[:response_message_pol]
+      payment              = Payment.find_by(reference_code: referenceCode, customer_id: session[:user])
+      if payment && response_message_pol == "APPROVED"
+        plan = @payment.offer
+        user = @payment.customer
+        Offercustomer.create(customer_id: user.id, offer_id: plan.id)
+        #deboeliminar el plan promocional para que el sistema no falle
+        plan_free = user.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
+        if plan_free
+          offer_customer = Offercustomer.find_by(customer_id: user.id, offer_id: plan_free.id)
+          offer_customer.destroy if offer_customer
+        end
+        code = 200
+      else
+        code = 404
+      end
+    end
+    render json: {code: code}, status: code
   end
 
   def respuesta
+
+    if session[:user].nil?
+      @estadoTx = "El usuario no tiene session activa"
+    else
+
+      @user             = Customer.find session[:user]
+      @apiKey           = Environment::APIKEY
+      @merchant_id      = params[:merchantId]
+      @referenceCode    = params[:referenceCode]
+      @tx_value         = params[:TX_VALUE]
+      @currency         = params[:currency]
+      @transactionState = params[:transactionState]
+      @signature        = params[:signature]
+      @reference_pol    = params[:reference_pol]
+      @cus              = params[:cus]
+      @extra1           = params[:description]
+      @pseBank          = params[:pseBank]
+      @lapPaymentMethod = params[:lapPaymentMethod]
+      @transactionId    = params[:transactionId]
+      @payment          = Payment.find_by(reference_code: @referenceCode, customer_id: session[:user], internal_status: 0)
+      
+      if @payment
+        case @transactionState
+        when '4' #approved
+          @payment.internal_status = 4
+          @payment.gateway_status  = "Transacción aprobada"
+          @color                   = 'green'
+        when '6' #rejected
+          @payment.internal_status = 6
+          @payment.gateway_status  = "Transacción rechazada"
+          @color                   = 'red'
+        when '104' # error
+          @payment.internal_status = 104
+          @payment.gateway_status  = "Error"
+          @color                   = 'red'
+        when '7' #pending
+          @payment.gateway_status  = "Transacción pendiente"
+          @color                   = 'gray'
+        else
+          @payment.gateway_status  = params[:mensaje]
+          @payment.internal_status = 1
+          @color                   = 'gray'
+        end
+        @payment.type_card = @lapPaymentMethod
+        @payment.save
+      end
+    end
+
   end
 
   private
@@ -41,9 +112,7 @@ class PaymentsController < ApplicationController
     end
 
     def generate_signature
-      sign      = Environment::APIKEY + "~" + Environment::MERCHANTID+ "~" +@referencia + "~10000~" + Environment::CURRENCY
-      puts sign
-      puts "***************************************************"
+      sign      = Environment::APIKEY+"~"+Environment::MERCHANTID+"~"+@referencia+"~"+calcular_precio.to_s+"~"+Environment::CURRENCY
       signature = Digest::MD5.hexdigest(sign)
     end
 

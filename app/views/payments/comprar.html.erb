@@ -16,15 +16,15 @@
             <%= hidden_field_tag :accountId, Environment::ACCOUNTID %>
             <%= hidden_field_tag :description, @payment.description %>
             <%= hidden_field_tag :referenceCode, @payment.reference_code %>
-            <%= hidden_field_tag :amount, '10000' %>
+            <%= hidden_field_tag :amount, @payment.amount %>
             <%= hidden_field_tag :tax, '0' %>
             <%= hidden_field_tag :taxReturnBase, '0' %>
             <%= hidden_field_tag :currency, Environment::CURRENCY %>
             <%= hidden_field_tag :signature, @payment.signature %>
             <%= hidden_field_tag :test, Environment::MODO %>
             <%= hidden_field_tag :buyerEmail, @user.email %>
-            <%= hidden_field_tag :responseUrl, 'http://104.236.210.18/response' %>
-            <%= hidden_field_tag :confirmationUrl, 'http://104.236.210.18/confirmation' %>
+            <%= hidden_field_tag :responseUrl, Environment::PATH_RESPONSE %>
+            <%= hidden_field_tag :confirmationUrl, Environment::PATH_CONFIRMATION %>
 
             <div class="form-group col-md-4">
               <label class="info-title" for="exampleBillingEmail1">Total de anuncios</label>
@@ -37,7 +37,7 @@
                 <tr>
                   <th>
                     <div class="cart-grand-total pull-right">
-                      <h3 style="font-size:30px;">TOTAL: <%= 10000 %></h3>
+                      <h3 style="font-size:30px;">TOTAL: <%= calculuarPrecio2() %></h3>
                     </div>
                   </th>
                 </tr>

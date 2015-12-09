@@ -1,3 +1,4 @@
+Payment.destroy_all
 User.destroy_all
 State.destroy_all
 departamentos = ['Amazonas',
