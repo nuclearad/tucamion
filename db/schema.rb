@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20151208225735) do
-=======
-ActiveRecord::Schema.define(version: 20151005224336) do
->>>>>>> 7fe0d73c30e3f696cdd186bc4dd7f667059add8c
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -412,7 +408,7 @@ ActiveRecord::Schema.define(version: 20151005224336) do
     t.string   "tipocupo"
     t.string   "empresaafiliada"
     t.string   "marcacarpa"
-    t.string   "capacidadcarga",                    default: "0-5"
+    t.string   "capacidadcarga"
     t.string   "capacidadpasajeros"
     t.string   "cilindrajecc"
     t.string   "numeroejes"
