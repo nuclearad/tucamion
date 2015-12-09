@@ -1,0 +1,61 @@
+
+<div class="row">
+	<div class="col-md-offset-1 col-md-5">
+		<div class="form-group">
+			<label>
+				<%= f.check_box :negociable  %> Negociable
+		 	</label>
+		  	<br/>
+
+		  	<label>
+				<%= f.check_box :vigia  %> Vigia
+			</label> <br/>
+
+			<label>
+				<%= f.check_box :frenosabs  %> Frenos ABS
+			</label>
+			<br/>
+			<% if type != 5 %>
+				<label>
+					<%= f.check_box :aireAcondicionado  %> Aire Acondicionado
+				</label>
+				<br/>
+
+			 	<label>
+					<%= f.check_box :motorreparado  %> Motor Reparado
+			 	</label> <br/>
+
+				<label>
+					<%= f.check_box :cajareparada  %> Caja Reparada
+			 	</label> <br/>
+
+				<label>
+					<%= f.check_box :transmisionreparada  %> Transmision Reparada
+				</label>
+				<br/>
+			<% end %>
+		  	<label>
+				<%= f.check_box :unicodueno  %> Unico dueño
+		  	</label>
+		  	<br/>
+		</div>
+
+	</div>
+	<div class='col-md-5'>
+		<div class="form-group">
+            <%= f.label :estado, 'Estado' %>
+            <%= f.select(:estado, [['Nuevo', 0], ['Usado', 1]], {include_blank: 'Selecccione'}, { :class => 'form-control' }) %>
+        </div>
+
+			<div class="form-group">
+				<%= f.label :estadollantas, 'Estado de llantas' %>
+				<%= f.select(:estadollantas, [['Excelente', 0], ['Bueno', 1], ['Regular', 2], ['Malo', 3]], {include_blank: 'Selecccione'}, { :class => 'form-control' }) %>
+			</div>
+			<% if type != 5 %>
+				<div class="form-group">
+					<%= f.label :tipodecaja, 'Tipo de caja' %>
+					<%= f.select(:tipodecaja, [['Automatica', 0], ['Manual', 1]], {include_blank: 'Selecccione'}, { :class => 'form-control' }) %>
+				</div>
+			<% end %>
+	</div>
+</div>

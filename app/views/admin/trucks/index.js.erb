@@ -2,3 +2,4 @@
  * Created by mario on 17-09-2015.
  */
 $('#tabla').html("<%= escape_javascript(render( partial: 'resultTrucks' ))%>");
+$('#paginator').html("#{escape_javascript(paginate(@trucks_filter , :remote => true)) }");

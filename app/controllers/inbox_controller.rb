@@ -15,11 +15,17 @@ class InboxController < ApplicationController
     if @message.save
       case @message.tipo.to_s 
       when "1" #camion 
-        redirect_to camion_path(@message.item, Truck.find_by_id(@message.item).link_rewrite), flash: {success: "Se envio el mensaje al propietario del anuncio"}
+        @truck = Truck.find_by_id(@message.item)
+        Customer::CustomerMailer.inbox_message(@message, @truck).deliver
+        redirect_to camion_path(@message.item, @truck.link_rewrite), flash: {success: "Se envio el mensaje al propietario del anuncio"}
       when "2" #repuesto 
-        redirect_to repuesto_path(@message.item, Extra.find_by_id(@message.item).link_rewrite), flash: {success: "Se envio el mensaje al propietario del anuncio"}
+        @extra = Extra.find_by_id(@message.item)
+        Customer::CustomerMailer.inbox_message(@message, @extra).deliver
+        redirect_to repuesto_path(@message.item, @extra.link_rewrite), flash: {success: "Se envio el mensaje al propietario del anuncio"}
       when "3" #servicio
-        redirect_to servicio_path(@message.item, Service.find_by_id(@message.item).link_rewrite), flash: {success: "Se envio el mensaje al propietario del anuncio"}
+        @service = Service.find_by_id(@message.item)
+        Customer::CustomerMailer.inbox_message(@message, @service).deliver
+        redirect_to servicio_path(@message.item, @service.link_rewrite), flash: {success: "Se envio el mensaje al propietario del anuncio"}
       end
     else
       case @message.tipo.to_s 

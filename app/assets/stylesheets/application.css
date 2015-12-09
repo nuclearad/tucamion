@@ -11,6 +11,9 @@
  * file per style scope.
  *
  *= require jquery-ui
- *= require_tree .
+ *= require lightbox
  *= require_self
+ *= require fancybox
+ *= require_tree .
  */
+ 

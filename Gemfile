@@ -18,6 +18,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-inputmask-rails'
 gem 'jquery-ui-rails'
+gem 'lightbox2-rails'
+gem 'fancybox-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'jquery-turbolinks'
@@ -32,6 +34,7 @@ gem 'tzinfo-data'
 gem 'devise'
 gem 'breadcrumbs_on_rails'
 gem 'paperclip', github: 'thoughtbot/paperclip'
+gem "mini_magick"
 gem 'quiet_assets', group: :development
 gem 'coffee-script-source', '1.8.0', group: :development
 # Use ActiveModel has_secure_password

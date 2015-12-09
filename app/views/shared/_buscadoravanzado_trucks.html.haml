@@ -43,11 +43,25 @@
           #km.accordion-body.collapse{:style => "height: 0px;"}
             .accordion-inner
               %ul
-                - @km_group.each do |km|
-                  %li
-                    = link_to km.kilometraje, "/camiones-opciones/kilometraje/#{km.kilometraje}", remote: true
-                    %small
-                      (#{km.total})
+                -# @km_group.each do |km|
+                %li
+                  = link_to "0-1000", "/camiones-opciones/kilometraje/0-1000", remote: true
+                %li
+                  = link_to "1000-5000", "/camiones-opciones/kilometraje/1000-5000", remote: true
+                %li
+                  = link_to "5000-10000", "/camiones-opciones/kilometraje/5000-10000", remote: true
+                %li
+                  = link_to "10000-20000", "/camiones-opciones/kilometraje/10000-20000", remote: true
+                %li
+                  = link_to "20000-50000", "/camiones-opciones/kilometraje/20000-50000", remote: true
+                %li
+                  = link_to "50000-100000", "/camiones-opciones/kilometraje/50000-100000", remote: true
+                %li
+                  = link_to "100000-500000", "/camiones-opciones/kilometraje/100000-500000", remote: true
+                %li
+                  = link_to "500000-1000000", "/camiones-opciones/kilometraje/500000-1000000", remote: true 
+                %li
+                  = link_to "1000000-Mas", "/camiones-opciones/kilometraje/1000000-10000000", remote: true
         .accordion-group
           .accordion-heading
             %a.accordion-toggle.collapsed{"data-toggle" => "collapse", :href => "#avanzada"} Avanzada

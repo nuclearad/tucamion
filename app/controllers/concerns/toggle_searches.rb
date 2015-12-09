@@ -12,13 +12,13 @@ module ToggleSearches
   end
 
   def read_toggle option
-    puts "******#{session[:toggle_search]}**************"
+    #puts "******#{session[:toggle_search]}**************"
     if option
       puts "*******************#{option}*************************"
       session[:toggle_search] = eval(session[:toggle_search]) if session[:toggle_search]["q"].class.to_s == 'String'
       session[:toggle_search]['q'][option] = ""
     end
-    puts "******#{session[:toggle_search]["q"]}**************" 
+    #puts "******#{session[:toggle_search]["q"]}**************" 
   end
 
   def get_toggle
@@ -39,6 +39,20 @@ module ToggleSearches
         array_searches << search
       end
 
+      unless query["capacidadcarga_eq"].blank?
+        search     = Array.new
+        search[0]  = "Capacidad de carga: #{query['capacidadcarga_eq']}"
+        search[1]  = "capacidadcarga_eq"
+        array_searches << search
+      end
+      
+      unless query["referencia_id_eq"].blank?
+        search                      = Array.new
+        search[0]                   = Referencia.select("id,name").find(query["referencia_id_eq"]).name
+        query["referencia_id_eq"] = ""
+        search[1]                   = "referencia_id_eq"
+        array_searches << search
+      end
       #search for extras
       
       unless query["type_truck_id_eq"].blank?
@@ -47,10 +61,18 @@ module ToggleSearches
         search[1]  = "type_truck_id_eq"
         array_searches << search
       end
-      unless query["brand_extra_id_eq"].blank?
+
+      unless query["type_trucks_id_eq"].blank?
         search     = Array.new
-        search[0]  = BrandExtra.select("id,name").find(query["brand_extra_id_eq"]).name
-        search[1]  = "brand_extra_id_eq"
+        search[0]  = TypeTruck.select("id,name").find(query["type_trucks_id_eq"]).name
+        search[1]  = "type_trucks_id_eq"
+        array_searches << search
+      end
+
+      unless query["brand_extras_id_eq"].blank?
+        search     = Array.new
+        search[0]  = BrandExtra.select("id,name").find(query["brand_extras_id_eq"]).name
+        search[1]  = "brand_extras_id_eq"
         array_searches << search
       end
       unless query["price_gteq"].blank?
@@ -67,11 +89,11 @@ module ToggleSearches
       end
       
       #search for services
-      unless query["type_service_id_eq"].blank?
+      unless query["type_services_id_eq"].blank?
         search                      = Array.new
-        search[0]                   = TypeService.select("id,name").find(query["type_service_id_eq"]).name
-        query["type_service_id_eq"] = ""
-        search[1]                   = "type_service_id_eq"
+        search[0]                   = TypeService.select("id,name").find(query["type_services_id_eq"]).name
+        query["type_services_id_eq"] = ""
+        search[1]                   = "type_services_id_eq"
         array_searches << search
       end
 

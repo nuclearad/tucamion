@@ -33,3 +33,7 @@
                     %td
                       .cart-checkout-btn.pull-right
                         = f.submit "Registrarse", class: "btn btn-primary"
+            .form-group.col-md-4
+              = f.check_box :terms, required: true
+              %b
+                = link_to "Acepto politicas de privacidad", "/politicas", class: "info-title"

@@ -26,16 +26,22 @@
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p MARCAS
                 .attribute_list
-                  = f.select(:brand_truck_id_eq, options_from_collection_for_select(BrandTruck.order(:name), :id,:name), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_brand'})               
+                  = f.select(:brand_truck_id_eq, options_from_collection_for_select(BrandTruck.order(:name), :id,:name), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_brand'})
+            .col-xs-2.col-sm-2.col-md-2
+              %fieldset.attribute_fieldset
+                %label.attribute_label.attribute-key{:for => "group_1"}
+                  %p REFERENCIAS
+                .attribute_list
+                  = f.select(:referencia_id_eq, options_from_collection_for_select(Referencia.order(:name), :id,:name), {prompt: 'Referencias'}, { class:  'form-control', id: 'camion_ref'})                      
                 / /.attribute_list
-            .col-xs-3.col-sm-3.col-md-3
+            .col-xs-2.col-sm-2.col-md-2
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
                   %p UBICACIÓN
                 .attribute_list
                   = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
                 / /.attribute_list
-            .col-xs-3.col-sm-3.col-md-3
+            .col-xs-2.col-sm-2.col-md-2
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}  
                 .attribute_list.pull-right{:style => "width: 100%;"}
@@ -52,7 +58,7 @@
                     TIPO DE
                     %b CAMIÓN
                 .attribute_list
-                  = f.select(:type_truck_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'servicio_type'})
+                  = f.select(:type_trucks_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'servicio_type'})
             .col-xs-3.col-sm-3.col-md-3
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
@@ -60,7 +66,7 @@
                     TIPO DE
                     %b REPUESTOS
                 .attribute_list
-                  = f.select(:brand_extra_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
+                  = f.select(:brand_extras_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
             .col-xs-3.col-sm-3.col-md-3
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}
@@ -82,7 +88,7 @@
                     TIPO DE
                     %b SERVICIO
                 .attribute_list
-                  = f.select(:type_service_id_eq, options_from_collection_for_select(TypeService.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'state_service'})
+                  = f.select(:type_services_id_eq, options_from_collection_for_select(TypeService.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'state_service'})
             .col-xs-4.col-sm-4.col-md-4
               %fieldset.attribute_fieldset
                 %label.attribute_label.attribute-key{:for => "group_1"}

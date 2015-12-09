@@ -9,7 +9,6 @@ class Admin::BrandsTruckController < ApplicationController
     @brands_filter = @search.result.page(params[:page]).per(10)
   end
 
-
   def new
     @type = TypeTruck.find_by_id(params[:type_truck_id])
     @brand = BrandTruck.new
@@ -25,7 +24,6 @@ class Admin::BrandsTruckController < ApplicationController
     else
       render 'new'
     end
-
 
   end
 

@@ -12,17 +12,17 @@
 
       <div class="col-md-4 col-sm-4">
         <a href="<%=  @banners[0].name %>">
-          <%= image_tag @banners[0].picture(:home ), size: "300x200", alt: "Imagen" %>
+          <%= image_tag @banners[0].picture(:home ), size: "350x214", alt: "Imagen" %>
         </a>
       </div>
       <div class="col-md-4 col-sm-4">
         <a href="<%=  @banners[1].name %>">
-          <%= image_tag @banners[1].picture(:home ), size: "300x200", alt: "Imagen"  %>
+          <%= image_tag @banners[1].picture(:home ), size: "350x214", alt: "Imagen"  %>
         </a>
       </div>
       <div class="col-md-4 col-sm-4">
         <a href="<%=  @banners[2].name %>">
-          <%= image_tag @banners[2].picture(:home ), size: "300x200", alt: "Imagen"  %>
+          <%= image_tag @banners[2].picture(:home ), size: "350x214", alt: "Imagen"  %>
         </a>
       </div>
 
@@ -120,7 +120,9 @@
                 id = $(this).find(':selected').data('id');
 
                 function loader(data){
-                    $('#camion_brand').html('<option>Cargando...</option>')
+                    $('#camion_brand').html('<option>Cargando...</option>');
+                    $('#camion_ref').html('<option>Cargando...</option>')
+                    
                 };
 
                 function error(data){
@@ -154,8 +156,7 @@
 
                         } else{
 
-
-                            $('#camion_brand').append('<option value="">Todas las marcas</option>')
+                            $('#camion_brand').append('<option value="">Marcas Encontradas</option>')
                             $.each(msg, function(index, value) {
                                 $('#camion_brand').append('<option value="'+value.brand_truck.id+'">'+value.brand_truck.name+'</option>')
                             });
@@ -163,16 +164,41 @@
 
                         }
 
-
-
-
-
                     },
                     url:"/marcas/"+id
                 });
 
 
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function (msg) {
+                        $('#camion_ref').html('')
+                        
 
+                        if(id == '0'){
+                            $('#camion_ref').append('<option value="">Todas las Referencias</option>')
+
+
+                            $.each(msg, function(index, value) {
+                                $('#camion_ref').append('<option value="'+value.id+'">'+value.name+'</option>')
+                            });
+
+
+                        } else{
+
+
+                            $('#camion_ref').append('<option value="">Referencias Encontradas</option>')
+                            $.each(msg, function(index, value) {
+                                $('#camion_ref').append('<option value="'+value.referencia.id+'">'+value.referencia.name+'</option>')
+                            });
+
+
+                        }
+                    },
+                    url:"/referencias/"+id
+                });
 
 
             });
@@ -217,7 +243,7 @@
 
 
                         if(id == '0'){
-                            $('#servicio_brand').append('<option value="">Todas las marcas</option>')
+                            $('#servicio_brand').append('<option value="">Seleccionar</option>')
 
 
                             $.each(msg, function(index, value) {
@@ -226,12 +252,12 @@
 
                         } else{
 
-                            $('#servicio_brand').append('<option value="">Todas las marcas</option>')
+                            $('#servicio_brand').append('<option value="">Seleccionar</option>')
                             $.each(msg, function(index, value) {
-                                $('#servicio_brand').append('<option value="'+value.brand_extra.id+'">'+value.brand_extra.name+'</option>')
+                                $.each(value.brand_extras, function(index, brand) {
+                                  $('#servicio_brand').append('<option value="'+brand.id+'">'+brand.name+'</option>')
+                                });
                             });
-
-
                         }
 
                     },

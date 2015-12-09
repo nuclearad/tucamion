@@ -26,6 +26,7 @@ class Admin::TrucksController < ApplicationController
     logger.info "*****#{params}****"
     @truck = Truck.new
     @truck.type_truck_id= params['v']
+    @capacidadcarga = Environment::CAPACIDAD_CARGA
     add_breadcrumb 'Agregar'
   end
 
@@ -36,7 +37,10 @@ class Admin::TrucksController < ApplicationController
       flash[:notice] = 'Información agregada correctamente'
       redirect_to admin_trucks_path
     else
+      flash[:notice] = 'Error Guardando en el registro'
+      @capacidadcarga = Environment::CAPACIDAD_CARGA
       render 'new' , :v=>@truck.type_truck_id
+      #redirect_to new_admin_truck_path(:v=>@truck.type_truck_id)
     end
 
 
@@ -51,19 +55,25 @@ class Admin::TrucksController < ApplicationController
     @truck = Truck.find(params[:id])
     @cities= City.where('state_id = ?', @truck.state_id)
     @placaCities= City.where('state_id =?', @truck.placa_state_id)
+    @capacidadcarga = Environment::CAPACIDAD_CARGA
+
     add_breadcrumb 'Editar'
   end
 
   def update
-
     @truck = Truck.find(params[:id])
-
+    if params[:picture1]=='1'
+      logger.info 'entro en borrar'
+      @truck.picture1.destroy
+      @truck.picture1.clear
+    end
     if @truck.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_trucks_path
     else
       @cities= City.where('state_id = ?', @truck.state_id)
       @placaCities= City.where('state_id =?', @truck.placa_state_id)
+      @capacidadcarga = Environment::CAPACIDAD_CARGA
       render :edit, :v=>@truck.type_truck_id
     end
 
@@ -83,20 +93,43 @@ class Admin::TrucksController < ApplicationController
 
 
   def removePicture
-
+    logger.info "******* #{__method__} ******* #{params} *******"
     imagen =  params[:imagen]
-    id =  params[:idTruck]
-
-    @truck = Truck.find(id)
+    id =  params[:idAnuncio]
+    type = params[:anuncioType]
+    case type
+      when '0'
+        @truck = Truck.find(id)
+      when '1'
+        @truck = Truck.find(id)
+      when '2'
+        @truck = Extra.find(id)
+      when '3'
+        @truck = Extra.find(id)
+      else
+        @truck = Service.find(id)
+    end
     @truck.instance_eval('picture'+imagen).destroy
+    @truck.instance_eval('picture'+imagen).clear
     if @truck.save
       respuesta = [:respuesta=>true ]
     else
       respuesta = [:respuesta=>false ]
     end
-
-    render json: respuesta
-
+    case type
+      when '0'
+       redirect_to micamionesedit_path(:id=> id) and return
+      when '1'
+       redirect_to edit_admin_truck_path(:id=> id) and return
+      when '2'
+        redirect_to edit_admin_extra_path(:id=> id) and return
+      when '3'
+       redirect_to mirepuestosedit_path(:id=> id) and return
+      when '4'
+        redirect_to edit_admin_service_path(:id=> id) and return  
+      else
+        redirect_to miserviciosedit_path(:id=> id) and return
+    end
   end
 
 

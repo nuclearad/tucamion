@@ -14,7 +14,7 @@
             TIPO DE
             %b CAMIÓN
         .attribute_list
-          = f.select(:type_truck_id_eq, options_for_select(@type_trucks.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'servicio_type'})
+          = f.select(:type_trucks_id_eq, options_for_select(@type_trucks.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'extra_truck_type'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
@@ -22,26 +22,97 @@
             TIPO DE
             %b REPUESTOS
         .attribute_list
-          = f.select(:brand_extra_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'servicio_brand'})
+          = f.select(:brand_extras_id_eq, options_from_collection_for_select(BrandExtra.order(:id), :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'extra_type'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
           %p UBICACIÓN
         .attribute_list
-          = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
-    %p
-      %fieldset.attribute_fieldset
-        %label.attribute_label.attribute-key{:for => "group_1"}
-          %p PRECIO MAYOR IGUAL
-        .attribute_list
-          = f.select(:price_gteq, options_for_select(Extra.order('price ASC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_gteq'})
-    %p
-      %fieldset.attribute_fieldset
-        %label.attribute_label.attribute-key{:for => "group_1"}
-          %p PRECIO MENOR IGUAL
-        .attribute_list
-          = f.select(:price_lteq, options_for_select(Extra.order('price DESC').map{ |r| [number_to_currency( r.price,  precision: 0, delimiter: '.'), r.price] }), {prompt: 'Selecciona'}, { class:  'form-control', id: 'price_lteq'})
+          = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'extra_state'})
     %fieldset.attribute_fieldset
       %label.attribute_label.attribute-key{:for => "group_1"}  
       .attribute_list.pull-right{:style => "width:100%"}
         = f.submit "BUSCAR", class: "btn-servi btn btn-primary"
+:javascript
+  
+  $('#extra_truck_type').on('change', function(evt){
+
+    $('#extra_type').html('')
+    console.log($(this).find(':selected').data('id'))
+
+    id = $(this).find(':selected').data('id');
+
+    function loader(data){
+        $('#extra_type').html('<option>Cargando...</option>')
+        
+    };
+
+    function error(data){
+        alert("Error enviados los datos");
+    };
+
+    if(id == undefined){
+        id = '0'
+    }
+
+
+    $.ajax({
+        async: true,
+        type: "GET",
+        dataType: 'json',
+        beforeSend:loader,
+        error:error,
+        success: function (msg) {
+            console.log(msg)
+
+            $('#extra_type').html('')
+
+
+            if(id == '0'){
+                $('#extra_type').append('<option value="">Seleccione</option>')
+
+
+                $.each(msg, function(index, value) {
+                    $('#extra_type').append('<option value="'+value.id+'">'+value.name+'</option>')
+                });
+
+            } else{
+
+                $('#extra_type').append('<option value="">Seleccionar</option>')
+                $.each(msg, function(index, value) {
+                    $.each(value.brand_extras, function(index, brand) {
+                      $('#extra_type').append('<option value="'+brand.id+'">'+brand.name+'</option>')
+                    });
+                });
+            }
+
+        },
+        url:"/marcasrespuestos/"+id
+    });
+
+
+  });
+
+  $(document).on('click', '#btn-repuesto', function() {
+
+
+      var type = $("#extra_truck_type").val()
+      var brand = $("#extra_type").val()
+      var state = $("#extra_state").val()
+      var url = 'repuestos';
+
+      if(state != ''){
+          url = url+'/'+state
+      }
+
+      if(type != ''){
+          url = url+'/'+type
+      }
+
+      if(brand != ''){
+          url = url+'/'+brand
+      }
+      window.location.href = url;
+      return false;
+
+  })        

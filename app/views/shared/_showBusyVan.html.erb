@@ -1,0 +1,45 @@
+<tr class="nymou">
+    <td class="cell-label">
+          <b>Capacidad Pasajeros</b><br>
+          <%=  object.capacidadpasajeros.nil? ?  'Sin Información' : object.capacidadpasajeros %>
+    </td>
+    <td class="cell-label">
+          <b>Capacidad de Carga</b><br>
+          <%=  object.capacidadcarga.nil? ?  'Sin Información' : object.capacidadcarga %>
+    </td>
+    <td class="cell-label">
+          <b>Se vende con cupo</b><br>
+          <%=  object.cupo.nil? ?  'Sin Información' : object.cupo? ? 'Si' : 'No' %>
+    </td>
+    <td class="cell-label">
+        <b>Sillas Reclinables</b><br>
+        <%=  object.sillareclinable.nil? ?  'Sin Información' : object.sillareclinable? ? 'Si' : 'No' %>
+    </td>
+    <td class="cell-label">
+        <b>Baño</b><br>
+        <%=  object.bano.nil? ?  'Sin Información' : object.bano? ? 'Si' : 'No' %>
+    </td>
+</tr>
+
+<tr class="nymou">
+      <td class="cell-label">
+          <b>Descansa Pies</b><br>
+          <%=  object.descansapies.nil? ?  'Sin Información' : object.descansapies? ? 'Si': 'No' %>
+      </td>
+      <td class="cell-label">
+        <b>TV.</b><br>
+        <%=  object.tv.nil? ?  'Sin Información' : object.tv? ? 'Si' : 'No' %>
+      </td>
+      <td class="cell-label">
+        <b>Pantalla Individual</b><br>
+        <%=  object.pantallaindividual.nil? ?  'Sin Información' : object.pantallaindividual? ? 'Si': 'No' %>
+      </td>
+      <td class="cell-label">
+        <b>Wifi</b><br>
+        <%=  object.wifi.nil? ?  'Sin Información' : object.wifi? ? 'Si' : 'No' %>
+      </td>
+      <td class="cell-label">
+        <b>Audio</b><br>
+        <%=  object.audio.nil? ?  'Sin Información' : object.audio? ? 'Si' : 'No' %>
+      </td>
+</tr>
