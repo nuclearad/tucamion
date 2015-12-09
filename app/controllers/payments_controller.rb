@@ -15,7 +15,7 @@ class PaymentsController < ApplicationController
                                 signature:      generate_signature) #'Test PAYU'
       @old_pay = Payment.where('created_at <= ? AND internal_status = 0', Time.now - 20.minutes)
       if @old_pay.size > 0
-        @old_pay.destroy_all     
+        @old_pay.destroy_all
       end
       render :comprar
     end
@@ -41,7 +41,10 @@ class PaymentsController < ApplicationController
     end
 
     def generate_signature
-      signature = Digest::MD5.hexdigest("#{Environment::APIKEY}#{Environment::MERCHANTID}#{@referencia}10000#{Environment::CURRENCY}")
+      sign      = Environment::APIKEY + "~" + Environment::MERCHANTID+ "~" +@referencia + "~10000~" + Environment::CURRENCY
+      puts sign
+      puts "***************************************************"
+      signature = Digest::MD5.hexdigest(sign)
     end
 
 end
