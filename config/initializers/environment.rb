@@ -46,6 +46,7 @@ class Environment
     CURRENCY    = 'COP'
     ACCOUNTID   = '536329'
     URL_GATEWAY = 'https://gateway.payulatam.com/ppp-web-gateway'
+    MODO        = '0'
   
   else
     MAILSETTING = {:address              =>  'smtp.gmail.com',
@@ -68,7 +69,7 @@ class Environment
     CURRENCY    = 'COP'
     ACCOUNTID   = '536329'
     URL_GATEWAY = 'https://gateway.payulatam.com/ppp-web-gateway'
-
+    MODO        = '1'
   end
 
 end

@@ -21,7 +21,7 @@
             <%= hidden_field_tag :taxReturnBase, '0' %>
             <%= hidden_field_tag :currency, Environment::CURRENCY %>
             <%= hidden_field_tag :signature, @payment.signature %>
-            <%= hidden_field_tag :test, '1' %>
+            <%= hidden_field_tag :test, Environment::MODO %>
             <%= hidden_field_tag :buyerEmail, @user.email %>
             <%= hidden_field_tag :responseUrl, 'http://104.236.210.18/response' %>
             <%= hidden_field_tag :confirmationUrl, 'http://104.236.210.18/confirmation' %>
