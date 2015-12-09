@@ -11,7 +11,7 @@
           <span class="title-tag inner-top-vs">Una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
           <%= form_tag(Environment::URL_GATEWAY, {method: :post}) do %>
 
-            <%= hidden_field_tag :merchantId, Environment::MERCHANTID %> 
+            <%= hidden_field_tag :merchantId, Environment::MERCHANTID %>
             <%= hidden_field_tag :ApiKey, Environment::APIKEY %> 
             <%= hidden_field_tag :accountId, Environment::ACCOUNTID %>
             <%= hidden_field_tag :description, @payment.description %>

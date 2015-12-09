@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
     end
     
     def generate_reference
-      @referencia = "REF#{Time.now.strftime('%y%m%d%H%M%S')}"
+      @referencia = "TestPayU"
     end
 
     def generate_signature
