@@ -11,6 +11,8 @@ class Customer < ActiveRecord::Base
   has_many :quantities, dependent: :destroy
   has_many :messages, dependent: :destroy
 
+  has_many :payments, dependent: :destroy
+
   validates_presence_of       :cedula,   message: "El documento de identidad es un campo obligatorio"
   validates_presence_of       :name,     message: "El nombre es un campo obligatorio"
   validates_presence_of       :telefono, message: "El telefono es un campo obligatorio"
@@ -69,9 +71,9 @@ class Customer < ActiveRecord::Base
      offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
      if offer
        if self.comparar_fecha(3.months)
-         return 1
+         return 1 #valida que el plan promocional esta vigente
        else
-         return -1
+         return -1 #se acabo el plazo del plan
        end
      else
        return self.offercustomers.size

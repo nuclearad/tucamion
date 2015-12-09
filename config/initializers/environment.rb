@@ -40,6 +40,13 @@ class Environment
                    :password             =>  'infoinfo123',
                    :authentication       =>  'plain',
                    :enable_starttls_auto =>  true}
+
+    APIKEY      = ''
+    MERCHANTID  = ''
+    CURRENCY    = ''
+    ACCOUNTID   = ''
+    URL_GATEWAY = ''
+  
   else
     MAILSETTING = {:address              =>  'smtp.gmail.com',
                    :port                 =>  587,
@@ -48,6 +55,20 @@ class Environment
                    :password             =>  'tucamionsoporte2',
                    :authentication       =>  'plain',
                    :enable_starttls_auto =>  true}  
+  
+
+    #APIKEY      = '6u39nqhq8ftd0hlvnjfs66eh8c'
+    #MERCHANTID  = '500238'
+    #CURRENCY    = 'COP'
+    #ACCOUNTID   = '500537'
+    #URL_GATEWAY = 'https://stg.gateway.payulatam.com/ppp-web-gateway'
+
+    APIKEY      = '2ROTuo8TSnyglaS9Bxn7FJwG19'
+    MERCHANTID  = '534372'
+    CURRENCY    = 'COP'
+    ACCOUNTID   = '536329'
+    URL_GATEWAY = 'https://gateway.payulatam.com/ppp-web-gateway'
+
   end
 
 end

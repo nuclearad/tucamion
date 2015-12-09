@@ -1,48 +1,3 @@
-
-<%
-
-
-   def calculuarPrecio
-
-     if session[:user].nil?
-        @plan.precio1
-     else
-       if @user.typeuser == 0
-          @plan.precio1
-       else
-          @plan.precio2
-       end
-
-     end
-
-    end
-
-%>
-
-
-<form method="post" id="payuform" action="https://stg.gateway.payulatam.com/ppp-web-gateway">
-  <input name="merchantId"    type="hidden"  value="500238"   >
-  <input name="ApiKey"     type="hidden"  value="6u39nqhq8ftd0hlvnjfs66eh8c" >
-
-
-  <input name="accountId"     type="hidden"  value="500537" >
-
-  <input name="description"   type="hidden"  value="Test PAYU"  >
-  <input name="referenceCode" type="hidden"  value="TestPayU" >
-      <input name="amount"        type="hidden"  value="100"   >
-
-  <input name="tax"           type="hidden"  value="0"  >
-  <input name="taxReturnBase" type="hidden"  value="0" >
-  <input name="currency"      type="hidden"  value="USD" >
-  <input name="signature"     type="hidden"  value="be2f083cb3391c84fdf5fd6176801278"  >
-  <input name="test"          type="hidden"  value="1" >
-  <input name="buyerEmail"    type="hidden"  value="test@test.com" >
-  <input name="responseUrl"    type="hidden"  value="http://caminion365.com/response" >
-  <input name="confirmationUrl"    type="hidden"  value="http://caminion365.com/confirmation" >
-
-</form>
-
-
 <div class="body-content outer-top-bd">
   <div class="container">
     <div class="track-order-page inner-bottom-sm">
@@ -50,29 +5,26 @@
         <div class="col-md-12">
           <h2>Complete su Pedido, para ser publicado su anuncio</h2>
           <span class="title-tag inner-top-vs">Porfavor debe ingresar los datos iniciales de cuenta, una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
-          <form class="register-form outer-top-xs" role="form" id="mainform">
-            <div class="form-group col-md-4">
-              <label class="info-title" for="exampleOrderId1">Nombre</label>
-              <input type="text" name="name" class="form-control unicase-form-control text-input" >
-              <input type="hidden" name="plan" value="<%= params[:plan] %>" class="form-control unicase-form-control text-input" >
-              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
-            </div>
-            <div class="form-group col-md-4">
-              <label class="info-title" for="exampleBillingEmail1">Documento De Identidad</label>
-              <input type="text" name="cedula" class="form-control unicase-form-control text-input" id="">
-            </div>
-            <div class="form-group col-md-4">
-              <label class="info-title" for="exampleBillingEmail1">Teléfono</label>
-              <input type="text" name="telefono" class="form-control unicase-form-control text-input" id="">
-            </div>
-            <div class="form-group col-md-4">
-              <label class="info-title" for="exampleBillingEmail1">Email</label>
-              <input type="text" name="email" class="form-control unicase-form-control text-input" id="">
-            </div>
-            <div class="form-group col-md-4">
-              <label class="info-title" for="exampleBillingEmail1">Contraseña</label>
-              <input type="text" name="clave" class="form-control unicase-form-control text-input" id="">
-            </div>
+          <form method="post" id="payuform" action="https://stg.gateway.payulatam.com/ppp-web-gateway">
+            <input name="merchantId"    type="hidden"  value="500238"   >
+            <input name="ApiKey"     type="hidden"  value="6u39nqhq8ftd0hlvnjfs66eh8c" >
+
+
+            <input name="accountId"     type="hidden"  value="500537" >
+
+            <input name="description"   type="hidden"  value="Test PAYU"  >
+            <input name="referenceCode" type="hidden"  value="TestPayU" >
+                <input name="amount"        type="hidden"  value="<%= calcular_precio_pago() %>"   >
+
+            <input name="tax"           type="hidden"  value="0"  >
+            <input name="taxReturnBase" type="hidden"  value="0" >
+            <input name="currency"      type="hidden"  value="USD" >
+            <input name="signature"     type="hidden"  value="be2f083cb3391c84fdf5fd6176801278"  >
+            <input name="test"          type="hidden"  value="1" >
+            <input name="buyerEmail"    type="hidden"  value="<%= @user.email() %>" >
+            <input name="responseUrl"    type="hidden"  value="http://caminion365.com/response" >
+            <input name="confirmationUrl"    type="hidden"  value="http://caminion365.com/confirmation" >
+
             <div class="form-group col-md-4">
               <label class="info-title" for="exampleBillingEmail1">Cantidad de anuncios</label>
               <input type="text" class="form-control unicase-form-control text-input" id="" readonly value="<%=  @plan.trucks +  @plan.extra +  @plan.service %>">
@@ -84,7 +36,7 @@
                 <tr>
                   <th>
                     <div class="cart-grand-total pull-right">
-                      <h3 style="font-size:30px;">TOTAL: <%= number_to_currency calculuarPrecio, precision: 0%></h3>
+                      <h3 style="font-size:30px;">TOTAL: <%= calculuarPrecio2() %></h3>
                     </div>
                   </th>
                 </tr>
@@ -93,7 +45,7 @@
                 <tr>
                   <td>
                     <div class="cart-checkout-btn pull-right">
-                      <button type="submit" class="btn btn-primary">PAGAR AHORA</button>
+                      <button type="submit" id='enviar' class="btn btn-primary">PAGAR AHORA</button>
                     </div>
                   </td>
                 </tr>
@@ -108,53 +60,3 @@
 
     <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
 </div>
-
-
-
-
-<% content_for :footer do %>
-    <script>
-
-        $(function(){
-
-            $('#mainform').submit(function(){
-                var data = $( "#mainform" ).serialize();
-                console.log(data)
-
-
-
-
-
-                $.ajax({
-                    url: '<%= saveUser_path %>',
-                    error: function() {
-                        $('#info').html('<p>An error has occurred</p>');
-                    },
-                    data:data,
-                    success: function(data) {
-                        console.log(data[0])
-
-                        if(data[0].estado == 'si'){
-                            alert('Este email ya se encuentra registrado')
-                        }else{
-                            if(data[0].guardoplan == 'si'){
-                                //window.location.replace("<%= micuenta_path %>");
-                                $('#payuform').submit();
-                            }
-                        }
-                    },
-                    type: 'GET'
-                });
-
-
-
-
-                return false;
-            })
-
-        })
-
-    </script>
-
-<% end%>
-

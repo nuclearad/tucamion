@@ -71,80 +71,6 @@ class PagesController < ApplicationController
 
   end
 
-  def comprar
-
-    if params[:plan].nil?
-      redirect_to tarifas_path
-    else
-
-      @plan = Offer.find_by_id(params[:plan])
-      unless session[:user].nil?
-        @user = Customer.find_by_id(session[:user])
-      end
-      if @plan.blank?
-        redirect_to tarifas_path
-      end
-    end
-
-  end
-
-  def guardarMensaje
-
-
-    o = Message.new(
-        :nombre       => params[:nombre],
-        :telefono     => params[:telefono],
-        :mensaje      => params[:mensaje],
-        :tipo         => params[:tipo],
-        :item         => params[:item],
-        :user_id      => params[:user],
-        :customer_id  => params[:customer]
-    )
-
-
-    if o.save
-      data = [:estado => 'si']
-      render json: data
-    end
-
-  end
-
-  def guardarCustomer
-
-
-    if Customer.find_by_email(params[:email])
-      data = [:estado => 'si']
-    else
-      data = [:estado => 'no']
-
-      o = Customer.new(
-          :name => params[:name],
-          :cedula => params[:cedula],
-          :telefono => params[:telefono],
-          :clave => params[:clave],
-          :email => params[:email],
-          :typeuser =>  0
-      )
-      if o.save
-
-        plancliente = Offercustomer.new
-
-        plancliente.customer_id = o.id
-        plancliente.offer_id = params[:plan]
-
-        if plancliente.save
-
-          session[:user] = o.id
-          data = [:guardoplan => 'si']
-        end
-
-      end
-
-    end
-
-    render json: data
-  end
-
 # Camiones
   def micamiones
     if session[:user].nil?
@@ -463,7 +389,8 @@ class PagesController < ApplicationController
         @user = Customer.find_by_id(session[:user])
         # se valida si el plan esta inscrito y esta vigente jonathan
         @user_cargar_planes = @user.cargar_planes
-        @quantity           =  @user.quantities.first
+        
+        @quantity           = @user.quantities.first
         flash[:warning]     = "Su plan gratis ha caducado su valides fue de 3 meses el plan fue inscrito el #{@user.created_at.strftime('%d-%m-%Y')}" if @user_cargar_planes == -1
         @offers             = Offercustomer.where(:customer_id => session[:user])
         @publicaciones      = Customer.find_by_sql('(SELECT id, nombre, created_at, 1 as tipo FROM trucks WHERE customer_id='+session[:user].to_s+')
