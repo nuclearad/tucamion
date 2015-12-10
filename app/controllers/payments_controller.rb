@@ -25,10 +25,10 @@ class PaymentsController < ApplicationController
 
   def confirmacion
     code    = 403
-    unless session[:user].nil?
+    #unless session[:user].nil?
       referenceCode        = params[:reference_sale]
       response_message_pol = params[:response_message_pol]
-      payment              = Payment.find_by(reference_code: referenceCode, customer_id: session[:user])
+      payment              = Payment.find_by(reference_code: referenceCode)
       if payment && response_message_pol == "APPROVED"
         plan = @payment.offer
         user = @payment.customer
@@ -43,7 +43,11 @@ class PaymentsController < ApplicationController
       else
         code = 404
       end
-    end
+    #end
+    Rails.logger.info("***************************#{response_message_pol}*********************************************")    
+    Rails.logger.info(code)
+    Rails.logger.info(params)
+    Rails.logger.info('************************************************************************')    
     render json: {code: code}, status: code
   end
 
