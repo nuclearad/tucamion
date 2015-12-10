@@ -25,7 +25,7 @@
             <%= @payment.updated_at.strftime "%d/%m/%Y" %>
             <br>
             <label>Monto: </label>
-            <%= currency_colombia @payment.amount %>
+            <%= currency_colombia @tx_value %>
             <br>
             <% if @payment.internal_status == 4 %>
               <label>Plan: </label>
