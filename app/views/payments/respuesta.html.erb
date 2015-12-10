@@ -25,8 +25,22 @@
             <%= @payment.updated_at.strftime "%d/%m/%Y" %>
             <br>
             <label>Monto: </label>
-            <%= currency_colombia @payment.amount %>            
+            <%= currency_colombia @payment.amount %>
             <br>
+            <% if @payment.internal_status == 4 %>
+              <label>Plan: </label>
+              <%= @payment.offer.nombre %>           
+              <br>
+              <label>Anuncios camiones: </label>
+              <%= @payment.offer.trucks %>           
+              <br>
+              <label>Anuncios servicios: </label>
+              <%= @payment.offer.service %>           
+              <br>
+              <label>Anuncios repuestos: </label>
+              <%= @payment.offer.extra %>           
+              <br>
+            <% end %>
             <label style='color: <%= @color %>'>
               Estado: <%= @payment.gateway_status %> 
             </label>
