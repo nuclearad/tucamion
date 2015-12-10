@@ -16,7 +16,7 @@
             <%= hidden_field_tag :accountId, Environment::ACCOUNTID %>
             <%= hidden_field_tag :description, @payment.description %>
             <%= hidden_field_tag :referenceCode, @payment.reference_code %>
-            <%= hidden_field_tag :amount, @payment.amount %>
+            <%= hidden_field_tag :amount, '10000' %>
             <%= hidden_field_tag :tax, '0' %>
             <%= hidden_field_tag :taxReturnBase, '0' %>
             <%= hidden_field_tag :currency, Environment::CURRENCY %>
