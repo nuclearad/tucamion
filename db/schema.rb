@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208225735) do
+ActiveRecord::Schema.define(version: 20151208225736) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -228,14 +228,15 @@ ActiveRecord::Schema.define(version: 20151208225735) do
   create_table "payments", force: true do |t|
     t.integer  "customer_id"
     t.integer  "offer_id"
-    t.string   "reference_code",                         null: false
+    t.string   "reference_code",                          null: false
     t.string   "signature"
-    t.float    "amount",          limit: 24,             null: false
+    t.float    "amount",          limit: 24,              null: false
     t.string   "gateway_status"
     t.integer  "internal_status",            default: 0
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type_card",       limit: 15, default: "", null: false
   end
 
   add_index "payments", ["customer_id"], name: "index_payments_on_customer_id", using: :btree
