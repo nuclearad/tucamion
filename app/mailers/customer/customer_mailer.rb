@@ -55,7 +55,7 @@ class Customer::CustomerMailer < ActionMailer::Base
       @user = @payment.customer
       @plan = @payment.offer
     end
-    mail to: ['jonathangrh.25@gmail.com'], subject: @error
+    mail to: Rails.env.production? ? "info@camion365.com" : "jonathangrh.25@gmail.com", subject: @error
   end
 
 end
