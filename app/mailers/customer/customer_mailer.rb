@@ -44,4 +44,18 @@ class Customer::CustomerMailer < ActionMailer::Base
     mail to: [object.email], subject: @subject
   end
 
+  def error_payments_confirmation(error, reference, status_pay, amount)
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
+    @reference  = reference
+    @error      = error
+    @status_pay = status_pay
+    @amount     = amount
+    @payment    = Payment.find_by(reference_code: @reference)
+    if @payment
+      @user = @payment.customer
+      @plan = @payment.offer
+    end
+    mail to: ['jonathangrh.25@gmail.com'], subject: @error
+  end
+
 end
