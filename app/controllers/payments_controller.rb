@@ -24,31 +24,42 @@ class PaymentsController < ApplicationController
   end
 
   def confirmacion
-    code    = 403
-    #unless session[:user].nil?
+    begin
+
       referenceCode        = params[:reference_sale]
       response_message_pol = params[:response_message_pol]
-      payment              = Payment.find_by(reference_code: referenceCode)
-      if payment && response_message_pol == "APPROVED"
-        plan = @payment.offer
-        user = @payment.customer
-        Offercustomer.create(customer_id: user.id, offer_id: plan.id)
-        #deboeliminar el plan promocional para que el sistema no falle
-        plan_free = user.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
-        if plan_free
-          offer_customer = Offercustomer.find_by(customer_id: user.id, offer_id: plan_free.id)
-          offer_customer.destroy if offer_customer
+      amount               = params[:value]   
+      #validar la firma
+      if validate_sign
+        payment = Payment.find_by(reference_code: referenceCode)
+        if payment && response_message_pol == "APPROVED"
+          plan = payment.offer
+          user = payment.customer
+          Offercustomer.create(customer_id: user.id, offer_id: plan.id)
+          #deboeliminar el plan promocional para que el sistema no falle
+          plan_free = user.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
+          if plan_free
+            offer_customer = Offercustomer.find_by(customer_id: user.id, offer_id: plan_free.id)
+            offer_customer.destroy if offer_customer
+          end
+          payment.internal_status = 4 #aprobada
+          payment.save
+          Rails.logger.info("***Se ejecuto la confirmacion con exito***")
         end
-        code = 200
+
       else
-        code = 404
+        Customer::CustomerMailer.error_payments_confirmation('Firma no valida al confirmar pago', referenceCode, response_message_pol, amount).deliver
       end
-    #end
-    Rails.logger.info("***************************#{response_message_pol}*********************************************")    
-    Rails.logger.info(code)
-    Rails.logger.info(params)
-    Rails.logger.info('************************************************************************')    
-    render json: {code: code}, status: code
+      render json: {code: 200}, status: 200
+    rescue Exception => e
+       Rails.logger.error("***************************Error en a confirmacion*********************************************")    
+       Rails.logger.error("Referencia: #{referenceCode}")
+       Rails.logger.error("Fecha: #{Time.now}")
+       Rails.logger.error("Error: #{e.to_s}")
+       Rails.logger.error('************************************************************************')
+       Customer::CustomerMailer.error_payments_confirmation('Error al procesar pago', referenceCode, response_message_pol, amount).deliver
+       render json: {code: 200}, status: 200
+    end
   end
 
   def respuesta
@@ -88,6 +99,7 @@ class PaymentsController < ApplicationController
           @payment.gateway_status  = "Error"
           @color                   = 'red'
         when '7' #pending
+          @payment.internal_status = 7
           @payment.gateway_status  = "Transacción pendiente"
           @color                   = 'gray'
         else
@@ -119,6 +131,33 @@ class PaymentsController < ApplicationController
       #"+calcular_precio.to_s+"
       sign      = Environment::APIKEY+"~"+Environment::MERCHANTID+"~"+@referencia+"~10000~"+Environment::CURRENCY
       signature = Digest::MD5.hexdigest(sign)
+    end
+
+    def validate_sign
+      
+      apikey         = Environment::APIKEY
+      merchant_id    = params[:merchant_id]
+      reference_sale = params[:reference_sale]
+      new_value      = params[:value].to_f
+      currency       = params[:currency]
+      state_pol      = params[:state_pol]
+      sign           = params[:sign]
+      str_sign       = "#{apikey}~#{merchant_id}~#{reference_sale}~#{new_value}~#{currency}~#{state_pol}"
+      
+      new_sign = Digest::MD5.hexdigest(str_sign)
+      
+      Rails.logger.info("***************************firma confirmacion*********************************************")    
+      Rails.logger.info("str_sign #{str_sign}")
+      Rails.logger.info("new_sign #{new_sign}")
+      Rails.logger.info("sign #{sign}")
+      Rails.logger.info('************************************************************************')
+      
+      if sign == new_sign
+        true
+      else
+        false
+      end
+    
     end
 
 end
