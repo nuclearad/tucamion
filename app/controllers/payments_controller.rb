@@ -28,8 +28,7 @@ class PaymentsController < ApplicationController
 
       referenceCode        = params[:reference_sale]
       response_message_pol = params[:response_message_pol]
-      amount               = params[:value]
-     
+      amount               = params[:value]   
       #validar la firma
       if validate_sign
         payment = Payment.find_by(reference_code: referenceCode)
@@ -143,9 +142,16 @@ class PaymentsController < ApplicationController
       currency       = params[:currency]
       state_pol      = params[:state_pol]
       sign           = params[:sign]
-
-      new_sign = Digest::MD5.hexdigest("#{apikey}~#{merchant_id}~#{reference_sale}~#{new_value}~#{currency}~#{state_pol}")
-     
+      str_sign       = "#{apikey}~#{merchant_id}~#{reference_sale}~#{new_value}~#{currency}~#{state_pol}"
+      
+      new_sign = Digest::MD5.hexdigest(str_sign)
+      
+      Rails.logger.info("***************************firma confirmacion*********************************************")    
+      Rails.logger.info("str_sign #{str_sign}")
+      Rails.logger.info("new_sign #{new_sign}")
+      Rails.logger.info("sign #{sign}")
+      Rails.logger.info('************************************************************************')
+      
       if sign == new_sign
         true
       else
