@@ -129,7 +129,7 @@ class PaymentsController < ApplicationController
 
     def generate_signature
       #"+calcular_precio.to_s+"
-      sign      = Environment::APIKEY+"~"+Environment::MERCHANTID+"~"+@referencia+"~10000~"+Environment::CURRENCY
+      sign      = Environment::APIKEY+"~"+Environment::MERCHANTID+"~"+@referencia+"~"+calcular_precio.to_s+"~"+Environment::CURRENCY
       signature = Digest::MD5.hexdigest(sign)
     end
 
