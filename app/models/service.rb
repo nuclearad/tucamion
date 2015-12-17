@@ -110,4 +110,21 @@ class Service < ActiveRecord::Base
 
   }
 
+  scope :test_load_services, ->{
+    results = self.where(:active => 1)
+    if results.size > 0
+      results.each do |result|
+        result.active = 3
+        result.save
+        puts '**************inicio******************'
+        puts "se cambio el registro #{result.name}"
+        puts '**************************************'
+      end
+    else
+      puts '**************inicio******************'
+      puts 'No se encuentran registros'
+      puts '**************************************'
+    end
+  }
+
 end

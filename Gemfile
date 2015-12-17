@@ -57,3 +57,5 @@ gem 'kaminari'
 gem 'haml'
 gem 'haml-rails'
 gem 'simple_form'
+
+gem 'whenever', :require => false
