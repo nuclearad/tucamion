@@ -111,10 +111,10 @@ class Service < ActiveRecord::Base
   }
 
   scope :test_load_services, ->{
-    results = self.where(:active => 1)
+    results = self.where(:active => 3)
     if results.size > 0
       results.each do |result|
-        result.active = 3
+        result.active = 1
         result.save
         puts '**************inicio******************'
         puts "se cambio el registro #{result.name}"

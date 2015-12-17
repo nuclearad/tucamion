@@ -58,4 +58,10 @@ gem 'haml'
 gem 'haml-rails'
 gem 'simple_form'
 
+#para hacer tareas programadas
 gem 'whenever', :require => false
+
+#para generar pdfs
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
