@@ -58,4 +58,13 @@ class Customer::CustomerMailer < ActionMailer::Base
     mail to: Rails.env.production? ? "info@camion365.com" : "jonathangrh.25@gmail.com", subject: @error
   end
 
+  def approved_payment(payment)
+  end
+
+  def rejected_payment(payment)
+  end
+
+  def pending_payment(payment)
+  end
+
 end
