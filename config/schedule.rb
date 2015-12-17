@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 set :output, "log/cron.log"  #Step 1
-every 1.minute do
-   runner "Service.test_load_services", :environment => :development
+every 1.day, :at => '00:00 am' do
+   #el parametro que recibe es la cantidad de meses que desea que vensan
+   runner "Service.for_win(6)", :environment => :production
+   runner "Extra.for_win(6)",   :environment => :production
 end

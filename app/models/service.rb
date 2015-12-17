@@ -110,6 +110,34 @@ class Service < ActiveRecord::Base
 
   }
 
+  scope :for_win, ->(val){
+    begin
+      services = Service.where('updated_at <= ? AND active=?', 
+                                Time.now - val.months,  
+                                Environment::STATUS[:servicios][:activo])
+      if services.size > 0
+         services.each do |service|
+           service.active = Environment::STATUS[:servicios][:inactivo_admin]
+           service.save
+           puts '**************Metodo for_win services******************'
+           puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+           puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
+           puts '************Fin del proceso***********************'   
+         end
+      else
+        puts '**************Metodo for_win services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts 'No hay resultados encontrados'
+        puts '**************************************'    
+      end      
+    rescue Exception => e
+        puts '**************ERROR Metodo for_win services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts e.to_s
+        puts '**************************************'       
+    end
+  }
+
   scope :test_load_services, ->{
     results = self.where(:active => 3)
     if results.size > 0
@@ -126,5 +154,5 @@ class Service < ActiveRecord::Base
       puts '**************************************'
     end
   }
-
+  
 end

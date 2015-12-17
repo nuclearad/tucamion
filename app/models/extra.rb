@@ -136,4 +136,32 @@ class Extra < ActiveRecord::Base
       order('brand_extras.name DESC')
   }
 
+  scope :for_win, ->(val){
+    begin
+      extras = Extra.where('updated_at <= ? AND active=?', 
+                                Time.now - val.months,  
+                                Environment::STATUS[:repuestos][:activo])
+      if extras.size > 0
+         extras.each do |extra|
+           extra.active = Environment::STATUS[:repuestos][:inactivo_admin]
+           extra.save
+           puts '**************Metodo for_win extras******************'
+           puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+           puts "El sistema deshabilita el servicio #{extra.name} fecha de activacion #{extra.updated_at.strftime('%B %d del %Y')}"
+           puts '************Fin del proceso***********************'   
+         end
+      else
+        puts '**************Metodo for_win extras******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts 'No hay resultados encontrados'
+        puts '**************************************'    
+      end      
+    rescue Exception => e
+        puts '**************ERROR Metodo for_win extras******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts e.to_s
+        puts '**************************************'       
+    end
+  }
+
 end

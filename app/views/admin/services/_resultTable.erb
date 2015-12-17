@@ -4,6 +4,8 @@
     <th>Nombre</th>
     <th>Tipo de servicio</th>
     <th>Departamento</th>
+    <th>Fecha de creacion</th>
+    <th>Fecha de activacion</th>
     <th>Acciones</th>
     <th>Estado</th>
   </tr>
@@ -28,7 +30,12 @@
         <td>
           <%= type.state.name if type.state %>
         </td>
-
+        <td>
+          <%= type.created_at.strftime('%b %d del %Y') %>
+        </td>
+        <td>
+          <%= type.updated_at.strftime('%b %d del %Y') %>
+        </td>
         <td>
           <% if type.active == 1 %>
            <%= link_to 'Editar', edit_admin_service_path(type.id), :class=>'btn btn-info' %>
