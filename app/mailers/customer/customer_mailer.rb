@@ -1,5 +1,5 @@
 class Customer::CustomerMailer < ActionMailer::Base
-  default from:  Rails.env.production? ? "info@camion365.com" : "tucamionsoporte@gmail.com"
+  default from:  Rails.env.production? ? Environment::FROM_MAIL : "tucamionsoporte@gmail.com"
 
   def create_by_admin(user, url)
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
@@ -58,6 +58,17 @@ class Customer::CustomerMailer < ActionMailer::Base
     mail to: Rails.env.production? ? "info@camion365.com" : "jonathangrh.25@gmail.com", subject: @error
   end
 
+  def inactive_service_for_system(service)
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
+    @service  = service
+    @customer = @service.customer
+    mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: "Su servicio con nombre #{@service.name} a caducado"    
+  end
+
+  def inactive_extra_for_system(extra)
+    
+  end
+
   def approved_payment(payment)
   end
 
@@ -66,5 +77,14 @@ class Customer::CustomerMailer < ActionMailer::Base
 
   def pending_payment(payment)
   end
+
+  def for_win_service(service)
+    
+  end
+
+  def for_win_extra(extra)
+    
+  end
+
 
 end

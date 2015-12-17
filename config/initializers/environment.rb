@@ -1,5 +1,7 @@
 class Environment
-    
+
+    FROM_MAIL = 'info@camion365.com'
+  
     LIMIT_SEARCH  = 20
 
     ARRAYSQL      = {'delete' => 'delete', 'select' => 'select',

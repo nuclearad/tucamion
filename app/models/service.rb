@@ -110,7 +110,7 @@ class Service < ActiveRecord::Base
 
   }
 
-  scope :for_win, ->(val){
+  scope :expired, ->(val){
     begin
       services = Service.where('updated_at <= ? AND active=?', 
                                 Time.now - val.months,  
@@ -119,6 +119,7 @@ class Service < ActiveRecord::Base
          services.each do |service|
            service.active = Environment::STATUS[:servicios][:inactivo_admin]
            service.save
+           Customer::CustomerMailer.inactive_service_for_system(service).deliver
            puts '**************Metodo for_win services******************'
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
            puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"

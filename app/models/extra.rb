@@ -136,7 +136,7 @@ class Extra < ActiveRecord::Base
       order('brand_extras.name DESC')
   }
 
-  scope :for_win, ->(val){
+  scope :expired, ->(val){
     begin
       extras = Extra.where('updated_at <= ? AND active=?', 
                                 Time.now - val.months,  
