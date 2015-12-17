@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+ 
+<html lang="es">
+ 
+<head>
+<title>Error al confirmar</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<style type="text/css">
+body {
+  margin:20px 0 0 0;
+}
+p{
+  font-size: 16px;
+  text-align: left;
+  color: #444;
+  font-family: "calibri";
+}
+b{
+  font-size: 16px;
+  text-align: left;
+  color:#F78018;
+  font-family: "calibri";
+}
+h2{
+  color: #F78018;
+   font-size: 24px;
+  text-align: left;
+  font-family: "calibri";
+}
+.bor{
+  width: 100%;
+  border-top: 1px solid #CCC;
+  float: left;
+  padding: 20px 0 30px 0; 
+}
+a{
+  text-decoration: none;
+  color: #F78018;
+}
+</style>
+
+</head>
+ 
+<body style="background-color: #EFEFEF;"><center>
+   
+  <table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+    <div style="float:left;width:100%;text-align: center;"><%= image_tag attachments['logo.png'].url, alt: "Camión365.com" %></div>
+    <div style="float:left;background-color:#FFF;width:100%;margin-top-5px;border-radius: 10px;padding: 20px;">
+      <h2><%= "Anuncio de repuestos caducado" %></h2>
+      <p><%= "Estimado sr(a) #{@customer.name.capitalize} le infomamos que anuncio de repuestos con
+              nombre #{@exra.name} a caducado si desea activarlo nuevamente por favor comunicarse con el Administrador del sistema a través 
+                de este correo #{Environment::FROM_MAIL}"%></p>
+    </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+</center></body>
+</html>

@@ -62,11 +62,14 @@ class Customer::CustomerMailer < ActionMailer::Base
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
     @service  = service
     @customer = @service.customer
-    mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: "Su servicio con nombre #{@service.name} a caducado"    
+    mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: "Su servicio con nombre #{@service.name} a caducado"
   end
 
   def inactive_extra_for_system(extra)
-    
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
+    @extra  = extra
+    @customer = @extra.customer
+    mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: "Su servicio con nombre #{@extra.name} a caducado"   
   end
 
   def approved_payment(payment)
