@@ -58,20 +58,6 @@ class Customer::CustomerMailer < ActionMailer::Base
     mail to: Rails.env.production? ? "info@camion365.com" : "jonathangrh.25@gmail.com", subject: @error
   end
 
-  def inactive_service_for_system(service)
-    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
-    @service  = service
-    @customer = @service.customer
-    mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: "Su servicio con nombre #{@service.name} a caducado"
-  end
-
-  def inactive_extra_for_system(extra)
-    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
-    @extra  = extra
-    @customer = @extra.customer
-    mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: "Su servicio con nombre #{@extra.name} a caducado"   
-  end
-
   def approved_payment(payment)
   end
 
@@ -81,13 +67,23 @@ class Customer::CustomerMailer < ActionMailer::Base
   def pending_payment(payment)
   end
 
-  def for_win_service(service)
-    
+  def inactive_service_for_system(obj)
+    send_mail(obj, "Su servicio con nombre #{obj.name} a caducado")
   end
 
-  def for_win_extra(extra)
-    
+  def inactive_extra_for_system(obj)
+    send_mail(obj, "Su servicio con nombre #{obj.name} a caducado")
   end
 
+  def for_win(obj)
+    send_mail(obj, "Notificacion de vencimiento")
+  end
 
+   private
+     def send_mail(obj, subject)
+       attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")      
+       @object   = obj
+       @customer = @object.customer
+       mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: subject
+     end
 end

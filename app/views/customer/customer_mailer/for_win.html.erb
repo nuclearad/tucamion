@@ -51,14 +51,11 @@ a{
     <td>
     <div style="float:left;width:100%;text-align: center;"><%= image_tag attachments['logo.png'].url, alt: "Camión365.com" %></div>
     <div style="float:left;background-color:#FFF;width:100%;margin-top-5px;border-radius: 10px;padding: 20px;">
-      <h2><%= "Anuncio de repuestos caducado" %></h2>
-      <p><%= "Estimado sr(a) #{@customer.name.capitalize} le infomamos que anuncio de repuestos con
-              nombre #{@object.name} a caducado si desea activarlo nuevamente por favor comunicarse con el Administrador del sistema a través 
-                de este correo #{Environment::FROM_MAIL}"%></p>
+      <h2><%= "Anuncio por caducar en 10 dias" %></h2>
+      <p><%= "Hola, #{@customer.name.capitalize}  su anuncio #{@object.name.capitalize} se vencera en #{(@object.updated_at + 6.months).strftime('%b %d del %Y')} puedes adquirir un cupo <a href='#{Environment::PATH}/tarifas'>AQUI.</a>".html_safe %></p>
     </div>
     </td>
   </tr>
-  
   <tr>
     <td>&nbsp;</td>
   </tr>

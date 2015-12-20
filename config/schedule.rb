@@ -21,6 +21,9 @@
 set :output, "log/cron.log"  #Step 1
 every 1.day, :at => '00:00 am' do
    #el parametro que recibe es la cantidad de meses que desea que vensan
-   runner "Service.expired(6)", :environment => :production
-   runner "Extra.expired(6)",   :environment => :production
+   runner "Service.for_win(6, 10)", :environment => :production #param meses, dias
+   runner "Extra.for_win(6, 10)",   :environment => :production #param meses, dias
+   runner "Service.expired(6)", :environment => :production #param meses
+   runner "Extra.expired(6)",   :environment => :production #param meses
+
 end

@@ -120,9 +120,36 @@ class Service < ActiveRecord::Base
            service.active = Environment::STATUS[:servicios][:inactivo_admin]
            service.save
            Customer::CustomerMailer.inactive_service_for_system(service).deliver
-           puts '**************Metodo for_win services******************'
+           puts '**************Metodo expired services******************'
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
            puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
+           puts '************Fin del proceso***********************'   
+         end
+      else
+        puts '**************Metodo expired services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts 'No hay resultados encontrados'
+        puts '**************************************'    
+      end      
+    rescue Exception => e
+        puts '**************ERROR Metodo expired services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts e.to_s
+        puts '**************************************'       
+    end
+  }
+  
+  scope :for_win, ->(m, d){
+    begin
+      services = Service.where('updated_at <= ? AND active=? AND customer_id <> NULL', 
+                                (Time.now - m.months) - d.days,  
+                                Environment::STATUS[:servicios][:activo])
+      if services.size > 0
+         services.each do |service|
+           Customer::CustomerMailer.for_win(service).deliver
+           puts '**************Metodo for_win services******************'
+           puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+           puts "El sistema deshabilitara el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'   
          end
       else
@@ -130,7 +157,7 @@ class Service < ActiveRecord::Base
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'    
-      end      
+      end
     rescue Exception => e
         puts '**************ERROR Metodo for_win services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
