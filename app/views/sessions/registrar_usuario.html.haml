@@ -33,6 +33,7 @@
                     %td
                       .cart-checkout-btn.pull-right
                         = f.submit "Registrarse", class: "btn btn-primary"
+                        = link_to "Inciar sesion", "/mi-cuenta", class: "btn btn-default"
             .form-group.col-md-4
               = f.check_box :terms, required: true
               %b

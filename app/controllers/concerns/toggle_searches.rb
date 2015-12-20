@@ -8,13 +8,13 @@ module ToggleSearches
   
   def load_toggle options
     session[:toggle_search] = options
-    puts "******#{session[:toggle_search]}**************" 
+    #puts "******#{session[:toggle_search]}**************" 
   end
 
   def read_toggle option
     #puts "******#{session[:toggle_search]}**************"
     if option
-      puts "*******************#{option}*************************"
+      #puts "*******************#{option}*************************"
       session[:toggle_search] = eval(session[:toggle_search]) if session[:toggle_search]["q"].class.to_s == 'String'
       session[:toggle_search]['q'][option] = ""
     end

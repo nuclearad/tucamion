@@ -9,11 +9,11 @@ class SessionsController < ApplicationController
      if @usuario
        if @usuario.is_password?(params[:clave])
          session[:user]     = @usuario.id
-         redirect           = session[:redirect]
+         redirect           = self.redirect_pay
          if redirect.nil?
            redirect_to micuenta_path
          else
-           session[:redirect] = nil
+           self.redirect_pay = nil
            redirect_to redirect
          end
        else
@@ -49,7 +49,13 @@ class SessionsController < ApplicationController
        if @cliente.save
          Offercustomer.create(customer_id: @cliente.id, offer_id: free_plan.id)
          session[:user] = @cliente.id
-         redirect_to micuenta_path
+         redirect       = self.redirect_pay
+         if redirect.nil?
+           redirect_to micuenta_path
+         else
+           self.redirect_pay = nil
+           redirect_to redirect
+         end
        else
          render :registrar_usuario
        end

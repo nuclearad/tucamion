@@ -4,8 +4,8 @@ class PaymentsController < ApplicationController
 
   def comprar
     if session[:user].nil?
-      session[:redirect] = comprar_path(params[:id])
-      render '/pages/micuentalogin', :layout => 'layouts/devise'
+      self.redirect_pay = comprar_path(params[:id])
+      redirect_to registrar_usuario_sessions_path
     else
       @user    = Customer.find(session[:user])
       @plan    = Offer.find(params[:id])
