@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
      @usuario = Customer.find_by(email: params[:email], estado: Environment::STATUS[:clientes][:activo])
      if @usuario
        if @usuario.is_password?(params[:clave])
-         session[:user]     = @usuario.id
-         redirect           = self.redirect_pay
+         self.current_customer = @usuario.id
+         redirect              = self.redirect_pay
          if redirect.nil?
            redirect_to micuenta_path
          else
@@ -17,12 +17,12 @@ class SessionsController < ApplicationController
            redirect_to redirect
          end
        else
-         @message = true
-         flash[:notice] = ' Email o Clave invalida'
+         @message       = true
+         flash[:notice] = 'Email o Clave invalida'
          render '/pages/micuentalogin', :layout => 'layouts/devise'
        end
      else
-       @message = true
+       @message       = true
        flash[:notice] = 'Email o Cliente inhabilitado'
        render '/pages/micuentalogin', :layout => 'layouts/devise'
      end
@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 
 
   def logout
-    session[:user] = nil
+    self.current_customer = nil
     redirect_to "/"
   end
 

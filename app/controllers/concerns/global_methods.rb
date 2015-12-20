@@ -11,4 +11,12 @@ module GlobalMethods
      session[:redirect]
    end
 
+   def current_customer=(value)
+   	 session[:user] = value
+   end
+
+   def current_customer
+   	 session[:user]
+   end
+
 end
