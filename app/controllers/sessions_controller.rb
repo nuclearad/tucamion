@@ -48,8 +48,8 @@ class SessionsController < ApplicationController
      if free_plan
        if @cliente.save
          Offercustomer.create(customer_id: @cliente.id, offer_id: free_plan.id)
-         session[:user] = @cliente.id
-         redirect       = self.redirect_pay
+         self.current_customer = @cliente.id
+         redirect             = self.redirect_pay
          if redirect.nil?
            redirect_to micuenta_path
          else
@@ -84,7 +84,7 @@ class SessionsController < ApplicationController
        params[:customer][:estado]       = Environment::STATUS[:clientes][:activo]
        params[:customer][:token_active] = ''
        if @cliente.change customer_params
-         session[:user] = @cliente.id
+         self.current_customer = @cliente.id
          redirect_to micuenta_path
        else
          @cliente.token_active = token
@@ -163,7 +163,7 @@ class SessionsController < ApplicationController
      if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
        params[:customer][:token_pass] = ''
        if @cliente.change customer_params
-         session[:user] = @cliente.id
+         self.current_customer = @cliente.id
          redirect_to micuenta_path
        else
          @cliente.token_pass = token

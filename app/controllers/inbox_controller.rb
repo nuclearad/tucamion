@@ -1,7 +1,7 @@
 class InboxController < ApplicationController
   #solos e hace para los clientes
   def index
-    @user = Customer.find_by_id(session[:user])
+    @user = Customer.find_by_id(self.current_customer)
     if @user
       @messages = @user.list_messages
       render :layout => 'layouts/cliente'
@@ -44,7 +44,7 @@ class InboxController < ApplicationController
   end
 
   def destroy
-    @user = Customer.find_by_id(session[:user])
+    @user = Customer.find_by_id(self.current_customer)
     if @user
       @message = Message.find_by(id: params[:id], customer_id:  @user.id)
       @message.destroy
@@ -56,7 +56,7 @@ class InboxController < ApplicationController
   end
 
   def show
-    @user = Customer.find_by_id(session[:user])
+    @user = Customer.find_by_id(self.current_customer)
     if @user
       @message = Message.find_by(id: params[:id], customer_id:  @user.id)
       @message.status = Environment::STATUS[:mensajes][:inactivo]

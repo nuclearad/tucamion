@@ -3,11 +3,11 @@ class PaymentsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:respuesta, :confirmacion]
 
   def comprar
-    if session[:user].nil?
+    if self.current_customer.nil?
       self.redirect_pay = comprar_path(params[:id])
       redirect_to registrar_usuario_sessions_path
     else
-      @user    = Customer.find(session[:user])
+      @user    = Customer.find(self.current_customer)
       @plan    = Offer.find(params[:id])
       @payment = Payment.create(customer_id:    @user.id, 
       	                        offer_id:       @plan.id,
@@ -64,11 +64,11 @@ class PaymentsController < ApplicationController
 
   def respuesta
 
-    if session[:user].nil?
+    if self.current_customer.nil?
       @estadoTx = "El usuario no tiene session activa"
     else
 
-      @user             = Customer.find session[:user]
+      @user             = Customer.find self.current_customer
       @apiKey           = Environment::APIKEY
       @merchant_id      = params[:merchantId]
       @referenceCode    = params[:referenceCode]
@@ -82,7 +82,7 @@ class PaymentsController < ApplicationController
       @pseBank          = params[:pseBank]
       @lapPaymentMethod = params[:lapPaymentMethod]
       @transactionId    = params[:transactionId]
-      @payment          = Payment.find_by(reference_code: @referenceCode, customer_id: session[:user], internal_status: 0)
+      @payment          = Payment.find_by(reference_code: @referenceCode, customer_id: self.current_customer, internal_status: 0)
       
       if @payment
         case @transactionState

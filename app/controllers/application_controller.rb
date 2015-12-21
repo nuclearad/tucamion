@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     if (self.current_customer.to_s == params[:id])
       return true
     else
-      logger.info "*********** Original: #{session[:user].to_s} params: #{params[:id]} ************"
+      logger.info "*********** Original: #{self.current_customer.to_s} params: #{params[:id]} ************"
       redirect_to micuenta_path and return
     end
   end
@@ -61,14 +61,9 @@ class ApplicationController < ActionController::Base
 
   def removerParametroPrincipal(url, parametro)
 
-
     url = url.sub(parametro, '')
 
-
-
-
     if url.scan('//').count >= 2
-
 
       cuenta = 1
       newUrl = ''
@@ -79,13 +74,11 @@ class ApplicationController < ActionController::Base
 
         else
 
-
           if url.split('//').count == cuenta
             newUrl += item
           else
             newUrl += item+'/'
           end
-
 
         end
         cuenta = cuenta +1
@@ -94,11 +87,9 @@ class ApplicationController < ActionController::Base
 
     end
 
-
     url
 
   end
-
 
   def removerParametroPrincipal2(url, parametro)
     if parametro.include? '_'
@@ -111,9 +102,6 @@ class ApplicationController < ActionController::Base
 
     end
 
-
-
-
   end
 
 
@@ -125,9 +113,6 @@ class ApplicationController < ActionController::Base
     else
       newUrl = urlExplode[0]+parametro
     end
-
-
-
 
     cuenta = 0
 
@@ -146,11 +131,7 @@ class ApplicationController < ActionController::Base
 
     end
      newUrl
-
-
-
   end
-
 
   def agregarParametroSegundarios(url, llave, valor, slash)
 
@@ -160,7 +141,6 @@ class ApplicationController < ActionController::Base
       else
         url += '/'
       end
-
 
     end
 
@@ -174,8 +154,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-
-
   def extraigoParametroprincicpal(parametro)
 
     if parametro.include? '_'
@@ -186,8 +164,6 @@ class ApplicationController < ActionController::Base
     end
 
   end
-
-
 
   helper_method :toUrl, :removerParametroPrincipal, :agregarParametroPrincipal, :agregarParametroSegundarios, :extraigoParametroprincicpal, :removerParametroPrincipal2
 
