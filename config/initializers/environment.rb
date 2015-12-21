@@ -53,6 +53,9 @@ class Environment
     PATH_RESPONSE     = 'http://104.236.210.18/response'
     PATH_CONFIRMATION = 'http://104.236.210.18/confirmation'
     PATH              = 'http://104.236.210.18'
+
+    PATH_PDF          = ''
+
   else
     MAILSETTING = {:address              =>  'smtp.gmail.com',
                    :port                 =>  587,
@@ -73,6 +76,9 @@ class Environment
     PATH_RESPONSE     = 'http://localhost:3000/response'
     PATH_CONFIRMATION = 'http://localhost:3000/confirmation'
     PATH              = 'http://localhost:3000'
+
+    PATH_PDF          = '/home/globalr/.rvm/gems/ruby-2.2.1/gems/wkhtmltopdf-binary-0.9.9.3/bin/wkhtmltopdf_linux_386'
+
   end
 
 end

@@ -92,8 +92,7 @@ Rails.application.routes.draw do
     get '/updateStateCustomer/:iditem/:idstate', to: 'dashboard#updatestatecustomer', as: 'updateStateCustomer'
     get '/removeImagen/:anuncioType/:idAnuncio/:imagen', to: 'trucks#removePicture', as: 'removePicture'
 
-    resources  :trucks,
-      :brands_truck,
+    resources :brands_truck,
       :brand_extra,
       :type_extra,
       :extras,
@@ -116,6 +115,12 @@ Rails.application.routes.draw do
                :marca_volcos,
                :houses
 
+    
+    resources :trucks do
+      collection do
+        match :export_to_pdf, via: [:post, :get]
+      end
+    end
 
     resources :states do
        resources :cities
