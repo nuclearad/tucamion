@@ -45,22 +45,17 @@ class SessionsController < ApplicationController
      @cliente.estado   = Environment::STATUS[:clientes][:activo]
      @cliente.typeuser = Environment::TYPE[:clientes][:normal]
      free_plan         = Offer.find_by(precio1: 0, precio2: 0, typeoffer: Environment::TYPE[:planes][:promocional])
-     if free_plan
-       if @cliente.save
-         Offercustomer.create(customer_id: @cliente.id, offer_id: free_plan.id)
-         self.current_customer = @cliente.id
-         redirect             = self.redirect_pay
-         if redirect.nil?
-           redirect_to micuenta_path
-         else
-           self.redirect_pay = nil
-           redirect_to redirect
-         end
+     if @cliente.save
+       Offercustomer.create(customer_id: @cliente.id, offer_id: free_plan.id)  if free_plan
+       self.current_customer = @cliente.id
+       redirect              = self.redirect_pay
+       if redirect.nil?
+         redirect_to micuenta_path
        else
-         render :registrar_usuario
+         self.redirect_pay = nil
+         redirect_to redirect
        end
      else
-       flash[:warning] = "No hay planes gratuitos por favor comunicarse con el administrador del sistema"
        render :registrar_usuario
      end
   end
