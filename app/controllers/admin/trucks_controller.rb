@@ -17,20 +17,14 @@ class Admin::TrucksController < ApplicationController
     end
   end
 
-  def export_to_pdf
+  def export
     pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
-    @trucks  = Truck.all
+    @trucks  = Truck.includes(:type_truck, :brand_truck, :state).all
     respond_to do |format|
       format.pdf do
         Dir.mkdir(Rails.root.join('trucks_pdf')) unless File.exists?(Rails.root.join('trucks_pdf'))
-        render :pdf => pdf_name,
-        :layout => "pdf.html",
-        :margin => {:top=> 25, :bottom=> 20, :left=> 10, :right=> 10},
-        :page_size=> 'Letter',
-        :orientation=> 'Portrait',
-        :template=> "admin/trucks/export_to_pdf.pdf.haml",
-        :no_pdf_compression => false,
-        :save_to_file => Rails.root.join('trucks_pdf', "#{pdf_name}.pdf")
+        render :pdf => pdf_name, :layout => "pdf.html", :margin => {:top=> 25, :bottom=> 20, :left=> 10, :right=> 10},:page_size=> 'Letter',
+               :orientation=> 'Portrait', :template=> "admin/trucks/export.pdf.haml", :no_pdf_compression => false, :save_to_file => Rails.root.join('trucks_pdf', "#{pdf_name}.pdf")
        end
     end
   end

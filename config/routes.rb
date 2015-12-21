@@ -118,7 +118,7 @@ Rails.application.routes.draw do
     
     resources :trucks do
       collection do
-        match :export_to_pdf, via: [:post, :get]
+        match :export, via: [:post, :get]
       end
     end
 
