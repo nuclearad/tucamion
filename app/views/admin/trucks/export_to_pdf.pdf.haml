@@ -1,3 +1,25 @@
-- @trucks.each do |truck|
-  = truck.id
-  %br
+%table.table
+  %thead
+    %th
+      %tr
+        %th #
+        %th Nombre
+        %th Precio
+        %th Tipo
+        %th Marca
+        %th Departamento
+  %tbody
+    - @trucks.each do |truck|
+      %tr
+        %td
+          = truck.id
+        %td
+          = truck.nombre
+        %td
+          = number_to_currency( truck.price)
+        %td
+          = truck.type_truck.name if truck.type_truck
+        %td
+          = truck.brand_truck.name if truck.brand_truck
+        %td
+          = truck.state.name if truck.state
