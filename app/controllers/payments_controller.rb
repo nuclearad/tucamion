@@ -47,7 +47,6 @@ class PaymentsController < ApplicationController
           Customer::CustomerMailer.approved_payment(payment).deliver
           Rails.logger.info("***Se ejecuto la confirmacion con exito***")
         end
-
       else
         Customer::CustomerMailer.error_payments_confirmation('Firma no valida al confirmar pago', referenceCode, response_message_pol, amount).deliver
       end
@@ -104,6 +103,7 @@ class PaymentsController < ApplicationController
           @payment.internal_status = 7
           @payment.gateway_status  = "Transacción pendiente"
           @color                   = 'gray'
+          Customer::CustomerMailer.pending_payment(@payment).deliver
         else
           @payment.gateway_status  = params[:mensaje]
           @payment.internal_status = 1
