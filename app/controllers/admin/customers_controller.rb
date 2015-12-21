@@ -5,7 +5,7 @@ class Admin::CustomersController < ApplicationController
   add_breadcrumb 'Clientes', :admin_customers_path, :options => { :title =>'Inicio' }
 
   def index
-    @customers = Customer.all
+    @customers = Customer.includes(:offer).all
     @search = @customers.search(params[:q])
     @query_search_field= 'name_or_cedula_cont'
     @customers_filter = @search.result.page(params[:page]).per(5)

@@ -58,13 +58,16 @@ class Customer::CustomerMailer < ActionMailer::Base
     mail to: Rails.env.production? ? "info@camion365.com" : "jonathangrh.25@gmail.com", subject: @error
   end
 
-  def approved_payment(payment)
+  def approved_payment(obj)
+    send_mail(obj, 'Su pago a sido aprobado por el operador bancario')
   end
 
-  def rejected_payment(payment)
+  def rejected_payment(obj)
+    send_mail(obj, 'Su pago ha sido rechazado por el operador bancario')
   end
 
-  def pending_payment(payment)
+  def pending_payment(obj)
+    send_mail(obj, 'Su pago esta pendiente por aprobacion')
   end
 
   def inactive_service_for_system(obj)

@@ -44,6 +44,7 @@ class PaymentsController < ApplicationController
           end
           payment.internal_status = 4 #aprobada
           payment.save
+          Customer::CustomerMailer.approved_payment(payment).deliver
           Rails.logger.info("***Se ejecuto la confirmacion con exito***")
         end
 
@@ -94,6 +95,7 @@ class PaymentsController < ApplicationController
           @payment.internal_status = 6
           @payment.gateway_status  = "Transacción rechazada"
           @color                   = 'red'
+          Customer::CustomerMailer.rejected_payment(@payment).deliver
         when '104' # error
           @payment.internal_status = 104
           @payment.gateway_status  = "Error"
