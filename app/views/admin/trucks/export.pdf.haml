@@ -1,7 +1,3 @@
-%hr
-%center
-  %span
-    %h1 LISTA DE VEHICULOS
 %table.table.table-striped
   %thead
     %tr.success
@@ -11,6 +7,7 @@
       %th Tipo
       %th Marca
       %th Departamento
+      %th
   %tbody
     - @trucks.each do |truck|
       %tr
@@ -19,10 +16,12 @@
         %td
           = truck.nombre
         %td
-          = number_to_currency( truck.price)
+          = currency_colombia(truck.price)
         %td
           = truck.type_truck.name if truck.type_truck
         %td
           = truck.brand_truck.name if truck.brand_truck
         %td
           = truck.state.name if truck.state
+        %td
+          = wicked_pdf_image_tag missing_image(truck.picture1(:thumb)),size:'100x100'

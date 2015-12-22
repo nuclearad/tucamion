@@ -1,5 +1,5 @@
 class Customer::CustomerMailer < ActionMailer::Base
-  default from:  Rails.env.production? ? Environment::FROM_MAIL : "tucamionsoporte@gmail.com"
+  default from:  Environment::FROM_MAIL
 
   def create_by_admin(user, url)
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
@@ -84,9 +84,16 @@ class Customer::CustomerMailer < ActionMailer::Base
 
    private
      def send_mail(obj, subject)
-       attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")      
-       @object   = obj
-       @customer = @object.customer
-       mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: subject
+       begin
+         attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")      
+         @object   = obj
+         @customer = @object.customer
+         mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: subject
+       rescue Exception => e
+         puts '************************************'
+         puts e.to_s
+         puts '************************************'
+       end
+
      end
 end
