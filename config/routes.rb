@@ -118,7 +118,7 @@ Rails.application.routes.draw do
     
     resources :trucks do
       collection do
-        match :export, via: [:post, :get]
+        match :index, via: [:post, :get]
       end
     end
 

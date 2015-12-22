@@ -6,21 +6,15 @@ class Admin::TrucksController < ApplicationController
   before_action :checkTimes, only: [:edit,:update]
 
   def index
-    @trucks = Truck.includes(:type_truck, :brand_truck, :state).all.order(:type_truck_id)
-    @search = @trucks.search(params[:q])
+    pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
+    @trucks  = Truck.includes(:type_truck, :brand_truck, :state).all.order(type_truck_id: :asc)
+    @search  = @trucks.search(params[:q])
     @query_search_field= 'nombre_cont'
     @trucks_filter = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.html {}
       format.json { render json: @trucks_filter, :include =>[:state, :type_truck, :brand_truck, :customer] }
       format.js{ }
-    end
-  end
-
-  def export
-    pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
-    @trucks  = Truck.includes(:type_truck, :brand_truck, :state).all.order(:type_truck_id)
-    respond_to do |format|
       format.pdf do
         Dir.mkdir(Rails.root.join('trucks_pdf')) unless File.exists?(Rails.root.join('trucks_pdf'))
         render :pdf => pdf_name, :layout => "pdf.html",

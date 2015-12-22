@@ -35,11 +35,11 @@ class Environment
   AUTOCARPADO = { '0' => 'Automatica', '1' =>'Manual', '2' => 'No tiene'}
   
   if Rails.env.production?
-    MAILSETTING = {:address              =>  'smtp.zoho.com',
+    MAILSETTING = {:address              =>  'smtp.gmail.com',
                    :port                 =>  587,
-                   :domain               =>  'zoho.com',
+                   :domain               =>  'localhost',
                    :user_name            =>  'info@camion365.com',
-                   :password             =>  'infoinfo123',
+                   :password             =>  'Camion365*',
                    :authentication       =>  'plain',
                    :enable_starttls_auto =>  true}
 
@@ -60,11 +60,10 @@ class Environment
     MAILSETTING = {:address              =>  'smtp.gmail.com',
                    :port                 =>  587,
                    :domain               =>  'localhost',
-                   :user_name            =>  'tucamionsoporte@gmail.com',
-                   :password             =>  'tucamionsoporte2',
+                   :user_name            =>  'info@camion365.com',
+                   :password             =>  'Camion365*',
                    :authentication       =>  'plain',
-                   :enable_starttls_auto =>  true}  
-  
+                   :enable_starttls_auto =>  true}
 
     APIKEY      = '6u39nqhq8ftd0hlvnjfs66eh8c'
     MERCHANTID  = '500238'
@@ -82,3 +81,23 @@ class Environment
   end
 
 end
+
+=begin
+  
+production
+    MAILSETTING = {:address              =>  'smtp.zoho.com',
+                   :port                 =>  587,
+                   :domain               =>  'zoho.com',
+                   :user_name            =>  'info@camion365.com',
+                   :password             =>  'infoinfo123',
+                   :authentication       =>  'plain',
+                   :enable_starttls_auto =>  true}
+desarrollo
+    MAILSETTING = {:address              =>  'smtp.gmail.com',
+                   :port                 =>  587,
+                   :domain               =>  'localhost',
+                   :user_name            =>  'tucamionsoporte@gmail.com',
+                   :password             =>  'tucamionsoporte2',
+                   :authentication       =>  'plain',
+                   :enable_starttls_auto =>  true}   
+=end
