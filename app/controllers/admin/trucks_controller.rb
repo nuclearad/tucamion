@@ -6,25 +6,23 @@ class Admin::TrucksController < ApplicationController
   before_action :checkTimes, only: [:edit,:update]
 
   def index
-    @trucks = Truck.all
-    @search = @trucks.search(params[:q])
+    pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
+    @trucks  = Truck.includes(:type_truck, :brand_truck, :state).all.order(type_truck_id: :asc)
+    @search  = @trucks.search(params[:q])
     @query_search_field= 'nombre_cont'
     @trucks_filter = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.html {}
       format.json { render json: @trucks_filter, :include =>[:state, :type_truck, :brand_truck, :customer] }
       format.js{ }
-    end
-  end
-
-  def export
-    pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
-    @trucks  = Truck.includes(:type_truck, :brand_truck, :state).all
-    respond_to do |format|
       format.pdf do
         Dir.mkdir(Rails.root.join('trucks_pdf')) unless File.exists?(Rails.root.join('trucks_pdf'))
-        render :pdf => pdf_name, :layout => "pdf.html", :margin => {:top=> 25, :bottom=> 20, :left=> 10, :right=> 10},:page_size=> 'Letter',
-               :orientation=> 'Portrait', :template=> "admin/trucks/export.pdf.haml", :no_pdf_compression => false, :save_to_file => Rails.root.join('trucks_pdf', "#{pdf_name}.pdf")
+        render :pdf => pdf_name, :layout => "pdf.html",
+               :page_size=> 'Letter', :orientation=> 'Landscape', :template=> "admin/trucks/export.pdf.haml", 
+               :header => { :spacing => 5 ,html: {template: 'layouts/header_trucks.pdf.haml'} },
+               :footer => { :spacing => 5 ,html: {template: 'layouts/footer_trucks.pdf.haml'} },
+               :margin => {:top=> 55, :bottom=> 35, :left=> 10, :right=> 10},
+               :no_pdf_compression => false, :save_to_file => Rails.root.join('trucks_pdf', "#{pdf_name}.pdf")
        end
     end
   end
