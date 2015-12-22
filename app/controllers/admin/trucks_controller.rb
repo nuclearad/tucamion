@@ -26,6 +26,7 @@ class Admin::TrucksController < ApplicationController
         render :pdf => pdf_name, :layout => "pdf.html",
                :page_size=> 'Letter', :orientation=> 'Landscape', :template=> "admin/trucks/export.pdf.haml", 
                :header => { :spacing => 5 ,html: {template: 'layouts/header_trucks.pdf.haml'} },
+               :footer => { :spacing => 5 ,html: {template: 'layouts/footer_trucks.pdf.haml'} },
                :margin => {:top=> 55, :bottom=> 35, :left=> 10, :right=> 10},
                :no_pdf_compression => false, :save_to_file => Rails.root.join('trucks_pdf', "#{pdf_name}.pdf")
        end
