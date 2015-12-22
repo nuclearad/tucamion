@@ -54,8 +54,8 @@ class Environment
     PATH_CONFIRMATION = 'http://104.236.210.18/confirmation'
     PATH              = 'http://104.236.210.18'
 
-    PATH_PDF          = ''
-
+    PATH_PDF          = '/usr/local/rvm/gems/ruby-2.1.3/gems/wkhtmltopdf-binary-0.9.9.3/bin/wkhtmltopdf_linux_386'
+    #PATH_PDF         = '/usr/local/rvm/gems/ruby-2.1.3/gems/wkhtmltopdf-binary-0.9.9.3/bin/wkhtmltopdf_linux_x64'
   else
     MAILSETTING = {:address              =>  'smtp.gmail.com',
                    :port                 =>  587,
