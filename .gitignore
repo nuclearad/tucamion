@@ -21,3 +21,4 @@
 /config/initializers/paperclip.rb
 /.idea
 /public/system/*
+/trucks_pdf/*
