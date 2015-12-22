@@ -11,10 +11,10 @@
             .form-group.col-md-4
               = f.label "Ingresar su correo", class: "info-title"
               = f.email_field :email, class: "form-control unicase-form-control text-input", required: true, maxlength: 50
-            .col-md-4.col-sm-12.cart-shopping-total
-              %table.table
-                %thead
-                  %tr
-                    %td
-                      .cart-checkout-btn
-                        = f.submit "Enviar", class: "btn btn-primary"
+            .form-group.col-md-1
+              = f.label "_", class: "info-title"
+              = f.submit "Enviar", class: "btn btn-primary"
+            .form-group.col-md-4
+              .cart-checkout-btn
+                = f.label "_"
+                
