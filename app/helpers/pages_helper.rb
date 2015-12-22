@@ -1,7 +1,7 @@
 module PagesHelper
 
    def calculuarPrecio index
-     if session[:user].nil?
+     if current_customer.nil?
        number_to_currency @planes[index].precio1, precision: 0
     else
        if @user.typeuser == 0

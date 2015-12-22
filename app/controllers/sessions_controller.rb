@@ -8,21 +8,21 @@ class SessionsController < ApplicationController
      @usuario = Customer.find_by(email: params[:email], estado: Environment::STATUS[:clientes][:activo])
      if @usuario
        if @usuario.is_password?(params[:clave])
-         session[:user]     = @usuario.id
-         redirect           = session[:redirect]
+         self.current_customer = @usuario.id
+         redirect              = self.redirect_pay
          if redirect.nil?
            redirect_to micuenta_path
          else
-           session[:redirect] = nil
+           self.redirect_pay = nil
            redirect_to redirect
          end
        else
-         @message = true
-         flash[:notice] = ' Email o Clave invalida'
+         @message       = true
+         flash[:notice] = 'Email o Clave invalida'
          render '/pages/micuentalogin', :layout => 'layouts/devise'
        end
      else
-       @message = true
+       @message       = true
        flash[:notice] = 'Email o Cliente inhabilitado'
        render '/pages/micuentalogin', :layout => 'layouts/devise'
      end
@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 
 
   def logout
-    session[:user] = nil
+    self.current_customer = nil
     redirect_to "/"
   end
 
@@ -45,16 +45,17 @@ class SessionsController < ApplicationController
      @cliente.estado   = Environment::STATUS[:clientes][:activo]
      @cliente.typeuser = Environment::TYPE[:clientes][:normal]
      free_plan         = Offer.find_by(precio1: 0, precio2: 0, typeoffer: Environment::TYPE[:planes][:promocional])
-     if free_plan
-       if @cliente.save
-         Offercustomer.create(customer_id: @cliente.id, offer_id: free_plan.id)
-         session[:user] = @cliente.id
+     if @cliente.save
+       Offercustomer.create(customer_id: @cliente.id, offer_id: free_plan.id)  if free_plan
+       self.current_customer = @cliente.id
+       redirect              = self.redirect_pay
+       if redirect.nil?
          redirect_to micuenta_path
        else
-         render :registrar_usuario
+         self.redirect_pay = nil
+         redirect_to redirect
        end
      else
-       flash[:warning] = "No hay planes gratuitos por favor comunicarse con el administrador del sistema"
        render :registrar_usuario
      end
   end
@@ -78,7 +79,7 @@ class SessionsController < ApplicationController
        params[:customer][:estado]       = Environment::STATUS[:clientes][:activo]
        params[:customer][:token_active] = ''
        if @cliente.change customer_params
-         session[:user] = @cliente.id
+         self.current_customer = @cliente.id
          redirect_to micuenta_path
        else
          @cliente.token_active = token
@@ -157,7 +158,7 @@ class SessionsController < ApplicationController
      if !params[:customer][:clave].blank? && (params[:customer][:clave] == params[:customer][:clave_confirmation])
        params[:customer][:token_pass] = ''
        if @cliente.change customer_params
-         session[:user] = @cliente.id
+         self.current_customer = @cliente.id
          redirect_to micuenta_path
        else
          @cliente.token_pass = token

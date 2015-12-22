@@ -1,5 +1,5 @@
 class Customer::CustomerMailer < ActionMailer::Base
-  default from:  Rails.env.production? ? "info@camion365.com" : "tucamionsoporte@gmail.com"
+  default from:  Rails.env.production? ? Environment::FROM_MAIL : "tucamionsoporte@gmail.com"
 
   def create_by_admin(user, url)
     attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")
@@ -55,7 +55,38 @@ class Customer::CustomerMailer < ActionMailer::Base
       @user = @payment.customer
       @plan = @payment.offer
     end
-    mail to: ['jonathangrh.25@gmail.com'], subject: @error
+    mail to: Rails.env.production? ? "info@camion365.com" : "jonathangrh.25@gmail.com", subject: @error
   end
 
+  def approved_payment(obj)
+    send_mail(obj, 'Su pago a sido aprobado por el operador bancario')
+  end
+
+  def rejected_payment(obj)
+    send_mail(obj, 'Su pago ha sido rechazado por el operador bancario')
+  end
+
+  def pending_payment(obj)
+    send_mail(obj, 'Su pago esta pendiente por aprobacion')
+  end
+
+  def inactive_service_for_system(obj)
+    send_mail(obj, "Su servicio con nombre #{obj.name} a caducado")
+  end
+
+  def inactive_extra_for_system(obj)
+    send_mail(obj, "Su servicio con nombre #{obj.name} a caducado")
+  end
+
+  def for_win(obj)
+    send_mail(obj, "Notificacion de vencimiento")
+  end
+
+   private
+     def send_mail(obj, subject)
+       attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png")      
+       @object   = obj
+       @customer = @object.customer
+       mail to: Rails.env.production? ? @customer.email : "jonathangrh.25@gmail.com", subject: subject
+     end
 end

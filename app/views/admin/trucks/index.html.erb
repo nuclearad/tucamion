@@ -32,14 +32,15 @@
 
 <!--Tabla normal-->
 <!-- /.row-->
+<%= link_to 'Exportar pdf', export_admin_trucks_path(format: :pdf),  target: "_blank" %>
 <div class="row">
   <div id="tabla" class="col-lg-12">
     <%= render partial: 'resultTrucks' %>
-    
   </div>
 </div>
 
 <!-- Modal -->
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

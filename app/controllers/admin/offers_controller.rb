@@ -6,11 +6,10 @@ class Admin::OffersController < ApplicationController
 
 
   def index
-    @planes = Offer.all
+    @planes = Offer.where.not(typeoffer: 2)
     @search = @planes.search(params[:q])
     @planes_filter = @search.result.page(params[:page]).per(5)
     @query_search_field= 'nombre_cont'
-
   end
 
   def new
@@ -54,7 +53,7 @@ class Admin::OffersController < ApplicationController
   end
 
   def destroy 
-    @plan = Offer.find_by(id: params[:id], typeoffer: Environment::TYPE[:planes][:pago])
+    @plan = Offer.find_by(id: params[:id])
     if @plan && @plan.destroy
       flash[:notice] = 'Información fue eliminada correctamente'
       redirect_to admin_offers_path

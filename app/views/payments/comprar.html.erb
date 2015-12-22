@@ -16,7 +16,7 @@
             <%= hidden_field_tag :accountId, Environment::ACCOUNTID %>
             <%= hidden_field_tag :description, @payment.description %>
             <%= hidden_field_tag :referenceCode, @payment.reference_code %>
-            <%= hidden_field_tag :amount, '10000' %>
+            <%= hidden_field_tag :amount, @payment.amount %>
             <%= hidden_field_tag :tax, '0' %>
             <%= hidden_field_tag :taxReturnBase, '0' %>
             <%= hidden_field_tag :currency, Environment::CURRENCY %>
@@ -28,7 +28,7 @@
 
             <div class="form-group col-md-4">
               <label class="info-title" for="exampleBillingEmail1">Total de anuncios</label>
-              <input type="text" class="form-control unicase-form-control text-input" id="" readonly value="<%=  @plan.trucks +  @plan.extra +  @plan.service %>">
+              <%= text_field_tag 'total','', class: "form-control unicase-form-control text-input", readonly: true, id: '', value: @plan.trucks +  @plan.extra +  @plan.service %>
             </div>
 
             <div class="col-md-4 col-sm-12 cart-shopping-total pull-right">
@@ -46,7 +46,7 @@
                 <tr>
                   <td>
                     <div class="cart-checkout-btn pull-right">
-                      <button type="submit" id='enviar' class="btn btn-primary">PAGAR AHORA</button>
+                      <%= submit_tag 'PAGAR AHORA', id: 'enviar', class: 'btn btn-primary' %>
                       <%= link_to 'CANCELAR', :back, class: 'btn btn-default' %>
                     </div>
                   </td>
