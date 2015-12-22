@@ -110,4 +110,77 @@ class Service < ActiveRecord::Base
 
   }
 
+  scope :expired, ->(val){
+    begin
+      services = Service.where('updated_at <= ? AND active=?', 
+                                Time.now - val.months,  
+                                Environment::STATUS[:servicios][:activo])
+      if services.size > 0
+         services.each do |service|
+           service.active = Environment::STATUS[:servicios][:inactivo_admin]
+           service.save
+           Customer::CustomerMailer.inactive_service_for_system(service).deliver
+           puts '**************Metodo expired services******************'
+           puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+           puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
+           puts '************Fin del proceso***********************'   
+         end
+      else
+        puts '**************Metodo expired services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts 'No hay resultados encontrados'
+        puts '**************************************'    
+      end      
+    rescue Exception => e
+        puts '**************ERROR Metodo expired services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts e.to_s
+        puts '**************************************'       
+    end
+  }
+  
+  scope :for_win, ->(m, d){
+    begin
+      services = Service.where('updated_at <= ? AND active=? AND customer_id <> NULL', 
+                                (Time.now - m.months) - d.days,  
+                                Environment::STATUS[:servicios][:activo])
+      if services.size > 0
+         services.each do |service|
+           Customer::CustomerMailer.for_win(service).deliver
+           puts '**************Metodo for_win services******************'
+           puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+           puts "El sistema deshabilitara el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
+           puts '************Fin del proceso***********************'   
+         end
+      else
+        puts '**************Metodo for_win services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts 'No hay resultados encontrados'
+        puts '**************************************'    
+      end
+    rescue Exception => e
+        puts '**************ERROR Metodo for_win services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts e.to_s
+        puts '**************************************'       
+    end
+  }
+
+  scope :test_load_services, ->{
+    results = self.where(:active => 3)
+    if results.size > 0
+      results.each do |result|
+        result.active = 1
+        result.save
+        puts '**************inicio******************'
+        puts "se cambio el registro #{result.name}"
+        puts '**************************************'
+      end
+    else
+      puts '**************inicio******************'
+      puts 'No se encuentran registros'
+      puts '**************************************'
+    end
+  }
+  
 end

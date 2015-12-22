@@ -40,9 +40,11 @@
       <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
+          <th>#</th>
           <th>Nombre</th>
-
-          <th>Tipo Servicio</th>
+          <th>Tipo de servicio</th>
+          <th>Fecha de creacion</th>
+          <th>Fecha de activacion</th>
           <th>Acciones</th>
           <th>Estado</th>
         </tr>
@@ -50,6 +52,10 @@
         <tbody>
         <% @servicios.each do |servicio| %>
             <tr>
+
+              <td>
+                <%= servicio.id %>
+              </td>
               <td>
                 <%= servicio.name %>
               </td>
@@ -63,13 +69,15 @@
               </td>
 
               <td>
-                <% if servicio.active == 1 %>
-                   <%= link_to 'Editar', miserviciosedit_path(servicio.id), :class=>'btn btn-info' %>
-                <% end %>
+                <%= servicio.created_at.strftime('%b %d del %Y') %>
               </td>
-
               <td>
-
+                <%= servicio.updated_at.strftime('%b %d del %Y') %>
+              </td>
+              <td>
+                <%= link_to 'Editar', miserviciosedit_path(servicio.id), :class=>'btn btn-info' %>
+              </td>
+              <td>
                 <% if servicio.active == 1 %>
                    <%= link_to  "/estatus-update/service/#{servicio.id}", :class=>'btn btn-success' do %>
                      <i class="fa fa-times"></i>
@@ -81,25 +89,18 @@
                 <% elsif servicio.active == 3 %>
                    Inactivo por el admin
                 <% end %>
-
               </td>
-
-
             </tr>
         <% end %>
 
 
         </tbody>
 
-
-
       </table>
+
     </div>
 
     <%= render partial: "includes/paginator_admin" , locals: {object: @servicios}%>
 
   </div>
 </div>
-
-
-

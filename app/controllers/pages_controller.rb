@@ -481,9 +481,10 @@ class PagesController < ApplicationController
 
   def repuesto
     @message = Message.new
-    @extra   = Extra.find_by_id(params[:id])
-    #@horas = Environment::HORARIOS.key(@extra.horario)
-    #logger.info 'la hora es'+ @horas
+    @extra   = Extra.find_by(id: params[:id], active: 1)
+    unless @extra
+      redirect_to root_path
+    end
   end
 
 
@@ -686,13 +687,19 @@ class PagesController < ApplicationController
 
   def camion
     @message = Message.new
-    @truck   = Truck.find_by_id(params[:id])
+    @truck   = Truck.find_by(id: params[:id], active: 1)
     @ciudad  = City.find_by_id(@truck.placa_city_id)
+    unless @truck
+      redirect_to root_path
+    end
   end
 
   def servicio
     @message = Message.new
-    @service = Service.find_by_id(params[:id])
+    @service = Service.find_by(id: params[:id], active: 1)
+    unless @service
+      redirect_to root_path
+    end
   end
 
   def update_status

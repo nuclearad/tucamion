@@ -32,7 +32,6 @@
         <tr>
           <th>Plan</th>
           <th>Fecha de compra</th>
-
         </tr>
         </thead>
         <tbody>
@@ -42,7 +41,7 @@
                     <%= offer.offer.nombre %>
                   </td>
                   <td>
-                    <%= offer.updated_at.strftime('%Y-%m-%d %H:%M'); %>
+                    <%= offer.created_at.strftime('%B %d del %Y a las %H:%M') %>
                   </td>
                 </tr>
         <% end %>

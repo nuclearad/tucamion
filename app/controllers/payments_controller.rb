@@ -3,11 +3,11 @@ class PaymentsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:respuesta, :confirmacion]
 
   def comprar
-    if session[:user].nil?
-      session[:redirect] = comprar_path(params[:id])
-      render '/pages/micuentalogin', :layout => 'layouts/devise'
+    if self.current_customer.nil?
+      self.redirect_pay = comprar_path(params[:id])
+      redirect_to registrar_usuario_sessions_path
     else
-      @user    = Customer.find(session[:user])
+      @user    = Customer.find(self.current_customer)
       @plan    = Offer.find(params[:id])
       @payment = Payment.create(customer_id:    @user.id, 
       	                        offer_id:       @plan.id,
@@ -44,9 +44,9 @@ class PaymentsController < ApplicationController
           end
           payment.internal_status = 4 #aprobada
           payment.save
+          Customer::CustomerMailer.approved_payment(payment).deliver
           Rails.logger.info("***Se ejecuto la confirmacion con exito***")
         end
-
       else
         Customer::CustomerMailer.error_payments_confirmation('Firma no valida al confirmar pago', referenceCode, response_message_pol, amount).deliver
       end
@@ -64,11 +64,11 @@ class PaymentsController < ApplicationController
 
   def respuesta
 
-    if session[:user].nil?
+    if self.current_customer.nil?
       @estadoTx = "El usuario no tiene session activa"
     else
 
-      @user             = Customer.find session[:user]
+      @user             = Customer.find self.current_customer
       @apiKey           = Environment::APIKEY
       @merchant_id      = params[:merchantId]
       @referenceCode    = params[:referenceCode]
@@ -82,7 +82,7 @@ class PaymentsController < ApplicationController
       @pseBank          = params[:pseBank]
       @lapPaymentMethod = params[:lapPaymentMethod]
       @transactionId    = params[:transactionId]
-      @payment          = Payment.find_by(reference_code: @referenceCode, customer_id: session[:user], internal_status: 0)
+      @payment          = Payment.find_by(reference_code: @referenceCode, customer_id: self.current_customer, internal_status: 0)
       
       if @payment
         case @transactionState
@@ -94,6 +94,7 @@ class PaymentsController < ApplicationController
           @payment.internal_status = 6
           @payment.gateway_status  = "Transacción rechazada"
           @color                   = 'red'
+          Customer::CustomerMailer.rejected_payment(@payment).deliver
         when '104' # error
           @payment.internal_status = 104
           @payment.gateway_status  = "Error"
@@ -102,6 +103,7 @@ class PaymentsController < ApplicationController
           @payment.internal_status = 7
           @payment.gateway_status  = "Transacción pendiente"
           @color                   = 'gray'
+          Customer::CustomerMailer.pending_payment(@payment).deliver
         else
           @payment.gateway_status  = params[:mensaje]
           @payment.internal_status = 1
@@ -129,7 +131,7 @@ class PaymentsController < ApplicationController
 
     def generate_signature
       #"+calcular_precio.to_s+"
-      sign      = Environment::APIKEY+"~"+Environment::MERCHANTID+"~"+@referencia+"~10000~"+Environment::CURRENCY
+      sign      = Environment::APIKEY+"~"+Environment::MERCHANTID+"~"+@referencia+"~"+calcular_precio.to_s+"~"+Environment::CURRENCY
       signature = Digest::MD5.hexdigest(sign)
     end
 
