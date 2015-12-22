@@ -9,8 +9,16 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   </head>
   <body onload='number_pages'>
-    <div id="header">
-      <%= wicked_pdf_image_tag 'logo.png' %>
+    <div id="header" class='row'>
+      <div class="well">
+        <table>
+          <tr>
+            <td><%= wicked_pdf_image_tag 'logo.png' %></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td><td></td>
+            <td><h1>LISTA DE VEHICULOS</h1></td>
+          </tr>
+        </table>
+     </div>
     </div>
     <div id="content">
       <%= yield %>
