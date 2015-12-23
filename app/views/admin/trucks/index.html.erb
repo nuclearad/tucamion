@@ -18,21 +18,28 @@
 <!-- /.row -->
 
 <div class="row">
-  <div class="col-md-3">
-    <p>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Nuevo Vehiculo
-      </button>
-    </p>
-  </div>
-  <div class="col-md-3 col-md-offset-6">
-    <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
+  <div class="col-md-12">
+    <%= search_form_for @search, url: admin_trucks_path(format: :pdf), id:"searchPDF" ,method: :post, class: "form-inline"  do |f| %>
+        <div class="form-group">
+        <%= f.select(:type_truck_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'camion_type'}) %>
+        </div>
+        <%= f.submit 'Exportar pdf', class: 'btn btn-success' %>
+    <% end %>
   </div>
 </div>
-
+<hr>
 <!--Tabla normal-->
 <!-- /.row-->
-<%= link_to 'Exportar pdf', admin_trucks_path(format: :pdf),  target: "_blank" %>
+<div class="col-md-4">
+  <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
+</div>
+<div class="col-md-1">
+  <label>_</label>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Nuevo Vehiculo
+  </button>
+</div>
+
 <div class="row">
   <div id="tabla" class="col-lg-12">
     <%= render partial: 'resultTrucks' %>
