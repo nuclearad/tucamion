@@ -1,4 +1,4 @@
-
+<% if object %>
   <div class="col-xs-12 col-sm-6 col-md-7 gallery-holder">
     <div class="product-item-holder size-big single-product-gallery small-gallery">
 
@@ -7,7 +7,7 @@
 
         <% if object.picture1.to_s  != '/images/missing.png' %>
             <div class="single-product-gallery-item" id="slide1">
-              <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( object.picture1(:home ))  %>">
+              <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( object.picture1(:home )) %>">
                 <%= image_tag object.picture1(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( object.picture1(:medium ))  %>
               </a>
             </div>
@@ -16,8 +16,8 @@
 
         <% if object.picture2.to_s  != '/images/missing.png' %>
             <div class="single-product-gallery-item" id="slide2">
-              <a data-lightbox="image-2" data-title="Gallery" href="<%= image_path( object.picture2(:home ))  %>">
-                <%= image_tag object.picture2(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( object.picture2(:medium ))  %>
+              <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( object.picture2(:home ))  %>">
+                <%= image_tag object.picture2(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( object.picture2(:medium ))   %>
               </a>
             </div>
         <% end %>
@@ -26,7 +26,7 @@
 
         <% if object.picture3.to_s  != '/images/missing.png' %>
             <div class="single-product-gallery-item" id="slide3">
-              <a data-lightbox="image-3" data-title="Gallery" href="<%= image_path( object.picture3(:home ))  %>">
+              <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( object.picture3(:home ))  %>">
                 <%= image_tag object.picture3(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( object.picture3(:medium ))  %>
               </a>
             </div>
@@ -35,7 +35,7 @@
 
         <% if object.picture4.to_s  != '/images/missing.png' %>
             <div class="single-product-gallery-item" id="slide4">
-              <a data-lightbox="image-4" data-title="Gallery" href="<%= image_path( object.picture4(:home ))  %>">
+              <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( object.picture4(:home ))  %>">
                 <%= image_tag object.picture4(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( object.picture4(:medium ))  %>
               </a>
             </div>
@@ -45,7 +45,7 @@
 
         <% if object.picture5.to_s  != '/images/missing.png' %>
             <div class="single-product-gallery-item" id="slide5">
-              <a data-lightbox="image-5" data-title="Gallery" href="<%= image_path( object.picture5(:home ))  %>">
+              <a data-lightbox="image-1" data-title="Gallery" href="<%= image_path( object.picture5(:home ))  %>">
                 <%= image_tag object.picture5(:medium ), :class=>'img-responsive', 'data-echo'=>image_path( object.picture5(:medium ))  %>
               </a>
             </div>
@@ -115,24 +115,10 @@
                 </a>
               </div>
           <% end %>
-
-
-
-
-
-
         </div><!-- /#owl-single-product-thumbnails -->
 
-
-
-
-        <div class="nav-holder left">
-          <a class="prev-btn slider-prev" data-target="#owl-single-product2-thumbnails" href="#prev"></a>
-        </div><!-- /.nav-holder -->
-        <div class="nav-holder right">
-          <a class="next-btn slider-next" data-target="#owl-single-product2-thumbnails" href="#next"></a>
-        </div><!-- /.nav-holder -->
       </div><!-- /.gallery-thumbs -->
 
     </div><!-- /.single-product-gallery -->
   </div><!-- /.gallery-holder -->
+<% end %>

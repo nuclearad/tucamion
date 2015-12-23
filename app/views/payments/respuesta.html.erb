@@ -1,0 +1,59 @@
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <div class="track-order-page inner-bottom-sm">
+      <div class="row well">
+        <div class="col-md-4"></div>
+        <div class="col-md-6">
+        <% if @payment %>
+          <h1>Transaccion bancaria</h1>
+            <label>Referencia:  </label>
+            <%= @payment.reference_code %>
+            <br>
+            <label>Nombre: </label>
+            <%= @user.name %>
+            <br>
+            <label>Email: </label>
+            <%= @user.email %>
+            <br>
+            <label>Descripcion: </label>
+            <%= @payment.description %>
+            <br>
+            <label>Tarjeta: </label>
+            <%= @payment.type_card %>
+            <br>
+            <label>Fecha: </label>
+            <%= @payment.updated_at.strftime "%d/%m/%Y" %>
+            <br>
+            <label>Monto: </label>
+            <%= currency_colombia @tx_value %>
+            <br>
+            <% if @payment.internal_status == 4 %>
+              <label>Plan: </label>
+              <%= @payment.offer.nombre %>           
+              <br>
+              <label>Anuncios camiones: </label>
+              <%= @payment.offer.trucks %>           
+              <br>
+              <label>Anuncios servicios: </label>
+              <%= @payment.offer.service %>           
+              <br>
+              <label>Anuncios repuestos: </label>
+              <%= @payment.offer.extra %>           
+              <br>
+            <% end %>
+            <label style='color: <%= @color %>'>
+              Estado: <%= @payment.gateway_status %> 
+            </label>
+           <div>
+              <% if @payment.internal_status == 4 %>
+                <%= link_to 'Ir a mi cuenta', micuenta_path, class: 'btn btn-default' %>
+              <% else %>
+                <%= link_to 'Ir a tarifas', tarifas_path, class: 'btn btn-default' %>
+              <% end %>
+           </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
 
-  attr_accessor :clave_confirmation
+  attr_accessor :clave_confirmation, :terms
 
 
   has_many :offercustomers, dependent: :destroy
@@ -10,6 +10,8 @@ class Customer < ActiveRecord::Base
   has_many :services, dependent: :destroy
   has_many :quantities, dependent: :destroy
   has_many :messages, dependent: :destroy
+
+  has_many :payments, dependent: :destroy
 
   validates_presence_of       :cedula,   message: "El documento de identidad es un campo obligatorio"
   validates_presence_of       :name,     message: "El nombre es un campo obligatorio"
@@ -33,6 +35,8 @@ class Customer < ActiveRecord::Base
 
   validates :telefono, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
   validates_numericality_of :telefono,  message: "Debe ser solo numeros"
+
+  validates_acceptance_of :terms, :on => :create, :allow_nil => false, :message => "Debes aceptar los terminos" 
 
   accepts_nested_attributes_for :quantities , allow_destroy: true
   accepts_nested_attributes_for :offer
@@ -67,9 +71,9 @@ class Customer < ActiveRecord::Base
      offer = self.offer.find_by(typeoffer: Environment::TYPE[:planes][:promocional])
      if offer
        if self.comparar_fecha(3.months)
-         return 1
+         return 1 #valida que el plan promocional esta vigente
        else
-         return -1
+         return -1 #se acabo el plazo del plan
        end
      else
        return self.offercustomers.size

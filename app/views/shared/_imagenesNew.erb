@@ -1,0 +1,44 @@
+
+	<div class="row">
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture1, 'Imagen 1' %>
+		  		<%= image_tag anuncio.picture1(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture1  %>
+			</div>
+	  	</div>
+
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture2, 'Imagen 2' %>
+		  		<%= image_tag anuncio.picture2(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture2  %>
+			</div>
+	  	</div>
+
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture3, 'Imagen 3' %>
+		  		<%= image_tag anuncio.picture3(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture3  %>
+			</div>
+	  	</div>
+	</div>
+	<div class='row'>
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture4, 'Imagen 4' %>
+		  		<%= image_tag anuncio.picture4(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture4 %>
+			</div>
+	  	</div>
+
+
+	  	<div class="col-md-4">
+			<div class="form-group form-el">
+		  		<%= object.label :picture5, 'Imagen 5' %>
+		  		<%= image_tag anuncio.picture5(:thumb),size:'150x150' %>
+		  		<%= object.file_field :picture5  %>
+			</div>
+	  	</div>
+	</div>

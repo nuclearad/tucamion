@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    resources :users
-  end
-
   root 'pages#index'
 
   get 'prohibido' => 'pages#prohibido', as:'forbidden_path'
 
+  get  'comprar/:id'  => 'payments#comprar', as: 'comprar'
+  post 'confirmation' => 'payments#confirmacion', as: 'confirmacion'
+  get  'response'     => 'payments#respuesta', as: 'respuesta'
+
   get  'tarifas' => 'pages#tarifas'
-  get  'comprar' => 'pages#comprar'
+  
   match 'busqueda' => 'pages#busqueda', via: [:get, :post]
   get  'camion-tipo/:id_truck/:id_sub'  => 'pages#camiontipo'
   get 'camion-marca/:id_truck/:id_brand'  => 'pages#camionmarca'
@@ -49,18 +49,19 @@ Rails.application.routes.draw do
   delete 'mi-cuenta/servicios/delete/:id' => 'pages#miserviciosdelete', :as=> 'miserviciosdelete'
 
 
-  get 'saveUser' => 'pages#guardarCustomer', :as=> 'saveUser'
-  get 'saveMessage' => 'pages#guardarMensaje', :as=> 'saveMessage'
+  #get 'saveUser' => 'pages#guardarCustomer', :as=> 'saveUser'
+  #get 'saveMessage' => 'pages#guardarMensaje', :as=> 'saveMessage'
 
 
   get 'departamentos/:state_id' => 'pages#departamentos', :as=> 'departamentos'
 
   get 'marcas/:id' => 'pages#getbrands'
   get 'marcas/' => 'pages#getbrands'
-
-
+  get 'referencias/:id' => 'pages#getreferencias'
+  get 'ubicaciones/:id' => 'pages#getubicaciones'
   get 'marcasrespuestos/:id' => 'pages#getbrandsextra'
   get 'marcasrespuestos/' => 'pages#getbrandsextra'
+  get 'statesrepuestos/:id' => 'pages#getubicacionesextra'
 
 
   get 'servicio/:id-:link' => 'pages#servicio', :as =>'servicio'
@@ -77,7 +78,8 @@ Rails.application.routes.draw do
   get 'repuesto/:id-:link' => 'pages#repuesto', :as =>'repuesto'
   match 'repuestos' => 'pages#repuestos', via: [:get, :post]
 
-
+  get '/terminos'  => 'pages#terminos'
+  get '/politicas'  => 'pages#politicas'
 
   devise_for :users, skip: [:registrations, :confirmations]
 
@@ -88,10 +90,9 @@ Rails.application.routes.draw do
    # get '/updateState/:iditem/:idstate/:type', to: 'dashboard#updatestate', as: 'updateState'
     get '/trucks/updateState/:iditem/:idstate/:type', to: 'dashboard#updatestate', as: 'updateState'
     get '/updateStateCustomer/:iditem/:idstate', to: 'dashboard#updatestatecustomer', as: 'updateStateCustomer'
-    get '/removeImagen/:imagen/:idTruck', to: 'trucks#removePicture', as: 'removePicture'
+    get '/removeImagen/:anuncioType/:idAnuncio/:imagen', to: 'trucks#removePicture', as: 'removePicture'
 
-    resources  :trucks,
-      :brands_truck,
+    resources :brands_truck,
       :brand_extra,
       :type_extra,
       :extras,
@@ -114,6 +115,12 @@ Rails.application.routes.draw do
                :marca_volcos,
                :houses
 
+    
+    resources :trucks do
+      collection do
+        match :index, via: [:post, :get]
+      end
+    end
 
     resources :states do
        resources :cities
@@ -124,12 +131,15 @@ Rails.application.routes.draw do
     end
 
     resources :type_truck do
+      collection do
+        match :index, via: [:get, :post]
+      end
       resources :sub_trucks,
                 :referencias
     end
 
     resources :inbox, only: [:index, :show, :destroy]
-
+    resources :users
   end
 
   get  'servicio-opciones/:q' => 'pages#service_toggle'
@@ -141,11 +151,11 @@ Rails.application.routes.draw do
   get  'camiones-opciones/:field/:value'  => 'pages#camiones_ajax'
 
   get 'vender-camion/:id' => 'pages#sell_truck'
-  get "/estatus-camion/:id" => 'pages#status_truck'
 
   get "/inbox-cliente" => "sessions#inbox"
 
 
+  get '/estatus-update/:type/:id' => 'pages#update_status'
 
   #sessiones
 

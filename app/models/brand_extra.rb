@@ -1,8 +1,7 @@
 class BrandExtra < ActiveRecord::Base
 
-  has_many :extras, dependent: :destroy
-
-
+  has_many :extras_brands_extras
+  has_many :extras, through: :extras_brands_extras
 
   HUMANIZED_ATTRIBUTES = {
       :name => 'Nombre'

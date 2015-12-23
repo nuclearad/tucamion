@@ -1,0 +1,67 @@
+<div class="row">
+  	<div class="col-md-6">
+		<div class="form-group">
+	  		<%= f.label :capacidadcarga, 'Capacidad Carga' %>
+	  		<%= f.collection_select :capacidadcarga, @capacidadcarga,:first,:first,{prompt:'Selecciones'},{class: 'form-control text_field'} %>
+		</div>
+  	</div>
+
+
+  	<div class="col-md-6">
+		<div class="form-group">
+	  		<%= f.label :capacidadpasajeros, 'Capacidad Pasajeros' %>
+	  		<%= f.text_field :capacidadpasajeros, :class =>'form-control'  %>
+		</div>
+  	</div>
+</div>
+
+<div class="row">
+  	<div class="col-md-3">
+		<div class="form-group">
+
+	  		<label>
+				<%= f.check_box :cupo  %>  Se vende con Cupo
+	  		</label>
+	  		<br/>
+			
+			<label>
+				<%= f.check_box :sillareclinable  %> Silla reclinable
+			</label>
+			<br/>
+
+			<label>
+				<%= f.check_box :bano  %> Baño
+			</label>
+			<br/>
+
+
+			<label>
+				<%= f.check_box :tv  %> tv
+			</label>
+			<br/>
+		</div>
+  	</div>
+
+  	<div class="col-md-3">
+
+		<label>
+		  	<%= f.check_box :descansapies  %> Descansa pies
+		</label>
+		<br/>
+
+		<label>
+		  	<%= f.check_box :pantallaindividual  %> Pantalla individual
+		</label>
+		<br/>
+
+		<label>
+		  	<%= f.check_box :wifi  %> Wifi
+		</label>
+		<br/>
+
+		<label>
+		  	<%= f.check_box :audio  %> Audio
+		</label>
+		<br/>
+  	</div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921171959) do
+ActiveRecord::Schema.define(version: 20151208225736) do
 
   create_table "addpicturetobanners", force: true do |t|
     t.datetime "created_at"
@@ -101,14 +101,12 @@ ActiveRecord::Schema.define(version: 20150921171959) do
 
   create_table "extras", force: true do |t|
     t.string   "name"
-    t.float    "price",                 limit: 24
     t.string   "address"
     t.integer  "state_id"
     t.integer  "city_id"
     t.string   "phone"
     t.string   "horario"
     t.text     "description"
-    t.integer  "brand_extra_id"
     t.string   "link_rewrite"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -132,11 +130,23 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.string   "picture5_content_type"
     t.integer  "picture5_file_size"
     t.datetime "picture5_updated_at"
-    t.integer  "type_truck_id"
-    t.integer  "active",                           default: 1
+    t.integer  "active",                            default: 1
     t.integer  "customer_id"
-    t.integer  "user_id",                          default: 0
+    t.integer  "user_id",                           default: 0
+    t.string   "email"
+    t.string   "nit",                   limit: 15,  default: "S/N", null: false
+    t.string   "url_map",               limit: 500, default: ""
   end
+
+  create_table "extras_brands_extras", force: true do |t|
+    t.integer  "extra_id",       null: false
+    t.integer  "brand_extra_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "extras_brands_extras", ["brand_extra_id"], name: "index_extras_brands_extras_on_brand_extra_id", using: :btree
+  add_index "extras_brands_extras", ["extra_id"], name: "index_extras_brands_extras_on_extra_id", using: :btree
 
   create_table "houses", force: true do |t|
     t.string   "name"
@@ -215,6 +225,23 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.integer  "typeoffer",   default: 0
   end
 
+  create_table "payments", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "offer_id"
+    t.string   "reference_code",                          null: false
+    t.string   "signature"
+    t.float    "amount",          limit: 24,              null: false
+    t.string   "gateway_status"
+    t.integer  "internal_status",            default: 0
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type_card",       limit: 15, default: "", null: false
+  end
+
+  add_index "payments", ["customer_id"], name: "index_payments_on_customer_id", using: :btree
+  add_index "payments", ["offer_id"], name: "index_payments_on_offer_id", using: :btree
+
   create_table "pictures", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -289,10 +316,9 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.string   "link_rewrite"
     t.integer  "state_id"
     t.integer  "city_id"
-    t.integer  "type_service_id"
     t.string   "horario"
     t.string   "address"
-    t.integer  "active",                default: 1
+    t.integer  "active",                            default: 1
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -318,8 +344,21 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.integer  "picture5_file_size"
     t.datetime "picture5_updated_at"
     t.integer  "customer_id"
-    t.integer  "user_id",               default: 0
+    t.integer  "user_id",                           default: 0
+    t.string   "email"
+    t.string   "nit",                   limit: 15,  default: "S/N", null: false
+    t.string   "url_map",               limit: 500, default: ""
   end
+
+  create_table "services_type_services", force: true do |t|
+    t.integer  "service_id",      null: false
+    t.integer  "type_service_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "services_type_services", ["service_id"], name: "index_services_type_services_on_service_id", using: :btree
+  add_index "services_type_services", ["type_service_id"], name: "index_services_type_services_on_type_service_id", using: :btree
 
   create_table "spaces_trucks", force: true do |t|
     t.string   "name"
@@ -453,6 +492,9 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.string   "autocarpado"
     t.integer  "user_id",                           default: 0
     t.integer  "ejesretractiles",                   default: 0
+    t.string   "phone"
+    t.string   "email"
+    t.boolean  "aireAcondicionado",                 default: false
   end
 
   create_table "type_extras", force: true do |t|
@@ -475,6 +517,16 @@ ActiveRecord::Schema.define(version: 20150921171959) do
     t.datetime "updated_at"
     t.string   "link_rewrite"
   end
+
+  create_table "types_truck_extras", force: true do |t|
+    t.integer  "extra_id",      null: false
+    t.integer  "type_truck_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "types_truck_extras", ["extra_id"], name: "index_types_truck_extras_on_extra_id", using: :btree
+  add_index "types_truck_extras", ["type_truck_id"], name: "index_types_truck_extras_on_type_truck_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                             default: "", null: false

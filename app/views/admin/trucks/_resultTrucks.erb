@@ -1,5 +1,4 @@
 
-
   <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped">
       <thead>
@@ -47,35 +46,25 @@
 
 
             <td>
-
               <% if truck.active == 1 %>
-
-                  <%= link_to admin_updateState_path(truck.id,1,'truck'), :class=>'btn btn-success' do %>
-                      <i class="fa fa-check"></i>
-                  <% end %>
-
-             <% elsif truck.active == 0 %>
-
-                  <%= link_to admin_updateState_path(truck.id,0,'truck'), :class=>'btn btn-danger' do %>
-                      <i class="fa fa-times"></i>
-                  <% end %>
-
-             <% elsif truck.active == 2 %>
+                <%= link_to admin_updateState_path(truck.id,1,'truck'), :class=>'btn btn-success' do %>
+                    <i class="fa fa-times"></i>
+                <% end %>
+              <% elsif truck.active == 0 %>
+                 Inactivo por cliente   
+              <% elsif truck.active == 2 %>
                   Vendido
-             <% end %>
-
+              <% elsif truck.active == 3 %>
+                  <%= link_to admin_updateState_path(truck.id,3,'truck'), :class=>'btn btn-danger' do %>
+                    <i class="fa fa-check"></i>
+                  <% end %>
+              <% end %>
             </td>
-
-
-          </tr>
+            
+        </tr>
       <% end %>
-
-
       </tbody>
-
-
-
     </table>
   </div>
-
+<%= render partial: "includes/paginator_admin" , locals: {object: @trucks_filter}%>
 

@@ -35,6 +35,12 @@
               <td><p class="text"><%= plan.descripcion %></p></td>
             <% end %>
           </tr>
+          <tr>
+            <th></th>
+            <% @planes.each  do |plan| %>
+              <td><center><%= link_to 'comprar', comprar_path(plan.id), class: 'btn btn-primary' %></center></td>
+            <% end %>
+          </tr>
         </table>
       </div>
     </div>

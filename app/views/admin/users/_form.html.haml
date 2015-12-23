@@ -5,12 +5,15 @@
 
     = f.input :email
 
-    = f.input :firstName
+    = f.input :first_name
 
-    = f.input :lastName
+    = f.input :last_name
 
     = f.input :status
 
+    =f.password_field :password
+
+    =f.password_field :password_confirmation
 
   .form-actions
     = f.button :submit

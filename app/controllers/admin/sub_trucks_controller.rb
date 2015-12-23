@@ -3,7 +3,6 @@ class Admin::SubTrucksController < ApplicationController
   layout  'admin/layouts/application'
   add_breadcrumb 'Tipos', :admin_type_truck_index_path, :options => { :title =>'Inicio' }
 
-
   def index
     @subs = SubTruck.where(type_truck_id: params[:type_truck_id]).order(:name).all
     @search= @subs.search(params[:q])

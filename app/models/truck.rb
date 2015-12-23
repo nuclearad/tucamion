@@ -18,70 +18,73 @@ class Truck < ActiveRecord::Base
   belongs_to :referencia
   accepts_nested_attributes_for :customer
   validates_uniqueness_of :nombre, message: ' %{value} ya se encuentra registrado'
-  validates_presence_of [:nombre, :price,:modelo, :placa, :brand_truck,:state,:city,
-                         :placa_state_id,:placa_city_id, :kilometraje,:state_id,:brand_truck_id,
-                         :colors_truck_id,:city_id,:tipocombustible,:estado,:pesobruto,:scraps_truck_id], message: 'No puede estar en blanco'
-  has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  validates_presence_of [:nombre, :price,:modelo, :placa,:state,:city,:state_id,:colors_truck_id,:city_id,:estado,:pesobruto], message: 'No puede estar en blanco'
+
+  validates_presence_of       :phone, message: "El telefono es un campo obligatorio"
+
+  validates_presence_of       :email,    message: "Es un campo obligatorio"
+
+  validates_presence_of [:brand_truck_id,:placa_state_id,:placa_city_id], message: 'No puede estar en blanco.', unless: 'type_truck_id == 5'
+
+  validates :phone, length: { minimum: 7,  maximum: 11 ,   message: "El telefono debe contener entre 7 caracteres y 11 caracteres" }
+
+  validates_numericality_of :phone,  message: "Debe ser solo numeros"
+
+  has_attached_file :picture1, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
-  validates_format_of [:nombre, :modelo, :placa, :marcacarpa, :empresaafiliada, :descripcion], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+  validates_format_of [:nombre, :placa, :marcacarpa, :empresaafiliada, :descripcion], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
 
   validates_format_of [:kilometraje, :capacidadpasajeros, :numeroejes, :cilindrajecc], :with => /\A([0-9]*$)/i ,message: "Debe ser solo numeros"
   
-  validates_numericality_of [:price],  message: "Debe ser solo numeros"
+  validates_numericality_of [:price, :modelo],  message: "Debe ser solo numeros"
 
-  has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture2, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture2, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture2, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
 
-  has_attached_file :picture3, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture3, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture3, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture3, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
 
-  has_attached_file :picture4, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture4, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture4, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture4, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
 
-  has_attached_file :picture5, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244'}, :default_url => "/images/missing.png",
+  has_attached_file :picture5, :styles =>  {:home => '900x900>', :medium => "600x600>", :thumb => '204x244>'}, :default_url => "/images/missing.png",
                     :processor => "mini_magick",
                     :convert_options => {
                         :thumb => "-background white -compose Copy -gravity center -extent 204x244",
                         :medium => "-background white -compose Copy -gravity center -extent 600x600",
                         :home => "-background white -compose Copy -gravity center -extent 900x900"
                     }
-  validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/, :less_than => 1.megabytes
+  validates_attachment_content_type :picture5, :content_type => /\Aimage\/.*\Z/, :less_than => 600.kilobytes
 
-
-
-
-
-
-
-
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i ,  message: "Debe poseer un formato valido"
 
 =begin
   validates :nombre, presence: true
@@ -116,8 +119,9 @@ class Truck < ActiveRecord::Base
       :tipocombustible => 'Tipo combustible',
       :placa_city_id => 'Ciudad Matricula',
       :placa_state_id => 'Departamento Matricula',
-      :price       => 'Precio'
-
+      :price       => 'Precio',
+      :phone => 'Telefono',
+      :email => 'Correo Electronico'
   }
 
   def self.human_attribute_name(attr, options = {})
@@ -125,6 +129,12 @@ class Truck < ActiveRecord::Base
   end
 
 
+  after_rollback :print_error
+
+  def print_error
+    puts self.errors.full_messages
+    puts "*****************"
+  end
 
   before_create do
 
@@ -164,39 +174,38 @@ class Truck < ActiveRecord::Base
     self.joins("LEFT JOIN brand_trucks ON brand_trucks.id = trucks.brand_truck_id
                 LEFT JOIN type_trucks  ON type_trucks.id =  trucks.type_truck_id
                 LEFT JOIN sub_trucks ON sub_trucks.id = trucks.sub_truck_id").
-         where("trucks.nombre LIKE '%#{str}%' OR
+         where("(trucks.nombre LIKE '%#{str}%' OR
                 brand_trucks.name LIKE '%#{str}%' OR
                 type_trucks.name LIKE '%#{str}%' OR
-                sub_trucks.name LIKE '%#{str}%' AND
+                sub_trucks.name LIKE '%#{str}%') AND
                 trucks.active = 1").uniq
   }
 
 
-  scope :state_group, ->{
+  scope :state_group, ->(q = nil){
        self.select('trucks.id, trucks.nombre, trucks.state_id,
                     count(trucks.state_id) as total,
                     states.name as state_name').
             joins(:state).group('states.name').
-            where("trucks.active = 1").
+            where(condition_type_or_not(q)).
             order('states.name DESC')
 
   }
 
-   scope :marcas_group , ->{
-       self.select('trucks.id, trucks.nombre, trucks.brand_truck_id,
-                    count(trucks.brand_truck_id) as total,
-                    brand_trucks.name as brand_name').
-            joins(:brand_truck).group('brand_trucks.name').
-            where("trucks.active = 1").
-            order('brand_trucks.name DESC')
-
+   scope :marcas_group , ->(q = nil){
+         self.select('trucks.id, trucks.nombre, trucks.brand_truck_id,
+                      count(trucks.brand_truck_id) as total,
+                      brand_trucks.name as brand_name').
+         joins(:brand_truck).group('brand_trucks.name').
+         where(condition_type_or_not(q)).
+         order('brand_trucks.name DESC')
   }
 
-  scope :modelo_group , ->{
+  scope :modelo_group , ->(q = nil){
        self.select('trucks.id, trucks.modelo,
                     count(trucks.modelo) as total').
             group('trucks.modelo').
-            where("trucks.active = 1").
+            where(condition_type_or_not(q)).
             order('trucks.modelo DESC')
 
   }
@@ -208,7 +217,23 @@ class Truck < ActiveRecord::Base
             group('trucks.kilometraje').
             where("trucks.active = 1").
             order('trucks.kilometraje DESC')
-
   }
 
+  private
+    def self.condition_type_or_not parms
+       #puts parms[:type_truck_id_eq]
+       #puts "*************condition_type_or_not*********************"
+       result = 'trucks.active = 1'
+       if parms
+         unless parms[:type_truck_id_eq].blank?
+           begin
+            type    = parms[:type_truck_id_eq].to_i
+            result += " AND type_truck_id = #{type}"            
+           rescue Exception => e
+            result = 'trucks.active = 1'
+           end
+         end
+       end
+       return result
+    end
 end

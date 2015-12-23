@@ -1,0 +1,27 @@
+<tr class="nymou"> <!-- PRIMER ROW -->
+    <td class="cell-label">
+      <b>Marca Motor</b><br>
+      <%= object.motors_truck ? object.motors_truck.name : 'Sin información' %>
+    </td>
+
+    <td class="cell-label">
+      <b>Marca de la Caja</b><br>
+      <%=object.boxes_truck ? object.boxes_truck.name : 'Sin Información' %>
+    </td>
+    <td class="cell-label">
+      <b>Marca de Transmisión</b><br>
+      <%= object.transmissions_truck ? object.transmissions_truck.name : 'Sin Información' %>
+    </td>
+    <td class="cell-label">
+      <b>Empresa Afiliada</b><br>
+      <%= object.empresaafiliada? ? object.empresaafiliada : 'Sin información' %>
+    </td>
+    <% if object.type_truck_id == 2 %>
+      <td class="cell-label">
+        <b>Tipo Cupo</b><br>
+        <%= @truck.spaces_truck_id.nil? ?  'Sin Información' : @truck.spaces_truck.name  %>
+      </td>
+    <%else %>
+    <td class='cell-label'></td>
+    <% end %>
+</tr>

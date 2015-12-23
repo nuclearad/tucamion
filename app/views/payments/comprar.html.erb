@@ -1,0 +1,65 @@
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <div class="track-order-page inner-bottom-sm">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Complete su Pedido, para ser publicado su anuncio</h2>
+          <h3>Nombre del plan: <b><%= @plan.nombre %></b></h3>
+          <h4>Anucios para camiones:   <b><%= @plan.trucks %></b></h4>
+          <h4>Anuncios para repuestos: <b><%= @plan.extra %></b></h4>
+          <h4>Anuncios para servicios: <b><%= @plan.service %></b></h4>
+          <span class="title-tag inner-top-vs">Una vez procesado el pago podrá obtener acceso para puiblicar su anuncio.</span>
+          <%= form_tag(Environment::URL_GATEWAY, {method: :post}) do %>
+
+            <%= hidden_field_tag :merchantId, Environment::MERCHANTID %>
+            <%= hidden_field_tag :ApiKey, Environment::APIKEY %> 
+            <%= hidden_field_tag :accountId, Environment::ACCOUNTID %>
+            <%= hidden_field_tag :description, @payment.description %>
+            <%= hidden_field_tag :referenceCode, @payment.reference_code %>
+            <%= hidden_field_tag :amount, @payment.amount %>
+            <%= hidden_field_tag :tax, '0' %>
+            <%= hidden_field_tag :taxReturnBase, '0' %>
+            <%= hidden_field_tag :currency, Environment::CURRENCY %>
+            <%= hidden_field_tag :signature, @payment.signature %>
+            <%= hidden_field_tag :test, Environment::MODO %>
+            <%= hidden_field_tag :buyerEmail, @user.email %>
+            <%= hidden_field_tag :responseUrl, Environment::PATH_RESPONSE %>
+            <%= hidden_field_tag :confirmationUrl, Environment::PATH_CONFIRMATION %>
+
+            <div class="form-group col-md-4">
+              <label class="info-title" for="exampleBillingEmail1">Total de anuncios</label>
+              <%= text_field_tag 'total','', class: "form-control unicase-form-control text-input", readonly: true, id: '', value: @plan.trucks +  @plan.extra +  @plan.service %>
+            </div>
+
+            <div class="col-md-4 col-sm-12 cart-shopping-total pull-right">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>
+                    <div class="cart-grand-total pull-right">
+                      <h3 style="font-size:30px;">TOTAL: <%= calculuarPrecio2() %></h3>
+                    </div>
+                  </th>
+                </tr>
+                </thead><!-- /thead -->
+                <tbody>
+                <tr>
+                  <td>
+                    <div class="cart-checkout-btn pull-right">
+                      <%= submit_tag 'PAGAR AHORA', id: 'enviar', class: 'btn btn-primary' %>
+                      <%= link_to 'CANCELAR', :back, class: 'btn btn-default' %>
+                    </div>
+                  </td>
+                </tr>
+                </tbody><!-- /tbody -->
+              </table><!-- /table -->
+            </div><!-- /.cart-shopping-total -->
+
+          <% end %>
+
+        </div>			</div><!-- /.row -->
+    </div><!-- /.sigin-in-->
+    <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+
+    <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+</div>

@@ -21,13 +21,27 @@
           %p
             MARCAS
         .attribute_list
-          = f.select(:brand_truck_id_eq, options_from_collection_for_select(BrandTruck.order(:name), :id,:name), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_brand'})
+          = f.select(:brand_truck_id_eq, options_from_collection_for_select(BrandTruck.order(:name), :id,:name), {prompt: 'Todas las marcas'}, { class:  'form-control', id: 'camion_brand'})    
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p
+            REFERENCIAS
+        .attribute_list
+          = f.select(:referencia_id_eq, options_from_collection_for_select(Referencia.order(:name), :id,:name), {prompt: 'Todas las referencias'}, { class:  'form-control', id: 'camion_ref'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
           %p UBICACIÓN
         .attribute_list
-          = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control'})
+          = f.select(:state_id_eq, options_from_collection_for_select(@states, :id,:name), {prompt: 'Selecciona'}, { class:  'form-control', id: 'camion_state'})
+    %p
+      %fieldset.attribute_fieldset
+        %label.attribute_label.attribute-key{:for => "group_1"}
+          %p
+            CAPACIDAD DE CARGA
+        .attribute_list
+          = f.select(:capacidadcarga_eq, Environment::CAPACIDAD_CARGA, {prompt: 'Selecciona la capacidad'}, { class:  'form-control', id: 'camion_brand'})
     %p
       %fieldset.attribute_fieldset
         %label.attribute_label.attribute-key{:for => "group_1"}
@@ -44,3 +58,167 @@
       %label.attribute_label.attribute-key{:for => "group_1"}  
       .attribute_list.pull-right{:style => "width:100%"}
         = f.submit "BUSCAR", class: "btn-servi btn btn-primary"
+
+:javascript
+  $(document).on('click', '#btn-camion', function() {
+
+
+    var type = $("#camion_type").val()
+    var brand = $("#camion_brand").val()
+    var state = $("#camion_state").val()
+    var url = 'camiones';
+
+    if(state != ''){
+        url = url+'/'+state
+    }
+
+    if(type != ''){
+        url = url+'/'+type
+    }
+
+    if(brand != ''){
+        url = url+'/'+brand
+    }
+    window.location.href = url;
+    return false;
+  })
+
+
+
+  //cambia el select camiones
+  $('#camion_type').on('change', function(evt){
+
+    $('#camion_brand').html('')
+    console.log($(this).find(':selected').data('id'))
+
+    id = $(this).find(':selected').data('id');
+
+  function loader(data){
+      $('#camion_brand').html('<option>Cargando...</option>');
+      $('#camion_ref').html('<option>Cargando...</option>');
+      $('#camion_state').html('<option>Cargando...</option>');
+      
+  };
+
+  function error(data){
+      alert("Error enviados los datos");
+  };
+
+  if(id == undefined){
+      id = '0'
+  }
+
+
+  $.ajax({
+    async: true,
+    type: "GET",
+    dataType: 'json',
+    beforeSend:loader,
+    error:error,
+    success: function (msg) {
+      console.log(msg)
+
+        $('#camion_brand').html('')
+
+        if(id == '0'){
+          $('#camion_brand').append('<option value="">Todas las marcas</option>')
+              $.each(msg, function(index, value) {
+                  $('#camion_brand').append('<option value="'+value.id+'">'+value.name+'</option>')
+              });
+          } else{
+              $('#camion_brand').append('<option value="">Marcas Encontradas</option>')
+              $.each(msg, function(index, value) {
+                  $('#camion_brand').append('<option value="'+value.brand_truck.id+'">'+value.brand_truck.name+'</option>')
+              });
+          }
+        },
+        url:"/marcas/"+id
+        });
+
+
+  $.ajax({
+      async: true,
+      type: "GET",
+      dataType: 'json',
+      success: function (msg) {
+          $('#camion_ref').html('')
+
+          if(id == '0'){
+              $('#camion_ref').append('<option value="">Todas las Referencias</option>')
+
+
+              $.each(msg, function(index, value) {
+                  $('#camion_ref').append('<option value="'+value.id+'">'+value.name+'</option>')
+              });
+
+
+          } else{
+
+
+              $('#camion_ref').append('<option value="">Referencias Encontradas</option>')
+              $.each(msg, function(index, value) {
+                  $('#camion_ref').append('<option value="'+value.referencia.id+'">'+value.referencia.name+'</option>')
+              });
+
+
+          }
+      },
+      url:"/referencias/"+id
+      });
+
+  $.ajax({
+      async: true,
+      type: "GET",
+      dataType: 'json',
+      success: function (msg) {
+          $('#camion_state').html('')
+          
+
+          if(id == '0'){
+              $('#camion_state').append('<option value="">Todas las Ubicaciones</option>')
+
+
+              $.each(msg, function(index, value) {
+                  $('#camion_state').append('<option value="'+value.id+'">'+value.name+'</option>')
+              });
+
+
+          } else{
+
+
+              $('#camion_state').append('<option value="">Ubicaciones Encontradas</option>')
+              $.each(msg, function(index, value) {
+                  $('#camion_state').append('<option value="'+value.state.id+'">'+value.state.name+'</option>')
+              });
+
+          }
+      },
+      url:"/ubicaciones/"+id
+  });
+
+
+  });
+
+  $(document).on('click', '#btn-camion', function() {
+
+
+    var type = $("#camion_type").val()
+    var brand = $("#camion_brand").val()
+    var state = $("#camion_state").val()
+    var url = 'camiones';
+
+    if(state != ''){
+        url = url+'/'+state
+    }
+
+    if(type != ''){
+        url = url+'/'+type
+    }
+
+    if(brand != ''){
+        url = url+'/'+brand
+    }
+    window.location.href = url;
+    return false;
+
+  })        

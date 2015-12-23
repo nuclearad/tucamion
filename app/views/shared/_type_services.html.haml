@@ -13,4 +13,4 @@
     %ul.nav
       - @type_services.each do |type|
         %li.dropdown.menu-item
-          = link_to "#{type.name} <b>(#{type.total})</b>".html_safe, "/servicio-tipo/#{type.id}"
+          = link_to "#{type.name} <b>(#{type.total})</b>".html_safe, "/servicio-tipo/#{type.id}", remote: true

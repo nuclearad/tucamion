@@ -18,7 +18,7 @@ class Admin::ScrapsTruckController < ApplicationController
   end
 
   def create
-
+    
     @scrap = ScrapsTruck.new(allowed_params)
     if @scrap.save
       flash[:notice] = 'Información agregada correctamente'
@@ -26,7 +26,6 @@ class Admin::ScrapsTruckController < ApplicationController
     else
       render 'new'
     end
-
 
   end
 
@@ -36,16 +35,18 @@ class Admin::ScrapsTruckController < ApplicationController
   end
 
   def update
-
-    @scrap = ScrapsTruck.find(params[:id])
+    begin
+          @scrap = ScrapsTruck.find(params[:id])
 
     if @scrap.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_scraps_truck_index_path
     else
+      
+    end
+    rescue Exception => e
       render :edit
     end
-
 
   end
 

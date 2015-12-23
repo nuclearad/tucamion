@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :nit, 'NIT' %>
+      <% if @extra.id.blank? %>
+        <%= f.text_field :nit, value: '', :class =>'form-control'  %>
+      <% else %>
+        <%= f.text_field :nit, :class =>'form-control'  %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name, 'Nombre almacen de repuestos' %>
+      <%= f.text_field :name, :class =>'form-control'  %>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :address, 'Dirección' %>
+      <%= f.text_field :address, :class =>'form-control'  %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :horario, 'Horario' %>
+      <%= f.collection_select :horario, @horas,:first,:first,{},{class: 'form-control text_field'} %>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :phone, 'Teléfono' %>
+      <%= f.text_field :phone, :class =>'form-control', maxlength: 11 %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :email, 'Email' %>
+      <%= f.email_field :email, :class =>'form-control', minlength: 1 %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :type_trucks, 'Tipos de camiones' %>
+      <%= f.association :type_trucks, as: :check_boxes, item_wrapper_tag: :div, item_wrapper_class: "col-md-4", label: false %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :brand_extras, 'Tipos de repuestos' %>
+      <%= f.association :brand_extras, as: :check_boxes, item_wrapper_tag: :div, item_wrapper_class: "col-md-4", label: false %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :state_id, 'Departamento' %>
+      <%= f.collection_select :state_id, State.order(:id),:id,:name, {prompt: 'Selecccione'}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :city_id, 'Ciudad' %>
+      <% if @extra.city_id.nil? %>
+          <%= f.select(:city_id, [['','' ]], {}, { :class => 'form-control' }) %>
+      <% else %>
+          <%= f.collection_select(:city_id, City.getByState(@extra.state_id).order(:name),:id,:name, {}, { :class => 'form-control' }) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :url_map, 'Link mapa' %>
+      <%= f.url_field :url_map, :class =>'form-control'  %>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= f.label :description, 'Descripccion' %>
+    <%= f.text_area :description, :class =>'form-control'  %> <br/> <br/> <br/> <br/>
+  </div>
+</div>
+<% if bandNew==true %>
+  <%= render partial: 'shared/imagenesNew', locals:{ object: f, anuncio: @extra} %>
+<% else %>
+  <%= render partial: 'shared/imagenes', locals:{ object: f, anuncio: @extra, type: type } %>
+<% end %>

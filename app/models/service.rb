@@ -1,20 +1,28 @@
 class Service < ActiveRecord::Base
   belongs_to :user
-  belongs_to :type_service
   belongs_to :city
   belongs_to :state
   belongs_to :customer
-
-
+  
+  has_many :services_type_services
+  has_many :type_services, through: :services_type_services
   has_many :messages, :foreign_key => :item
+
+  accepts_nested_attributes_for :type_services
+
   validates_uniqueness_of :name, message: ' %{value} ya se encuentra registrado'
-  validates_presence_of [:name, :phone, :type_service_id,:state_id,:address], message: 'No puede estar vacio'
+  validates_presence_of [:nit, :name, :phone, :state_id, :address, :email], message: 'No puede estar vacio'
  
-  validates_format_of [:name, :address, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+  validates_format_of [:nit, :name, :description], :with => /\A([a-zA-Z_áéíóúñ0-9\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales"
+
+  validates_format_of [:address], :with => /\A([a-zA-Z_áéíóúñ0-9#()-.\s]*$)/i ,message: "El formato no es permitido evita caracteres especiales solo se permite eluso de: #.()-"
+ 
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i ,  message: "Debe poseer un formato valido"
+  
+  validates :nit, length: {maximum: 15 ,   message: "El NIT tiene un maximo de 15 caracteres" }
 
   has_attached_file :picture1, :styles => {:home => '548x300>', :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/missing.png"
   validates_attachment_content_type :picture1, :content_type => /\Aimage\/.*\Z/
-
 
   has_attached_file :picture2, :styles => {:home => '548x300>', :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/missing.png"
   validates_attachment_content_type :picture2, :content_type => /\Aimage\/.*\Z/
@@ -44,6 +52,12 @@ class Service < ActiveRecord::Base
   end
 
 
+  after_rollback :print_error
+
+  def print_error
+    puts self.errors.full_messages
+    puts "*****************"
+  end
 
   before_create do
 
@@ -79,9 +93,10 @@ class Service < ActiveRecord::Base
   end
 
   scope :like_join, ->(str){
-    self.joins("LEFT JOIN type_services ON type_services.id = services.type_service_id ").
-         where("services.name LIKE '%#{str}%' OR
-                type_services.name LIKE '%#{str}%' AND
+    self.joins("LEFT JOIN services_type_services ON services_type_services.service_id = services.id
+                LEFT JOIN type_services ON type_services.id = services_type_services.type_service_id ").
+         where("(services.name LIKE '%#{str}%' OR
+                type_services.name LIKE '%#{str}%') AND
                 services.active = 1").uniq
   }
 
@@ -95,4 +110,77 @@ class Service < ActiveRecord::Base
 
   }
 
+  scope :expired, ->(val){
+    begin
+      services = Service.where('updated_at <= ? AND active=?', 
+                                Time.now - val.months,  
+                                Environment::STATUS[:servicios][:activo])
+      if services.size > 0
+         services.each do |service|
+           service.active = Environment::STATUS[:servicios][:inactivo_admin]
+           service.save
+           Customer::CustomerMailer.inactive_service_for_system(service).deliver
+           puts '**************Metodo expired services******************'
+           puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+           puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
+           puts '************Fin del proceso***********************'   
+         end
+      else
+        puts '**************Metodo expired services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts 'No hay resultados encontrados'
+        puts '**************************************'    
+      end      
+    rescue Exception => e
+        puts '**************ERROR Metodo expired services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts e.to_s
+        puts '**************************************'       
+    end
+  }
+  
+  scope :for_win, ->(m, d){
+    begin
+      services = Service.where('updated_at <= ? AND active=? AND customer_id <> NULL', 
+                                (Time.now - m.months) - d.days,  
+                                Environment::STATUS[:servicios][:activo])
+      if services.size > 0
+         services.each do |service|
+           Customer::CustomerMailer.for_win(service).deliver
+           puts '**************Metodo for_win services******************'
+           puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+           puts "El sistema deshabilitara el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
+           puts '************Fin del proceso***********************'   
+         end
+      else
+        puts '**************Metodo for_win services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts 'No hay resultados encontrados'
+        puts '**************************************'    
+      end
+    rescue Exception => e
+        puts '**************ERROR Metodo for_win services******************'
+        puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
+        puts e.to_s
+        puts '**************************************'       
+    end
+  }
+
+  scope :test_load_services, ->{
+    results = self.where(:active => 3)
+    if results.size > 0
+      results.each do |result|
+        result.active = 1
+        result.save
+        puts '**************inicio******************'
+        puts "se cambio el registro #{result.name}"
+        puts '**************************************'
+      end
+    else
+      puts '**************inicio******************'
+      puts 'No se encuentran registros'
+      puts '**************************************'
+    end
+  }
+  
 end
