@@ -7,8 +7,9 @@ class Admin::TrucksController < ApplicationController
 
   def index
     pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
-    @trucks  = Truck.includes(:type_truck, :brand_truck, :state).all.order(type_truck_id: :asc)
-    @search  = @trucks.search(params[:q])
+    @search  = Truck.includes(:type_truck, :brand_truck, :state).search(params[:q])
+    @trucks  = @search.result.order(type_truck_id: :asc)
+    @types   = TypeTruck.all
     @query_search_field= 'nombre_cont'
     @trucks_filter = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
