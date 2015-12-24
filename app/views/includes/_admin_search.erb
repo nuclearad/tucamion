@@ -1,9 +1,9 @@
-
-  <div class="form-group">
-    <%= search_form_for object, url: search_path.to_s, id:"searchForm" ,method: "get", remote: true  do |f| %>
-        <div>
-          <%= label_tag "isr",'Buscar:' %>
-          <%= f.search_field (query_search_field.nil? ? :name_cont : query_search_field), class: "form-control form-el" %>
-        </div>
-    <% end %>
-  </div>
+ <div class="form-group">
+<%= search_form_for object, url: search_path.to_s, id:"searchForm" ,method: "get", remote: true, class: "form-inline"  do |f| %>
+    <div class="form-group">
+      <%= label_tag "isr",'Buscar:' %>
+      <%= f.search_field (query_search_field.nil? ? :name_cont : query_search_field), class: "form-control form-el" %>
+    </div>
+    <%= f.submit  'Buscar', class: 'btn btn-default' %>
+<% end %> 
+</div>

@@ -30,14 +30,18 @@
 <hr>
 <!--Tabla normal-->
 <!-- /.row-->
-<div class="col-md-4">
-  <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
-</div>
-<div class="col-md-1">
-  <label>_</label>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+
+<div class="row">
+  <div class="col-md-4">
+     <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
+  </div>
+    <div class="col-md-1 col-md-offset-6">
+    <p>
+       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Nuevo Vehiculo
   </button>
+    </p>
+  </div>
 </div>
 
 <div class="row">
