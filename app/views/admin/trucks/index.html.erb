@@ -19,7 +19,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= search_form_for @search, url: admin_trucks_path(format: :pdf), id:"searchPDF" ,method: :post, class: "form-inline"  do |f| %>
+    <%= search_form_for @search, url: admin_trucks_path(format: :pdf), html: {target: "_blank"} ,method: :post, class: "form-inline"  do |f| %>
         <div class="form-group">
         <%= f.select(:type_truck_id_eq, options_for_select(@types.map{ |c| [c.name, c.id, {'data-id'=>c.id}] }), {prompt: 'Todos los tipos'}, { class:  'form-control', id: 'camion_type'}) %>
         </div>
