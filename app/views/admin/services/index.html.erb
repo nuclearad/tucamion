@@ -17,13 +17,13 @@
 <!-- /.row -->
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-5">
+    <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
+  </div>
+    <div class="col-md-1 col-md-offset-5">
     <p>
       <%= link_to 'Nuevo servicio', new_admin_service_path,:method=>'get', :class=>'btn  btn-primary' %>
     </p>
-  </div>
-  <div class="col-md-3 col-md-offset-6">
-    <%= render partial: 'includes/admin_search', locals: {object: @search, search_path: request.path, query_search_field: @query_search_field} %>
   </div>
 </div>
 
