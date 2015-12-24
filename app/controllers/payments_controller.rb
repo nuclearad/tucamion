@@ -13,7 +13,7 @@ class PaymentsController < ApplicationController
       	                        offer_id:       @plan.id,
       	                        reference_code: generate_reference, 
                                 amount:         calcular_precio(), 
-                                description:    "pago electronico para el plan #{@plan.nombre}", 
+                                description:    "pago electronico para #{@plan.nombre}", 
                                 signature:      generate_signature) #'Test PAYU'
       @old_pay = Payment.where('created_at <= ? AND internal_status = 0', Time.now - 20.minutes)
       if @old_pay.size > 0
