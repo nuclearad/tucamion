@@ -130,7 +130,7 @@ class Service < ActiveRecord::Base
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'    
-      end      
+      end
     rescue Exception => e
         puts '**************ERROR Metodo expired services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
