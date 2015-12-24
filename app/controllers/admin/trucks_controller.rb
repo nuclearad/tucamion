@@ -6,25 +6,16 @@ class Admin::TrucksController < ApplicationController
   before_action :checkTimes, only: [:edit,:update]
 
   def index
-    pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
-    @search  = Truck.includes(:type_truck, :brand_truck, :state).search(params[:q])
-    @trucks  = @search.result.order(type_truck_id: :asc)
-    @types   = TypeTruck.all
-    @query_search_field= 'nombre_cont'
-    @trucks_filter = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
+    @search             = Truck.includes(:type_truck, :brand_truck, :state).search(params[:q])
+    @trucks             = @search.result.order(type_truck_id: :asc)
+    @types              = TypeTruck.all
+    @query_search_field = 'nombre_cont'
+    @trucks_filter      = @search.result.page(params[:page]).per(Environment::LIMIT_SEARCH)
     respond_to do |format|
       format.html {}
       format.json { render json: @trucks_filter, :include =>[:state, :type_truck, :brand_truck, :customer] }
+      format.pdf{build_pdf}
       format.js{ }
-      format.pdf do
-        Dir.mkdir(Rails.root.join('trucks_pdf')) unless File.exists?(Rails.root.join('trucks_pdf'))
-        render :pdf => pdf_name, :layout => "pdf.html",
-               :page_size=> 'Letter', :orientation=> 'Landscape', :template=> "admin/trucks/export.pdf.haml", 
-               :header => { :spacing => 5 ,html: {template: 'layouts/header_trucks.pdf.haml'} },
-               :footer => { :spacing => 5 ,html: {template: 'layouts/footer_trucks.pdf.haml'} },
-               :margin => {:top=> 55, :bottom=> 35, :left=> 10, :right=> 10},
-               :no_pdf_compression => false, :save_to_file => Rails.root.join('trucks_pdf', "#{pdf_name}.pdf")
-       end
     end
   end
 
@@ -161,6 +152,36 @@ class Admin::TrucksController < ApplicationController
       params.require(:truck).permit!
   end
 
+  def build_pdf
+      begin
 
+         Dir.mkdir(Rails.root.join('trucks_pdf')) unless File.exists?(Rails.root.join('trucks_pdf'))
+
+         pdf_name = "#{Time.now.strftime('%d%m%y%H%M%S')}"
+        
+         pdf_file = WickedPdf.new.pdf_from_string(
+                           render_to_string("admin/trucks/export.pdf.haml", layout: "pdf.html"),
+                           page_size: 'Letter',
+                           orientation: 'Landscape',
+                           header: { :spacing => 5 , content: render_to_string({template: 'layouts/header_trucks.pdf.haml'}) }, 
+                           footer: { :spacing => 5 , content: render_to_string({template: 'layouts/footer_trucks.pdf.haml'}) }, 
+                           margin: { :top=> 55, :bottom=> 35, :left=> 10, :right=> 10}, 
+                           zoom:'1.3', 
+                           dpi:'96',
+                           no_pdf_compression: false
+         )
+
+          save_path = Rails.root.join('trucks_pdf', "#{pdf_name}.pdf")
+          File.open(save_path, 'wb') do |file|
+           file << pdf_file
+          end
+
+          send_file save_path, type: 'application/pdf', filename: pdf_name, disposition: 'inline', stream: false
+      
+      rescue Exception => e
+         puts e.to_s
+         return false
+      end
+  end
 
 end
