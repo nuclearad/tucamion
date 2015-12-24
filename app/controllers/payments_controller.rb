@@ -13,7 +13,7 @@ class PaymentsController < ApplicationController
       	                        offer_id:       @plan.id,
       	                        reference_code: generate_reference, 
                                 amount:         calcular_precio(), 
-                                description:    "pago con TDC para el plan #{@plan.nombre}", 
+                                description:    "pago electronico para el plan #{@plan.nombre}", 
                                 signature:      generate_signature) #'Test PAYU'
       @old_pay = Payment.where('created_at <= ? AND internal_status = 0', Time.now - 20.minutes)
       if @old_pay.size > 0
@@ -63,17 +63,8 @@ class PaymentsController < ApplicationController
   end
 
   def respuesta
-    Rails.logger.info("Entro en respuesta")
-    Rails.logger.info(session[:user])
-    Rails.logger.info("*************************************")
-    if self.current_customer.nil?
-      @estadoTx = "El usuario no tiene session activa"
-      Rails.logger.info("No hay session")
-      Rails.logger.info("*************************************")
-    else
-      Rails.logger.info("Entro con la session")
-      Rails.logger.info("**************#{params[:transactionState]}***********************")
-      @user             = Customer.find self.current_customer
+
+      @user             = Customer.find_by(email: params[:buyerEmail])
       @apiKey           = Environment::APIKEY
       @merchant_id      = params[:merchantId]
       @referenceCode    = params[:referenceCode]
@@ -87,7 +78,7 @@ class PaymentsController < ApplicationController
       @pseBank          = params[:pseBank]
       @lapPaymentMethod = params[:lapPaymentMethod]
       @transactionId    = params[:transactionId]
-      @payment          = Payment.find_by(reference_code: @referenceCode, customer_id: self.current_customer, internal_status: 0)
+      @payment          = Payment.find_by(reference_code: @referenceCode, customer_id: @user.id, internal_status: 0)
       
       if @payment
         case @transactionState
@@ -119,7 +110,6 @@ class PaymentsController < ApplicationController
         Rails.logger.info("se proceso la respuesta")
         Rails.logger.info("**************#{@payment.reference_code}***********************")
       end
-    end
 
   end
 
