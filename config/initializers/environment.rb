@@ -50,9 +50,9 @@ class Environment
     MODO        = '0'
   
     URL_GATEWAY       = 'https://gateway.payulatam.com/ppp-web-gateway'
-    PATH_RESPONSE     = 'http://104.236.210.18/response'
-    PATH_CONFIRMATION = 'http://104.236.210.18/confirmation'
-    PATH              = 'http://104.236.210.18'
+    PATH_RESPONSE     = 'http://www.camion365.com/response'
+    PATH_CONFIRMATION = 'http://www.camion365.com/confirmation'
+    PATH              = 'http://www.camion365.com'
 
     #PATH_PDF          = '/usr/local/rvm/gems/ruby-2.1.3/gems/wkhtmltopdf-binary-0.9.9.3/bin/wkhtmltopdf_linux_386'
     PATH_PDF         = '/usr/local/rvm/gems/ruby-2.1.3/gems/wkhtmltopdf-binary-0.9.9.3/bin/wkhtmltopdf_linux_x64'
@@ -65,13 +65,20 @@ class Environment
                    :authentication       =>  'plain',
                    :enable_starttls_auto =>  true}
 
-    APIKEY      = '6u39nqhq8ftd0hlvnjfs66eh8c'
-    MERCHANTID  = '500238'
-    CURRENCY    = 'COP'
-    ACCOUNTID   = '500537'
-    MODO        = '1'
+    #APIKEY      = '6u39nqhq8ftd0hlvnjfs66eh8c'
+    #MERCHANTID  = '500238'
+    #CURRENCY    = 'COP'
+    #ACCOUNTID   = '500537'
+    #MODO        = '1'
 
-    URL_GATEWAY       = 'https://stg.gateway.payulatam.com/ppp-web-gateway'
+    APIKEY      = '2ROTuo8TSnyglaS9Bxn7FJwG19'
+    MERCHANTID  = '534372'
+    CURRENCY    = 'COP'
+    ACCOUNTID   = '536329'
+    MODO        = '0'
+
+    URL_GATEWAY       = 'https://gateway.payulatam.com/ppp-web-gateway'
+    #URL_GATEWAY       = 'https://stg.gateway.payulatam.com/ppp-web-gateway'
     PATH_RESPONSE     = 'http://localhost:3000/response'
     PATH_CONFIRMATION = 'http://localhost:3000/confirmation'
     PATH              = 'http://localhost:3000'
