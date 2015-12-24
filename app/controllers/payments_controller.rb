@@ -63,11 +63,16 @@ class PaymentsController < ApplicationController
   end
 
   def respuesta
-
+    Rails.logger.info("Entro en respuesta")
+    Rails.logger.info(session[:user])
+    Rails.logger.info("*************************************")
     if self.current_customer.nil?
       @estadoTx = "El usuario no tiene session activa"
+      Rails.logger.info("No hay session")
+      Rails.logger.info("*************************************")
     else
-
+      Rails.logger.info("Entro con la session")
+      Rails.logger.info("**************#{params[:transactionState]}***********************")
       @user             = Customer.find self.current_customer
       @apiKey           = Environment::APIKEY
       @merchant_id      = params[:merchantId]
@@ -111,6 +116,8 @@ class PaymentsController < ApplicationController
         end
         @payment.type_card = @lapPaymentMethod
         @payment.save
+        Rails.logger.info("se proceso la respuesta")
+        Rails.logger.info("**************#{@payment.reference_code}***********************")
       end
     end
 
