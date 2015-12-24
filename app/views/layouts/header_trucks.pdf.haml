@@ -13,4 +13,4 @@
         %center
           %h1 LISTA DE VEHICULOS
   %span
-    = Time.now.strftime('%B %d del %Y')
+    = Time.now.strftime("#{spanish_month(Time.now.strftime('%B'))} %d del %Y")
