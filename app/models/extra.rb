@@ -151,20 +151,19 @@ class Extra < ActiveRecord::Base
            puts "El sistema deshabilita el servicio #{extra.name} fecha de activacion #{extra.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'   
          end
-         GC.start
+         system("sync && sysctl -w vm.drop_caches=3")
       else
         puts '**************Metodo expired extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        GC.start  
+        system("sync && sysctl -w vm.drop_caches=3")
       end      
     rescue Exception => e
         puts '**************ERROR Metodo expired extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts e.to_s
-        puts '**************************************'
-        GC.start   
+        puts '**************************************' 
     end
   }
 
@@ -181,20 +180,19 @@ class Extra < ActiveRecord::Base
            puts "El sistema deshabilitara el servicio #{extra.name} fecha de activacion #{extra.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'   
          end
-         GC.start
+         system("sync && sysctl -w vm.drop_caches=3")
       else
         puts '**************Metodo for_win extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        GC.start
+        system("sync && sysctl -w vm.drop_caches=3")
       end
     rescue Exception => e
         puts '**************ERROR Metodo for_win extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts e.to_s
         puts '**************************************'
-        GC.start
     end
   }
 
