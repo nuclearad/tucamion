@@ -151,17 +151,20 @@ class Extra < ActiveRecord::Base
            puts "El sistema deshabilita el servicio #{extra.name} fecha de activacion #{extra.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'   
          end
+         GC.start
       else
         puts '**************Metodo expired extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts 'No hay resultados encontrados'
-        puts '**************************************'    
+        puts '**************************************'
+        GC.start  
       end      
     rescue Exception => e
         puts '**************ERROR Metodo expired extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts e.to_s
-        puts '**************************************'       
+        puts '**************************************'
+        GC.start   
     end
   }
 
@@ -178,17 +181,20 @@ class Extra < ActiveRecord::Base
            puts "El sistema deshabilitara el servicio #{extra.name} fecha de activacion #{extra.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'   
          end
+         GC.start
       else
         puts '**************Metodo for_win extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts 'No hay resultados encontrados'
-        puts '**************************************'    
+        puts '**************************************'
+        GC.start
       end
     rescue Exception => e
         puts '**************ERROR Metodo for_win extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts e.to_s
-        puts '**************************************'       
+        puts '**************************************'
+        GC.start
     end
   }
 

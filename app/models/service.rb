@@ -123,19 +123,22 @@ class Service < ActiveRecord::Base
            puts '**************Metodo expired services******************'
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
            puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
-           puts '************Fin del proceso***********************'   
+           puts '************Fin del proceso***********************'
+           GC.start
          end
       else
         puts '**************Metodo expired services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts 'No hay resultados encontrados'
-        puts '**************************************'    
+        puts '**************************************'
+        GC.start
       end
     rescue Exception => e
         puts '**************ERROR Metodo expired services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts e.to_s
-        puts '**************************************'       
+        puts '**************************************'
+        GC.start
     end
   }
   
@@ -150,19 +153,22 @@ class Service < ActiveRecord::Base
            puts '**************Metodo for_win services******************'
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
            puts "El sistema deshabilitara el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
-           puts '************Fin del proceso***********************'   
+           puts '************Fin del proceso***********************'
+           GC.start
          end
       else
         puts '**************Metodo for_win services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts 'No hay resultados encontrados'
-        puts '**************************************'    
+        puts '**************************************'
+        GC.start 
       end
     rescue Exception => e
         puts '**************ERROR Metodo for_win services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y')}"
         puts e.to_s
-        puts '**************************************'       
+        puts '**************************************'
+        GC.start     
     end
   }
 
