@@ -124,21 +124,20 @@ class Service < ActiveRecord::Base
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
            puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'
-           GC.start
+           system("sync && sysctl -w vm.drop_caches=3")
          end
       else
         puts '**************Metodo expired services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        GC.start
+        system("sync && sysctl -w vm.drop_caches=3")
       end
     rescue Exception => e
         puts '**************ERROR Metodo expired services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts e.to_s
         puts '**************************************'
-        GC.start
     end
   }
   
@@ -154,21 +153,20 @@ class Service < ActiveRecord::Base
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
            puts "El sistema deshabilitara el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'
-           GC.start
+           system("sync && sysctl -w vm.drop_caches=3")
          end
       else
         puts '**************Metodo for_win services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        GC.start 
+        system("sync && sysctl -w vm.drop_caches=3") 
       end
     rescue Exception => e
         puts '**************ERROR Metodo for_win services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts e.to_s
         puts '**************************************'
-        GC.start     
     end
   }
 
