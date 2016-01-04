@@ -151,14 +151,14 @@ class Extra < ActiveRecord::Base
            puts "El sistema deshabilita el servicio #{extra.name} fecha de activacion #{extra.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'   
          end
-         system("sync && sysctl -w vm.drop_caches=3")
+         system("exec sync && sysctl -w vm.drop_caches=3")
       else
         puts '**************Metodo expired extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        system("sync && sysctl -w vm.drop_caches=3")
-      end      
+        system("exec sync && sysctl -w vm.drop_caches=3")
+      end
     rescue Exception => e
         puts '**************ERROR Metodo expired extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
@@ -180,13 +180,13 @@ class Extra < ActiveRecord::Base
            puts "El sistema deshabilitara el servicio #{extra.name} fecha de activacion #{extra.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'   
          end
-         system("sync && sysctl -w vm.drop_caches=3")
+         system("exec sync && sysctl -w vm.drop_caches=3")
       else
         puts '**************Metodo for_win extras******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        system("sync && sysctl -w vm.drop_caches=3")
+        system("exec sync && sysctl -w vm.drop_caches=3")
       end
     rescue Exception => e
         puts '**************ERROR Metodo for_win extras******************'
