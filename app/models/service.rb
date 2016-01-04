@@ -124,14 +124,14 @@ class Service < ActiveRecord::Base
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
            puts "El sistema deshabilita el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'
-           system("sync && sysctl -w vm.drop_caches=3")
+           system("exec sync && sysctl -w vm.drop_caches=3")
          end
       else
         puts '**************Metodo expired services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        system("sync && sysctl -w vm.drop_caches=3")
+        system("exec sync && sysctl -w vm.drop_caches=3")
       end
     rescue Exception => e
         puts '**************ERROR Metodo expired services******************'
@@ -153,14 +153,14 @@ class Service < ActiveRecord::Base
            puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
            puts "El sistema deshabilitara el servicio #{service.name} fecha de activacion #{service.updated_at.strftime('%B %d del %Y')}"
            puts '************Fin del proceso***********************'
-           system("sync && sysctl -w vm.drop_caches=3")
+           system("exec sync && sysctl -w vm.drop_caches=3")
          end
       else
         puts '**************Metodo for_win services******************'
         puts "Fecha de ejecucion: #{Time.now.strftime('%B %d del %Y %H:%M:%S')}"
         puts 'No hay resultados encontrados'
         puts '**************************************'
-        system("sync && sysctl -w vm.drop_caches=3") 
+        system("exec sync && sysctl -w vm.drop_caches=3")
       end
     rescue Exception => e
         puts '**************ERROR Metodo for_win services******************'
